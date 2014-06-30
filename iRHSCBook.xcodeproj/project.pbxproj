@@ -14,14 +14,18 @@
 		ACAC3390195EF27F00F7562F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC338F195EF27F00F7562F /* main.m */; };
 		ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */; };
 		ACAC3397195EF27F00F7562F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAC3395195EF27F00F7562F /* Main.storyboard */; };
-		ACAC339A195EF27F00F7562F /* RHSCFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC3399195EF27F00F7562F /* RHSCFirstViewController.m */; };
-		ACAC339D195EF27F00F7562F /* RHSCSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC339C195EF27F00F7562F /* RHSCSecondViewController.m */; };
 		ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACAC339E195EF27F00F7562F /* Images.xcassets */; };
 		ACAC33A6195EF27F00F7562F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC33A5195EF27F00F7562F /* XCTest.framework */; };
 		ACAC33A7195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC33A8195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
 		ACAC33B0195EF27F00F7562F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAC33AE195EF27F00F7562F /* InfoPlist.strings */; };
 		ACAC33B2195EF27F00F7562F /* iRHSCBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */; };
+		ACAC33C2195EF51700F7562F /* RHSCCourtTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C1195EF51700F7562F /* RHSCCourtTimeViewController.m */; };
+		ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */; };
+		ACAC33C8195EF99700F7562F /* RHSCMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C7195EF99700F7562F /* RHSCMembersViewController.m */; };
+		ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */; };
+		ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */; };
+		ACD518EE196188CA00C65C9D /* RHSCReserveSinglesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,16 +50,24 @@
 		ACAC3392195EF27F00F7562F /* RHSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSCAppDelegate.h; sourceTree = "<group>"; };
 		ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSCAppDelegate.m; sourceTree = "<group>"; };
 		ACAC3396195EF27F00F7562F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		ACAC3398195EF27F00F7562F /* RHSCFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSCFirstViewController.h; sourceTree = "<group>"; };
-		ACAC3399195EF27F00F7562F /* RHSCFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSCFirstViewController.m; sourceTree = "<group>"; };
-		ACAC339B195EF27F00F7562F /* RHSCSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSCSecondViewController.h; sourceTree = "<group>"; };
-		ACAC339C195EF27F00F7562F /* RHSCSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSCSecondViewController.m; sourceTree = "<group>"; };
 		ACAC339E195EF27F00F7562F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ACAC33A4195EF27F00F7562F /* iRHSCBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iRHSCBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC33A5195EF27F00F7562F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		ACAC33AD195EF27F00F7562F /* iRHSCBookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iRHSCBookTests-Info.plist"; sourceTree = "<group>"; };
 		ACAC33AF195EF27F00F7562F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iRHSCBookTests.m; sourceTree = "<group>"; };
+		ACAC33C0195EF51700F7562F /* RHSCCourtTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTimeViewController.h; sourceTree = "<group>"; };
+		ACAC33C1195EF51700F7562F /* RHSCCourtTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCCourtTimeViewController.m; sourceTree = "<group>"; };
+		ACAC33C3195EF8FF00F7562F /* RHSCBookingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCBookingsViewController.h; sourceTree = "<group>"; };
+		ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCBookingsViewController.m; sourceTree = "<group>"; };
+		ACAC33C6195EF99700F7562F /* RHSCMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMembersViewController.h; sourceTree = "<group>"; };
+		ACAC33C7195EF99700F7562F /* RHSCMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMembersViewController.m; sourceTree = "<group>"; };
+		ACAC33CB1960269700F7562F /* RHSCCourtFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtFilterViewController.h; sourceTree = "<group>"; };
+		ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCCourtFilterViewController.m; sourceTree = "<group>"; };
+		ACAC33CE1960496600F7562F /* RHSCReserveDoublesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCReserveDoublesViewController.h; sourceTree = "<group>"; };
+		ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCReserveDoublesViewController.m; sourceTree = "<group>"; };
+		ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCReserveSinglesViewController.m; sourceTree = "<group>"; };
+		ACD518EF196188E800C65C9D /* RHSCReserveSinglesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCReserveSinglesViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,12 +130,20 @@
 				ACAC3392195EF27F00F7562F /* RHSCAppDelegate.h */,
 				ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */,
 				ACAC3395195EF27F00F7562F /* Main.storyboard */,
-				ACAC3398195EF27F00F7562F /* RHSCFirstViewController.h */,
-				ACAC3399195EF27F00F7562F /* RHSCFirstViewController.m */,
-				ACAC339B195EF27F00F7562F /* RHSCSecondViewController.h */,
-				ACAC339C195EF27F00F7562F /* RHSCSecondViewController.m */,
 				ACAC339E195EF27F00F7562F /* Images.xcassets */,
 				ACAC338A195EF27F00F7562F /* Supporting Files */,
+				ACAC33C0195EF51700F7562F /* RHSCCourtTimeViewController.h */,
+				ACAC33C1195EF51700F7562F /* RHSCCourtTimeViewController.m */,
+				ACAC33C3195EF8FF00F7562F /* RHSCBookingsViewController.h */,
+				ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */,
+				ACAC33C6195EF99700F7562F /* RHSCMembersViewController.h */,
+				ACAC33C7195EF99700F7562F /* RHSCMembersViewController.m */,
+				ACAC33CB1960269700F7562F /* RHSCCourtFilterViewController.h */,
+				ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */,
+				ACAC33CE1960496600F7562F /* RHSCReserveDoublesViewController.h */,
+				ACD518EF196188E800C65C9D /* RHSCReserveSinglesViewController.h */,
+				ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */,
+				ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */,
 			);
 			path = iRHSCBook;
 			sourceTree = "<group>";
@@ -255,10 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACAC339D195EF27F00F7562F /* RHSCSecondViewController.m in Sources */,
-				ACAC339A195EF27F00F7562F /* RHSCFirstViewController.m in Sources */,
+				ACAC33C2195EF51700F7562F /* RHSCCourtTimeViewController.m in Sources */,
+				ACD518EE196188CA00C65C9D /* RHSCReserveSinglesViewController.m in Sources */,
 				ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */,
+				ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */,
+				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
 				ACAC3390195EF27F00F7562F /* main.m in Sources */,
+				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
+				ACAC33C8195EF99700F7562F /* RHSCMembersViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +410,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -399,7 +425,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -463,6 +491,7 @@
 				ACAC33B7195EF27F00F7562F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACAC33B8195EF27F00F7562F /* Build configuration list for PBXNativeTarget "iRHSCBookTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +500,7 @@
 				ACAC33BA195EF27F00F7562F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
