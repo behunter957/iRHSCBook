@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-// simple comment to test git
-
 @interface RHSCReserveSinglesViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIPickerView *typePicker;
