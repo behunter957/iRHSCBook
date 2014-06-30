@@ -1,20 +1,20 @@
 //
-//  RHSCBookingsViewController.m
+//  RHSCFindMemberViewControllerTableViewController.m
 //  iRHSCBook
 //
-//  Created by Bruce Hunter on 2014-06-28.
+//  Created by Bruce Hunter on 2014-06-30.
 //  Copyright (c) 2014 Richmond Hill Squash Club. All rights reserved.
 //
 
-#import "RHSCBookingsViewController.h"
+#import "RHSCFindMemberViewControllerTableViewController.h"
 
-@interface RHSCBookingsViewController ()
+@interface RHSCFindMemberViewControllerTableViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 
-@property (nonatomic, strong) NSMutableArray *bookingList;
+@property (nonatomic,strong) NSArray *filteredList;
 
 @end
 
-@implementation RHSCBookingsViewController
+@implementation RHSCFindMemberViewControllerTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,9 +34,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.bookingList = [[NSMutableArray alloc] init];
-    // now get the booking list for the current user
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,14 +46,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return self.bookingList.count;
+    return 0;
 }
 
 /*

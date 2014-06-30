@@ -40,7 +40,13 @@
 - (IBAction) cancel
 {
     NSLog(@"exiting ReserveDoubles");
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction) book
+{
+    NSLog(@"booking doubles court and exiting ReserveDoubles");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
