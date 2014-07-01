@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RHSCCourtTime.h"
 
 @interface RHSCReserveDoublesViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIPickerView *typePicker;
 @property (nonatomic, strong) NSArray *typeList;
+@property (nonatomic, strong) RHSCCourtTime* courtTimeRecord;
 
 @end

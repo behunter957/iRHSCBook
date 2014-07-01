@@ -10,10 +10,10 @@
 
 @interface RHSCCourtTime : NSObject
 
-@property (nonatomic, strong, readonly) NSString *bookingId;
-@property (nonatomic, strong, readonly) NSString *court;
-@property (nonatomic, strong, readonly) NSDate *courtTime;
-@property (nonatomic, strong, readwrite) NSString *status;
-@property (nonatomic, strong, readwrite) NSMutableArray *playerIdArray;
+@property (nonatomic, strong) NSString *bookingId;
+@property (nonatomic, strong) NSString *court;
+@property (nonatomic, strong) NSDate *courtTime;
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSMutableArray *playerIdArray;
 
 @end

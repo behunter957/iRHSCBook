@@ -8,6 +8,8 @@
 
 #import "RHSCCourtTimeViewController.h"
 #import "RHSCCourtFilterViewController.h"
+#import "RHSCReserveSinglesViewController.h"
+#import "RHSCReserveDoublesViewController.h"
 #import "RHSCCourtTime.h"
 
 @interface RHSCCourtTimeViewController ()
@@ -16,7 +18,8 @@
 
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;
-@property (nonatomic, strong) RHSCCourtTime* selectedCourtTime;
+@property (nonatomic, weak) RHSCCourtTime* selectedCourtTime;
+@property (nonatomic, strong) NSMutableArray* courtTimes;
 
 @end
 
@@ -28,7 +31,7 @@
     if (self) {
         // Custom initialization
         self.selectionDate = [NSDate date];
-        self.selectionSet = @"Back";
+        self.selectionSet = @"Singles";
     }
     return self;
 }
@@ -53,18 +56,13 @@
         self.selectionDate = [NSDate date];
     }
     if (!self.selectionSet) {
-        self.selectionSet = @"Back";
+        self.selectionSet = @"Singles";
     }
     self.selectedCourtTime = nil;
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEEE, MMMM d"];
+    [self loadSelectedCourtTimes];
     
-    NSString *fmtStr = @"%@ courts for %@";
-    if ([self.selectionSet isEqualToString:@"Doubles"]) {
-        fmtStr = @"%@ court for %@";
-    }
-    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
+    [self refreshLeftBarButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,13 +81,22 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 12;
+    return self.courtTimes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableSinglesViewCell"];
-    cell.textLabel.text = [NSString stringWithFormat:@"Test cell %d",indexPath.row];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableSinglesViewCell"];
+    
+    RHSCCourtTime *ct = self.courtTimes[indexPath.row];
+    
+    NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
+    [dtFormatter setLocale:[NSLocale systemLocale]];
+    [dtFormatter setDateFormat:@"h:mm a"];
+
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
+                           [dtFormatter stringFromDate:ct.courtTime]];
+    cell.detailTextLabel.text = ct.status;
     return cell;
 }
 
@@ -99,12 +106,16 @@
     NSLog(@"filter button pushed");
 }
 
--         (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
     NSLog(@"Selected row : %d",row);
-    NSString *segueName = @"ReserveDoubles";
-    
+    self.selectedCourtTime = self.courtTimes[indexPath.row];
+    NSString *segueName = @"ReserveSingles";
+    if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Doubles"])
+    {
+        segueName = @"ReserveDoubles";
+    }
    [self performSegueWithIdentifier: segueName sender: self];
 }
 
@@ -122,12 +133,32 @@
         [[segue destinationViewController] setSelectionDate:self.selectionDate];
         [[segue destinationViewController] setSelectionSet:self.selectionSet];
     }
+    if ([segue.identifier isEqualToString:@"ReserveSingles"]) {
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
+    }
+    if ([segue.identifier isEqualToString:@"ReserveDoubles"]) {
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
+    }
 }
 
 -(void)setSetSelection:(NSString *)setSelection
 {
     NSLog(@"delegate setSetSelection %@",setSelection);
     self.selectionSet = setSelection;
+    [self refreshLeftBarButton];
+}
+
+-(void)setDateSelection:(NSDate *)setDate
+{
+    NSLog(@"delegate setDateSelection %@",setDate);
+    self.selectionDate = setDate;
+    [self refreshLeftBarButton];
+}
+
+-(void)refreshLeftBarButton
+{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEEE, MMMM d"];
     
@@ -138,18 +169,25 @@
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
--(void)setDateSelection:(NSDate *)setDate
+-(void)loadSelectedCourtTimes
 {
-    NSLog(@"delegate setDateSelection %@",setDate);
-    self.selectionDate = setDate;
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEEE, MMMM d"];
-    
-    NSString *fmtStr = @"%@ courts for %@";
-    if ([self.selectionSet isEqualToString:@"Doubles"]) {
-        fmtStr = @"%@ court for %@";
+    // temporary code to populate the datasource
+    self.courtTimes = [[NSMutableArray alloc] init];
+    NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
+    [dtFormatter setLocale:[NSLocale systemLocale]];
+    [dtFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate* curDate = [dtFormatter dateFromString:@"2014-07-01 00:06:00"];
+    NSArray* courtNames = [[NSArray alloc] initWithObjects:@"Court 1",@"Court 2",@"Court 3",@"Court 4", @"Doubles", nil];;
+    for (int i = 0; i < 20; i++) {
+        for (int j = 0; j < courtNames.count; j++) {
+            RHSCCourtTime *ct = [[RHSCCourtTime alloc] init];
+            [ct setStatus:@"Available"];
+            [ct setCourt:courtNames[j]];
+            [ct setCourtTime:curDate];
+            [self.courtTimes addObject:ct];
+        }
+        curDate = [curDate dateByAddingTimeInterval:40*60];
     }
-    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
 /*

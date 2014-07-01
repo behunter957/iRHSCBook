@@ -28,6 +28,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
+    NSString *courtType = @"Front";
+    if ([self.courtTimeRecord.court isEqualToString:@"Court 1"] || [self.courtTimeRecord.court isEqualToString:@"Court 2"])
+    {
+        courtType = @"Back";
+    }
+    self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
 }
 
 - (void)didReceiveMemoryWarning
