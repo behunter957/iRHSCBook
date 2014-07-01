@@ -29,12 +29,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.resetButton setTitle:@"All for Monday, June 30, 2014" forState:UIControlStateNormal];
+
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy"];
+
+    [self.resetButton setTitle:[NSString stringWithFormat:@"%@ for %@",self.selectionSet,[dateFormat stringFromDate:self.selectionDate],nil] forState:UIControlStateNormal];
     
     NSMutableArray *dateList = [[NSMutableArray alloc] init];
     NSDate *curDate = [NSDate date];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy"];
     for (int i = 0; i < 30; i++) {
         // add
         [dateList addObject:[dateFormat stringFromDate:curDate]];

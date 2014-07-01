@@ -8,13 +8,15 @@
 
 #import "RHSCCourtTimeViewController.h"
 #import "RHSCCourtFilterViewController.h"
+#import "RHSCCourtTime.h"
 
 @interface RHSCCourtTimeViewController ()
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *headerButton;
 
-@property (nonatomic, strong) NSDate* courtDate;
-@property (nonatomic, strong) NSString* courtSel;
+@property (nonatomic, strong) NSDate* selectionDate;
+@property (nonatomic, strong) NSString* selectionSet;
+@property (nonatomic, strong) RHSCCourtTime* selectedCourtTime;
 
 @end
 
@@ -25,8 +27,6 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.courtDate = [NSDate date];
-        self.courtSel = @"All";
     }
     return self;
 }
@@ -47,9 +47,14 @@
     [self.tableView setTableHeaderView:header];
      
      */
+    self.selectionDate = [NSDate date];
+    self.selectionSet = @"All";
+    self.selectedCourtTime = nil;
     
-    self.navigationItem.leftBarButtonItem.title = @"All available courts for June 28, 2014";
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy"];
     
+    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@"%@ for %@",self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,6 +97,22 @@
     
    [self performSegueWithIdentifier: segueName sender: self];
 }
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    NSLog(@"segue: %@",segue.identifier);
+    if ([segue.identifier isEqualToString:@"ChangeSelection"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setSelectionDate:self.selectionDate];
+        [[segue destinationViewController] setSelectionSet:self.selectionSet];
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,15 +151,6 @@
 }
 */
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

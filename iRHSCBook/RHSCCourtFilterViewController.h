@@ -10,8 +10,11 @@
 
 @interface RHSCCourtFilterViewController : UIViewController <UIPickerViewDataSource,UIPickerViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIButton *resetButton;
-@property (nonatomic, strong) IBOutlet UIPickerView *datePicker;
+@property (nonatomic, weak) IBOutlet UIButton *resetButton;
+@property (nonatomic, weak) IBOutlet UIPickerView *datePicker;
 @property (nonatomic, strong) NSArray *datePickerArray;
+@property (nonatomic, strong) NSDate* selectionDate;
+@property (nonatomic, strong) NSString* selectionSet;
+
 
 @end

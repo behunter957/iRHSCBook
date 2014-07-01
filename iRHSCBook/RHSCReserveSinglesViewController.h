@@ -10,7 +10,7 @@
 
 @interface RHSCReserveSinglesViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIPickerView *typePicker;
+@property (nonatomic, weak) IBOutlet UIPickerView *typePicker;
 @property (nonatomic, strong) NSArray *typeList;
 
 @end

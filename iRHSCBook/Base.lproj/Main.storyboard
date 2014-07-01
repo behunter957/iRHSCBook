@@ -306,11 +306,11 @@
             </objects>
             <point key="canvasLocation" x="1749" y="236"/>
         </scene>
-        <!--Navigation Controller - Bookings-->
+        <!--Navigation Controller - My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Nsk-AX-vCz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Bookings" id="gTf-lG-uNq"/>
+                    <tabBarItem key="tabBarItem" title="My Bookings" image="Book" id="gTf-lG-uNq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IOn-i4-91x">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -364,7 +364,7 @@
         <scene sceneID="cEk-L8-WsX">
             <objects>
                 <navigationController definesPresentationContext="YES" id="1lk-ak-SZG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Members" id="vcT-tz-2Td"/>
+                    <tabBarItem key="tabBarItem" title="Members" image="Members" id="vcT-tz-2Td"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ss-pN-gNV">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -376,11 +376,11 @@
             </objects>
             <point key="canvasLocation" x="630" y="1236"/>
         </scene>
-        <!--Navigation Controller - Courts-->
+        <!--Navigation Controller - Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
             <objects>
-                <navigationController definesPresentationContext="YES" id="QwW-Sp-DNa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Courts" id="mPy-Tf-h1v"/>
+                <navigationController title="Court Navigation" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QwW-Sp-DNa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Reserve" image="Search" id="mPy-Tf-h1v"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZKx-KX-s9B">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -522,12 +522,17 @@
             <point key="canvasLocation" x="2176" y="536"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Book" width="25" height="22"/>
+        <image name="Members" width="31" height="29"/>
+        <image name="Search" width="25" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yl4-I3-O3p"/>
+        <segue reference="nvC-pg-kt8"/>
     </inferredMetricsTieBreakers>
 </document>
