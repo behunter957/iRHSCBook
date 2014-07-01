@@ -27,6 +27,8 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.selectionDate = [NSDate date];
+        self.selectionSet = @"Back";
     }
     return self;
 }
@@ -47,14 +49,22 @@
     [self.tableView setTableHeaderView:header];
      
      */
-    self.selectionDate = [NSDate date];
-    self.selectionSet = @"All";
+    if (!self.selectionDate) {
+        self.selectionDate = [NSDate date];
+    }
+    if (!self.selectionSet) {
+        self.selectionSet = @"Back";
+    }
     self.selectedCourtTime = nil;
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy"];
+    [dateFormat setDateFormat:@"EEEE, MMMM d"];
     
-    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@"%@ for %@",self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
+    NSString *fmtStr = @"%@ courts for %@";
+    if ([self.selectionSet isEqualToString:@"Doubles"]) {
+        fmtStr = @"%@ court for %@";
+    }
+    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,9 +118,38 @@
     NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"ChangeSelection"]) {
         // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setSelectionDate:self.selectionDate];
         [[segue destinationViewController] setSelectionSet:self.selectionSet];
     }
+}
+
+-(void)setSetSelection:(NSString *)setSelection
+{
+    NSLog(@"delegate setSetSelection %@",setSelection);
+    self.selectionSet = setSelection;
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEEE, MMMM d"];
+    
+    NSString *fmtStr = @"%@ courts for %@";
+    if ([self.selectionSet isEqualToString:@"Doubles"]) {
+        fmtStr = @"%@ court for %@";
+    }
+    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
+}
+
+-(void)setDateSelection:(NSDate *)setDate
+{
+    NSLog(@"delegate setDateSelection %@",setDate);
+    self.selectionDate = setDate;
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEEE, MMMM d"];
+    
+    NSString *fmtStr = @"%@ courts for %@";
+    if ([self.selectionSet isEqualToString:@"Doubles"]) {
+        fmtStr = @"%@ court for %@";
+    }
+    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
 /*

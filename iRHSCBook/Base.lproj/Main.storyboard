@@ -22,7 +22,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="180"/>
+            <point key="canvasLocation" x="-110" y="-824"/>
         </scene>
         <!--Court Time View Controller-->
         <scene sceneID="ccz-q6-nhL">
@@ -70,7 +70,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1220" y="-144"/>
+            <point key="canvasLocation" x="504" y="-69"/>
         </scene>
         <!--Court Filter View Controller - Selection-->
         <scene sceneID="ys9-Rc-sAI">
@@ -93,6 +93,9 @@
                                     <segment title="Back"/>
                                     <segment title="Doubles"/>
                                 </segments>
+                                <connections>
+                                    <action selector="setChanged" destination="oyb-lB-d3C" eventType="valueChanged" id="OW8-ee-7q0"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBu-9r-96j">
                                 <rect key="frame" x="17" y="70" width="286" height="30"/>
@@ -119,11 +122,12 @@
                     <connections>
                         <outlet property="datePicker" destination="jkl-9F-Cqw" id="PKH-zl-Ynu"/>
                         <outlet property="resetButton" destination="iBu-9r-96j" id="GxV-3v-tc1"/>
+                        <outlet property="setSegCtl" destination="xtT-yk-d67" id="ZVu-wf-gPh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqF-aH-ciO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1754" y="-443"/>
+            <point key="canvasLocation" x="913" y="-485"/>
         </scene>
         <!--Bookings View Controller - My Bookings-->
         <scene sceneID="aB8-aE-tr5">
@@ -161,7 +165,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPX-5R-ZqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1212" y="553"/>
+            <point key="canvasLocation" x="416" y="2713"/>
         </scene>
         <!--Reserve Doubles View Controller - Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
@@ -304,7 +308,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1749" y="236"/>
+            <point key="canvasLocation" x="877" y="316"/>
         </scene>
         <!--Navigation Controller - My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -320,7 +324,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TR8-aO-15e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="699" y="569"/>
+            <point key="canvasLocation" x="23" y="2713"/>
         </scene>
         <!--Members View Controller - Member List-->
         <scene sceneID="326-Gn-ctq">
@@ -358,7 +362,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="1236"/>
+            <point key="canvasLocation" x="416" y="3408"/>
         </scene>
         <!--Navigation Controller - Members-->
         <scene sceneID="cEk-L8-WsX">
@@ -374,7 +378,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj6-t2-pqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="1236"/>
+            <point key="canvasLocation" x="14" y="3408"/>
         </scene>
         <!--Navigation Controller - Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
@@ -390,7 +394,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6e-ID-wFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660" y="-117"/>
+            <point key="canvasLocation" x="108" y="-69"/>
         </scene>
         <!--Reserve Singles View Controller - Book Front Court 4-->
         <scene sceneID="5Zu-FF-rN6">
@@ -470,7 +474,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1743" y="909"/>
+            <point key="canvasLocation" x="871" y="989"/>
         </scene>
         <!--Find Member View Controller Table View Controller - Select Player-->
         <scene sceneID="fjf-bm-Vrk">
@@ -519,7 +523,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2176" y="536"/>
+            <point key="canvasLocation" x="1464" y="560"/>
         </scene>
     </scenes>
     <resources>
@@ -533,6 +537,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nvC-pg-kt8"/>
+        <segue reference="yl4-I3-O3p"/>
     </inferredMetricsTieBreakers>
 </document>

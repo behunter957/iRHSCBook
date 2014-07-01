@@ -8,13 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol setSelectionProtocol <NSObject>
+
+-(void)setSetSelection:(NSString *)setSelection;
+-(void)setDateSelection:(NSDate *)setDate;
+
+@end
+
 @interface RHSCCourtFilterViewController : UIViewController <UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton *resetButton;
 @property (nonatomic, weak) IBOutlet UIPickerView *datePicker;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *setSegCtl;
 @property (nonatomic, strong) NSArray *datePickerArray;
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;
 
+@property (nonatomic,assign)id delegate;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface RHSCCourtTimeViewController : UITableViewController
 
+@property (nonatomic, weak) IBOutlet UISegmentedControl* selectedSetCtrl;
+
 @end
