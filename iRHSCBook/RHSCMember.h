@@ -10,6 +10,8 @@
 
 @interface RHSCMember : NSObject
 
+// temp chg
+
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) NSString *email;
 @property (nonatomic, strong, readonly) NSString *phone1;
