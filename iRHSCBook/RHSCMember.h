@@ -12,12 +12,12 @@
 
 //test change
 
-@property (nonatomic, strong, readonly) NSString *name;
-@property (nonatomic, strong, readonly) NSString *email;
-@property (nonatomic, strong, readonly) NSString *phone1;
-@property (nonatomic, strong, readonly) NSString *phone2;
-@property (nonatomic, strong, readonly) NSString *type;
-@property (nonatomic, strong, readonly) NSString *firstName;
-@property (nonatomic, strong, readonly) NSString *lastName;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *phone1;
+@property (nonatomic, strong) NSString *phone2;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
 
 @end
