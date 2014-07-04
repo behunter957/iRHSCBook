@@ -7,7 +7,15 @@
 //
 
 #import "RHSCMemberList.h"
+#import "RHSCMember.h"
 
 @implementation RHSCMemberList
+
+-(BOOL) loadFromServer:(RHSCServer*) server
+{
+    // web service JSON call to return dictionaries
+    // code to create members from dictionary and add them to the member list
+    return YES;
+}
 
 @end

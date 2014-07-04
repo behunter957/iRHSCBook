@@ -13,8 +13,8 @@
 
 @interface RHSCTabBarController : UITabBarController
 
-@property (nonatomic, weak) IBOutlet RHSCMemberList *memberList;
-@property (nonatomic, weak) IBOutlet RHSCUser *currentUser;
-@property (nonatomic, weak) IBOutlet RHSCServer *server;
+@property (nonatomic, strong) RHSCMemberList *memberList;
+@property (nonatomic, strong) RHSCUser *currentUser;
+@property (nonatomic, strong) RHSCServer *server;
 
 @end

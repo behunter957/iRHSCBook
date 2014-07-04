@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RHSCServer.h"
 
 @interface RHSCMemberList : NSArray
+
+-(BOOL) loadFromServer:(RHSCServer*) server;
 
 @end
