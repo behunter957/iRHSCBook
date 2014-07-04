@@ -176,7 +176,7 @@
     NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
     [dtFormatter setLocale:[NSLocale systemLocale]];
     [dtFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate* curDate = [dtFormatter dateFromString:@"2014-07-01 00:06:00"];
+    NSDate* curDate = [dtFormatter dateFromString:@"2014-07-01 06:00:00"];
     NSArray* courtNames = [[NSArray alloc] initWithObjects:@"Court 1",@"Court 2",@"Court 3",@"Court 4", @"Doubles", nil];;
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < courtNames.count; j++) {
