@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Richmond Hill Squash Club. All rights reserved.
 //
 
-#import "RHSCFindMemberViewControllerTableViewController.h"
+#import "RHSCFindMemberViewController.h"
 
-@interface RHSCFindMemberViewControllerTableViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
+@interface RHSCFindMemberViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 
 @property (nonatomic,strong) NSArray *filteredList;
 
 @end
 
-@implementation RHSCFindMemberViewControllerTableViewController
+@implementation RHSCFindMemberViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

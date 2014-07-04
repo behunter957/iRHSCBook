@@ -1,5 +1,5 @@
 //
-//  RHSCFindMemberViewControllerTableViewController.h
+//  RHSCFindMemberViewController.h
 //  iRHSCBook
 //
 //  Created by Bruce Hunter on 2014-06-30.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RHSCFindMemberViewControllerTableViewController : UITableViewController 
+@interface RHSCFindMemberViewController : UITableViewController 
 
 @end

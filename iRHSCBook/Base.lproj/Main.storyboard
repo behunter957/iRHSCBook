@@ -487,10 +487,10 @@
             </objects>
             <point key="canvasLocation" x="871" y="989"/>
         </scene>
-        <!--Find Member View Controller Table View Controller - Select Player-->
+        <!--Find Member View Controller - Select Player-->
         <scene sceneID="fjf-bm-Vrk">
             <objects>
-                <tableViewController storyboardIdentifier="FindMember" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kbR-ab-SN7" customClass="RHSCFindMemberViewControllerTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FindMember" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kbR-ab-SN7" customClass="RHSCFindMemberViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lGA-jF-r7P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

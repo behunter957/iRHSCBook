@@ -12,7 +12,7 @@
 		4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDA1961B0BF00665999 /* RHSCServer.m */; };
 		4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDD1961B14100665999 /* RHSCMemberList.m */; };
 		4AFD3DE11961B54600665999 /* RHSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE01961B54600665999 /* RHSCUser.m */; };
-		4AFD3DE41961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE31961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.m */; };
+		4AFD3DE41961BBF000665999 /* RHSCFindMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */; };
 		4AFD3DED1961EA7500665999 /* RHSCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
@@ -56,8 +56,8 @@
 		4AFD3DDD1961B14100665999 /* RHSCMemberList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMemberList.m; sourceTree = "<group>"; };
 		4AFD3DDF1961B54600665999 /* RHSCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCUser.h; sourceTree = "<group>"; };
 		4AFD3DE01961B54600665999 /* RHSCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCUser.m; sourceTree = "<group>"; };
-		4AFD3DE21961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCFindMemberViewControllerTableViewController.h; sourceTree = "<group>"; };
-		4AFD3DE31961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCFindMemberViewControllerTableViewController.m; sourceTree = "<group>"; };
+		4AFD3DE21961BBF000665999 /* RHSCFindMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCFindMemberViewController.h; sourceTree = "<group>"; };
+		4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCFindMemberViewController.m; sourceTree = "<group>"; };
 		4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCTabBarController.h; sourceTree = "<group>"; };
 		4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCTabBarController.m; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,8 +175,8 @@
 				4AFD3DDD1961B14100665999 /* RHSCMemberList.m */,
 				4AFD3DDF1961B54600665999 /* RHSCUser.h */,
 				4AFD3DE01961B54600665999 /* RHSCUser.m */,
-				4AFD3DE21961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.h */,
-				4AFD3DE31961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.m */,
+				4AFD3DE21961BBF000665999 /* RHSCFindMemberViewController.h */,
+				4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */,
 				4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */,
 				4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */,
 			);
@@ -324,7 +324,7 @@
 				4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */,
 				4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */,
 				ACAC33C8195EF99700F7562F /* RHSCMembersViewController.m in Sources */,
-				4AFD3DE41961BBF000665999 /* RHSCFindMemberViewControllerTableViewController.m in Sources */,
+				4AFD3DE41961BBF000665999 /* RHSCFindMemberViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
