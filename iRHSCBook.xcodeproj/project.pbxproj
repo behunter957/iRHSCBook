@@ -14,6 +14,7 @@
 		4AFD3DE11961B54600665999 /* RHSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE01961B54600665999 /* RHSCUser.m */; };
 		4AFD3DE41961BBF000665999 /* RHSCFindMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */; };
 		4AFD3DED1961EA7500665999 /* RHSCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */; };
+		AC3DED681968460000D67E60 /* JSONLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DED671968460000D67E60 /* JSONLoader.m */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
@@ -60,6 +61,8 @@
 		4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCFindMemberViewController.m; sourceTree = "<group>"; };
 		4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCTabBarController.h; sourceTree = "<group>"; };
 		4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCTabBarController.m; sourceTree = "<group>"; };
+		AC3DED66196845E100D67E60 /* JSONLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONLoader.h; sourceTree = "<group>"; };
+		AC3DED671968460000D67E60 /* JSONLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONLoader.m; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC3383195EF27F00F7562F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACAC3385195EF27F00F7562F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -148,6 +151,8 @@
 		ACAC3389195EF27F00F7562F /* iRHSCBook */ = {
 			isa = PBXGroup;
 			children = (
+				AC3DED671968460000D67E60 /* JSONLoader.m */,
+				AC3DED66196845E100D67E60 /* JSONLoader.h */,
 				ACAC3392195EF27F00F7562F /* RHSCAppDelegate.h */,
 				ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */,
 				ACAC3395195EF27F00F7562F /* Main.storyboard */,
@@ -318,6 +323,7 @@
 				ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */,
 				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
 				ACAC3390195EF27F00F7562F /* main.m in Sources */,
+				AC3DED681968460000D67E60 /* JSONLoader.m in Sources */,
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
 				4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */,
 				4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */,

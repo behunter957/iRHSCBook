@@ -10,4 +10,13 @@
 
 @implementation RHSCMember
 
+- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary {
+    if(self = [self init]) {
+        // Assign all properties with keyed values from the dictionary
+        //_title = [jsonDictionary objectForKey:@"title"];
+    }
+    
+    return self;
+}
+
 @end

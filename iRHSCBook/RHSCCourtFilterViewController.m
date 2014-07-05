@@ -115,6 +115,15 @@
     self.pickedSet = [self.setSegCtl titleForSegmentAtIndex:self.setSegCtl.selectedSegmentIndex];
 }
 
+-(IBAction) includeChanged
+{
+    if (self.includeSwitch.on) {
+        self.switchState.text = @"YES";
+    } else {
+        self.switchState.text = @"NO";
+    }
+}
+
 /*
 #pragma mark - Navigation
 

@@ -10,6 +10,8 @@
 
 @interface RHSCCourtTime : NSObject
 
+- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary;
+
 @property (nonatomic, strong) NSString *bookingId;
 @property (nonatomic, strong) NSString *court;
 @property (nonatomic, strong) NSDate *courtTime;

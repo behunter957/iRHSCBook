@@ -20,6 +20,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *resetButton;
 @property (nonatomic, weak) IBOutlet UIPickerView *datePicker;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *setSegCtl;
+@property (nonatomic, weak) IBOutlet UISwitch *includeSwitch;
+@property (nonatomic, weak) IBOutlet UILabel *switchState;
 @property (nonatomic, strong) NSArray *datePickerArray;
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;

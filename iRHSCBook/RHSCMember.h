@@ -10,15 +10,15 @@
 
 @interface RHSCMember : NSObject
 
-//test change
+- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary;
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *phone1;
-@property (nonatomic, strong) NSString *phone2;
-@property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSString *status;
-@property (nonatomic, strong) NSString *firstName;
-@property (nonatomic, strong) NSString *lastName;
+@property (readonly) NSString *name;
+@property (readonly) NSString *email;
+@property (readonly) NSString *phone1;
+@property (readonly) NSString *phone2;
+@property (readonly) NSString *type;
+@property (readonly) NSString *status;
+@property (readonly) NSString *firstName;
+@property (readonly) NSString *lastName;
 
 @end
