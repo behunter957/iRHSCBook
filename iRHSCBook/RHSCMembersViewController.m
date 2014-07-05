@@ -7,8 +7,13 @@
 //
 
 #import "RHSCMembersViewController.h"
+#import "RHSCTabBarController.h"
+#import "RHSCMemberList.h"
+#import "RHSCMember.h"
 
 @interface RHSCMembersViewController ()
+
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end
 
@@ -44,28 +49,60 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    return ml.memberList.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberListCell" forIndexPath:indexPath];
     
     // Configure the cell...
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    RHSCMember *member = ml.memberList[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
     
     return cell;
 }
-*/
+
+-(IBAction)phoneMember:(id)sender
+{
+    // get the currently selected table row
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    RHSCMember *member = ml.memberList[selectedIndexPath.row];
+    NSLog(@"Phone member: %@",member.name);
+}
+
+-(IBAction)smsMember:(id)sender
+{
+    // get the currently selected table row
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    RHSCMember *member = ml.memberList[selectedIndexPath.row];
+    NSLog(@"SMS member: %@",member.name);
+}
+
+-(IBAction)emailMember:(id)sender
+{
+    // get the currently selected table row
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    RHSCMember *member = ml.memberList[selectedIndexPath.row];
+    NSLog(@"Email member: %@",member.name);
+}
 
 /*
 // Override to support conditional editing of the table view.
