@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "RHSCServer.h"
 
-@interface RHSCMemberList : NSArray
+@interface RHSCMemberList : NSObject
 
--(BOOL) loadFromServer:(RHSCServer*) server;
+@property (nonatomic, strong, readonly) NSArray *memberList;
+
+- (void)loadFromJSON:(RHSCServer *)server;
 
 @end

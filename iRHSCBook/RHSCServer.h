@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RHSCServer : NSObject
+@interface RHSCServer : NSURL
 
-@property (nonatomic, strong, readonly) NSURL *url;
 
 @end

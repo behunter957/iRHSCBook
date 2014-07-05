@@ -26,6 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.server = [[RHSCServer alloc] initWithString:@"http://www.bhsquashclub.com/"];
+    self.memberList = [[RHSCMemberList alloc] init];
+    [self.memberList loadFromJSON:self.server];
 }
 
 - (void)didReceiveMemoryWarning
