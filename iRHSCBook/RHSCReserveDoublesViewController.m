@@ -7,6 +7,7 @@
 //
 
 #import "RHSCReserveDoublesViewController.h"
+#import "RHSCFindMemberViewController.h"
 
 @interface RHSCReserveDoublesViewController ()
 
@@ -62,6 +63,42 @@
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
 {
     return [self.typeList objectAtIndex:row];
+}
+
+-(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
+{
+    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+    if (playerNumber.intValue == 2) {
+        [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+    }
+    if (playerNumber.intValue == 3) {
+        [self.player3Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+    }
+    if (playerNumber.intValue == 4) {
+        [self.player4Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    NSLog(@"segue: %@",segue.identifier);
+    if ([segue.identifier isEqualToString:@"DoublesPlayer2"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
+    }
+    if ([segue.identifier isEqualToString:@"DoublesPlayer3"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:3]];
+    }
+    if ([segue.identifier isEqualToString:@"DoublesPlayer4"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:4]];
+    }
 }
 
 

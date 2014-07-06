@@ -7,6 +7,8 @@
 //
 
 #import "RHSCReserveSinglesViewController.h"
+#import "RHSCFindMemberViewController.h"
+#import "RHSCMember.h"
 
 @interface RHSCReserveSinglesViewController ()
 
@@ -63,6 +65,25 @@
 {
     return [self.typeList objectAtIndex:row];
 }
+
+-(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
+{
+    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+    [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    NSLog(@"segue: %@",segue.identifier);
+    if ([segue.identifier isEqualToString:@"SinglesPlayer"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
+    }
+}
+
 
 
 /*

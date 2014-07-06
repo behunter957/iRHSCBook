@@ -134,6 +134,18 @@ shouldReloadTableForSearchString:(NSString *)searchText
     return YES;
 }
 
+@synthesize delegate;
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"popping FindMember on table select");
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    [delegate setPlayer:ml.memberList[selectedIndexPath.row] number:self.playerNumber];
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

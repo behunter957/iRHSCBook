@@ -26,6 +26,6 @@
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;
 
-@property (nonatomic,assign)id delegate;
+@property (nonatomic,assign) id delegate;
 
 @end

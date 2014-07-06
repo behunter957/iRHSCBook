@@ -11,6 +11,7 @@
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCReserveDoublesViewController.h"
 #import "RHSCCourtTime.h"
+#import "RHSCMember.h"
 
 @interface RHSCCourtTimeViewController ()
 

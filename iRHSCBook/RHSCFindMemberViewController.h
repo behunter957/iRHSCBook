@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RHSCMember.h"
 
-@interface RHSCFindMemberViewController : UITableViewController 
+@protocol setPlayerProtocol <NSObject>
+
+-(void)setPlayer:(RHSCMember *)player number:(NSNumber *) playerNumber;
+
+@end
+
+@interface RHSCFindMemberViewController : UITableViewController
+
+@property (nonatomic, strong) NSNumber* playerNumber;
+
+@property (nonatomic,assign) id delegate;
 
 @end
