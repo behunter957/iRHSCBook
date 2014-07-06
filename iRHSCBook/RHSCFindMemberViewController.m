@@ -39,7 +39,7 @@ BOOL searching;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    //self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     self.filteredList = [[NSMutableArray alloc] initWithArray:ml.memberList];

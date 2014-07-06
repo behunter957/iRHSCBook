@@ -577,6 +577,9 @@
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <searchDisplayController id="0Xf-G8-BaX">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="displaysSearchBarInNavigationBar" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="delegate" destination="kbR-ab-SN7" id="JGO-Qh-OVX"/>
                         <outlet property="searchBar" destination="YeR-k2-1Xx" id="SK6-t5-s2k"/>
