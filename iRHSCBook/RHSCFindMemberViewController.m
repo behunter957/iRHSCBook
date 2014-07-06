@@ -139,10 +139,15 @@ shouldReloadTableForSearchString:(NSString *)searchText
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"popping FindMember on table select");
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    [delegate setPlayer:ml.memberList[selectedIndexPath.row] number:self.playerNumber];
+    if (searching) {
+        NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
+        [delegate setPlayer:self.filteredList[selectedIndexPath.row] number:self.playerNumber];
+    } else {
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        [delegate setPlayer:ml.memberList[selectedIndexPath.row] number:self.playerNumber];
+    }
     [self.navigationController popViewControllerAnimated:NO];
 }
 
