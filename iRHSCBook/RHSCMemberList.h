@@ -11,7 +11,7 @@
 
 @interface RHSCMemberList : NSObject
 
-@property (nonatomic, strong, readonly) NSArray *memberList;
+@property (nonatomic, strong) NSArray *memberList;
 
 - (void)loadFromJSON:(RHSCServer *)server;
 

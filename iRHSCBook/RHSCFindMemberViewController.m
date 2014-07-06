@@ -7,14 +7,19 @@
 //
 
 #import "RHSCFindMemberViewController.h"
+#import "RHSCTabBarController.h"
 
 @interface RHSCFindMemberViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 
-@property (nonatomic,strong) NSArray *filteredList;
+@property (nonatomic,strong) NSMutableArray *filteredList;
+@property (nonatomic,weak) IBOutlet UITableView *searchResultsView;
+@property (nonatomic,weak) IBOutlet UITableView *memberListView;
 
 @end
 
 @implementation RHSCFindMemberViewController
+
+BOOL searching;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,6 +39,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    self.filteredList = [[NSMutableArray alloc] initWithArray:ml.memberList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,28 +55,85 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if(self.searchDisplayController.searchResultsTableView == tableView) {
+        return self.filteredList.count;
+    } else {
+        // get memberList count
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        return ml.memberList.count;
+    }
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    if(self.searchDisplayController.searchResultsTableView == tableView) {
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
+        RHSCMember *member = self.filteredList[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
+        return cell;
+    } else {
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MemberCell" forIndexPath:indexPath];
     
-    return cell;
+        // Configure the cell...
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        RHSCMember *member = ml.memberList[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
+        return cell;
+    
+    }
 }
-*/
+
+- (void) searchTableView
+{
+    NSString *searchText = self.searchDisplayController.searchBar.text;
+    
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    for (RHSCMember *item in ml.memberList) {
+        NSRange range = [item.name rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        if (range.length > 0) {
+            [self.filteredList addObject:item];
+        }
+    }
+}
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    searching = NO;
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    searching = NO;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.filteredList removeAllObjects];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchString:(NSString *)searchText
+{
+    [self.filteredList removeAllObjects];
+    
+    if ([searchText length] > 1) {
+        searching = YES;
+        [self searchTableView];
+    } else {
+        searching = NO;
+    }
+    return YES;
+}
+
 
 /*
 // Override to support conditional editing of the table view.
