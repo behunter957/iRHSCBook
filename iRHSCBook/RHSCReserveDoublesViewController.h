@@ -15,6 +15,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *player2Button;
 @property (nonatomic, weak) IBOutlet UIButton *player3Button;
 @property (nonatomic, weak) IBOutlet UIButton *player4Button;
+@property (nonatomic, weak) IBOutlet UILabel *userLabel;
 @property (nonatomic, strong) NSArray *typeList;
 @property (nonatomic, strong) RHSCCourtTime* courtTimeRecord;
 

@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong, readonly) RHSCMember *data;
 
+-(id)initFromServer:(RHSCServer *)srvr userid:(NSString *)uid password:(NSString *)pwd;
+
 @end

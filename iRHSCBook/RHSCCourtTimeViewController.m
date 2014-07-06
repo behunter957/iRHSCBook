@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString* selectionSet;
 @property (nonatomic, weak) RHSCCourtTime* selectedCourtTime;
 @property (nonatomic, strong) NSMutableArray* courtTimes;
+@property (nonatomic, strong) NSNumber* includeInd;
 
 @end
 
@@ -53,11 +54,16 @@
     [self.tableView setTableHeaderView:header];
      
      */
+    
+//TODO: replace code with preferences
     if (!self.selectionDate) {
         self.selectionDate = [NSDate date];
     }
     if (!self.selectionSet) {
         self.selectionSet = @"Singles";
+    }
+    if (!self.includeInd) {
+        self.includeInd = [NSNumber numberWithInt:0];
     }
     self.selectedCourtTime = nil;
     
@@ -133,6 +139,7 @@
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setSelectionDate:self.selectionDate];
         [[segue destinationViewController] setSelectionSet:self.selectionSet];
+        [[segue destinationViewController] setIncludeInd:self.includeInd];
     }
     if ([segue.identifier isEqualToString:@"ReserveSingles"]) {
         // set the selectedCourtTime record

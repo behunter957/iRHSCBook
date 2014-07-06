@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     self.server = [[RHSCServer alloc] initWithString:@"http://www.bhsquashclub.com/"];
+    self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:@"bhunter" password:@"Maxw3ll"];
     self.memberList = [[RHSCMemberList alloc] init];
     [self.memberList loadFromJSON:self.server];
 }

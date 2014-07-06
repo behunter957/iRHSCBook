@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak) IBOutlet UIPickerView *typePicker;
 @property (nonatomic, weak) IBOutlet UIButton *player2Button;
+@property (nonatomic, weak) IBOutlet UILabel *userLabel;
 @property (nonatomic, strong) NSArray *typeList;
 @property (nonatomic, strong) RHSCCourtTime* courtTimeRecord;
 

@@ -7,6 +7,7 @@
 //
 
 #import "RHSCReserveSinglesViewController.h"
+#import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
 #import "RHSCMember.h"
 
@@ -30,6 +31,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    self.userLabel.text = [NSString stringWithFormat:@"%@ %@",tbc.currentUser.data.firstName,tbc.currentUser.data.lastName];
+    
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
     NSString *courtType = @"Front";
     if ([self.courtTimeRecord.court isEqualToString:@"Court 1"] || [self.courtTimeRecord.court isEqualToString:@"Court 2"])

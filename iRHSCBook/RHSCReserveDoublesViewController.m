@@ -7,6 +7,7 @@
 //
 
 #import "RHSCReserveDoublesViewController.h"
+#import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
 
 @interface RHSCReserveDoublesViewController ()
@@ -30,6 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder", nil];
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    self.userLabel.text = [NSString stringWithFormat:@"%@ %@",tbc.currentUser.data.firstName,tbc.currentUser.data.lastName];
 }
 
 - (void)didReceiveMemoryWarning

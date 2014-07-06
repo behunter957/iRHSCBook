@@ -306,6 +306,7 @@
                         <outlet property="player4Button" destination="JfM-H0-cBY" id="jMo-zU-Koc"/>
                         <outlet property="searchDisplayController" destination="dHy-QA-6PQ" id="oDg-aN-2L9"/>
                         <outlet property="typePicker" destination="x7l-Kf-oZt" id="d2H-VV-1tn"/>
+                        <outlet property="userLabel" destination="NPP-eD-dTS" id="oc5-zw-w10"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oza-FD-Izo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -525,6 +526,7 @@
                     <navigationItem key="navigationItem" title="Book Front Court 4" id="iRA-Ye-okh"/>
                     <connections>
                         <outlet property="player2Button" destination="moJ-bF-WVu" id="QtT-BU-aVe"/>
+                        <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>

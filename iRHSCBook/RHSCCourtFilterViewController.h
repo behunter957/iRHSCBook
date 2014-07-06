@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSArray *datePickerArray;
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;
+@property (nonatomic, strong) NSNumber* includeInd;
 
 @property (nonatomic,assign) id delegate;
 

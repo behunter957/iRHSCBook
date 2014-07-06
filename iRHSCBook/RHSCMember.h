@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RHSCServer.h"
 
 @interface RHSCMember : NSObject
 

@@ -49,6 +49,7 @@
             self.setSegCtl.selectedSegmentIndex = i;
         }
     }
+    self.includeSwitch.on = (self.includeInd.intValue > 0);
     
     NSMutableArray *dateList = [[NSMutableArray alloc] init];
     NSDate *curDate = [NSDate date];

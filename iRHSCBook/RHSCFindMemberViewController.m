@@ -100,8 +100,8 @@ BOOL searching;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     for (RHSCMember *item in ml.memberList) {
-        NSRange range = [item.name rangeOfString:searchText options:NSCaseInsensitiveSearch];
-        if (range.length > 0) {
+        NSString *srchtext = [NSString stringWithFormat:@"%@, %@",item.lastName,item.firstName];
+        if (!([srchtext rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound)) {
             [self.filteredList addObject:item];
         }
     }
