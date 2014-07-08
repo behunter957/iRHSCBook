@@ -9,6 +9,7 @@
 #import "RHSCMembersViewController.h"
 #import "RHSCTabBarController.h"
 #import "RHSCMemberList.h"
+#import "RHSCMemberDetailViewController.h"
 #import "RHSCMember.h"
 
 @interface RHSCMembersViewController ()
@@ -103,6 +104,23 @@
     RHSCMember *member = ml.memberList[selectedIndexPath.row];
     NSLog(@"Email member: %@",member.name);
 }
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    NSLog(@"segue: %@",segue.identifier);
+    if ([segue.identifier isEqualToString:@"MemberDetail"]) {
+        // set the selectedCourtTime record
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        RHSCMember *member = ml.memberList[selectedIndexPath.row];
+        [[segue destinationViewController] setMember:member];
+    }
+}
+
 
 /*
 // Override to support conditional editing of the table view.

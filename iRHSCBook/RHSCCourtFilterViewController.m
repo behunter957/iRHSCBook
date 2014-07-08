@@ -53,15 +53,21 @@
     
     NSMutableArray *dateList = [[NSMutableArray alloc] init];
     NSDate *curDate = [NSDate date];
+    int selrow = 0;
+    NSString *sDate = [dateFormat stringFromDate:self.pickedDate];
     for (int i = 0; i < 30; i++) {
         // add
         // [dateList addObject:[dateFormat stringFromDate:curDate]];
         [dateList addObject:curDate];
+        if ([[dateFormat stringFromDate:curDate] isEqualToString:sDate]) {
+            selrow = i;
+        }
         
         //increment curDate
         curDate = [curDate dateByAddingTimeInterval:24*60*60];
     }
     self.datePickerArray = [[NSArray alloc] initWithArray:dateList];
+    [self.datePicker selectRow:selrow inComponent:0 animated:NO];
 }
 
 - (void)didReceiveMemoryWarning

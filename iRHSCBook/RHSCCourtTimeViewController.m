@@ -165,6 +165,7 @@
     self.selectionDate = setDate;
     [self refreshLeftBarButton];
     [self loadSelectedCourtTimes];
+    [self.tableView reloadData];
 }
 
 -(void)refreshLeftBarButton

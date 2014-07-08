@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */; };
 		4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD41961AFCC00665999 /* RHSCMember.m */; };
 		4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD71961AFF600665999 /* RHSCCourtTime.m */; };
 		4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDA1961B0BF00665999 /* RHSCServer.m */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A922D70196BF979007A7478 /* RHSCMemberDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMemberDetailViewController.h; sourceTree = "<group>"; };
+		4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMemberDetailViewController.m; sourceTree = "<group>"; };
 		4AFD3DD31961AFCC00665999 /* RHSCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMember.h; sourceTree = "<group>"; };
 		4AFD3DD41961AFCC00665999 /* RHSCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMember.m; sourceTree = "<group>"; };
 		4AFD3DD61961AFF600665999 /* RHSCCourtTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTime.h; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 				4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */,
 				4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */,
 				4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */,
+				4A922D70196BF979007A7478 /* RHSCMemberDetailViewController.h */,
+				4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */,
 			);
 			path = iRHSCBook;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				ACAC3390195EF27F00F7562F /* main.m in Sources */,
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
 				4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */,
+				4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */,
 				4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */,
 				4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */,
 				4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */,
