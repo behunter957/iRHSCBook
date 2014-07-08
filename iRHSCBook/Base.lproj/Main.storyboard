@@ -202,7 +202,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o29-O0-mF8">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o29-O0-mF8" userLabel="Court Date">
                                 <rect key="frame" x="28" y="80" width="264" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -301,6 +301,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Book Doubles Court" id="Oyh-Vu-GM2"/>
                     <connections>
+                        <outlet property="courtDate" destination="o29-O0-mF8" id="h8n-iW-0yQ"/>
                         <outlet property="player2Button" destination="Wmh-EH-fIT" id="SZS-2H-ksX"/>
                         <outlet property="player3Button" destination="AJN-Gz-BOn" id="NZS-UP-3MB"/>
                         <outlet property="player4Button" destination="JfM-H0-cBY" id="jMo-zU-Koc"/>
@@ -461,7 +462,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqb-hR-8cL">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqb-hR-8cL" userLabel="Court Date">
                                 <rect key="frame" x="20" y="76" width="264" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -525,6 +526,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Book Front Court 4" id="iRA-Ye-okh"/>
                     <connections>
+                        <outlet property="courtDate" destination="Dqb-hR-8cL" id="anT-HR-ceT"/>
                         <outlet property="player2Button" destination="moJ-bF-WVu" id="QtT-BU-aVe"/>
                         <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
                     </connections>

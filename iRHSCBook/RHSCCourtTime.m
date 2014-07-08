@@ -13,9 +13,27 @@
 - (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary {
     if(self = [self init]) {
         // Assign all properties with keyed values from the dictionary
-        //_title = [jsonDictionary objectForKey:@"title"];
+        _bookingId = [jsonDictionary objectForKey:@"booking_id"];
+        _court = [jsonDictionary objectForKey:@"court"];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        _courtTime = [dateFormat dateFromString:[NSString stringWithFormat:@"%@ %@",[jsonDictionary objectForKey:@"courtdate"],[jsonDictionary objectForKey:@"courttime"]]];
+        _status = [jsonDictionary objectForKey:@"courtStatus"];
+        _event = [jsonDictionary objectForKey:@"courtEvent"];
+        _players = [[NSDictionary alloc] init];
+        if ([jsonDictionary objectForKey:@"player1_id"] != [NSNull null]) {
+            [_players setValue:[jsonDictionary objectForKey:@"player1_lname"] forKey:[jsonDictionary objectForKey:@"player1_id"]];
+        }
+        if ([jsonDictionary objectForKey:@"player2_id"] != [NSNull null]) {
+            [_players setValue:[jsonDictionary objectForKey:@"player2_lname"] forKey:[jsonDictionary objectForKey:@"player2_id"]];
+        }
+        if ([jsonDictionary objectForKey:@"player3_id"] != [NSNull null]) {
+            [_players setValue:[jsonDictionary objectForKey:@"player3_lname"] forKey:[jsonDictionary objectForKey:@"player3_id"]];
+        }
+        if ([jsonDictionary objectForKey:@"player4_id"] != [NSNull null]) {
+            [_players setValue:[jsonDictionary objectForKey:@"player4_lname"] forKey:[jsonDictionary objectForKey:@"player4_id"]];
+        }
     }
-    
     return self;
 }
 

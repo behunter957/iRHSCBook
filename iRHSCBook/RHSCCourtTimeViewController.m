@@ -7,6 +7,7 @@
 //
 
 #import "RHSCCourtTimeViewController.h"
+#import "RHSCTabBarController.h"
 #import "RHSCCourtFilterViewController.h"
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCReserveDoublesViewController.h"
@@ -163,6 +164,7 @@
     NSLog(@"delegate setDateSelection %@",setDate);
     self.selectionDate = setDate;
     [self refreshLeftBarButton];
+    [self loadSelectedCourtTimes];
 }
 
 -(void)refreshLeftBarButton
@@ -179,22 +181,39 @@
 
 -(void)loadSelectedCourtTimes
 {
-    // temporary code to populate the datasource
-    self.courtTimes = [[NSMutableArray alloc] init];
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCUser *curUser = tbc.currentUser;
     NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
     [dtFormatter setLocale:[NSLocale systemLocale]];
-    [dtFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate* curDate = [dtFormatter dateFromString:@"2014-07-01 06:00:00"];
-    NSArray* courtNames = [[NSArray alloc] initWithObjects:@"Court 1",@"Court 2",@"Court 3",@"Court 4", @"Doubles", nil];;
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < courtNames.count; j++) {
-            RHSCCourtTime *ct = [[RHSCCourtTime alloc] init];
-            [ct setStatus:@"Available"];
-            [ct setCourt:courtNames[j]];
-            [ct setCourtTime:curDate];
-            [self.courtTimes addObject:ct];
-        }
-        curDate = [curDate dateByAddingTimeInterval:40*60];
+    [dtFormatter setDateFormat:@"yyyy/MM/dd"];
+    NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
+    
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,(self.includeInd.intValue > 0)?@"YES":@"NO",curUser.data.name];
+    NSLog(@"fetch URL = %@",fetchURL);
+    
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+	
+    // Get the data
+    NSURLResponse *response;
+	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    
+    // Now create a NSDictionary from the JSON data
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Create a new array to hold the locations
+    self.courtTimes = [[NSMutableArray alloc] init];
+
+    // Get an array of dictionaries with the key "locations"
+    NSArray *array = [jsonDictionary objectForKey:@"courtTimes"];
+    // Iterate through the array of dictionaries
+    for(NSDictionary *dict in array) {
+        // Create a new Location object for each one and initialise it with information in the dictionary
+        RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+        // Add the court time object to the array
+        [self.courtTimes addObject:courtTimeObj];
     }
 }
 

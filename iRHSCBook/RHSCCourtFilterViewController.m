@@ -39,7 +39,7 @@
     if ([self.selectionSet isEqualToString:@"Doubles"]) {
         fmtStr = @"%@ court for %@";
     }
-    [self.resetButton setTitle:[NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate],nil] forState:UIControlStateNormal];
+    [self.resetButton setTitle:[NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]] forState:UIControlStateNormal];
     
     self.pickedDate = self.selectionDate;
     self.pickedSet = self.selectionSet;
