@@ -12,13 +12,17 @@
 #import "RHSCMemberDetailViewController.h"
 #import "RHSCMember.h"
 
-@interface RHSCMembersViewController ()
+@interface RHSCMembersViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 
+@property (nonatomic,strong) NSMutableArray *filteredList;
+@property (nonatomic,weak) IBOutlet UITableView *searchResultsView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation RHSCMembersViewController
+
+BOOL searching;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,6 +42,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    self.filteredList = [[NSMutableArray alloc] initWithArray:ml.memberList];
+    NSLog(@"viewDidLoad for members view");
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,22 +65,34 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    return ml.memberList.count;
+    if(self.searchDisplayController.searchResultsTableView == tableView) {
+        return self.filteredList.count;
+    } else {
+        // get memberList count
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        return ml.memberList.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MemberListCell" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    RHSCMember *member = ml.memberList[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
-    
-    return cell;
+    if(self.searchDisplayController.searchResultsTableView == tableView) {
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MemberListCell" forIndexPath:indexPath];
+        RHSCMember *member = self.filteredList[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
+        return cell;
+    } else {
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MemberListCell" forIndexPath:indexPath];
+        
+        // Configure the cell...
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        RHSCMember *member = ml.memberList[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",member.lastName,member.firstName];
+        return cell;
+        
+    }
 }
 
 -(IBAction)phoneMember:(id)sender
@@ -120,6 +140,59 @@
         [[segue destinationViewController] setMember:member];
     }
 }
+
+- (void) searchTableView
+{
+    NSString *searchText = self.searchDisplayController.searchBar.text;
+    
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+    for (RHSCMember *item in ml.memberList) {
+        NSString *srchtext = [NSString stringWithFormat:@"%@, %@",item.lastName,item.firstName];
+        if (!([srchtext rangeOfString:searchText options:NSCaseInsensitiveSearch].location == NSNotFound)) {
+            [self.filteredList addObject:item];
+        }
+    }
+}
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    searching = NO;
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    searching = NO;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.filteredList removeAllObjects];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchString:(NSString *)searchText
+{
+    [self.filteredList removeAllObjects];
+    
+    if ([searchText length] > 1) {
+        searching = YES;
+        [self searchTableView];
+    } else {
+        searching = NO;
+    }
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (searching) {
+        NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
+    } else {
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    }
+}
+
 
 
 /*

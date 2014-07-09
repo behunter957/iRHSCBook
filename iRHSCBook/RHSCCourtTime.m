@@ -20,18 +20,42 @@
         _courtTime = [dateFormat dateFromString:[NSString stringWithFormat:@"%@ %@",[jsonDictionary objectForKey:@"courtdate"],[jsonDictionary objectForKey:@"courttime"]]];
         _status = [jsonDictionary objectForKey:@"courtStatus"];
         _event = [jsonDictionary objectForKey:@"courtEvent"];
-        _players = [[NSDictionary alloc] init];
-        if ([jsonDictionary objectForKey:@"player1_id"] != [NSNull null]) {
-            [_players setValue:[jsonDictionary objectForKey:@"player1_lname"] forKey:[jsonDictionary objectForKey:@"player1_id"]];
+        _players = [[NSMutableDictionary alloc] init];
+        if ([jsonDictionary objectForKey:@"player1_id"]) {
+            if ([jsonDictionary  objectForKey:@"player1_lname"]) {
+                [_players setValue:[jsonDictionary objectForKey:@"player1_lname"] forKey:@"player1_id"];
+            } else {
+                [_players setValue:@"" forKey:@"player1_id"];
+            }
+        } else {
+            [_players setValue:@"" forKey:@"player1_id"];
         }
-        if ([jsonDictionary objectForKey:@"player2_id"] != [NSNull null]) {
-            [_players setValue:[jsonDictionary objectForKey:@"player2_lname"] forKey:[jsonDictionary objectForKey:@"player2_id"]];
+        if ([jsonDictionary objectForKey:@"player2_id"]) {
+            if ([jsonDictionary  objectForKey:@"player2_lname"]) {
+                [_players setValue:[jsonDictionary objectForKey:@"player2_lname"] forKey:@"player2_id"];
+            } else {
+                [_players setValue:@"" forKey:@"player2_id"];
+            }
+        } else {
+            [_players setValue:@"" forKey:@"player2_id"];
         }
-        if ([jsonDictionary objectForKey:@"player3_id"] != [NSNull null]) {
-            [_players setValue:[jsonDictionary objectForKey:@"player3_lname"] forKey:[jsonDictionary objectForKey:@"player3_id"]];
+        if ([jsonDictionary objectForKey:@"player3_id"]) {
+            if ([jsonDictionary  objectForKey:@"player3_lname"]) {
+                [_players setValue:[jsonDictionary objectForKey:@"player3_lname"] forKey:@"player3_id"];
+            } else {
+                [_players setValue:@"" forKey:@"player3_id"];
+            }
+        } else {
+            [_players setValue:@"" forKey:@"player3_id"];
         }
-        if ([jsonDictionary objectForKey:@"player4_id"] != [NSNull null]) {
-            [_players setValue:[jsonDictionary objectForKey:@"player4_lname"] forKey:[jsonDictionary objectForKey:@"player4_id"]];
+        if ([jsonDictionary objectForKey:@"player4_id"]) {
+            if ([jsonDictionary  objectForKey:@"player4_lname"]) {
+                [_players setValue:[jsonDictionary objectForKey:@"player4_lname"] forKey:@"player4_id"];
+            } else {
+                [_players setValue:@"" forKey:@"player4_id"];
+            }
+        } else {
+            [_players setValue:@"" forKey:@"player4_id"];
         }
     }
     return self;

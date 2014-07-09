@@ -23,6 +23,7 @@
 @property (nonatomic, weak) RHSCCourtTime* selectedCourtTime;
 @property (nonatomic, strong) NSMutableArray* courtTimes;
 @property (nonatomic, strong) NSNumber* includeInd;
+@property (nonatomic, strong) UIRefreshControl* refreshControl;
 
 @end
 
@@ -71,6 +72,10 @@
     [self loadSelectedCourtTimes];
     
     [self refreshLeftBarButton];
+
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:self.refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -218,6 +223,12 @@
     }
 }
 
+- (void)refreshTable {
+    //TODO: refresh your data
+    [self.refreshControl endRefreshing];
+    [self loadSelectedCourtTimes];
+    [self.tableView reloadData];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSDate *courtTime;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *event;
-@property (nonatomic, strong) NSDictionary *players;
+@property (nonatomic, strong) NSMutableDictionary *players;
 //eventDesc
 //noshow
 @end

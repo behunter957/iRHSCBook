@@ -7,10 +7,16 @@
 //
 
 #import "RHSCBookingsViewController.h"
+#import "RHSCTabBarController.h"
+#import "RHSCMyBookingsList.h"
+#import "RHSCCourtTime.h"
+#import "RHSCServer.h"
+#import "RHSCMember.h"
+#import "RHSCUser.h"
 
 @interface RHSCBookingsViewController ()
 
-@property (nonatomic, strong) NSMutableArray *bookingList;
+@property (nonatomic, strong) RHSCMyBookingsList *bookingList;
 
 @end
 
@@ -35,8 +41,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.bookingList = [[NSMutableArray alloc] init];
+    self.bookingList = [[RHSCMyBookingsList alloc] init];
     // now get the booking list for the current user
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,19 +65,29 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.bookingList.count;
+    return self.bookingList.bookingList.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyBookingCell" forIndexPath:indexPath];
     
     // Configure the cell...
+    RHSCCourtTime *ct = self.bookingList.bookingList[indexPath.row];
+    NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
+    [dtFormatter setDateFormat:@"EEE, MMMM d - h:mm a"];
     
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
+                           [dtFormatter stringFromDate:ct.courtTime]];
+    if ([ct.court isEqualToString:@"Court 5"]) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@,%@,%@,%@",@"Doubles",
+                                 [ct.players objectForKey:@"player1_id"],[ct.players objectForKey:@"player2_id"],[ct.players objectForKey:@"player3_id"],[ct.players objectForKey:@"player4_id"]];
+    } else {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@,%@",ct.event,
+                                     [ct.players objectForKey:@"player1_id"],[ct.players objectForKey:@"player2_id"]];
+    }
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.
