@@ -7,6 +7,7 @@
 //
 
 #import "RHSCBookingsViewController.h"
+#import "RHSCBookingDetailViewController.h"
 #import "RHSCTabBarController.h"
 #import "RHSCMyBookingsList.h"
 #import "RHSCCourtTime.h"
@@ -17,6 +18,7 @@
 @interface RHSCBookingsViewController ()
 
 @property (nonatomic, strong) RHSCMyBookingsList *bookingList;
+@property (nonatomic, strong) RHSCCourtTime *selectedBooking;
 
 @end
 
@@ -81,13 +83,34 @@
                            [dtFormatter stringFromDate:ct.courtTime]];
     if ([ct.court isEqualToString:@"Court 5"]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@,%@,%@,%@",@"Doubles",
-                                 [ct.players objectForKey:@"player1_id"],[ct.players objectForKey:@"player2_id"],[ct.players objectForKey:@"player3_id"],[ct.players objectForKey:@"player4_id"]];
+                                 [ct.players objectForKey:@"player1_lname"],[ct.players objectForKey:@"player2_lname"],[ct.players objectForKey:@"player3_lname"],[ct.players objectForKey:@"player4_lname"]];
     } else {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@,%@",ct.event,
-                                     [ct.players objectForKey:@"player1_id"],[ct.players objectForKey:@"player2_id"]];
+                                     [ct.players objectForKey:@"player1_lname"],[ct.players objectForKey:@"player2_lname"]];
     }
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
+    NSLog(@"Selected row : %d",row);
+    self.selectedBooking = self.bookingList.bookingList[indexPath.row];
+    NSString *segueName = @"BookingDetail";
+    [self performSegueWithIdentifier: segueName sender: self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    NSLog(@"segue: %@",segue.identifier);
+    if ([segue.identifier isEqualToString:@"BookingDetail"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setBooking:self.selectedBooking];
+    }
+}
+
 
 /*
 // Override to support conditional editing of the table view.

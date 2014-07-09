@@ -184,9 +184,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Dn2-hE-uzA" kind="push" identifier="BookingDetail" id="zCq-0h-oyg"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -195,10 +192,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Bookings" id="cI2-j0-4p3"/>
+                    <connections>
+                        <outlet property="tableView" destination="GvS-gf-9rh" id="Lvd-AZ-gbC"/>
+                        <segue destination="Dn2-hE-uzA" kind="push" identifier="BookingDetail" id="c3E-dF-B3k"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPX-5R-ZqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="364" y="1549"/>
+            <point key="canvasLocation" x="472" y="1549"/>
         </scene>
         <!--Reserve Doubles View Controller - Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
@@ -430,7 +431,7 @@
         <!--Booking Detail-->
         <scene sceneID="XbS-YL-lxl">
             <objects>
-                <viewController storyboardIdentifier="BookingDetail" title="Booking Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dn2-hE-uzA" userLabel="Booking Detail" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingDetail" title="Booking Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dn2-hE-uzA" userLabel="Booking Detail" customClass="RHSCBookingDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YTL-PN-taL"/>
                         <viewControllerLayoutGuide type="bottom" id="0at-h5-VhI"/>
@@ -452,25 +453,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-bi-j4b">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-bi-j4b" userLabel="Player 1">
                                 <rect key="frame" x="74" y="195" width="173" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4L-pC-kJB">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4L-pC-kJB">
                                 <rect key="frame" x="74" y="224" width="173" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ik5-bW-WC5">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ik5-bW-WC5" userLabel="Player 3">
                                 <rect key="frame" x="74" y="253" width="173" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxc-Ke-mvT">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxc-Ke-mvT" userLabel="Player 4">
                                 <rect key="frame" x="74" y="282" width="173" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -514,6 +515,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Booking" id="Ghf-mq-Yus"/>
+                    <connections>
+                        <outlet property="courtAndTime" destination="cOR-ep-Kvq" id="Iw2-st-IGp"/>
+                        <outlet property="eventLabel" destination="rda-yc-ufT" id="0eN-K9-8rU"/>
+                        <outlet property="player1Label" destination="R44-bi-j4b" id="NPo-jy-NLx"/>
+                        <outlet property="player2Label" destination="J4L-pC-kJB" id="WGu-eh-Z55"/>
+                        <outlet property="player3Label" destination="Ik5-bW-WC5" id="Upd-ux-foH"/>
+                        <outlet property="player4Label" destination="sxc-Ke-mvT" id="pFR-u7-chW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Umb-24-A4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

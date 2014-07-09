@@ -28,6 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = [NSString stringWithFormat:@"%@ %@",_member.firstName,_member.lastName];
+    
 }
 
 - (void)didReceiveMemoryWarning

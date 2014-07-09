@@ -182,19 +182,6 @@ shouldReloadTableForSearchString:(NSString *)searchText
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (searching) {
-        NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
-    } else {
-        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-        RHSCMemberList *ml = tbc.memberList;
-        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    }
-}
-
-
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
