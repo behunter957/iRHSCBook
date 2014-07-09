@@ -16,6 +16,7 @@
 - (void)loadFromJSON:(RHSCServer *)server user:(RHSCUser *)curUser {
     // Create a NSURLRequest with the given URL
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSMyBookingsJSON.php?uid=%@",curUser.data.name];
+    NSLog(@"fetch URL = %@",fetchURL);
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
