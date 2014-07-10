@@ -402,6 +402,7 @@
                     <connections>
                         <outlet property="searchDisplayController" destination="tDb-FN-5lk" id="FMe-FN-PXu"/>
                         <outlet property="tableView" destination="B1T-hP-T03" id="p3S-iy-Tqq"/>
+                        <segue destination="Ucl-ri-u0P" kind="push" identifier="MemberDetail" id="JgX-kW-eMA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -426,7 +427,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="364" y="2244"/>
+            <point key="canvasLocation" x="422" y="2385"/>
         </scene>
         <!--Booking Detail-->
         <scene sceneID="XbS-YL-lxl">
@@ -528,7 +529,7 @@
             </objects>
             <point key="canvasLocation" x="887" y="1663"/>
         </scene>
-        <!--Member Detail View Controller-->
+        <!--Member Detail View Controller - Member Name-->
         <scene sceneID="amI-V8-wWB">
             <objects>
                 <viewController storyboardIdentifier="Member Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ucl-ri-u0P" customClass="RHSCMemberDetailViewController" sceneMemberID="viewController">
@@ -539,13 +540,78 @@
                     <view key="view" contentMode="scaleToFill" id="ARA-yN-iTw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWp-5L-0jP">
+                                <rect key="frame" x="270" y="102" width="30" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Email">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3c9-lI-tbZ">
+                                <rect key="frame" x="231" y="187" width="30" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Phone">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv1-oF-k7U">
+                                <rect key="frame" x="268" y="186" width="30" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="SMS">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiM-WY-aZ5" userLabel="Email Address">
+                                <rect key="frame" x="20" y="103" width="242" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CT-Bz-C5k">
+                                <rect key="frame" x="20" y="149" width="203" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUk-Oz-5ae" userLabel="Phone 2">
+                                <rect key="frame" x="20" y="192" width="203" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jwI-Zu-fCc">
+                                <rect key="frame" x="231" y="144" width="30" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Phone">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eja-2m-NLS">
+                                <rect key="frame" x="268" y="143" width="30" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="SMS">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PXD-h6-kAJ"/>
+                    <navigationItem key="navigationItem" title="Member Name" id="PXD-h6-kAJ"/>
+                    <connections>
+                        <outlet property="emailBtn" destination="DWp-5L-0jP" id="0SE-6h-aFo"/>
+                        <outlet property="emailLabel" destination="eiM-WY-aZ5" id="eOb-UE-6Hj"/>
+                        <outlet property="ph1CallBtn" destination="jwI-Zu-fCc" id="5Gh-vo-qQ4"/>
+                        <outlet property="ph1SMSBtn" destination="Eja-2m-NLS" id="rNY-U1-tNb"/>
+                        <outlet property="ph2CallBtn" destination="3c9-lI-tbZ" id="rbf-Wa-xVK"/>
+                        <outlet property="ph2SMSBtn" destination="lv1-oF-k7U" id="Ho7-hi-G7L"/>
+                        <outlet property="phone1Label" destination="0CT-Bz-C5k" id="cnY-DK-M0y"/>
+                        <outlet property="phone2Label" destination="xUk-Oz-5ae" id="Yy1-AE-1iD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5zt-9F-DC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="2244"/>
+            <point key="canvasLocation" x="877" y="2396"/>
         </scene>
         <!--Navigation Controller - Members-->
         <scene sceneID="cEk-L8-WsX">

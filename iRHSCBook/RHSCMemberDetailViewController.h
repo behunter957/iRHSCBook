@@ -11,6 +11,15 @@
 
 @interface RHSCMemberDetailViewController : UIViewController
 
+@property (nonatomic,weak) IBOutlet UILabel *emailLabel;
+@property (nonatomic,weak) IBOutlet UILabel *phone1Label;
+@property (nonatomic,weak) IBOutlet UILabel *phone2Label;
+@property (nonatomic,weak) IBOutlet UIButton *emailBtn;
+@property (nonatomic,weak) IBOutlet UIButton *ph1SMSBtn;
+@property (nonatomic,weak) IBOutlet UIButton *ph1CallBtn;
+@property (nonatomic,weak) IBOutlet UIButton *ph2SMSBtn;
+@property (nonatomic,weak) IBOutlet UIButton *ph2CallBtn;
+
 @property (nonatomic, strong) RHSCMember* member;
 
 @end

@@ -18,6 +18,8 @@
 @property (nonatomic,weak) IBOutlet UITableView *searchResultsView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
+@property (nonatomic,strong) RHSCMember *selectedMember;
+
 @end
 
 @implementation RHSCMembersViewController
@@ -125,6 +127,21 @@ BOOL searching;
     NSLog(@"Email member: %@",member.name);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = indexPath.row;
+    NSLog(@"Selected row : %d",row);
+    NSString *segueName = @"MemberDetail";
+    if (searching) {
+        self.selectedMember = self.filteredList[row];
+    } else {
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        self.selectedMember = ml.memberList[row];
+    }
+    [self performSegueWithIdentifier: segueName sender: self];
+}
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -132,12 +149,7 @@ BOOL searching;
     // Pass the selected object to the new view controller.
     NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"MemberDetail"]) {
-        // set the selectedCourtTime record
-        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-        RHSCMemberList *ml = tbc.memberList;
-        RHSCMember *member = ml.memberList[selectedIndexPath.row];
-        [[segue destinationViewController] setMember:member];
+        [[segue destinationViewController] setMember:self.selectedMember];
     }
 }
 

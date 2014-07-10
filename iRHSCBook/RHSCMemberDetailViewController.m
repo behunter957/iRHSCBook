@@ -28,7 +28,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = [NSString stringWithFormat:@"%@ %@",_member.firstName,_member.lastName];
-    
+    self.emailLabel.text = @"";
+    self.emailBtn.hidden = YES;
+    if (_member.email != (NSString *)[NSNull null]) {
+        if (![_member.email isEqualToString:@"NULL"]) {
+            self.emailLabel.text = _member.email;
+            self.emailBtn.hidden = NO;
+        }
+    }
+    self.phone1Label.text = @"";
+    self.ph1SMSBtn.hidden = YES;
+    self.ph1CallBtn.hidden = YES;
+    if (_member.phone1 != (NSString *)[NSNull null]) {
+        if (![_member.phone1 isEqualToString:@"NULL"]) {
+            self.phone1Label.text = _member.phone1;
+            self.ph1SMSBtn.hidden = NO;
+            self.ph1CallBtn.hidden = NO;
+        }
+    }
+    self.phone2Label.text = @"";
+    self.ph2SMSBtn.hidden = YES;
+    self.ph2CallBtn.hidden = YES;
+    if (_member.phone2 != (NSString *)[NSNull null]) {
+        if (![_member.phone2 isEqualToString:@"NULL"]) {
+            self.phone2Label.text = _member.phone2;
+            self.ph2SMSBtn.hidden = NO;
+            self.ph2CallBtn.hidden = NO;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
