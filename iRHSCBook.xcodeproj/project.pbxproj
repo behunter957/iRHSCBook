@@ -11,6 +11,7 @@
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
 		4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F1D196CC4610015BB52 /* RHSCMyBookingsList.m */; };
 		4AD36F21196DE2F80015BB52 /* RHSCBookingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */; };
+		4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD36F27196FF22A0015BB52 /* MessageUI.framework */; };
 		4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD41961AFCC00665999 /* RHSCMember.m */; };
 		4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD71961AFF600665999 /* RHSCCourtTime.m */; };
 		4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDA1961B0BF00665999 /* RHSCServer.m */; };
@@ -57,6 +58,7 @@
 		4AD36F1D196CC4610015BB52 /* RHSCMyBookingsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMyBookingsList.m; sourceTree = "<group>"; };
 		4AD36F1F196DE2F80015BB52 /* RHSCBookingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCBookingDetailViewController.h; sourceTree = "<group>"; };
 		4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCBookingDetailViewController.m; sourceTree = "<group>"; };
+		4AD36F27196FF22A0015BB52 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4AFD3DD31961AFCC00665999 /* RHSCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMember.h; sourceTree = "<group>"; };
 		4AFD3DD41961AFCC00665999 /* RHSCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMember.m; sourceTree = "<group>"; };
 		4AFD3DD61961AFF600665999 /* RHSCCourtTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTime.h; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */,
 				ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */,
 				ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */,
 				ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */,
@@ -219,6 +222,7 @@
 		ACAC3382195EF27F00F7562F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4AD36F27196FF22A0015BB52 /* MessageUI.framework */,
 				ACAC3383195EF27F00F7562F /* Foundation.framework */,
 				ACAC3385195EF27F00F7562F /* CoreGraphics.framework */,
 				ACAC3387195EF27F00F7562F /* UIKit.framework */,

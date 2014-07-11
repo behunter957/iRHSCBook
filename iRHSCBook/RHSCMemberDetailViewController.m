@@ -56,6 +56,9 @@
             self.ph2CallBtn.hidden = NO;
         }
     }
+    self.memberMessage.layer.borderWidth = 5.0f;
+    self.memberMessage.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.memberMessage.layer.cornerRadius = 8;
 }
 
 - (void)didReceiveMemoryWarning

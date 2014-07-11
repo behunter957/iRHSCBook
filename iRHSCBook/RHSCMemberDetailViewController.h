@@ -19,6 +19,7 @@
 @property (nonatomic,weak) IBOutlet UIButton *ph1CallBtn;
 @property (nonatomic,weak) IBOutlet UIButton *ph2SMSBtn;
 @property (nonatomic,weak) IBOutlet UIButton *ph2CallBtn;
+@property (nonatomic,weak) IBOutlet UITextView *memberMessage;
 
 @property (nonatomic, strong) RHSCMember* member;
 
