@@ -19,6 +19,7 @@
 		4AFD3DE11961B54600665999 /* RHSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE01961B54600665999 /* RHSCUser.m */; };
 		4AFD3DE41961BBF000665999 /* RHSCFindMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */; };
 		4AFD3DED1961EA7500665999 /* RHSCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */; };
+		AC4B31171971536D00B5E2E7 /* RHSCLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4B31161971536D00B5E2E7 /* RHSCLaunchViewController.m */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
@@ -73,6 +74,8 @@
 		4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCFindMemberViewController.m; sourceTree = "<group>"; };
 		4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCTabBarController.h; sourceTree = "<group>"; };
 		4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCTabBarController.m; sourceTree = "<group>"; };
+		AC4B31151971536D00B5E2E7 /* RHSCLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCLaunchViewController.h; sourceTree = "<group>"; };
+		AC4B31161971536D00B5E2E7 /* RHSCLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCLaunchViewController.m; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC3383195EF27F00F7562F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACAC3385195EF27F00F7562F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 			children = (
 				4AFD3DEB1961EA7500665999 /* RHSCTabBarController.h */,
 				4AFD3DEC1961EA7500665999 /* RHSCTabBarController.m */,
+				AC4B31151971536D00B5E2E7 /* RHSCLaunchViewController.h */,
+				AC4B31161971536D00B5E2E7 /* RHSCLaunchViewController.m */,
 				4AD36F26196FE5A30015BB52 /* Members */,
 				4AD36F25196FE59B0015BB52 /* Bookings */,
 				4AD36F24196FE5870015BB52 /* Courts */,
@@ -382,6 +387,7 @@
 				ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */,
 				4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */,
 				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
+				AC4B31171971536D00B5E2E7 /* RHSCLaunchViewController.m in Sources */,
 				ACAC3390195EF27F00F7562F /* main.m in Sources */,
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
 				4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */,

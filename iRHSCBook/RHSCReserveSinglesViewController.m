@@ -39,6 +39,7 @@
     self.courtDate.text = [dateFormat stringFromDate:self.courtTimeRecord.courtTime];
     
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
+    
     NSString *courtType = @"Front";
     if ([self.courtTimeRecord.court isEqualToString:@"Court 1"] || [self.courtTimeRecord.court isEqualToString:@"Court 2"])
     {
@@ -47,16 +48,22 @@
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
 }
 
+- (IBAction) cancel
+{
+    NSLog(@"exiting ReserveSingles");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction) book
+{
+    NSLog(@"booking singles court and exiting ReserveSingles");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction) cancel
-{
-    NSLog(@"exiting ReserveSingles");
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

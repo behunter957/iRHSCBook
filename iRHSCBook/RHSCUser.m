@@ -13,9 +13,12 @@
 @property (nonatomic, strong) NSString *userid;
 @property (nonatomic, strong) NSString *password;
 
+
 @end
 
 @implementation RHSCUser
+
+BOOL loggedOn = NO;
 
 -(id)initFromServer:(RHSCServer *)srvr userid:(NSString *)uid password:(NSString *)pwd
 {
@@ -47,9 +50,15 @@
     // Iterate through the array of dictionaries
     for(NSDictionary *dict in array) {
         // Create a new Location object for each one and initialise it with information in the dictionary
+        loggedOn = YES;
         return [[RHSCMember alloc] initWithJSONDictionary:dict];
     }
     return nil;
+}
+
+-(BOOL)isLoggedOn
+{
+    return loggedOn;
 }
 
 @end
