@@ -7,6 +7,7 @@
 //
 
 #import "RHSCMemberDetailViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @interface RHSCMemberDetailViewController ()
 
@@ -56,9 +57,141 @@
             self.ph2CallBtn.hidden = NO;
         }
     }
-    self.memberMessage.layer.borderWidth = 5.0f;
-    self.memberMessage.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.memberMessage.layer.cornerRadius = 8;
+}
+
+- (IBAction)emailMember:(id)sender {
+    if ([MFMailComposeViewController canSendMail])
+    {
+        // Email Subject
+        NSString *emailTitle = @"";
+        // Email Content
+        NSString *messageBody = @"";
+        // To address
+        NSArray *toRecipents = [NSArray arrayWithObject:[self.member email]];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send email"
+                                                        message:@"Cannot email from this device"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)phone1Member:(id)sender {
+    NSLog(@"Phoning using number 1");
+    NSString *cleanedString = [[[self.member phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:cleanedString];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:phoneNumber]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot place call"
+                                                        message:@"Cannot phone from this device"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+}
+
+- (IBAction)phone2Member:(id)sender {
+    NSLog(@"Phoning using number 2");
+    NSString *cleanedString = [[[self.member phone2] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:cleanedString];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:phoneNumber]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot place call"
+                                                        message:@"Cannot phone from this device"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+}
+
+- (IBAction)sms1Member:(id)sender {
+	MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    NSLog(@"Sending SMS using number 1");
+    NSString *cleanedString = [[[self.member phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+	if([MFMessageComposeViewController canSendText])
+	{
+		controller.body = @"";
+		controller.recipients = [NSArray arrayWithObject:cleanedString];
+		controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:NULL];
+	}
+}
+
+- (IBAction)sms2Member:(id)sender {
+	MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    NSLog(@"Sending SMS using number 2");
+    NSString *cleanedString = [[[self.member phone2] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+	if([MFMessageComposeViewController canSendText])
+	{
+		controller.body = @"";
+		controller.recipients = [NSArray arrayWithObject:cleanedString];
+		controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:NULL];
+	}
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+	switch (result) {
+		case MessageComposeResultCancelled:
+			NSLog(@"Cancelled");
+			break;
+		case MessageComposeResultFailed: {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send message"
+                                                            message:@"Cannot SMS from this device"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+			break;
+        }
+		case MessageComposeResultSent:
+			break;
+		default:
+			break;
+	}
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "RHSCMember.h"
 
-@interface RHSCMemberDetailViewController : UIViewController
+@interface RHSCMemberDetailViewController : UIViewController <MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
 
 @property (nonatomic,weak) IBOutlet UILabel *emailLabel;
 @property (nonatomic,weak) IBOutlet UILabel *phone1Label;
@@ -19,8 +20,9 @@
 @property (nonatomic,weak) IBOutlet UIButton *ph1CallBtn;
 @property (nonatomic,weak) IBOutlet UIButton *ph2SMSBtn;
 @property (nonatomic,weak) IBOutlet UIButton *ph2CallBtn;
-@property (nonatomic,weak) IBOutlet UITextView *memberMessage;
 
 @property (nonatomic, strong) RHSCMember* member;
+
+-(IBAction)emailMember:(id)sender;
 
 @end
