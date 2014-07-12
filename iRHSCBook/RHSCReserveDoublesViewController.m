@@ -12,6 +12,10 @@
 
 @interface RHSCReserveDoublesViewController ()
 
+@property (nonatomic,strong) RHSCMember *player2Member;
+@property (nonatomic,strong) RHSCMember *player3Member;
+@property (nonatomic,strong) RHSCMember *player4Member;
+
 @end
 
 @implementation RHSCReserveDoublesViewController
@@ -51,6 +55,7 @@
 - (IBAction) book
 {
     NSLog(@"booking doubles court and exiting ReserveDoubles");
+    [self bookCourt];
     [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -74,12 +79,15 @@
 {
     NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
     if (playerNumber.intValue == 2) {
+        self.player2Member = setPlayer;
         [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
     }
     if (playerNumber.intValue == 3) {
+        self.player3Member = setPlayer;
         [self.player3Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
     }
     if (playerNumber.intValue == 4) {
+        self.player4Member = setPlayer;
         [self.player4Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
     }
 }
@@ -119,6 +127,35 @@
     NSURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
     //TODO handle error in locking
+}
+
+-(void)bookCourt
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@",[self.courtTimeRecord bookingId],
+                          tbc.currentUser.data.name,
+                          self.player2Member.name,
+                          self.player3Member.name,
+                          self.player4Member.name,
+                          tbc.currentUser.data.name,@"iPhone",
+                          @"",@"",@"",
+                          @"",@"",@"",
+                          @"",@"",@""
+                          ];
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Get an array of dictionaries with the key "locations"
+    // NSArray *array = [jsonDictionary objectForKey:@"user"];
+    NSLog(@"%@",jsonDictionary);
 }
 
 

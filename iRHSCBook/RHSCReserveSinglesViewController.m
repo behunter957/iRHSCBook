@@ -13,6 +13,8 @@
 
 @interface RHSCReserveSinglesViewController ()
 
+@property (nonatomic,strong) RHSCMember *player2Member;
+
 @end
 
 @implementation RHSCReserveSinglesViewController
@@ -87,6 +89,7 @@
 -(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
 {
     NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+    self.player2Member = setPlayer;
     [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
 }
 
@@ -122,8 +125,8 @@
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@",[self.courtTimeRecord bookingId],
-                          [[self.courtTimeRecord players] objectForKey:@"player1_id"],
-                          [[self.courtTimeRecord players] objectForKey:@"player2_id"],@"",@"",
+                          tbc.currentUser.data.name,
+                          self.player2Member.name,@"",@"",
                           tbc.currentUser.data.name,@"iPhone",
                           @"",@"",@"",
                           @"",@"",@"",
