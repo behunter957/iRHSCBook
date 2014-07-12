@@ -148,6 +148,7 @@
         [[segue destinationViewController] setIncludeInd:self.includeInd];
     }
     if ([segue.identifier isEqualToString:@"ReserveSingles"]) {
+        // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
     }
