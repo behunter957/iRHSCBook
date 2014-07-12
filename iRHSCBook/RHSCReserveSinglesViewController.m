@@ -51,12 +51,15 @@
 - (IBAction) cancel
 {
     NSLog(@"exiting ReserveSingles");
+    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) book
 {
     NSLog(@"booking singles court and exiting ReserveSingles");
+    [self bookCourt];
+    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -99,7 +102,48 @@
     }
 }
 
+-(void)unlockBooking
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
+    NSLog(@"%@",data);
+}
 
+-(void)bookCourt
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@",[self.courtTimeRecord bookingId],
+                          [[self.courtTimeRecord players] objectForKey:@"player1_id"],
+                          [[self.courtTimeRecord players] objectForKey:@"player2_id"],@"",@"",
+                          tbc.currentUser.data.name,@"iPhone",
+                          @"",@"",@"",
+                          @"",@"",@"",
+                          @"",@"",@""
+                          ];
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Get an array of dictionaries with the key "locations"
+    // NSArray *array = [jsonDictionary objectForKey:@"user"];
+    NSLog(@"%@",jsonDictionary);
+}
 
 /*
 #pragma mark - Navigation

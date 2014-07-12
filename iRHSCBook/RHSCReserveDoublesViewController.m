@@ -44,12 +44,14 @@
 - (IBAction) cancel
 {
     NSLog(@"exiting ReserveDoubles");
+    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) book
 {
     NSLog(@"booking doubles court and exiting ReserveDoubles");
+    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -102,6 +104,21 @@
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:4]];
     }
+}
+
+-(void)unlockBooking
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
 }
 
 

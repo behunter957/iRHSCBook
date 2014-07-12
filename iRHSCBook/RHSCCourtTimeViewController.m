@@ -124,6 +124,21 @@
     NSInteger row = indexPath.row;
     NSLog(@"Selected row : %d",row);
     self.selectedCourtTime = self.courtTimes[indexPath.row];
+    // lock the booking
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCUser *curUser = tbc.currentUser;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
+    
+    // determine the correct view to navigate to
     NSString *segueName = @"ReserveSingles";
     if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Court 5"])
     {
