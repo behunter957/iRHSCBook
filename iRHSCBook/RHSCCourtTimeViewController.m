@@ -125,7 +125,7 @@
     NSLog(@"Selected row : %d",row);
     self.selectedCourtTime = self.courtTimes[indexPath.row];
     NSString *segueName = @"ReserveSingles";
-    if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Doubles"])
+    if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Court 5"])
     {
         segueName = @"ReserveDoubles";
     }

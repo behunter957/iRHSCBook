@@ -26,31 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
-    if(!settingsBundle) {
-        NSLog(@"Could not find Settings.bundle");
-        return;
-    }
-    
-    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:[settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
-    NSArray *preferences = [settings objectForKey:@"PreferenceSpecifiers"];
-    
-    NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
-    for(NSDictionary *prefSpecification in preferences) {
-        NSString *key = [prefSpecification objectForKey:@"Key"];
-        if(key) {
-            [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
-        }
-    }
-    
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
-    NSUserDefaults *defaults = [NSUserDefaults  standardUserDefaults];
-    
-    NSLog(@"URL = %@",[defaults stringForKey:@"RHSCServerURL"]);
-    NSLog(@"UserID = %@",[defaults stringForKey:@"RHSCUserID"]);
-    NSLog(@"Password = %@",[defaults stringForKey:@"RHSCPassword"]);
-    self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
-    self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
     self.memberList = [[RHSCMemberList alloc] init];
     [self.memberList loadFromJSON:self.server];
 }

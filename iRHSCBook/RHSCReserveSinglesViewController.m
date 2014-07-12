@@ -39,6 +39,7 @@
     self.courtDate.text = [dateFormat stringFromDate:self.courtTimeRecord.courtTime];
     
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
+    
     NSString *courtType = @"Front";
     if ([self.courtTimeRecord.court isEqualToString:@"Court 1"] || [self.courtTimeRecord.court isEqualToString:@"Court 2"])
     {
