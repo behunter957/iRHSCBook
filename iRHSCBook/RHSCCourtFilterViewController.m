@@ -49,7 +49,7 @@
             self.setSegCtl.selectedSegmentIndex = i;
         }
     }
-    self.includeSwitch.on = (self.includeInd.intValue > 0);
+    self.includeSwitch.on = [self.includeInd isEqualToString:@"YES"];
     
     NSMutableArray *dateList = [[NSMutableArray alloc] init];
     NSDate *curDate = [NSDate date];
@@ -112,6 +112,7 @@
         NSLog(@"popping ChangeSeletion");
         [delegate setSetSelection:self.pickedSet];
         [delegate setDateSelection:self.pickedDate];
+        [delegate setInclude:self.switchState.text];
         [self.navigationController popViewControllerAnimated:NO];
     }
     [super viewWillDisappear:animated];

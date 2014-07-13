@@ -12,6 +12,7 @@
 
 -(void)setSetSelection:(NSString *)setSelection;
 -(void)setDateSelection:(NSDate *)setDate;
+-(void)setInclude:(NSString *)setSwitch;
 
 @end
 
@@ -25,7 +26,7 @@
 @property (nonatomic, strong) NSArray *datePickerArray;
 @property (nonatomic, strong) NSDate* selectionDate;
 @property (nonatomic, strong) NSString* selectionSet;
-@property (nonatomic, strong) NSNumber* includeInd;
+@property (nonatomic, strong) NSString* includeInd;
 
 @property (nonatomic,assign) id delegate;
 
