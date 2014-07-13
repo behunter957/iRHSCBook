@@ -11,6 +11,7 @@
 #import "RHSCCourtFilterViewController.h"
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCReserveDoublesViewController.h"
+#import "RHSCBookingDetailViewController.h"
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
 
@@ -146,6 +147,9 @@
             segueName = @"ReserveDoubles";
         }
         [self performSegueWithIdentifier: segueName sender: self];
+    } else {
+        NSString *segueName = @"CancelFromAvailable";
+        [self performSegueWithIdentifier: segueName sender: self];
     }
 }
 
@@ -172,6 +176,10 @@
     if ([segue.identifier isEqualToString:@"ReserveDoubles"]) {
         // set the selectedCourtTime record
         [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
+    }
+    if ([segue.identifier isEqualToString:@"CancelFromAvailable"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setBooking:self.selectedCourtTime];
     }
 }
 

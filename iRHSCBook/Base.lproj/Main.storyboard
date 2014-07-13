@@ -87,11 +87,12 @@
                     <connections>
                         <segue destination="PeM-PD-Smf" kind="push" identifier="ReserveDoubles" id="vvn-Ha-0Fc"/>
                         <segue destination="5GM-gx-kgf" kind="push" identifier="ReserveSingles" id="yZ2-A6-zmk"/>
+                        <segue destination="Dn2-hE-uzA" kind="push" identifier="CancelFromAvailable" id="vhh-Zx-dhL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-88" y="-838"/>
+            <point key="canvasLocation" x="-260" y="710"/>
         </scene>
         <!--Court Filter View Controller - Selection-->
         <scene sceneID="ys9-Rc-sAI">
@@ -845,6 +846,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="vhh-Zx-dhL"/>
         <segue reference="yl4-I3-O3p"/>
     </inferredMetricsTieBreakers>
 </document>
