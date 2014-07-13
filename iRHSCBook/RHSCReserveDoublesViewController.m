@@ -37,7 +37,17 @@
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder", nil];
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     self.userLabel.text = [NSString stringWithFormat:@"%@ %@",tbc.currentUser.data.firstName,tbc.currentUser.data.lastName];
-    }
+}
+
+@synthesize delegate;
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self unlockBooking];
+    [delegate refreshTable];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -48,7 +58,6 @@
 - (IBAction) cancel
 {
     NSLog(@"exiting ReserveDoubles");
-    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -56,8 +65,6 @@
 {
     NSLog(@"booking doubles court and exiting ReserveDoubles");
     [self bookCourt];
-    [self unlockBooking];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -156,9 +163,18 @@
     // Get an array of dictionaries with the key "locations"
     // NSArray *array = [jsonDictionary objectForKey:@"user"];
     NSLog(@"%@",jsonDictionary);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                    message:@"Court time successfully booked. Notices will be sent to all players"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 /*
 #pragma mark - Navigation

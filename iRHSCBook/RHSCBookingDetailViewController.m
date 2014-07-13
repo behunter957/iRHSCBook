@@ -92,6 +92,54 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)cancelBooking:(id)sender {
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString * fetchURL = nil;
+    if ([self.booking.court isEqualToString:@"Court 5"]) {
+        fetchURL = [NSString stringWithFormat:@"Reserve/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",[self.booking bookingId],
+                    tbc.currentUser.data.name,
+                    [[self.booking players] objectForKey:@"player2_id"],
+                    [[self.booking players] objectForKey:@"player3_id"],
+                    [[self.booking players] objectForKey:@"player4_id"],
+                    tbc.currentUser.data.name,@"iPhone"
+                    ];
+    } else {
+        fetchURL = [NSString stringWithFormat:@"Reserve/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",[self.booking bookingId],
+                          tbc.currentUser.data.name,
+                          [[self.booking players] objectForKey:@"player2_id"],@"",@"",
+                          tbc.currentUser.data.name,@"iPhone"
+                          ];
+    }
+    
+    NSLog(@"fetch URL = %@",fetchURL);
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
+    // Get the data
+    NSURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    //TODO handle error in locking
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Get an array of dictionaries with the key "locations"
+    // NSArray *array = [jsonDictionary objectForKey:@"user"];
+    NSLog(@"%@",jsonDictionary);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                    message:@"Booking successfully cancelled. Notices will be sent to all players"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+@synthesize delegate;
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [delegate refreshTable];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 /*
 #pragma mark - Navigation
 

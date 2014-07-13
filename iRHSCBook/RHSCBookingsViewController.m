@@ -15,7 +15,7 @@
 #import "RHSCMember.h"
 #import "RHSCUser.h"
 
-@interface RHSCBookingsViewController ()
+@interface RHSCBookingsViewController () <cancelBookingProtocol>
 
 @property (nonatomic, strong) RHSCMyBookingsList *bookingList;
 @property (nonatomic, strong) RHSCCourtTime *selectedBooking;
@@ -43,11 +43,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [self refreshTable];
+}
+
+-(void)refreshTable
+{
     self.bookingList = [[RHSCMyBookingsList alloc] init];
     // now get the booking list for the current user
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
-    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,6 +112,7 @@
     NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"BookingDetail"]) {
         // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setBooking:self.selectedBooking];
     }
 }

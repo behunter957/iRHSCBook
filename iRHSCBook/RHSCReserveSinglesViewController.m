@@ -12,7 +12,6 @@
 #import "RHSCMember.h"
 
 @interface RHSCReserveSinglesViewController ()
-
 @property (nonatomic,strong) RHSCMember *player2Member;
 
 @end
@@ -50,10 +49,18 @@
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
 }
 
+@synthesize delegate;
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self unlockBooking];
+    [delegate refreshTable];
+}
+
 - (IBAction) cancel
 {
     NSLog(@"exiting ReserveSingles");
-    [self unlockBooking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -61,8 +68,7 @@
 {
     NSLog(@"booking singles court and exiting ReserveSingles");
     [self bookCourt];
-    [self unlockBooking];
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,7 +124,7 @@
     NSURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
     //TODO handle error in locking
-    NSLog(@"%@",data);
+    //NSLog(@"%@",data);
 }
 
 -(void)bookCourt
@@ -146,8 +152,18 @@
     // Get an array of dictionaries with the key "locations"
     // NSArray *array = [jsonDictionary objectForKey:@"user"];
     NSLog(@"%@",jsonDictionary);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                    message:@"Court time successfully booked. Notices will be sent to all players"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 /*
 #pragma mark - Navigation
 

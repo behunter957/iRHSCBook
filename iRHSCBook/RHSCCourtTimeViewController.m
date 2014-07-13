@@ -8,14 +8,10 @@
 
 #import "RHSCCourtTimeViewController.h"
 #import "RHSCTabBarController.h"
-#import "RHSCCourtFilterViewController.h"
-#import "RHSCReserveSinglesViewController.h"
-#import "RHSCReserveDoublesViewController.h"
-#import "RHSCBookingDetailViewController.h"
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
 
-@interface RHSCCourtTimeViewController ()
+@interface RHSCCourtTimeViewController () 
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *headerButton;
 
@@ -82,6 +78,11 @@
 - (void)didReceiveMemoryWarning
 {    [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)unwindFromReserve:(UIStoryboardSegue *)segue
+{
+    NSLog(@"returning from Reserve");
 }
 
 #pragma mark - Table view data source
@@ -171,14 +172,17 @@
     if ([segue.identifier isEqualToString:@"ReserveSingles"]) {
         // lock the court
         // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
     }
     if ([segue.identifier isEqualToString:@"ReserveDoubles"]) {
         // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
     }
     if ([segue.identifier isEqualToString:@"CancelFromAvailable"]) {
         // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setBooking:self.selectedCourtTime];
     }
 }

@@ -10,6 +10,12 @@
 #import "RHSCUser.h"
 #import "RHSCCourtTime.h"
 
+@protocol cancelBookingProtocol <NSObject>
+
+-(void)refreshTable;
+
+@end
+
 @interface RHSCBookingDetailViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *courtAndTime;
@@ -21,5 +27,7 @@
 
 @property (nonatomic,strong) RHSCUser *user;
 @property (nonatomic,strong) RHSCCourtTime *booking;
+
+@property (nonatomic,assign) id delegate;
 
 @end

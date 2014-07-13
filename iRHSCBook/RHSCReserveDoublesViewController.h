@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "RHSCCourtTime.h"
 
+@protocol reserveDoublesProtocol <NSObject>
+
+-(void)refreshTable;
+
+@end
+
 @interface RHSCReserveDoublesViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIPickerView *typePicker;
@@ -21,5 +27,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *userLabel;
 @property (nonatomic, strong) NSArray *typeList;
 @property (nonatomic, strong) RHSCCourtTime* courtTimeRecord;
+
+@property (nonatomic,assign) id delegate;
 
 @end
