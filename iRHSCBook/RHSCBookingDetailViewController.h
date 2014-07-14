@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "RHSCUser.h"
 #import "RHSCCourtTime.h"
 
@@ -16,7 +17,7 @@
 
 @end
 
-@interface RHSCBookingDetailViewController : UIViewController
+@interface RHSCBookingDetailViewController : UIViewController <MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *courtAndTime;
 @property (nonatomic, weak) IBOutlet UILabel *eventLabel;

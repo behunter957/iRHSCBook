@@ -13,10 +13,13 @@
 
 @interface RHSCReserveSinglesViewController ()
 @property (nonatomic,strong) RHSCMember *player2Member;
+@property (nonatomic,strong) UIAlertView *successAlert;
+@property (nonatomic,strong) UIAlertView *errorAlert;
 
 @end
 
 @implementation RHSCReserveSinglesViewController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -122,9 +125,7 @@
                                          timeoutInterval:30.0];
     // Get the data
     NSURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    //TODO handle error in locking
-    //NSLog(@"%@",data);
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
 }
 
 -(void)bookCourt
@@ -145,24 +146,45 @@
                                          timeoutInterval:30.0];
     // Get the data
     NSURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     //TODO handle error in locking
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    // Get an array of dictionaries with the key "locations"
-    // NSArray *array = [jsonDictionary objectForKey:@"user"];
-    NSLog(@"%@",jsonDictionary);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
-                                                    message:@"Court time successfully booked. Notices will be sent to all players"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+    if (error == nil) {
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if ([jsonDictionary objectForKey:@"error"] == nil) {
+            
+            // Get an array of dictionaries with the key "locations"
+            // NSArray *array = [jsonDictionary objectForKey:@"user"];
+            NSLog(@"%@",jsonDictionary);
+            self.successAlert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                            message:@"Court time successfully booked. Notices will be sent to all players"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [self.successAlert show];
+        } else {
+            self.errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:[jsonDictionary objectForKey:@"error"]
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [self.errorAlert show];
+        }
+    } else {
+        self.errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                message:[error localizedDescription]
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+        [self.errorAlert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (alertView == self.successAlert) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 /*
 #pragma mark - Navigation

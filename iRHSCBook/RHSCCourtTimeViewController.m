@@ -21,7 +21,8 @@
 @property (nonatomic, strong) NSMutableArray* courtTimes;
 @property (nonatomic, strong) NSString* includeInd;
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
-
+@property (nonatomic,strong) UIAlertView *successAlert;
+@property (nonatomic,strong) UIAlertView *errorAlert;
 @end
 
 @implementation RHSCCourtTimeViewController
@@ -112,6 +113,11 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
                            [dtFormatter stringFromDate:ct.courtTime]];
     cell.detailTextLabel.text = ct.status;
+    if ([ct.status isEqualToString:@"Booked"]) {
+        cell.detailTextLabel.textColor = [UIColor redColor];
+    } else {
+        cell.detailTextLabel.textColor = [UIColor blueColor];
+    }
     return cell;
 }
 
@@ -119,6 +125,13 @@
 - (IBAction)changeFilter:(id)sender
 {
     NSLog(@"filter button pushed");
+}
+
+- (IBAction)syncCourts:(id)sender
+{
+    [self.refreshControl endRefreshing];
+    [self loadSelectedCourtTimes];
+    [self.tableView reloadData];    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,20 +151,45 @@
                                              timeoutInterval:30.0];
         // Get the data
         NSURLResponse *response;
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         //TODO handle error in locking
-        
-        // determine the correct view to navigate to
-        NSString *segueName = @"ReserveSingles";
-        if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Court 5"])
-        {
-            segueName = @"ReserveDoubles";
+        if (error == nil) {
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if ([jsonDictionary objectForKey:@"error"] == nil) {
+                // determine the correct view to navigate to
+                NSString *segueName = @"ReserveSingles";
+                if ([[self.courtTimes[indexPath.row] court] isEqualToString:@"Court 5"])
+                {
+                    segueName = @"ReserveDoubles";
+                }
+                [self performSegueWithIdentifier: segueName sender: self];
+            } else {
+                self.errorAlert = [[UIAlertView alloc] initWithTitle:@"Error locking the booking"
+                                                             message:[jsonDictionary objectForKey:@"error"]
+                                                            delegate:self
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles:nil];
+                [self.errorAlert show];
+            }
+            // check for an error return
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network error"
+                                                            message:@"Unable to lock the court"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
         }
-        [self performSegueWithIdentifier: segueName sender: self];
     } else {
         NSString *segueName = @"CancelFromAvailable";
         [self performSegueWithIdentifier: segueName sender: self];
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 #pragma mark - Navigation
@@ -212,7 +250,7 @@
 -(void)refreshLeftBarButton
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEEE, MMMM d"];
+    [dateFormat setDateFormat:@"EEE, MMM d"];
     
     NSString *fmtStr = @"%@ courts for %@";
     if ([self.selectionSet isEqualToString:@"Doubles"]) {

@@ -7,6 +7,7 @@
 //
 
 #import "RHSCBookingDetailViewController.h"
+#import <MessageUI/MessageUI.h>
 #import "RHSCTabBarController.h"
 #import "RHSCCourtTime.h"
 #import "RHSCMemberList.h"
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) RHSCMember *player2;
 @property (nonatomic, strong) RHSCMember *player3;
 @property (nonatomic, strong) RHSCMember *player4;
+@property (nonatomic,strong) UIAlertView *successAlert;
+@property (nonatomic,strong) UIAlertView *errorAlert;
 
 @end
 
@@ -118,28 +121,173 @@
                                          timeoutInterval:30.0];
     // Get the data
     NSURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    //TODO handle error in locking
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    // Get an array of dictionaries with the key "locations"
-    // NSArray *array = [jsonDictionary objectForKey:@"user"];
-    NSLog(@"%@",jsonDictionary);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success"
-                                                    message:@"Booking successfully cancelled. Notices will be sent to all players"
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if (error == nil) {
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if ([jsonDictionary objectForKey:@"error"] == nil) {
+            
+            // Get an array of dictionaries with the key "locations"
+            // NSArray *array = [jsonDictionary objectForKey:@"user"];
+            NSLog(@"%@",jsonDictionary);
+            self.successAlert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                      message:@"Booking successfully cancelled. Notices will be sent to all players"
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+            [self.successAlert show];
+        } else {
+            self.errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:[jsonDictionary objectForKey:@"error"]
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-    [alert show];
+            [self.errorAlert show];
+        }
+    } else {
+        self.errorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                message:[error localizedDescription]
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+        [self.errorAlert show];
+    }
 }
 
 @synthesize delegate;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [delegate refreshTable];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (alertView == self.successAlert) {
+        [delegate refreshTable];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
+
+- (IBAction)emailPlayers:(id)sender {
+    if ([MFMailComposeViewController canSendMail])
+    {
+        RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+        RHSCMemberList *ml = tbc.memberList;
+        // Email Subject
+        NSString *emailTitle = @"";
+        // Email Content
+        NSString *messageBody = @"";
+        // To address
+        
+        NSArray *toRecipents = [NSArray arrayWithObjects:[self.booking.players objectForKey:@"player1_id"],[self.booking.players objectForKey:@"player2_id"],[self.booking.players objectForKey:@"player3_id"],[self.booking.players objectForKey:@"player4_id"],nil];
+        NSMutableArray *emailAddresses = [[NSMutableArray alloc] init];
+        for (NSString *playerId in toRecipents) {
+            for (RHSCMember *mem in ml.memberList) {
+                if ([mem.name isEqualToString:playerId]) {
+                    if (mem.email != nil) {
+                        if (![mem.email isEqualToString:@"NULL"]) {
+                            if (![mem.name isEqualToString:tbc.currentUser.data.name]) {
+                                [emailAddresses addObject:mem.email];
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:emailAddresses];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send email"
+                                                        message:@"Cannot email from this device"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)smsPlayers:(id)sender {
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCMemberList *ml = tbc.memberList;
+	MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+	if([MFMessageComposeViewController canSendText])
+	{
+        NSArray *toRecipents = [NSArray arrayWithObjects:[self.booking.players objectForKey:@"player1_id"],[self.booking.players objectForKey:@"player2_id"],[self.booking.players objectForKey:@"player3_id"],[self.booking.players objectForKey:@"player4_id"],nil];
+        NSMutableArray *phoneNumbers = [[NSMutableArray alloc] init];
+        for (NSString *playerId in toRecipents) {
+            for (RHSCMember *mem in ml.memberList) {
+                if ([mem.name isEqualToString:playerId]) {
+                    if (mem.phone1 != nil) {
+                        if (![mem.phone1 isEqualToString:@"NULL"]) {
+                            if (![mem.name isEqualToString:tbc.currentUser.data.name]) {
+                                NSString *cleanedString = [[[mem phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
+                                [phoneNumbers addObject:cleanedString];
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+		controller.body = @"";
+		controller.recipients = phoneNumbers;
+		controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:NULL];
+	}
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+	switch (result) {
+		case MessageComposeResultCancelled:
+			NSLog(@"Cancelled");
+			break;
+		case MessageComposeResultFailed: {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send SMS"
+                                                            message:@"Cannot message from this device"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+			break;
+        }
+		case MessageComposeResultSent:
+			break;
+		default:
+			break;
+	}
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
 /*
 #pragma mark - Navigation
 
