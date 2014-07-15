@@ -714,20 +714,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 1:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaP-KL-Gjc">
-                                <rect key="frame" x="20" y="105" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaP-KL-Gjc">
+                                <rect key="frame" x="20" y="105" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHD-d5-9hX">
-                                <rect key="frame" x="111" y="105" width="181" height="21"/>
+                                <rect key="frame" x="53" y="105" width="181" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 2:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-pD-Wvu">
-                                <rect key="frame" x="20" y="138" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-pD-Wvu">
+                                <rect key="frame" x="20" y="138" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -761,7 +761,7 @@
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moJ-bF-WVu">
-                                <rect key="frame" x="111" y="134" width="181" height="30"/>
+                                <rect key="frame" x="51" y="353" width="181" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Select">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -770,6 +770,18 @@
                                     <segue destination="kbR-ab-SN7" kind="push" identifier="SinglesPlayer" id="yl4-I3-O3p"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Pf-PD-oT5">
+                                <rect key="frame" x="51" y="135" width="240" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Danny Paolucci Club Pro"/>
+                                    <segment title="TBD"/>
+                                    <segment title="Guest"/>
+                                </segments>
+                                <connections>
+                                    <action selector="playerClicked:" destination="5GM-gx-kgf" eventType="valueChanged" id="VGO-SZ-WHv"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -779,8 +791,10 @@
                         <outlet property="cancelButton" destination="MNf-XZ-KgW" id="zpx-dB-lvF"/>
                         <outlet property="courtDate" destination="Dqb-hR-8cL" id="anT-HR-ceT"/>
                         <outlet property="player2Button" destination="moJ-bF-WVu" id="QtT-BU-aVe"/>
+                        <outlet property="player2Control" destination="0Pf-PD-oT5" id="OB1-TK-78l"/>
                         <outlet property="typePicker" destination="eY4-RR-4Dz" id="qn5-za-cvd"/>
                         <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="SinglesPlayer2" id="OL0-yK-twA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -843,7 +857,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1320" y="168"/>
+            <point key="canvasLocation" x="1139" y="612"/>
         </scene>
     </scenes>
     <resources>
@@ -862,6 +876,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
-        <segue reference="yl4-I3-O3p"/>
+        <segue reference="OL0-yK-twA"/>
     </inferredMetricsTieBreakers>
 </document>

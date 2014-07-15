@@ -16,6 +16,7 @@
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
 
+
 @end
 
 @implementation RHSCReserveSinglesViewController
@@ -50,6 +51,7 @@
         courtType = @"Back";
     }
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
+    self.player2Control.selectedSegmentIndex = -1;
 }
 
 @synthesize delegate;
@@ -95,11 +97,24 @@
     return [self.typeList objectAtIndex:row];
 }
 
+-(IBAction) playerClicked:(id)sender
+{
+    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    if (self.player2Control.selectedSegmentIndex == 0) {
+        self.player2Control.selectedSegmentIndex = -1;
+        NSString *segueName = @"SinglesPlayer2";
+        [self performSegueWithIdentifier: segueName sender: self];
+    }
+    [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
+}
+
 -(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
 {
     NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
     self.player2Member = setPlayer;
-    [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+    NSString *newTitle = [NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName];
+    [self.player2Button setTitle:newTitle forState:UIControlStateNormal];
+    [self.player2Control setTitle:newTitle forSegmentAtIndex:0];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -108,6 +123,11 @@
     // Pass the selected object to the new view controller.
     NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"SinglesPlayer"]) {
+        // set the selectionSet and selectionDate properties
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
+    }
+    if ([segue.identifier isEqualToString:@"SinglesPlayer2"]) {
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];

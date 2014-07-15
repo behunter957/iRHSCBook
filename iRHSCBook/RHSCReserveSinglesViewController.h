@@ -18,7 +18,10 @@
 @interface RHSCReserveSinglesViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIPickerView *typePicker;
+
 @property (nonatomic, weak) IBOutlet UIButton *player2Button;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *player2Control;
+
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UIButton *bookButton;
 @property (nonatomic, weak) IBOutlet UILabel *courtDate;
