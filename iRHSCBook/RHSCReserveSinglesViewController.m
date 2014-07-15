@@ -51,7 +51,7 @@
         courtType = @"Back";
     }
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
-    self.player2Control.selectedSegmentIndex = -1;
+    self.player2Control.selectedSegmentIndex = 1;
 }
 
 @synthesize delegate;
@@ -113,7 +113,6 @@
     NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
     self.player2Member = setPlayer;
     NSString *newTitle = [NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName];
-    [self.player2Button setTitle:newTitle forState:UIControlStateNormal];
     [self.player2Control setTitle:newTitle forSegmentAtIndex:0];
 }
 
@@ -153,7 +152,7 @@
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@",[self.courtTimeRecord bookingId],
                           tbc.currentUser.data.name,
-                          self.player2Member.name,@"",@"",
+                          self.player2Member?self.player2Member.name:@"",@"",@"",
                           tbc.currentUser.data.name,@"iPhone",
                           @"",@"",@"",
                           @"",@"",@"",

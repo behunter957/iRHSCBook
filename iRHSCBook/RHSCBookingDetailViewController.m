@@ -101,15 +101,15 @@
     if ([self.booking.court isEqualToString:@"Court 5"]) {
         fetchURL = [NSString stringWithFormat:@"Reserve/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",[self.booking bookingId],
                     tbc.currentUser.data.name,
-                    [[self.booking players] objectForKey:@"player2_id"],
-                    [[self.booking players] objectForKey:@"player3_id"],
-                    [[self.booking players] objectForKey:@"player4_id"],
+                    ([[self.booking players] objectForKey:@"player2_id"] != [NSNull null])?[[self.booking players] objectForKey:@"player2_id"]:@"",
+                    ([[self.booking players] objectForKey:@"player3_id"] != [NSNull null])?[[self.booking players] objectForKey:@"player3_id"]:@"",
+                    ([[self.booking players] objectForKey:@"player4_id"] != [NSNull null])?[[self.booking players] objectForKey:@"player4_id"]:@"",
                     tbc.currentUser.data.name,@"iPhone"
                     ];
     } else {
         fetchURL = [NSString stringWithFormat:@"Reserve/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",[self.booking bookingId],
                           tbc.currentUser.data.name,
-                          [[self.booking players] objectForKey:@"player2_id"],@"",@"",
+                          ([[self.booking players] objectForKey:@"player2_id"] != [NSNull null])?[[self.booking players] objectForKey:@"player2_id"]:@"",@"",@"",
                           tbc.currentUser.data.name,@"iPhone"
                           ];
     }

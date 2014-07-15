@@ -39,6 +39,9 @@
     self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder", nil];
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     self.userLabel.text = [NSString stringWithFormat:@"%@ %@",tbc.currentUser.data.firstName,tbc.currentUser.data.lastName];
+    self.player2Control.selectedSegmentIndex = 1;
+    self.player3Control.selectedSegmentIndex = 1;
+    self.player4Control.selectedSegmentIndex = 1;
 }
 
 @synthesize delegate;
@@ -84,20 +87,78 @@
     return [self.typeList objectAtIndex:row];
 }
 
+-(IBAction) player2Clicked:(id)sender
+{
+    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    if (self.player2Control.selectedSegmentIndex == 0) {
+        self.player2Control.selectedSegmentIndex = -1;
+        NSString *segueName = @"DoublesPlayer2";
+        [self performSegueWithIdentifier: segueName sender: self];
+    }
+    if (self.player2Control.selectedSegmentIndex == 0) {
+        self.player2Member = nil;
+        [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    if (self.player2Control.selectedSegmentIndex == 0) {
+        self.player2Member = nil;
+        [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
+}
+
+-(IBAction) player3Clicked:(id)sender
+{
+    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    if (self.player3Control.selectedSegmentIndex == 0) {
+        self.player3Control.selectedSegmentIndex = -1;
+        NSString *segueName = @"DoublesPlayer3";
+        [self performSegueWithIdentifier: segueName sender: self];
+    }
+    if (self.player3Control.selectedSegmentIndex == 0) {
+        self.player3Member = nil;
+        [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    if (self.player3Control.selectedSegmentIndex == 0) {
+        self.player3Member = nil;
+        [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
+}
+
+-(IBAction) player4Clicked:(id)sender
+{
+    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    if (self.player4Control.selectedSegmentIndex == 0) {
+        self.player4Control.selectedSegmentIndex = -1;
+        NSString *segueName = @"DoublesPlayer4";
+        [self performSegueWithIdentifier: segueName sender: self];
+    }
+    if (self.player4Control.selectedSegmentIndex == 0) {
+        self.player4Member = nil;
+        [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    if (self.player4Control.selectedSegmentIndex == 0) {
+        self.player4Member = nil;
+        [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
+    }
+    [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
+}
+
 -(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
 {
     NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+    NSString *newTitle = [NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName];
     if (playerNumber.intValue == 2) {
         self.player2Member = setPlayer;
-        [self.player2Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+        [self.player2Control setTitle:newTitle forSegmentAtIndex:0];
     }
     if (playerNumber.intValue == 3) {
         self.player3Member = setPlayer;
-        [self.player3Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+        [self.player3Control setTitle:newTitle forSegmentAtIndex:0];
     }
     if (playerNumber.intValue == 4) {
         self.player4Member = setPlayer;
-        [self.player4Button setTitle:[NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName] forState:UIControlStateNormal];
+        [self.player4Control setTitle:newTitle forSegmentAtIndex:0];
     }
 }
 
@@ -142,9 +203,9 @@
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@",[self.courtTimeRecord bookingId],
                           tbc.currentUser.data.name,
-                          self.player2Member.name,
-                          self.player3Member.name,
-                          self.player4Member.name,
+                          self.player2Member?self.player2Member.name:@"",
+                          self.player3Member?self.player3Member.name:@"",
+                          self.player4Member?self.player4Member.name:@"",
                           tbc.currentUser.data.name,@"iPhone",
                           @"",@"",@"",
                           @"",@"",@"",

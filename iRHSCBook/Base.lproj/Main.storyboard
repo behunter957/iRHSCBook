@@ -253,32 +253,32 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 1:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAE-oC-EPQ">
-                                <rect key="frame" x="20" y="109" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAE-oC-EPQ">
+                                <rect key="frame" x="20" y="109" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPP-eD-dTS">
-                                <rect key="frame" x="111" y="109" width="181" height="21"/>
+                                <rect key="frame" x="60" y="109" width="181" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 2:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-nV-djn">
-                                <rect key="frame" x="20" y="142" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-nV-djn">
+                                <rect key="frame" x="20" y="142" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 3:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHe-0i-g8L">
-                                <rect key="frame" x="20" y="175" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHe-0i-g8L">
+                                <rect key="frame" x="20" y="175" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 4:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZE-ey-Sie">
-                                <rect key="frame" x="20" y="208" width="76" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZE-ey-Sie">
+                                <rect key="frame" x="20" y="208" width="21" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -311,48 +311,57 @@
                                     <outlet property="delegate" destination="PeM-PD-Smf" id="1qk-Yn-ZbF"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wmh-EH-fIT" userLabel="Player 2 Button">
-                                <rect key="frame" x="111" y="138" width="181" height="30"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AX8-F9-gLh">
+                                <rect key="frame" x="60" y="139" width="240" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <segments>
+                                    <segment title="Select Member"/>
+                                    <segment title="TBD"/>
+                                    <segment title="Guest"/>
+                                </segments>
                                 <connections>
-                                    <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer2" id="dM7-12-dWQ"/>
+                                    <action selector="player2Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="Czn-g5-yI9"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJN-Gz-BOn" userLabel="Player 3 Button">
-                                <rect key="frame" x="111" y="171" width="181" height="30"/>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbQ-ZZ-5VX">
+                                <rect key="frame" x="60" y="172" width="240" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <segments>
+                                    <segment title="Select Member"/>
+                                    <segment title="TBD"/>
+                                    <segment title="Guest"/>
+                                </segments>
                                 <connections>
-                                    <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer3" id="i1U-js-eW5"/>
+                                    <action selector="player3Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="q9h-ZR-fJb"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-H0-cBY" userLabel="Player 4 Button">
-                                <rect key="frame" x="111" y="204" width="181" height="30"/>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bOK-ib-yCZ">
+                                <rect key="frame" x="60" y="205" width="240" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <segments>
+                                    <segment title="Select Member"/>
+                                    <segment title="TBD"/>
+                                    <segment title="Guest"/>
+                                </segments>
                                 <connections>
-                                    <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer4" id="nvC-pg-kt8"/>
+                                    <action selector="player4Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="a5E-lB-zse"/>
                                 </connections>
-                            </button>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Book Doubles Court" id="Oyh-Vu-GM2"/>
                     <connections>
                         <outlet property="courtDate" destination="o29-O0-mF8" id="h8n-iW-0yQ"/>
-                        <outlet property="player2Button" destination="Wmh-EH-fIT" id="SZS-2H-ksX"/>
-                        <outlet property="player3Button" destination="AJN-Gz-BOn" id="NZS-UP-3MB"/>
-                        <outlet property="player4Button" destination="JfM-H0-cBY" id="jMo-zU-Koc"/>
+                        <outlet property="player2Control" destination="AX8-F9-gLh" id="SyI-MG-CDv"/>
+                        <outlet property="player3Control" destination="BbQ-ZZ-5VX" id="Gwv-Sf-iQc"/>
+                        <outlet property="player4Control" destination="bOK-ib-yCZ" id="OHg-F2-Jl5"/>
                         <outlet property="searchDisplayController" destination="dHy-QA-6PQ" id="oDg-aN-2L9"/>
                         <outlet property="typePicker" destination="x7l-Kf-oZt" id="d2H-VV-1tn"/>
                         <outlet property="userLabel" destination="NPP-eD-dTS" id="oc5-zw-w10"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer2" id="xWf-Lb-3pk"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer3" id="qSg-fy-r0c"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer4" id="5Vx-Kx-zDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oza-FD-Izo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -760,21 +769,11 @@
                                     <outlet property="delegate" destination="5GM-gx-kgf" id="a3W-eW-9L7"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moJ-bF-WVu">
-                                <rect key="frame" x="51" y="353" width="181" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="kbR-ab-SN7" kind="push" identifier="SinglesPlayer" id="yl4-I3-O3p"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Pf-PD-oT5">
                                 <rect key="frame" x="51" y="135" width="240" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Danny Paolucci Club Pro"/>
+                                    <segment title="Select Member"/>
                                     <segment title="TBD"/>
                                     <segment title="Guest"/>
                                 </segments>
@@ -790,7 +789,6 @@
                         <outlet property="bookButton" destination="JyR-Ir-dbi" id="vee-y1-dIG"/>
                         <outlet property="cancelButton" destination="MNf-XZ-KgW" id="zpx-dB-lvF"/>
                         <outlet property="courtDate" destination="Dqb-hR-8cL" id="anT-HR-ceT"/>
-                        <outlet property="player2Button" destination="moJ-bF-WVu" id="QtT-BU-aVe"/>
                         <outlet property="player2Control" destination="0Pf-PD-oT5" id="OB1-TK-78l"/>
                         <outlet property="typePicker" destination="eY4-RR-4Dz" id="qn5-za-cvd"/>
                         <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
@@ -876,6 +874,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
-        <segue reference="OL0-yK-twA"/>
+        <segue reference="5Vx-Kx-zDo"/>
     </inferredMetricsTieBreakers>
 </document>
