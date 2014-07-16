@@ -362,6 +362,9 @@
                         <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer2" id="xWf-Lb-3pk"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer3" id="qSg-fy-r0c"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer4" id="5Vx-Kx-zDo"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest2" id="3PW-WX-dlK"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest3" id="Ado-XA-n7W"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest4" id="Ojl-Ca-M1M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oza-FD-Izo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -391,6 +394,68 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="497" y="-24"/>
+        </scene>
+        <!--Guest Details View Controller - Guest Details-->
+        <scene sceneID="mGq-iH-idI">
+            <objects>
+                <viewController storyboardIdentifier="Guest Details" id="Chq-vS-dmK" customClass="RHSCGuestDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="on7-LE-MyU"/>
+                        <viewControllerLayoutGuide type="bottom" id="f5O-Y2-A06"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gf2-qQ-7jI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVx-iN-U5d">
+                                <rect key="frame" x="20" y="121" width="58" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZk-c3-PqA">
+                                <rect key="frame" x="20" y="189" width="58" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-99-9z0">
+                                <rect key="frame" x="20" y="257" width="58" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R4o-90-n2N">
+                                <rect key="frame" x="93" y="117" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vg8-7A-BF8">
+                                <rect key="frame" x="93" y="185" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tx0-uZ-L0g">
+                                <rect key="frame" x="93" y="253" width="143" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Guest Details" id="Icz-Si-KnM"/>
+                    <connections>
+                        <outlet property="guestEmailField" destination="vg8-7A-BF8" id="SC0-hE-Nhx"/>
+                        <outlet property="guestNameField" destination="R4o-90-n2N" id="AKW-p9-gjg"/>
+                        <outlet property="guestPhoneField" destination="Tx0-uZ-L0g" id="eSk-XN-HYn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ode-j3-fYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="-12"/>
         </scene>
         <!--Navigation Controller - My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -793,6 +858,7 @@
                         <outlet property="typePicker" destination="eY4-RR-4Dz" id="qn5-za-cvd"/>
                         <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="SinglesPlayer2" id="OL0-yK-twA"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="SinglesGuest2" id="jYf-s5-loM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -855,7 +921,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1139" y="612"/>
+            <point key="canvasLocation" x="1198" y="710"/>
         </scene>
     </scenes>
     <resources>
@@ -875,5 +941,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
         <segue reference="5Vx-Kx-zDo"/>
+        <segue reference="jYf-s5-loM"/>
     </inferredMetricsTieBreakers>
 </document>

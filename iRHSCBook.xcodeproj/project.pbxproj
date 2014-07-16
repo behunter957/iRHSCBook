@@ -12,7 +12,7 @@
 		4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F1D196CC4610015BB52 /* RHSCMyBookingsList.m */; };
 		4AD36F21196DE2F80015BB52 /* RHSCBookingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */; };
 		4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD36F27196FF22A0015BB52 /* MessageUI.framework */; };
-		4AD36F2B197535780015BB52 /* RHSCPlayerSelectControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F2A197535780015BB52 /* RHSCPlayerSelectControl.m */; };
+		4AD36F2E19767F200015BB52 /* RHSCGuestDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */; };
 		4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD41961AFCC00665999 /* RHSCMember.m */; };
 		4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD71961AFF600665999 /* RHSCCourtTime.m */; };
 		4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDA1961B0BF00665999 /* RHSCServer.m */; };
@@ -61,8 +61,8 @@
 		4AD36F1F196DE2F80015BB52 /* RHSCBookingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCBookingDetailViewController.h; sourceTree = "<group>"; };
 		4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCBookingDetailViewController.m; sourceTree = "<group>"; };
 		4AD36F27196FF22A0015BB52 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		4AD36F29197535780015BB52 /* RHSCPlayerSelectControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCPlayerSelectControl.h; sourceTree = "<group>"; };
-		4AD36F2A197535780015BB52 /* RHSCPlayerSelectControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCPlayerSelectControl.m; sourceTree = "<group>"; };
+		4AD36F2C19767F200015BB52 /* RHSCGuestDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCGuestDetailsViewController.h; sourceTree = "<group>"; };
+		4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCGuestDetailsViewController.m; sourceTree = "<group>"; };
 		4AFD3DD31961AFCC00665999 /* RHSCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMember.h; sourceTree = "<group>"; };
 		4AFD3DD41961AFCC00665999 /* RHSCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMember.m; sourceTree = "<group>"; };
 		4AFD3DD61961AFF600665999 /* RHSCCourtTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTime.h; sourceTree = "<group>"; };
@@ -181,8 +181,8 @@
 				ACD518EF196188E800C65C9D /* RHSCReserveSinglesViewController.h */,
 				ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */,
 				ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */,
-				4AD36F29197535780015BB52 /* RHSCPlayerSelectControl.h */,
-				4AD36F2A197535780015BB52 /* RHSCPlayerSelectControl.m */,
+				4AD36F2C19767F200015BB52 /* RHSCGuestDetailsViewController.h */,
+				4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */,
 			);
 			name = Courts;
 			sourceTree = "<group>";
@@ -389,6 +389,7 @@
 				4AD36F21196DE2F80015BB52 /* RHSCBookingDetailViewController.m in Sources */,
 				ACD518EE196188CA00C65C9D /* RHSCReserveSinglesViewController.m in Sources */,
 				ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */,
+				4AD36F2E19767F200015BB52 /* RHSCGuestDetailsViewController.m in Sources */,
 				ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */,
 				4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */,
 				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
@@ -397,7 +398,6 @@
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
 				4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */,
 				4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */,
-				4AD36F2B197535780015BB52 /* RHSCPlayerSelectControl.m in Sources */,
 				4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */,
 				4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */,
 				4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */,

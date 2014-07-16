@@ -9,6 +9,7 @@
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
+#import "RHSCGuestDetailsViewController.h"
 #import "RHSCMember.h"
 
 @interface RHSCReserveSinglesViewController ()
@@ -105,6 +106,10 @@
         NSString *segueName = @"SinglesPlayer2";
         [self performSegueWithIdentifier: segueName sender: self];
     }
+    if (self.player2Control.selectedSegmentIndex == 2) {
+        NSString *segueName = @"SinglesGuest2";
+        [self performSegueWithIdentifier: segueName sender: self];
+    }
     [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
 }
 
@@ -131,6 +136,17 @@
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
     }
+    if ([segue.identifier isEqualToString:@"SinglesGuest2"]) {
+        // lock the court
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:2]];
+    }
+}
+
+-(void)setGuest:(NSString *)name email:(NSString *)email phone:(NSString *)phone number:(NSNumber *) guestNumber
+{
+    NSLog(@"setGuest %@",guestNumber);
 }
 
 -(void)unlockBooking
