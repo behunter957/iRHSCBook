@@ -53,7 +53,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    NSLog(@"MyBooking viewDidAppear");
+//    NSLog(@"MyBooking viewDidAppear");
     [self refreshTable];
 }
 
@@ -111,7 +111,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
-    NSLog(@"Selected row : %d",row);
+//    NSLog(@"Selected row : %d",row);
     self.selectedBooking = self.bookingList.bookingList[indexPath.row];
     NSString *segueName = @"BookingDetail";
     [self performSegueWithIdentifier: segueName sender: self];
@@ -121,7 +121,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"segue: %@",segue.identifier);
+//    NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"BookingDetail"]) {
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];

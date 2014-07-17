@@ -138,7 +138,7 @@ shouldReloadTableForSearchString:(NSString *)searchText
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"popping FindMember on table select");
+//    NSLog(@"popping FindMember on table select");
     if (searching) {
         NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
         [delegate setPlayer:self.filteredList[selectedIndexPath.row] number:self.playerNumber];

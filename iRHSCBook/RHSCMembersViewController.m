@@ -47,7 +47,7 @@ BOOL searching;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     self.filteredList = [[NSMutableArray alloc] initWithArray:ml.memberList];
-    NSLog(@"viewDidLoad for members view");
+//    NSLog(@"viewDidLoad for members view");
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,7 +104,7 @@ BOOL searching;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     RHSCMember *member = ml.memberList[selectedIndexPath.row];
-    NSLog(@"Phone member: %@",member.name);
+//    NSLog(@"Phone member: %@",member.name);
 }
 
 -(IBAction)smsMember:(id)sender
@@ -114,7 +114,7 @@ BOOL searching;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     RHSCMember *member = ml.memberList[selectedIndexPath.row];
-    NSLog(@"SMS member: %@",member.name);
+//    NSLog(@"SMS member: %@",member.name);
 }
 
 -(IBAction)emailMember:(id)sender
@@ -124,13 +124,13 @@ BOOL searching;
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCMemberList *ml = tbc.memberList;
     RHSCMember *member = ml.memberList[selectedIndexPath.row];
-    NSLog(@"Email member: %@",member.name);
+//    NSLog(@"Email member: %@",member.name);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
-    NSLog(@"Selected row : %d",row);
+//    NSLog(@"Selected row : %d",row);
     NSString *segueName = @"MemberDetail";
     if (searching) {
         self.selectedMember = self.filteredList[row];
@@ -147,7 +147,7 @@ BOOL searching;
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"segue: %@",segue.identifier);
+//    NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"MemberDetail"]) {
         [[segue destinationViewController] setMember:self.selectedMember];
     }

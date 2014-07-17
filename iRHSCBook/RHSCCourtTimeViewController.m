@@ -78,7 +78,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    NSLog(@"CourtTime viewDidAppear");
+//    NSLog(@"CourtTime viewDidAppear");
     [self refreshTable];
 }
 
@@ -90,7 +90,7 @@
 
 -(IBAction)unwindFromReserve:(UIStoryboardSegue *)segue
 {
-    NSLog(@"returning from Reserve");
+//    NSLog(@"returning from Reserve");
 }
 
 #pragma mark - Table view data source
@@ -131,7 +131,7 @@
 // action for header button - modal filter view
 - (IBAction)changeFilter:(id)sender
 {
-    NSLog(@"filter button pushed");
+//    NSLog(@"filter button pushed");
 }
 
 - (IBAction)syncCourts:(id)sender
@@ -144,14 +144,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
-    NSLog(@"Selected row : %d",row);
+//    NSLog(@"Selected row : %d",row);
     self.selectedCourtTime = self.courtTimes[indexPath.row];
     if ([self.selectedCourtTime.status isEqualToString:@"Available"]) {
         // lock the booking
         RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         RHSCUser *curUser = tbc.currentUser;
         NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
-        NSLog(@"fetch URL = %@",fetchURL);
+//        NSLog(@"fetch URL = %@",fetchURL);
         NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
         NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                                  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -206,7 +206,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"segue: %@",segue.identifier);
+//    NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"ChangeSelection"]) {
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];
@@ -234,21 +234,21 @@
 
 -(void)setSetSelection:(NSString *)setSelection
 {
-    NSLog(@"delegate setSetSelection %@",setSelection);
+//    NSLog(@"delegate setSetSelection %@",setSelection);
     self.selectionSet = setSelection;
     [self refreshLeftBarButton];
 }
 
 -(void)setDateSelection:(NSDate *)setDate
 {
-    NSLog(@"delegate setDateSelection %@",setDate);
+//    NSLog(@"delegate setDateSelection %@",setDate);
     self.selectionDate = setDate;
     [self refreshLeftBarButton];
 }
 
 -(void)setInclude:(NSString *)setSwitch
 {
-    NSLog(@"delegate setInclude %@",setSwitch);
+//    NSLog(@"delegate setInclude %@",setSwitch);
     self.includeInd = setSwitch;
 //    [self loadSelectedCourtTimes];
 //    [self.tableView reloadData];
@@ -276,6 +276,7 @@
     NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
     
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+
     NSLog(@"fetch URL = %@",fetchURL);
     
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];

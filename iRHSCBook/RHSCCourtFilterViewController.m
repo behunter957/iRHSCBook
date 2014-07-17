@@ -78,7 +78,7 @@
 
 - (IBAction)resetSelection:(id)sender
 {
-    NSLog(@"reset button pushed");
+//    NSLog(@"reset button pushed");
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -109,7 +109,7 @@
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // Navigation button was pressed. Do some stuff
         // set the navigation controller's date and court selection values
-        NSLog(@"popping ChangeSeletion");
+//        NSLog(@"popping ChangeSeletion");
         [delegate setSetSelection:self.pickedSet];
         [delegate setDateSelection:self.pickedDate];
         [delegate setInclude:self.switchState.text];
@@ -119,7 +119,7 @@
 }
 
 -(IBAction) setChanged {
-    NSLog(@"seChanged action");
+//    NSLog(@"seChanged action");
     self.pickedSet = [self.setSegCtl titleForSegmentAtIndex:self.setSegCtl.selectedSegmentIndex];
 }
 

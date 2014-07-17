@@ -69,13 +69,13 @@
 
 - (IBAction) cancel
 {
-    NSLog(@"exiting ReserveSingles");
+//    NSLog(@"exiting ReserveSingles");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) book
 {
-    NSLog(@"booking singles court and exiting ReserveSingles");
+//    NSLog(@"booking singles court and exiting ReserveSingles");
     [self bookCourt];
 //    [self.navigationController popViewControllerAnimated:YES];
 }
@@ -103,7 +103,7 @@
 
 -(IBAction) playerClicked:(id)sender
 {
-    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+//    NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if (self.player2Control.selectedSegmentIndex == 0) {
         self.player2Control.selectedSegmentIndex = -1;
@@ -123,7 +123,7 @@
 
 -(void)setPlayer:(RHSCMember *)setPlayer number:(NSNumber *)playerNumber
 {
-    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+//    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
     self.player2Member = setPlayer;
     NSString *newTitle = [NSString stringWithFormat:@"%@ %@",setPlayer.firstName,setPlayer.lastName];
     [self.player2Control setTitle:newTitle forSegmentAtIndex:0];
@@ -133,7 +133,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"segue: %@",segue.identifier);
+//    NSLog(@"segue: %@",segue.identifier);
     if ([segue.identifier isEqualToString:@"SinglesPlayer2"]) {
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];
@@ -149,7 +149,7 @@
 
 -(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber
 {
-    NSLog(@"setGuest %@",guestNumber);
+//    NSLog(@"setGuest %@",guestNumber);
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if ([guest.name isEqualToString:@""]) {
         self.player2Member = tbc.memberList.TBD;
@@ -162,7 +162,9 @@
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
+
     NSLog(@"fetch URL = %@",fetchURL);
+    
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -183,7 +185,9 @@
                           @"",@"",@"",
                           @"",@"",@"",
                           [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];
+
     NSLog(@"fetch URL = %@",fetchURL);
+    
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -199,7 +203,9 @@
             
             // Get an array of dictionaries with the key "locations"
             // NSArray *array = [jsonDictionary objectForKey:@"user"];
+ 
             NSLog(@"%@",jsonDictionary);
+            
             self.successAlert = [[UIAlertView alloc] initWithTitle:@"Success"
                                                             message:@"Court time successfully booked. Notices will be sent to all players"
                                                            delegate:self

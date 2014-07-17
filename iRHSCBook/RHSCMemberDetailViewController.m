@@ -175,7 +175,7 @@
 {
 	switch (result) {
 		case MessageComposeResultCancelled:
-			NSLog(@"Cancelled");
+//			NSLog(@"Cancelled");
 			break;
 		case MessageComposeResultFailed: {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send message"
