@@ -27,9 +27,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.guestNameField.text = self.guestName;
-    self.guestEmailField.text = self.guestEmail;
-    self.guestPhoneField.text = self.guestPhone;
+    self.guestNameField.text = self.guest.name;
+    self.guestEmailField.text = self.guest.email;
+    self.guestPhoneField.text = self.guest.phone;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,7 +43,17 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [delegate setGuest:self.guestNameField.text email:self.guestEmailField.text phone:self.guestPhoneField.text number:self.guestNumber];
+    self.guest.name = self.guestNameField.text;
+    self.guest.email = self.guestEmailField.text;
+    self.guest.phone = self.guestPhoneField.text;
+    [delegate setGuest:self.guest number:self.guestNumber];
+}
+
+-(IBAction)clear
+{
+    self.guestNameField.text = @"";
+    self.guestEmailField.text = @"";
+    self.guestPhoneField.text = @"";
 }
 
 /*

@@ -9,6 +9,8 @@
 #import "RHSCReserveDoublesViewController.h"
 #import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
+#import "RHSCGuest.h"
+#import "RHSCGuestDetailsViewController.h"
 
 @interface RHSCReserveDoublesViewController ()
 
@@ -17,6 +19,9 @@
 @property (nonatomic,strong) RHSCMember *player4Member;
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
+@property (nonatomic,strong) RHSCGuest *guest2;
+@property (nonatomic,strong) RHSCGuest *guest3;
+@property (nonatomic,strong) RHSCGuest *guest4;
 
 @end
 
@@ -42,6 +47,9 @@
     self.player2Control.selectedSegmentIndex = 1;
     self.player3Control.selectedSegmentIndex = 1;
     self.player4Control.selectedSegmentIndex = 1;
+    self.guest2 = [[RHSCGuest alloc] init];
+    self.guest3 = [[RHSCGuest alloc] init];
+    self.guest4 = [[RHSCGuest alloc] init];
 }
 
 @synthesize delegate;
@@ -95,13 +103,15 @@
         NSString *segueName = @"DoublesPlayer2";
         [self performSegueWithIdentifier: segueName sender: self];
     }
-    if (self.player2Control.selectedSegmentIndex == 0) {
+    if (self.player2Control.selectedSegmentIndex == 1) {
         self.player2Member = nil;
         [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
-    if (self.player2Control.selectedSegmentIndex == 0) {
+    if (self.player2Control.selectedSegmentIndex == 2) {
         self.player2Member = nil;
         [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
+        NSString *segueName = @"DoublesGuest2";
+        [self performSegueWithIdentifier: segueName sender: self];
     }
     [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
 }
@@ -114,13 +124,15 @@
         NSString *segueName = @"DoublesPlayer3";
         [self performSegueWithIdentifier: segueName sender: self];
     }
-    if (self.player3Control.selectedSegmentIndex == 0) {
+    if (self.player3Control.selectedSegmentIndex == 1) {
         self.player3Member = nil;
         [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
-    if (self.player3Control.selectedSegmentIndex == 0) {
+    if (self.player3Control.selectedSegmentIndex == 2) {
         self.player3Member = nil;
         [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
+        NSString *segueName = @"DoublesGuest3";
+        [self performSegueWithIdentifier: segueName sender: self];
     }
     [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
 }
@@ -133,13 +145,15 @@
         NSString *segueName = @"DoublesPlayer4";
         [self performSegueWithIdentifier: segueName sender: self];
     }
-    if (self.player4Control.selectedSegmentIndex == 0) {
+    if (self.player4Control.selectedSegmentIndex == 1) {
         self.player4Member = nil;
         [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
-    if (self.player4Control.selectedSegmentIndex == 0) {
+    if (self.player4Control.selectedSegmentIndex == 2) {
         self.player4Member = nil;
         [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
+        NSString *segueName = @"DoublesGuest4";
+        [self performSegueWithIdentifier: segueName sender: self];
     }
     [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
 }
@@ -181,6 +195,41 @@
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:4]];
+    }
+    if ([segue.identifier isEqualToString:@"DoublesGuest2"]) {
+        // lock the court
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setGuest:self.guest2];
+        [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:2]];
+    }
+    if ([segue.identifier isEqualToString:@"DoublesGuest3"]) {
+        // lock the court
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setGuest:self.guest3];
+        [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:3]];
+    }
+    if ([segue.identifier isEqualToString:@"DoublesGuest4"]) {
+        // lock the court
+        // set the selectedCourtTime record
+        [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setGuest:self.guest4];
+        [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:4]];
+    }
+}
+
+-(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber
+{
+    NSLog(@"setGuest %@",guestNumber);
+    if ([guestNumber intValue] == 2) {
+        self.guest2 = guest;
+    }
+    if ([guestNumber intValue] == 3) {
+        self.guest3 = guest;
+    }
+    if ([guestNumber intValue] == 4) {
+        self.guest4 = guest;
     }
 }
 

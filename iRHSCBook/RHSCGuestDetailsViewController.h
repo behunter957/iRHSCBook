@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RHSCGuest.h"
 
 @protocol setGuestProtocol <NSObject>
 
--(void)setGuest:(NSString *)name email:(NSString *)email phone:(NSString *)phone number:(NSNumber *) guestNumber;
+-(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber;
 
 @end
 
@@ -18,9 +19,7 @@
 
 @property (nonatomic, strong) NSNumber* guestNumber;
 
-@property (nonatomic, strong) NSString *guestName;
-@property (nonatomic, strong) NSString *guestEmail;
-@property (nonatomic, strong) NSString *guestPhone;
+@property (nonatomic, strong) RHSCGuest *guest;
 
 @property (nonatomic,weak) IBOutlet UITextField *guestNameField;
 @property (nonatomic,weak) IBOutlet UITextField *guestEmailField;

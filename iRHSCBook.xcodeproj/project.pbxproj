@@ -13,6 +13,7 @@
 		4AD36F21196DE2F80015BB52 /* RHSCBookingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */; };
 		4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD36F27196FF22A0015BB52 /* MessageUI.framework */; };
 		4AD36F2E19767F200015BB52 /* RHSCGuestDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */; };
+		4AD36F311977524D0015BB52 /* RHSCGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F301977524D0015BB52 /* RHSCGuest.m */; };
 		4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD41961AFCC00665999 /* RHSCMember.m */; };
 		4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DD71961AFF600665999 /* RHSCCourtTime.m */; };
 		4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD3DDA1961B0BF00665999 /* RHSCServer.m */; };
@@ -63,6 +64,8 @@
 		4AD36F27196FF22A0015BB52 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4AD36F2C19767F200015BB52 /* RHSCGuestDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCGuestDetailsViewController.h; sourceTree = "<group>"; };
 		4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCGuestDetailsViewController.m; sourceTree = "<group>"; };
+		4AD36F2F1977524D0015BB52 /* RHSCGuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCGuest.h; sourceTree = "<group>"; };
+		4AD36F301977524D0015BB52 /* RHSCGuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCGuest.m; sourceTree = "<group>"; };
 		4AFD3DD31961AFCC00665999 /* RHSCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMember.h; sourceTree = "<group>"; };
 		4AFD3DD41961AFCC00665999 /* RHSCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMember.m; sourceTree = "<group>"; };
 		4AFD3DD61961AFF600665999 /* RHSCCourtTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTime.h; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				4AFD3DDD1961B14100665999 /* RHSCMemberList.m */,
 				4AFD3DDF1961B54600665999 /* RHSCUser.h */,
 				4AFD3DE01961B54600665999 /* RHSCUser.m */,
+				4AD36F2F1977524D0015BB52 /* RHSCGuest.h */,
+				4AD36F301977524D0015BB52 /* RHSCGuest.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */,
 				4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */,
 				4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */,
+				4AD36F311977524D0015BB52 /* RHSCGuest.m in Sources */,
 				4AFD3DDB1961B0BF00665999 /* RHSCServer.m in Sources */,
 				ACAC33C8195EF99700F7562F /* RHSCMembersViewController.m in Sources */,
 				4AFD3DE41961BBF000665999 /* RHSCFindMemberViewController.m in Sources */,

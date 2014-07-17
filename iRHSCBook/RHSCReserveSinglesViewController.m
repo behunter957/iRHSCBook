@@ -11,11 +11,13 @@
 #import "RHSCFindMemberViewController.h"
 #import "RHSCGuestDetailsViewController.h"
 #import "RHSCMember.h"
+#import "RHSCGuest.h"
 
 @interface RHSCReserveSinglesViewController ()
 @property (nonatomic,strong) RHSCMember *player2Member;
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
+@property (nonatomic,strong) RHSCGuest *guest2;
 
 
 @end
@@ -53,6 +55,7 @@
     }
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
     self.player2Control.selectedSegmentIndex = 1;
+    self.guest2 = [[RHSCGuest alloc] init];
 }
 
 @synthesize delegate;
@@ -140,13 +143,15 @@
         // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setDelegate:self];
+        [[segue destinationViewController] setGuest:self.guest2];
         [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:2]];
     }
 }
 
--(void)setGuest:(NSString *)name email:(NSString *)email phone:(NSString *)phone number:(NSNumber *) guestNumber
+-(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber
 {
     NSLog(@"setGuest %@",guestNumber);
+    self.guest2 = guest;
 }
 
 -(void)unlockBooking
