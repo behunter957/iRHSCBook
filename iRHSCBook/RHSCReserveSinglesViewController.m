@@ -104,12 +104,17 @@
 -(IBAction) playerClicked:(id)sender
 {
     NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if (self.player2Control.selectedSegmentIndex == 0) {
         self.player2Control.selectedSegmentIndex = -1;
         NSString *segueName = @"SinglesPlayer2";
         [self performSegueWithIdentifier: segueName sender: self];
     }
+    if (self.player2Control.selectedSegmentIndex == 1) {
+        self.player2Member = tbc.memberList.TBD;
+    }
     if (self.player2Control.selectedSegmentIndex == 2) {
+        self.player2Member = tbc.memberList.GUEST;
         NSString *segueName = @"SinglesGuest2";
         [self performSegueWithIdentifier: segueName sender: self];
     }
@@ -129,18 +134,12 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     NSLog(@"segue: %@",segue.identifier);
-    if ([segue.identifier isEqualToString:@"SinglesPlayer"]) {
-        // set the selectionSet and selectionDate properties
-        [[segue destinationViewController] setDelegate:self];
-        [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
-    }
     if ([segue.identifier isEqualToString:@"SinglesPlayer2"]) {
         // set the selectionSet and selectionDate properties
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:2]];
     }
     if ([segue.identifier isEqualToString:@"SinglesGuest2"]) {
-        // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setGuest:self.guest2];
@@ -151,6 +150,11 @@
 -(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber
 {
     NSLog(@"setGuest %@",guestNumber);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    if ([guest.name isEqualToString:@""]) {
+        self.player2Member = tbc.memberList.TBD;
+        self.player2Control.selectedSegmentIndex = 1;
+    }
     self.guest2 = guest;
 }
 

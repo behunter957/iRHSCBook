@@ -40,6 +40,19 @@
     return self;
 }
 
-
+-(id)initWithName:(NSString *)name type:(NSString *)type
+{
+    if(self = [self init]) {
+        _name  = name;
+        _firstName  = name;
+        _lastName  = name;
+        _email  = @"";
+        _phone1  = @"";
+        _phone2  = @"";
+        _status  = @"Active";
+        _type  = type;
+    }
+    return self;
+}
 
 @end

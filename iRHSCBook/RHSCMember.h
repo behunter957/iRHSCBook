@@ -11,7 +11,8 @@
 
 @interface RHSCMember : NSObject
 
-- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary;
+-(id)initWithJSONDictionary:(NSDictionary *)jsonDictionary;
+-(id)initWithName:(NSString *)name type:(NSString *)type;
 
 @property (readonly) NSString *name;
 @property (readonly) NSString *email;

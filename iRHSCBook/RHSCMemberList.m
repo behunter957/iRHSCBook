@@ -30,14 +30,40 @@
     
     // Get an array of dictionaries with the key "locations"
     NSArray *array = [jsonDictionary objectForKey:@"members"];
+    self.TBD = nil;
+    self.GUEST = nil;
     // Iterate through the array of dictionaries
     for(NSDictionary *dict in array) {
         // Create a new Location object for each one and initialise it with information in the dictionary
         RHSCMember *member = [[RHSCMember alloc] initWithJSONDictionary:dict];
         // Add the Location object to the array
+        if ([member.name isEqualToString:@"TBD"]) {
+            self.TBD = member;
+            continue;
+        }
+        if ([member.name isEqualToString:@"Guest"]) {
+            self.GUEST = member;
+            continue;
+        }
         [memList addObject:member];
     }
+    if (self.TBD != nil) {
+        self.TBD = [[RHSCMember alloc] initWithName:@"TBD" type:@"TBD"];
+    }
+    if (self.GUEST != nil) {
+        self.GUEST = [[RHSCMember alloc] initWithName:@"Guest" type:@"Guest"];
+    }
     _memberList = [[NSArray alloc] initWithArray:memList];
+}
+
+-(RHSCMember *)find:(NSString *)name
+{
+    for (RHSCMember *tst in self.memberList) {
+        if ([name isEqualToString:[tst name]]) {
+            return tst;
+        }
+    }
+    return nil;
 }
 
 

@@ -98,17 +98,18 @@
 -(IBAction) player2Clicked:(id)sender
 {
     NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if (self.player2Control.selectedSegmentIndex == 0) {
         self.player2Control.selectedSegmentIndex = -1;
         NSString *segueName = @"DoublesPlayer2";
         [self performSegueWithIdentifier: segueName sender: self];
     }
     if (self.player2Control.selectedSegmentIndex == 1) {
-        self.player2Member = nil;
+        self.player2Member = tbc.memberList.TBD;
         [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
     if (self.player2Control.selectedSegmentIndex == 2) {
-        self.player2Member = nil;
+        self.player2Member = tbc.memberList.GUEST;
         [self.player2Control setTitle:@"Select Member" forSegmentAtIndex:0];
         NSString *segueName = @"DoublesGuest2";
         [self performSegueWithIdentifier: segueName sender: self];
@@ -119,17 +120,18 @@
 -(IBAction) player3Clicked:(id)sender
 {
     NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if (self.player3Control.selectedSegmentIndex == 0) {
         self.player3Control.selectedSegmentIndex = -1;
         NSString *segueName = @"DoublesPlayer3";
         [self performSegueWithIdentifier: segueName sender: self];
     }
     if (self.player3Control.selectedSegmentIndex == 1) {
-        self.player3Member = nil;
+        self.player3Member = tbc.memberList.TBD;
         [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
     if (self.player3Control.selectedSegmentIndex == 2) {
-        self.player3Member = nil;
+        self.player3Member = tbc.memberList.GUEST;
         [self.player3Control setTitle:@"Select Member" forSegmentAtIndex:0];
         NSString *segueName = @"DoublesGuest3";
         [self performSegueWithIdentifier: segueName sender: self];
@@ -140,17 +142,18 @@
 -(IBAction) player4Clicked:(id)sender
 {
     NSLog(@"segment clicked = %ld",(long) self.player2Control.selectedSegmentIndex);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if (self.player4Control.selectedSegmentIndex == 0) {
         self.player4Control.selectedSegmentIndex = -1;
         NSString *segueName = @"DoublesPlayer4";
         [self performSegueWithIdentifier: segueName sender: self];
     }
     if (self.player4Control.selectedSegmentIndex == 1) {
-        self.player4Member = nil;
+        self.player4Member = tbc.memberList.TBD;
         [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
     }
     if (self.player4Control.selectedSegmentIndex == 2) {
-        self.player4Member = nil;
+        self.player4Member = tbc.memberList.GUEST;
         [self.player4Control setTitle:@"Select Member" forSegmentAtIndex:0];
         NSString *segueName = @"DoublesGuest4";
         [self performSegueWithIdentifier: segueName sender: self];
@@ -197,21 +200,18 @@
         [[segue destinationViewController] setPlayerNumber:[NSNumber numberWithInt:4]];
     }
     if ([segue.identifier isEqualToString:@"DoublesGuest2"]) {
-        // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setGuest:self.guest2];
         [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:2]];
     }
     if ([segue.identifier isEqualToString:@"DoublesGuest3"]) {
-        // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setGuest:self.guest3];
         [[segue destinationViewController] setGuestNumber:[NSNumber numberWithInt:3]];
     }
     if ([segue.identifier isEqualToString:@"DoublesGuest4"]) {
-        // lock the court
         // set the selectedCourtTime record
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setGuest:self.guest4];
@@ -222,13 +222,26 @@
 -(void)setGuest:(RHSCGuest *)guest number:(NSNumber *) guestNumber
 {
     NSLog(@"setGuest %@",guestNumber);
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     if ([guestNumber intValue] == 2) {
+        if ([guest.name isEqualToString:@""]) {
+            self.player2Member = tbc.memberList.TBD;
+            self.player2Control.selectedSegmentIndex = 1;
+        }
         self.guest2 = guest;
     }
     if ([guestNumber intValue] == 3) {
+        if ([guest.name isEqualToString:@""]) {
+            self.player3Member = tbc.memberList.TBD;
+            self.player3Control.selectedSegmentIndex = 1;
+        }
         self.guest3 = guest;
     }
     if ([guestNumber intValue] == 4) {
+        if ([guest.name isEqualToString:@""]) {
+            self.player4Member = tbc.memberList.TBD;
+            self.player4Control.selectedSegmentIndex = 1;
+        }
         self.guest4 = guest;
     }
 }
