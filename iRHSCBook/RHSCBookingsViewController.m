@@ -20,6 +20,8 @@
 @property (nonatomic, strong) RHSCMyBookingsList *bookingList;
 @property (nonatomic, strong) RHSCCourtTime *selectedBooking;
 
+@property (nonatomic, strong) UIRefreshControl* refreshControl;
+
 @end
 
 @implementation RHSCBookingsViewController
@@ -43,11 +45,21 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+//    [self refreshTable];
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:self.refreshControl];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    NSLog(@"MyBooking viewDidAppear");
     [self refreshTable];
 }
 
 -(void)refreshTable
 {
+    [self.refreshControl endRefreshing];
     self.bookingList = [[RHSCMyBookingsList alloc] init];
     // now get the booking list for the current user
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
@@ -115,6 +127,12 @@
         [[segue destinationViewController] setDelegate:self];
         [[segue destinationViewController] setBooking:self.selectedBooking];
     }
+}
+
+- (IBAction)syncBookings:(id)sender
+{
+    [self.refreshControl endRefreshing];
+    [self refreshTable];
 }
 
 

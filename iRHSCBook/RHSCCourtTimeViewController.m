@@ -67,7 +67,7 @@
     }
     self.selectedCourtTime = nil;
     
-    [self loadSelectedCourtTimes];
+//    [self loadSelectedCourtTimes];
     
     [self refreshLeftBarButton];
 
@@ -75,6 +75,13 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:self.refreshControl];
 }
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    NSLog(@"CourtTime viewDidAppear");
+    [self refreshTable];
+}
+
 
 - (void)didReceiveMemoryWarning
 {    [super didReceiveMemoryWarning];
@@ -243,8 +250,8 @@
 {
     NSLog(@"delegate setInclude %@",setSwitch);
     self.includeInd = setSwitch;
-    [self loadSelectedCourtTimes];
-    [self.tableView reloadData];
+//    [self loadSelectedCourtTimes];
+//    [self.tableView reloadData];
 }
 
 -(void)refreshLeftBarButton

@@ -85,7 +85,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="ulr-mM-Vaq">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HPs-Rw-rBL">
-                                <rect key="frame" x="279" y="11" width="25" height="22"/>
+                                <rect key="frame" x="275" y="11" width="29" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Sync">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -225,7 +225,20 @@
                             <outlet property="delegate" destination="3i0-la-ZhI" id="B1U-2E-HDR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Bookings" id="cI2-j0-4p3"/>
+                    <navigationItem key="navigationItem" title="My Bookings" id="cI2-j0-4p3">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="DtN-6I-jhV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tHr-ov-qDQ">
+                                <rect key="frame" x="275" y="10" width="29" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Sync">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="syncBookings:" destination="3i0-la-ZhI" eventType="touchUpInside" id="eCE-s2-Rtu"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="GvS-gf-9rh" id="Lvd-AZ-gbC"/>
                         <segue destination="Dn2-hE-uzA" kind="push" identifier="BookingDetail" id="c3E-dF-B3k"/>
@@ -949,8 +962,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vhh-Zx-dhL"/>
         <segue reference="jYf-s5-loM"/>
         <segue reference="OL0-yK-twA"/>
+        <segue reference="c3E-dF-B3k"/>
     </inferredMetricsTieBreakers>
 </document>
