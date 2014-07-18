@@ -181,7 +181,7 @@
                           tbc.currentUser.data.name,
                           self.player2Member?self.player2Member.name:@"",@"",@"",
                           tbc.currentUser.data.name,@"iPhone",
-                          @"",@"",@"",
+                          self.guest2.name,self.guest2.phone,self.guest2.email,
                           @"",@"",@"",
                           @"",@"",@"",
                           [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];

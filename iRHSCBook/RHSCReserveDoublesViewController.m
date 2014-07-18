@@ -271,9 +271,9 @@
                           self.player3Member?self.player3Member.name:@"",
                           self.player4Member?self.player4Member.name:@"",
                           tbc.currentUser.data.name,@"iPhone",
-                          @"",@"",@"",
-                          @"",@"",@"",
-                          @"",@"",@"",
+                          self.guest2.name,self.guest2.phone,self.guest2.email,
+                          self.guest3.name,self.guest3.phone,self.guest3.email,
+                          self.guest4.name,self.guest4.phone,self.guest4.email,
                           [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];
  
     NSLog(@"fetch URL = %@",fetchURL);
