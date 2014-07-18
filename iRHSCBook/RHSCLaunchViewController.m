@@ -19,6 +19,8 @@
 
 RHSCServer *srvr;
 RHSCUser *usr;
+NSString *courtSet;
+bool includeBookings;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +64,10 @@ RHSCUser *usr;
     NSLog(@"URL = %@",[defaults stringForKey:@"RHSCServerURL"]);
     NSLog(@"UserID = %@",[defaults stringForKey:@"RHSCUserID"]);
     NSLog(@"Password = %@",[defaults stringForKey:@"RHSCPassword"]);
+    NSLog(@"CourtSet = %@",[defaults stringForKey:@"RHSCCourtSet"]);
+    NSLog(@"IncludeBookings = %@",[defaults stringForKey:@"RHSCIncludeBookings"]);
+    courtSet = [defaults stringForKey:@"RHSCCourtSet"];
+    includeBookings = [defaults boolForKey:@"RHSCIncludeBookings"];
     srvr = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
     usr = [[RHSCUser alloc] initFromServer:srvr userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
     if (![usr isLoggedOn]) {
@@ -97,6 +103,8 @@ RHSCUser *usr;
         // set the selectedCourtTime record
         [[segue destinationViewController] setServer:srvr];
         [[segue destinationViewController] setCurrentUser:usr];
+        [[segue destinationViewController] setCourtSet:courtSet];
+        [[segue destinationViewController] setIncludeBookings:[NSNumber numberWithBool:includeBookings]];
     }
     
 }

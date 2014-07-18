@@ -32,8 +32,6 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.selectionDate = [NSDate date];
-        self.selectionSet = @"Singles";
     }
     return self;
 }
@@ -59,12 +57,10 @@
     if (!self.selectionDate) {
         self.selectionDate = [NSDate date];
     }
-    if (!self.selectionSet) {
-        self.selectionSet = @"Singles";
-    }
-    if (!self.includeInd) {
-        self.includeInd = @"NO";
-    }
+
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    self.selectionSet = tbc.courtSet;
+    self.includeInd = [tbc.includeBookings boolValue]?@"YES":@"NO";
     self.selectedCourtTime = nil;
     
 //    [self loadSelectedCourtTimes];

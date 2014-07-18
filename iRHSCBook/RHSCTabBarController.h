@@ -16,5 +16,7 @@
 @property (nonatomic, strong) RHSCMemberList *memberList;
 @property (nonatomic, strong) RHSCUser *currentUser;
 @property (nonatomic, strong) RHSCServer *server;
+@property (nonatomic, strong) NSString *courtSet;
+@property (nonatomic, strong) NSNumber *includeBookings;
 
 @end
