@@ -75,6 +75,7 @@
 -(void) viewDidAppear:(BOOL)animated
 {
 //    NSLog(@"CourtTime viewDidAppear");
+    [self refreshLeftBarButton];
     [self refreshTable];
 }
 

@@ -84,7 +84,6 @@ bool includeBookings;
     }    
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -106,8 +105,7 @@ bool includeBookings;
         [[segue destinationViewController] setCourtSet:courtSet];
         [[segue destinationViewController] setIncludeBookings:[NSNumber numberWithBool:includeBookings]];
     }
-    
-}
 
+}
 
 @end
