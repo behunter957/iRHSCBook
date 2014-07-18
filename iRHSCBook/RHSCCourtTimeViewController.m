@@ -143,7 +143,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = indexPath.row;
+//    NSInteger row = indexPath.row;
 //    NSLog(@"Selected row : %d",row);
     self.selectedCourtTime = self.courtTimes[indexPath.row];
     if ([self.selectedCourtTime.status isEqualToString:@"Available"]) {

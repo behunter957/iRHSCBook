@@ -97,36 +97,6 @@ BOOL searching;
     }
 }
 
--(IBAction)phoneMember:(id)sender
-{
-    // get the currently selected table row
-    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    RHSCMember *member = ml.memberList[selectedIndexPath.row];
-//    NSLog(@"Phone member: %@",member.name);
-}
-
--(IBAction)smsMember:(id)sender
-{
-    // get the currently selected table row
-    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    RHSCMember *member = ml.memberList[selectedIndexPath.row];
-//    NSLog(@"SMS member: %@",member.name);
-}
-
--(IBAction)emailMember:(id)sender
-{
-    // get the currently selected table row
-    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    RHSCMember *member = ml.memberList[selectedIndexPath.row];
-//    NSLog(@"Email member: %@",member.name);
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;

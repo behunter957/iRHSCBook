@@ -110,7 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = indexPath.row;
+//    NSInteger row = indexPath.row;
 //    NSLog(@"Selected row : %d",row);
     self.selectedBooking = self.bookingList.bookingList[indexPath.row];
     NSString *segueName = @"BookingDetail";
