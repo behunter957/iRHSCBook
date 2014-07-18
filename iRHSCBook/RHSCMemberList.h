@@ -18,5 +18,6 @@
 
 -(RHSCMember *)find:(NSString *)name;
 - (void)loadFromJSON:(RHSCServer *)server;
+-(BOOL)loadedSuccessfully;
 
 @end

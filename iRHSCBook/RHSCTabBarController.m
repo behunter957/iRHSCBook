@@ -26,8 +26,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // validate logon
+    NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+    if(!settingsBundle) {
+        NSLog(@"Could not find Settings.bundle");
+        return;
+    }
+    
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:[settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
+    NSArray *preferences = [settings objectForKey:@"PreferenceSpecifiers"];
+    
+    NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
+    for(NSDictionary *prefSpecification in preferences) {
+        NSString *key = [prefSpecification objectForKey:@"Key"];
+        if(key) {
+            [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
+        }
+    }
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
+    NSUserDefaults *defaults = [NSUserDefaults  standardUserDefaults];
+    
+    NSLog(@"URL = %@",[defaults stringForKey:@"RHSCServerURL"]);
+    NSLog(@"UserID = %@",[defaults stringForKey:@"RHSCUserID"]);
+    NSLog(@"Password = %@",[defaults stringForKey:@"RHSCPassword"]);
+    NSLog(@"CourtSet = %@",[defaults stringForKey:@"RHSCCourtSet"]);
+    NSLog(@"IncludeBookings = %@",[defaults stringForKey:@"RHSCIncludeBookings"]);
+    self.courtSet = [defaults stringForKey:@"RHSCCourtSet"];
+    self.includeBookings = [NSNumber numberWithBool:[defaults boolForKey:@"RHSCIncludeBookings"]];
+    self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
+    self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
     self.memberList = [[RHSCMemberList alloc] init];
-    [self.memberList loadFromJSON:self.server];
+    if (![self.currentUser isLoggedOn]) {
+        [self.view setUserInteractionEnabled:NO];
+        // if not found then logon failes
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logon Failed"
+                                                        message:@"Please check settings and provide a valid userid and password."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [self.memberList loadFromJSON:self.server];
+        if (![self.memberList loadedSuccessfully]) {
+            [self.view setUserInteractionEnabled:NO];
+            // if not found then logon failes
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load Members Failed"
+                                                            message:@"Please check settings and restart iRHSCBook or contact administrator."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

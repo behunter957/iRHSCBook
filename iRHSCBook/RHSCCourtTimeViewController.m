@@ -267,38 +267,40 @@
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     RHSCUser *curUser = tbc.currentUser;
-    NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
-    [dtFormatter setLocale:[NSLocale systemLocale]];
-    [dtFormatter setDateFormat:@"yyyy/MM/dd"];
-    NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
-    
-    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
-
-    NSLog(@"fetch URL = %@",fetchURL);
-    
-    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
-                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                         timeoutInterval:30.0];
-	
-    // Get the data
-    NSURLResponse *response;
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    
-    // Now create a NSDictionary from the JSON data
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    // Create a new array to hold the locations
-    self.courtTimes = [[NSMutableArray alloc] init];
-
-    // Get an array of dictionaries with the key "locations"
-    NSArray *array = [jsonDictionary objectForKey:@"courtTimes"];
-    // Iterate through the array of dictionaries
-    for(NSDictionary *dict in array) {
-        // Create a new Location object for each one and initialise it with information in the dictionary
-        RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
-        // Add the court time object to the array
-        [self.courtTimes addObject:courtTimeObj];
+    if ([curUser isLoggedOn]) {
+        NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
+        [dtFormatter setLocale:[NSLocale systemLocale]];
+        [dtFormatter setDateFormat:@"yyyy/MM/dd"];
+        NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
+        
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+        
+        NSLog(@"fetch URL = %@",fetchURL);
+        
+        NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                             timeoutInterval:30.0];
+        
+        // Get the data
+        NSURLResponse *response;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+        
+        // Now create a NSDictionary from the JSON data
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        // Create a new array to hold the locations
+        self.courtTimes = [[NSMutableArray alloc] init];
+        
+        // Get an array of dictionaries with the key "locations"
+        NSArray *array = [jsonDictionary objectForKey:@"courtTimes"];
+        // Iterate through the array of dictionaries
+        for(NSDictionary *dict in array) {
+            // Create a new Location object for each one and initialise it with information in the dictionary
+            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+            // Add the court time object to the array
+            [self.courtTimes addObject:courtTimeObj];
+        }
     }
 }
 

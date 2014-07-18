@@ -39,19 +39,22 @@ BOOL loggedOn = NO;
                                          timeoutInterval:30.0];
 	
     // Get the data
+    NSError *error;
     NSURLResponse *response;
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
-    // Now create a NSDictionary from the JSON data
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    
-    // Get an array of dictionaries with the key "locations"
-    NSArray *array = [jsonDictionary objectForKey:@"user"];
-    // Iterate through the array of dictionaries
-    for(NSDictionary *dict in array) {
-        // Create a new Location object for each one and initialise it with information in the dictionary
-        loggedOn = YES;
-        return [[RHSCMember alloc] initWithJSONDictionary:dict];
+    if (error == nil) {
+        // Now create a NSDictionary from the JSON data
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        // Get an array of dictionaries with the key "locations"
+        NSArray *array = [jsonDictionary objectForKey:@"user"];
+        // Iterate through the array of dictionaries
+        for(NSDictionary *dict in array) {
+            // Create a new Location object for each one and initialise it with information in the dictionary
+            loggedOn = YES;
+            return [[RHSCMember alloc] initWithJSONDictionary:dict];
+        }
     }
     return nil;
 }
