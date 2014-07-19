@@ -92,16 +92,16 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
+//            NSLog(@"Mail cancelled");
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
+//            NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
+//            NSLog(@"Mail sent");
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+//            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;
@@ -112,7 +112,7 @@
 }
 
 - (IBAction)phone1Member:(id)sender {
-    NSLog(@"Phoning using number 1");
+//    NSLog(@"Phoning using number 1");
     NSString *cleanedString = [[[self.member phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
     NSString *phoneNumber = [@"telprompt://" stringByAppendingString:cleanedString];
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:phoneNumber]]) {
@@ -129,7 +129,7 @@
 }
 
 - (IBAction)phone2Member:(id)sender {
-    NSLog(@"Phoning using number 2");
+//    NSLog(@"Phoning using number 2");
     NSString *cleanedString = [[[self.member phone2] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
     NSString *phoneNumber = [@"telprompt://" stringByAppendingString:cleanedString];
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:phoneNumber]]) {
@@ -147,7 +147,7 @@
 
 - (IBAction)sms1Member:(id)sender {
 	MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
-    NSLog(@"Sending SMS using number 1");
+//    NSLog(@"Sending SMS using number 1");
     NSString *cleanedString = [[[self.member phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
 	if([MFMessageComposeViewController canSendText])
 	{
@@ -160,7 +160,7 @@
 
 - (IBAction)sms2Member:(id)sender {
 	MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
-    NSLog(@"Sending SMS using number 2");
+//    NSLog(@"Sending SMS using number 2");
     NSString *cleanedString = [[[self.member phone2] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
 	if([MFMessageComposeViewController canSendText])
 	{
