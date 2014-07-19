@@ -146,8 +146,11 @@
     
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     // Get the data
+    NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30.0];
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:target
+    [[session dataTaskWithRequest: request
             completionHandler:^(NSData *data,
                                 NSURLResponse *response,
                                 NSError *error) {
