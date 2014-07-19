@@ -134,8 +134,8 @@
 - (IBAction)syncCourts:(id)sender
 {
     [self.refreshControl endRefreshing];
-    [self loadSelectedCourtTimes];
-    [self.tableView reloadData];    
+    [self asyncLoadSelectedCourtTimes];
+//    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -263,6 +263,54 @@
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
 }
 
+-(void)asyncLoadSelectedCourtTimes
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    RHSCUser *curUser = tbc.currentUser;
+    if ([curUser isLoggedOn]) {
+        NSDateFormatter* dtFormatter = [[NSDateFormatter alloc] init];
+        [dtFormatter setLocale:[NSLocale systemLocale]];
+        [dtFormatter setDateFormat:@"yyyy/MM/dd"];
+        NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
+        
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+        
+//        NSLog(@"fetch URL = %@",fetchURL);
+        
+        NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+        // Get the data
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:target
+                completionHandler:^(NSData *data,
+                                    NSURLResponse *response,
+                                    NSError *error) {
+                    // handle response
+                    // Now create a NSDictionary from the JSON data
+                    if (error == nil) {
+                        NSError *jsonError = nil;
+                        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                        if (jsonError == nil) {
+                            // Create a new array to hold the locations
+                            self.courtTimes = [[NSMutableArray alloc] init];
+                            
+                            // Get an array of dictionaries with the key "locations"
+                            NSArray *array = [jsonDictionary objectForKey:@"courtTimes"];
+                            // Iterate through the array of dictionaries
+                            for(NSDictionary *dict in array) {
+                                // Create a new Location object for each one and initialise it with information in the dictionary
+                                RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+                                // Add the court time object to the array
+                                [self.courtTimes addObject:courtTimeObj];
+                            }
+                        }
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        [self.tableView reloadData];
+                    });
+                }] resume];
+    }
+}
+
 -(void)loadSelectedCourtTimes
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
@@ -275,7 +323,7 @@
         
         NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
         
-        NSLog(@"fetch URL = %@",fetchURL);
+//        NSLog(@"fetch URL = %@",fetchURL);
         
         NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
         NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
@@ -307,8 +355,8 @@
 - (void)refreshTable {
     //TODO: refresh your data
     [self.refreshControl endRefreshing];
-    [self loadSelectedCourtTimes];
-    [self.tableView reloadData];
+    [self asyncLoadSelectedCourtTimes];
+//    [self.tableView reloadData];
 }
 /*
 // Override to support conditional editing of the table view.

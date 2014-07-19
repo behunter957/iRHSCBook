@@ -17,7 +17,7 @@
     // Create a NSURLRequest with the given URL
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSMyBookingsJSON.php?uid=%@",curUser.data.name];
 
-    NSLog(@"fetch URL = %@",fetchURL);
+//    NSLog(@"fetch URL = %@",fetchURL);
     
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
@@ -28,6 +28,12 @@
     NSURLResponse *response;
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
     
+    // Now create a NSDictionary from the JSON data
+    [self loadFromData:data];
+}
+
+- (void)loadFromData:(NSData *) data {
+    // Create a NSURLRequest with the given URL
     // Now create a NSDictionary from the JSON data
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     

@@ -47,11 +47,11 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
     NSUserDefaults *defaults = [NSUserDefaults  standardUserDefaults];
     
-    NSLog(@"URL = %@",[defaults stringForKey:@"RHSCServerURL"]);
-    NSLog(@"UserID = %@",[defaults stringForKey:@"RHSCUserID"]);
-    NSLog(@"Password = %@",[defaults stringForKey:@"RHSCPassword"]);
-    NSLog(@"CourtSet = %@",[defaults stringForKey:@"RHSCCourtSet"]);
-    NSLog(@"IncludeBookings = %@",[defaults stringForKey:@"RHSCIncludeBookings"]);
+//    NSLog(@"URL = %@",[defaults stringForKey:@"RHSCServerURL"]);
+//    NSLog(@"UserID = %@",[defaults stringForKey:@"RHSCUserID"]);
+//    NSLog(@"Password = %@",[defaults stringForKey:@"RHSCPassword"]);
+//    NSLog(@"CourtSet = %@",[defaults stringForKey:@"RHSCCourtSet"]);
+//    NSLog(@"IncludeBookings = %@",[defaults stringForKey:@"RHSCIncludeBookings"]);
     self.courtSet = [defaults stringForKey:@"RHSCCourtSet"];
     self.includeBookings = [NSNumber numberWithBool:[defaults boolForKey:@"RHSCIncludeBookings"]];
     self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];

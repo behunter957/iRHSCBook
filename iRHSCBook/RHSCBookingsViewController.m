@@ -62,9 +62,11 @@
     [self.refreshControl endRefreshing];
     self.bookingList = [[RHSCMyBookingsList alloc] init];
     // now get the booking list for the current user
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
-    [self.tableView reloadData];
+    [self asyncLoadBookings];
+    
+//    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+//    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
+//    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,6 +135,31 @@
 {
     [self.refreshControl endRefreshing];
     [self refreshTable];
+}
+
+-(void)asyncLoadBookings
+{
+    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSMyBookingsJSON.php?uid=%@",tbc.currentUser.data.name];
+    
+    NSLog(@"fetch URL = %@",fetchURL);
+    
+    NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
+    // Get the data
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:target
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                // handle response
+                // Now create a NSDictionary from the JSON data
+                if (error == nil) {
+                    [self.bookingList loadFromData:data];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [self.tableView reloadData];
+                });
+            }] resume];
 }
 
 

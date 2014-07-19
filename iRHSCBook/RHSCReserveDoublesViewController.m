@@ -251,7 +251,7 @@
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
 
-    NSLog(@"fetch URL = %@",fetchURL);
+//    NSLog(@"fetch URL = %@",fetchURL);
     
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
@@ -276,7 +276,7 @@
                           self.guest4.name,self.guest4.phone,self.guest4.email,
                           [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];
  
-    NSLog(@"fetch URL = %@",fetchURL);
+//    NSLog(@"fetch URL = %@",fetchURL);
     
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
@@ -293,7 +293,7 @@
             // Get an array of dictionaries with the key "locations"
             // NSArray *array = [jsonDictionary objectForKey:@"user"];
 
-            NSLog(@"%@",jsonDictionary);
+//            NSLog(@"%@",jsonDictionary);
             
             self.successAlert = [[UIAlertView alloc] initWithTitle:@"Success"
                                                       message:@"Court time successfully booked. Notices will be sent to all players"
