@@ -114,7 +114,7 @@
                           ];
     }
     
-    NSLog(@"fetch URL = %@",fetchURL);
+//    NSLog(@"fetch URL = %@",fetchURL);
     NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -129,7 +129,7 @@
             
             // Get an array of dictionaries with the key "locations"
             // NSArray *array = [jsonDictionary objectForKey:@"user"];
-            NSLog(@"%@",jsonDictionary);
+//            NSLog(@"%@",jsonDictionary);
             self.successAlert = [[UIAlertView alloc] initWithTitle:@"Success"
                                                       message:@"Booking successfully cancelled. Notices will be sent to all players"
                                                      delegate:self
@@ -215,16 +215,16 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
+//            NSLog(@"Mail cancelled");
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
+//            NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
+//            NSLog(@"Mail sent");
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+//            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;
@@ -268,7 +268,7 @@
 {
 	switch (result) {
 		case MessageComposeResultCancelled:
-			NSLog(@"Cancelled");
+//			NSLog(@"Cancelled");
 			break;
 		case MessageComposeResultFailed: {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send SMS"

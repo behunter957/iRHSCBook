@@ -275,7 +275,7 @@
         
         NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
         
-        NSLog(@"fetch URL = %@",fetchURL);
+//        NSLog(@"fetch URL = %@",fetchURL);
         
         NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
         // Get the data
