@@ -48,7 +48,7 @@
     [dtFormatter setDateFormat:@"EEE, MMM d - h:mm a"];
     
     self.courtAndTime.text = [NSString stringWithFormat:@"%@ for %@",self.booking.court,[dtFormatter stringFromDate:self.booking.courtTime]];
-    self.eventLabel.text = [NSString stringWithFormat:@"%@ match with:",self.booking.event];
+    self.eventLabel.text = [NSString stringWithFormat:@"%@ match between:",self.booking.event];
     self.player1 = [self findPlayer:self.booking.players[@"player1_id"] in:tbc.memberList];
     if (self.player1) {
         self.player1Label.text = [NSString stringWithFormat:@"%@ %@",self.player1.firstName,self.player1.lastName];

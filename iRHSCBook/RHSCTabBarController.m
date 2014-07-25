@@ -58,32 +58,39 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"There IS NO internet connection");
-    } else {
-        NSLog(@"There IS internet connection");
-    }    self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
-    self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
-    self.memberList = [[RHSCMemberList alloc] init];
-    if (![self.currentUser isLoggedOn]) {
         [self.view setUserInteractionEnabled:NO];
         // if not found then logon failes
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logon Failed"
-                                                        message:@"Please check settings and provide a valid userid and password."
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection"
+                                                        message:@"Close the application and try later."
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        [self.memberList loadFromJSON:self.server];
-        if (![self.memberList loadedSuccessfully]) {
+        self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
+        self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
+        self.memberList = [[RHSCMemberList alloc] init];
+        if (![self.currentUser isLoggedOn]) {
             [self.view setUserInteractionEnabled:NO];
             // if not found then logon failes
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load Members Failed"
-                                                            message:@"Please check settings and restart iRHSCBook or contact administrator."
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logon Failed"
+                                                            message:@"Please check settings and provide a valid userid and password."
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
             [alert show];
+        } else {
+            [self.memberList loadFromJSON:self.server];
+            if (![self.memberList loadedSuccessfully]) {
+                [self.view setUserInteractionEnabled:NO];
+                // if not found then logon failes
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load Members Failed"
+                                                                message:@"Please check settings and restart iRHSCBook or contact administrator."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
