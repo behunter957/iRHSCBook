@@ -89,6 +89,7 @@
                                 <rect key="frame" x="19" y="332" width="283" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
+                                    <segment title="All"/>
                                     <segment title="Singles"/>
                                     <segment title="Front"/>
                                     <segment title="Back"/>

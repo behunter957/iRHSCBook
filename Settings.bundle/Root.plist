@@ -53,6 +53,7 @@
 			<string>Front</string>
 			<key>Values</key>
 			<array>
+				<string>All</string>
 				<string>Singles</string>
 				<string>Front</string>
 				<string>Back</string>
@@ -60,6 +61,7 @@
 			</array>
 			<key>Titles</key>
 			<array>
+				<string>All</string>
 				<string>Singles</string>
 				<string>Front</string>
 				<string>Back</string>
