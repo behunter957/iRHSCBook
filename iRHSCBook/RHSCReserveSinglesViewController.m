@@ -13,7 +13,8 @@
 #import "RHSCMember.h"
 #import "RHSCGuest.h"
 
-@interface RHSCReserveSinglesViewController ()
+@interface RHSCReserveSinglesViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
+
 @property (nonatomic,strong) RHSCMember *player2Member;
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
@@ -56,6 +57,11 @@
     self.navigationItem.title = [NSString stringWithFormat:@"Book %@ %@",courtType,self.courtTimeRecord.court];
     self.player2Control.selectedSegmentIndex = 1;
     self.guest2 = [[RHSCGuest alloc] init];
+    
+    UIPickerView *picker = [[UIPickerView alloc] init];
+    picker.dataSource = self;
+    picker.delegate = self;
+    self.eventType.inputView = picker;
 }
 
 @synthesize delegate;
@@ -99,6 +105,11 @@
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
 {
     return [self.typeList objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.eventType.text = self.typeList[row];
+    [self.eventType resignFirstResponder];
 }
 
 -(IBAction) playerClicked:(id)sender
@@ -184,7 +195,7 @@
                           self.guest2.name,self.guest2.phone,self.guest2.email,
                           @"",@"",@"",
                           @"",@"",@"",
-                          [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];
+                          self.eventType.text];
 
 //    NSLog(@"fetch URL = %@",fetchURL);
     

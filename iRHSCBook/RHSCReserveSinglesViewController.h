@@ -21,6 +21,8 @@
 
 @property (nonatomic, weak) IBOutlet UISegmentedControl *player2Control;
 
+@property (nonatomic, weak) IBOutlet UITextField *eventType;
+
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UIButton *bookButton;
 @property (nonatomic, weak) IBOutlet UILabel *courtDate;

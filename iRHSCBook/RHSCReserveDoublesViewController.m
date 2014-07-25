@@ -12,7 +12,7 @@
 #import "RHSCGuest.h"
 #import "RHSCGuestDetailsViewController.h"
 
-@interface RHSCReserveDoublesViewController ()
+@interface RHSCReserveDoublesViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic,strong) RHSCMember *player2Member;
 @property (nonatomic,strong) RHSCMember *player3Member;
@@ -50,6 +50,11 @@
     self.guest2 = [[RHSCGuest alloc] init];
     self.guest3 = [[RHSCGuest alloc] init];
     self.guest4 = [[RHSCGuest alloc] init];
+    
+    UIPickerView *picker = [[UIPickerView alloc] init];
+    picker.dataSource = self;
+    picker.delegate = self;
+    self.eventType.inputView = picker;
 }
 
 @synthesize delegate;
@@ -93,6 +98,11 @@
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
 {
     return [self.typeList objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.eventType.text = self.typeList[row];
+    [self.eventType resignFirstResponder];
 }
 
 -(IBAction) player2Clicked:(id)sender
@@ -274,7 +284,7 @@
                           self.guest2.name,self.guest2.phone,self.guest2.email,
                           self.guest3.name,self.guest3.phone,self.guest3.email,
                           self.guest4.name,self.guest4.phone,self.guest4.email,
-                          [self.typeList objectAtIndex:[self.typePicker selectedRowInComponent:0]]];
+                          self.eventType.text];
  
 //    NSLog(@"fetch URL = %@",fetchURL);
     
