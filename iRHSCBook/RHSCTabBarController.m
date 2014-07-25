@@ -7,6 +7,7 @@
 //
 
 #import "RHSCTabBarController.h"
+#import "Reachability.h"
 
 @interface RHSCTabBarController () 
 
@@ -54,7 +55,13 @@
 //    NSLog(@"IncludeBookings = %@",[defaults stringForKey:@"RHSCIncludeBookings"]);
     self.courtSet = [defaults stringForKey:@"RHSCCourtSet"];
     self.includeBookings = [NSNumber numberWithBool:[defaults boolForKey:@"RHSCIncludeBookings"]];
-    self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"There IS NO internet connection");
+    } else {
+        NSLog(@"There IS internet connection");
+    }    self.server = [[RHSCServer alloc] initWithString:[NSString stringWithFormat:@"http://%@",[defaults stringForKey:@"RHSCServerURL"]]];
     self.currentUser = [[RHSCUser alloc] initFromServer:self.server userid:[defaults stringForKey:@"RHSCUserID"] password:[defaults stringForKey:@"RHSCPassword"]];
     self.memberList = [[RHSCMemberList alloc] init];
     if (![self.currentUser isLoggedOn]) {
