@@ -38,7 +38,6 @@
 		ACAC33C2195EF51700F7562F /* RHSCCourtTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C1195EF51700F7562F /* RHSCCourtTimeViewController.m */; };
 		ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */; };
 		ACAC33C8195EF99700F7562F /* RHSCMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33C7195EF99700F7562F /* RHSCMembersViewController.m */; };
-		ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */; };
 		ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */; };
 		ACD518EE196188CA00C65C9D /* RHSCReserveSinglesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */; };
 /* End PBXBuildFile section */
@@ -105,8 +104,6 @@
 		ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCBookingsViewController.m; sourceTree = "<group>"; };
 		ACAC33C6195EF99700F7562F /* RHSCMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMembersViewController.h; sourceTree = "<group>"; };
 		ACAC33C7195EF99700F7562F /* RHSCMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMembersViewController.m; sourceTree = "<group>"; };
-		ACAC33CB1960269700F7562F /* RHSCCourtFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtFilterViewController.h; sourceTree = "<group>"; };
-		ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCCourtFilterViewController.m; sourceTree = "<group>"; };
 		ACAC33CE1960496600F7562F /* RHSCReserveDoublesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCReserveDoublesViewController.h; sourceTree = "<group>"; };
 		ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCReserveDoublesViewController.m; sourceTree = "<group>"; };
 		ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCReserveSinglesViewController.m; sourceTree = "<group>"; };
@@ -178,8 +175,6 @@
 				4AFD3DE31961BBF000665999 /* RHSCFindMemberViewController.m */,
 				ACAC33C0195EF51700F7562F /* RHSCCourtTimeViewController.h */,
 				ACAC33C1195EF51700F7562F /* RHSCCourtTimeViewController.m */,
-				ACAC33CB1960269700F7562F /* RHSCCourtFilterViewController.h */,
-				ACAC33CC1960269700F7562F /* RHSCCourtFilterViewController.m */,
 				ACAC33CE1960496600F7562F /* RHSCReserveDoublesViewController.h */,
 				ACD518EF196188E800C65C9D /* RHSCReserveSinglesViewController.h */,
 				ACAC33CF1960496600F7562F /* RHSCReserveDoublesViewController.m */,
@@ -395,7 +390,6 @@
 				ACD518EE196188CA00C65C9D /* RHSCReserveSinglesViewController.m in Sources */,
 				ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */,
 				4AD36F2E19767F200015BB52 /* RHSCGuestDetailsViewController.m in Sources */,
-				ACAC33CD1960269700F7562F /* RHSCCourtFilterViewController.m in Sources */,
 				4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */,
 				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
 				4A95922819825C3F0010332D /* Reachability.m in Sources */,

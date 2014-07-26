@@ -31,7 +31,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
     }
     return self;
 }
@@ -47,7 +46,7 @@
     [dateFormat setDateFormat:@"EEEE, MMMM d - h:mm a"];
     self.courtDate.text = [dateFormat stringFromDate:self.courtTimeRecord.courtTime];
     
-    self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder",@"MNHL", nil];
+    self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Ladder",@"MNHL",@"Lesson",@"Tournament", nil];
     
     NSString *courtType = @"Front";
     if ([self.courtTimeRecord.court isEqualToString:@"Court 1"] || [self.courtTimeRecord.court isEqualToString:@"Court 2"])

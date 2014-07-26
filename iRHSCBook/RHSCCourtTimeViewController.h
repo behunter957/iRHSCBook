@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RHSCCourtFilterViewController.h"
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCReserveDoublesViewController.h"
 #import "RHSCBookingDetailViewController.h"
 
-@interface RHSCCourtTimeViewController : UITableViewController <setSelectionProtocol,reserveSinglesProtocol, reserveDoublesProtocol, cancelBookingProtocol>
+@interface RHSCCourtTimeViewController : UITableViewController <reserveSinglesProtocol, reserveDoublesProtocol, cancelBookingProtocol>
 
 @property (nonatomic, weak) IBOutlet UISegmentedControl* selectedSetCtrl;
+
+@property (nonatomic, weak) IBOutlet UITextField *courtSet;
+@property (nonatomic, weak) IBOutlet UITextField *selectionDay;
+@property (nonatomic, weak) IBOutlet UISwitch *incBookings;
 
 @end

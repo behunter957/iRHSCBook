@@ -32,7 +32,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder", nil];
     }
     return self;
 }
@@ -41,7 +40,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Lesson",@"Ladder", nil];
+    self.typeList = [[NSArray alloc] initWithObjects:@"Friendly",@"Ladder",@"Lesson",@"Tournament", nil];
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
     self.userLabel.text = [NSString stringWithFormat:@"%@ %@",tbc.currentUser.data.firstName,tbc.currentUser.data.lastName];
     self.player2Control.selectedSegmentIndex = 1;

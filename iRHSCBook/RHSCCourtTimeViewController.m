@@ -11,7 +11,7 @@
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
 
-@interface RHSCCourtTimeViewController () 
+@interface RHSCCourtTimeViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *headerButton;
 
@@ -23,6 +23,10 @@
 @property (nonatomic, strong) UIRefreshControl* refreshControl;
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
+
+@property (nonatomic, strong) NSArray* setValues;
+@property (nonatomic, strong) NSMutableArray* dayValues;
+
 @end
 
 @implementation RHSCCourtTimeViewController
@@ -57,16 +61,44 @@
     if (!self.selectionDate) {
         self.selectionDate = [NSDate date];
     }
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEE, MMM d"];
+
+    self.selectionDay.text = [dateFormat stringFromDate:self.selectionDate];
 
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
+
     self.selectionSet = tbc.courtSet;
-    self.includeInd = [tbc.includeBookings boolValue]?@"YES":@"NO";
+    self.courtSet.text = self.selectionSet;
+
+    self.incBookings.on = [tbc.includeBookings boolValue];
+    
     self.selectedCourtTime = nil;
     
 //    [self loadSelectedCourtTimes];
     
-    [self refreshLeftBarButton];
+//    [self refreshLeftBarButton];
+    self.setValues = [[NSArray alloc] initWithObjects:@"All",@"Singles",@"Doubles",@"Front",@"Back", nil];
 
+    UIPickerView *setPicker = [[UIPickerView alloc] init];
+    setPicker.tag = 1;
+    setPicker.dataSource = self;
+    setPicker.delegate = self;
+    self.courtSet.inputView = setPicker;
+
+    self.dayValues = [[NSMutableArray alloc] init];
+    NSDate *curDate = [NSDate date];
+    for (int i = 0; i < 30; i++) {
+        [self.dayValues addObject:curDate];
+        curDate = [curDate dateByAddingTimeInterval:24*60*60];
+    }
+
+    UIPickerView *dayPicker = [[UIPickerView alloc] init];
+    dayPicker.tag = 2;
+    dayPicker.dataSource = self;
+    dayPicker.delegate = self;
+    self.selectionDay.inputView = dayPicker;
+    
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:self.refreshControl];
@@ -88,6 +120,59 @@
 -(IBAction)unwindFromReserve:(UIStoryboardSegue *)segue
 {
 //    NSLog(@"returning from Reserve");
+}
+
+-(IBAction) includeChanged
+{
+    [self asyncLoadSelectedCourtTimes];
+}
+
+
+#pragma mark - Picker view delegates
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
+{
+    if (pickerView.tag == 1) {
+        return self.setValues.count;
+    }
+    if (pickerView.tag == 2) {
+        return self.dayValues.count;
+    }
+    return 0;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row   forComponent:(NSInteger)component
+{
+    if (pickerView.tag == 1) {
+        return [self.setValues objectAtIndex:row];
+    }
+    if (pickerView.tag == 2) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEEE, MMMM d"];
+        return [dateFormat stringFromDate:[self.dayValues objectAtIndex:row]];
+    }
+    return @"";
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (pickerView.tag == 1) {
+        self.courtSet.text = self.setValues[row];
+        self.selectionSet = self.setValues[row];
+        [self.courtSet resignFirstResponder];
+    }
+    if (pickerView.tag == 2) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEE, MMM d"];
+        self.selectionDate = [self.dayValues objectAtIndex:row];
+        self.selectionDay.text = [dateFormat stringFromDate:self.selectionDate];
+        [self.selectionDay resignFirstResponder];
+    }
+    [self asyncLoadSelectedCourtTimes];
 }
 
 #pragma mark - Table view data source
@@ -273,7 +358,10 @@
         [dtFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
         
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+                              curDate,self.selectionSet,
+                              self.incBookings.on?@"YES":@"NO",
+                              curUser.data.name];
         
 //        NSLog(@"fetch URL = %@",fetchURL);
         
