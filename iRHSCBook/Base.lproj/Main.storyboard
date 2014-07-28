@@ -58,9 +58,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="7bm-qQ-ZxY">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="courtSet" id="ARL-ai-FIK">
+                        <barButtonItem key="leftBarButtonItem" title="courtSet" width="11" id="ARL-ai-FIK">
                             <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" id="GHh-Az-Oqj">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <rect key="frame" x="16" y="7" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="set">
@@ -75,7 +75,7 @@
                             </textField>
                         </barButtonItem>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" id="un6-fo-Vzf">
-                            <rect key="frame" x="93" y="7" width="156" height="30"/>
+                            <rect key="frame" x="111" y="7" width="138" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <attributedString key="attributedText">
                                 <fragment content="day">
