@@ -32,6 +32,8 @@
 
 @implementation RHSCCourtTimeViewController
 
+UIAlertView *includeAlert;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -125,6 +127,8 @@
 
 -(IBAction) includeChanged
 {
+    NSString *incText = self.incBookings.on?@"Include":@"Exclude";
+    [self showStatus:[NSString stringWithFormat:@"%@ bookings",incText] timeout:0.5 ];
     [self asyncLoadSelectedCourtTimes];
 }
 
@@ -475,6 +479,24 @@
     [self.refreshControl endRefreshing];
     [self asyncLoadSelectedCourtTimes];
 //    [self.tableView reloadData];
+}
+
+- (void)showStatus:(NSString *)message timeout:(double)timeout {
+    includeAlert = [[UIAlertView alloc] initWithTitle:nil
+                                             message:message
+                                            delegate:nil
+                                   cancelButtonTitle:nil
+                                   otherButtonTitles:nil];
+    [includeAlert show];
+    [NSTimer scheduledTimerWithTimeInterval:timeout
+                                     target:self
+                                   selector:@selector(timerExpired:)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+- (void)timerExpired:(NSTimer *)timer {
+    [includeAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 /*
 // Override to support conditional editing of the table view.
