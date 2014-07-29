@@ -110,7 +110,7 @@ UIAlertView *includeAlert;
 -(void) viewDidAppear:(BOOL)animated
 {
 //    NSLog(@"CourtTime viewDidAppear");
-    [self refreshLeftBarButton];
+//    [self refreshLeftBarButton];
     [self refreshTable];
 }
 
@@ -352,14 +352,14 @@ UIAlertView *includeAlert;
 {
 //    NSLog(@"delegate setSetSelection %@",setSelection);
     self.selectionSet = setSelection;
-    [self refreshLeftBarButton];
+ //   [self refreshLeftBarButton];
 }
 
 -(void)setDateSelection:(NSDate *)setDate
 {
 //    NSLog(@"delegate setDateSelection %@",setDate);
     self.selectionDate = setDate;
-    [self refreshLeftBarButton];
+//    [self refreshLeftBarButton];
 }
 
 -(void)setInclude:(NSString *)setSwitch
@@ -370,17 +370,17 @@ UIAlertView *includeAlert;
 //    [self.tableView reloadData];
 }
 
--(void)refreshLeftBarButton
-{
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE, MMM d"];
-    
-    NSString *fmtStr = @"%@ courts for %@";
-    if ([self.selectionSet isEqualToString:@"Doubles"]) {
-        fmtStr = @"%@ court for %@";
-    }
-    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
-}
+//-(void)refreshLeftBarButton
+//{
+//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//    [dateFormat setDateFormat:@"EEE, MMM d"];
+//    
+//    NSString *fmtStr = @"%@ courts for %@";
+//    if ([self.selectionSet isEqualToString:@"Doubles"]) {
+//        fmtStr = @"%@ court for %@";
+//    }
+//    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
+//}
 
 -(void)asyncLoadSelectedCourtTimes
 {
@@ -478,6 +478,12 @@ UIAlertView *includeAlert;
     //TODO: refresh your data
     [self.refreshControl endRefreshing];
     [self asyncLoadSelectedCourtTimes];
+    self.dayValues = [[NSMutableArray alloc] init];
+    NSDate *curDate = [NSDate date];
+    for (int i = 0; i < 30; i++) {
+        [self.dayValues addObject:curDate];
+        curDate = [curDate dateByAddingTimeInterval:24*60*60];
+    }
 //    [self.tableView reloadData];
 }
 
@@ -498,44 +504,5 @@ UIAlertView *includeAlert;
 - (void)timerExpired:(NSTimer *)timer {
     [includeAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 
 @end
