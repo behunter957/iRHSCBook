@@ -7,6 +7,7 @@
 //
 
 #import "RHSCCourtTimeViewController.h"
+#import "RHSCCourtTimeTableViewCell.h"
 #import "RHSCTabBarController.h"
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
@@ -191,7 +192,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableSinglesViewCell"];
+    static NSString *rhscCourtTimeTableIdentifier = @"RHSCCourtTimeTableViewCell";
+
+    RHSCCourtTimeTableViewCell *cell = (RHSCCourtTimeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:rhscCourtTimeTableIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:rhscCourtTimeTableIdentifier owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
     
     RHSCCourtTime *ct = self.courtTimes[indexPath.row];
     
@@ -199,13 +207,33 @@
     [dtFormatter setLocale:[NSLocale systemLocale]];
     [dtFormatter setDateFormat:@"h:mm a"];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
+    cell.courtAndTimeLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
                            [dtFormatter stringFromDate:ct.courtTime]];
-    cell.detailTextLabel.text = ct.status;
+    cell.statusLabel.text = ct.status;
     if ([ct.status isEqualToString:@"Booked"]) {
-        cell.detailTextLabel.textColor = [UIColor redColor];
+        cell.statusLabel.textColor = [UIColor redColor];
+        if ([ct.court isEqualToString:@"Court 5"]) {
+            cell.typeAndPlayersLabel.text = [NSString stringWithFormat:@"%@ - %@,%@,%@,%@",ct.event,
+                                             [ct.players objectForKey:@"player1_lname"],
+                                             [ct.players objectForKey:@"player3_lname"],
+                                             [ct.players objectForKey:@"player2_lname"],
+                                             [ct.players objectForKey:@"player4_lname"] ];
+        } else {
+            cell.typeAndPlayersLabel.text = [NSString stringWithFormat:@"%@ - %@,%@",ct.event,
+                                             [ct.players objectForKey:@"player1_lname"],
+                                             [ct.players objectForKey:@"player2_lname"] ];
+        }
+        if (ct.bookedForUser) {
+            cell.statusLabel.textColor = [UIColor redColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell.statusLabel.textColor = [UIColor blackColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
     } else {
-        cell.detailTextLabel.textColor = [UIColor blueColor];
+        cell.typeAndPlayersLabel.text = @"";
+        cell.statusLabel.textColor = [UIColor colorWithRed:7/255.0f green:128/255.0f blue:9/255.0f alpha:1.0f];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }
@@ -271,8 +299,10 @@
             [alert show];
         }
     } else {
-        NSString *segueName = @"CancelFromAvailable";
-        [self performSegueWithIdentifier: segueName sender: self];
+        if (self.selectedCourtTime.bookedForUser) {
+            NSString *segueName = @"CancelFromAvailable";
+            [self performSegueWithIdentifier: segueName sender: self];
+        }
     }
 }
 
@@ -387,7 +417,7 @@
                         // Iterate through the array of dictionaries
                         for(NSDictionary *dict in array) {
                             // Create a new Location object for each one and initialise it with information in the dictionary
-                            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+                            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict forUser:curUser.data.name];
                             // Add the court time object to the array
                             [self.courtTimes addObject:courtTimeObj];
                         }
@@ -433,7 +463,7 @@
         // Iterate through the array of dictionaries
         for(NSDictionary *dict in array) {
             // Create a new Location object for each one and initialise it with information in the dictionary
-            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict forUser:curUser.data.name];
             // Add the court time object to the array
             [self.courtTimes addObject:courtTimeObj];
         }

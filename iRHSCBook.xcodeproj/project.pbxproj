@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A850B9519871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A850B9319871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m */; };
+		4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */; };
 		4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */; };
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
 		4A95922819825C3F0010332D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95922719825C3F0010332D /* Reachability.m */; };
@@ -53,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A850B9219871BB700D29EB7 /* RHSCCourtTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTimeTableViewCell.h; sourceTree = "<group>"; };
+		4A850B9319871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCCourtTimeTableViewCell.m; sourceTree = "<group>"; };
+		4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTimeTableViewCell.xib; sourceTree = "<group>"; };
 		4A922D70196BF979007A7478 /* RHSCMemberDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMemberDetailViewController.h; sourceTree = "<group>"; };
 		4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMemberDetailViewController.m; sourceTree = "<group>"; };
 		4A922D73196C9C5B007A7478 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -181,6 +186,9 @@
 				ACD518ED196188CA00C65C9D /* RHSCReserveSinglesViewController.m */,
 				4AD36F2C19767F200015BB52 /* RHSCGuestDetailsViewController.h */,
 				4AD36F2D19767F200015BB52 /* RHSCGuestDetailsViewController.m */,
+				4A850B9219871BB700D29EB7 /* RHSCCourtTimeTableViewCell.h */,
+				4A850B9319871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m */,
+				4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */,
 			);
 			name = Courts;
 			sourceTree = "<group>";
@@ -361,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */,
 				4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */,
 				ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */,
 				ACAC338E195EF27F00F7562F /* InfoPlist.strings in Resources */,
@@ -392,6 +401,7 @@
 				4AD36F2E19767F200015BB52 /* RHSCGuestDetailsViewController.m in Sources */,
 				4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */,
 				ACAC33C5195EF8FF00F7562F /* RHSCBookingsViewController.m in Sources */,
+				4A850B9519871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m in Sources */,
 				4A95922819825C3F0010332D /* Reachability.m in Sources */,
 				ACAC3390195EF27F00F7562F /* main.m in Sources */,
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,

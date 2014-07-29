@@ -157,7 +157,7 @@
                 // handle response
                 // Now create a NSDictionary from the JSON data
                 if (error == nil) {
-                    [self.bookingList loadFromData:data];
+                    [self.bookingList loadFromData:data forUser:tbc.currentUser.data.name];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     [self.tableView reloadData];
