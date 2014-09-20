@@ -258,7 +258,7 @@
 -(void)unlockBooking
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",[self.courtTimeRecord bookingId]];
 
 //    NSLog(@"fetch URL = %@",fetchURL);
     

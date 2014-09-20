@@ -264,7 +264,7 @@ UIAlertView *includeAlert;
         // lock the booking
         RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         RHSCUser *curUser = tbc.currentUser;
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
 //        NSLog(@"fetch URL = %@",fetchURL);
         NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
         NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
