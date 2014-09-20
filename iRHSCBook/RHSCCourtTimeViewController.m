@@ -392,7 +392,7 @@ UIAlertView *includeAlert;
         [dtFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
         
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                               curDate,self.selectionSet,
                               self.incBookings.on?@"YES":@"NO",
                               curUser.data.name];
@@ -443,7 +443,7 @@ UIAlertView *includeAlert;
         [dtFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
         
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
         
 //        NSLog(@"fetch URL = %@",fetchURL);
         
