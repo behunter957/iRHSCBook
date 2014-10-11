@@ -32,7 +32,7 @@ BOOL loggedOn = NO;
 - (RHSCMember *)userFromJSON:(RHSCServer *)server userid:(NSString *)uid password:(NSString *)pwd
 {
     // Create a NSURLRequest with the given URL
-    NSString *logonURL = [NSString stringWithFormat:@"Reserve/IOSUserLogonJSON.php?uid=%@&pwd=%@",uid,pwd];
+    NSString *logonURL = [NSString stringWithFormat:@"Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@",uid,pwd];
     NSURL *target = [[NSURL alloc] initWithString:logonURL relativeToURL:server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData

@@ -15,7 +15,7 @@ bool isLoaded = false;
 
 - (void)loadFromJSON:(RHSCServer *)server {
     // Create a NSURLRequest with the given URL
-    NSString *logonURL = [NSString stringWithFormat:@"Reserve/IOSMemberListJSON.php"];
+    NSString *logonURL = [NSString stringWithFormat:@"Reserve20/IOSMemberListJSON.php"];
     NSURL *target = [[NSURL alloc] initWithString:logonURL relativeToURL:server];
     NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData

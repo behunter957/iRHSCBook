@@ -140,7 +140,7 @@
 -(void)asyncLoadBookings
 {
     RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSMyBookingsJSON.php?uid=%@",tbc.currentUser.data.name];
+    NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSMyBookingsJSON.php?uid=%@",tbc.currentUser.data.name];
     
 //    NSLog(@"fetch URL = %@",fetchURL);
     

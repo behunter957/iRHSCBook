@@ -16,7 +16,7 @@
 			<key>Key</key>
 			<string>RHSCServerURL</string>
 			<key>DefaultValue</key>
-			<string>www.bhsquashclub.com</string>
+			<string>www.rhsquashclub.com</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -26,7 +26,7 @@
 			<key>Key</key>
 			<string>RHSCUserID</string>
 			<key>DefaultValue</key>
-			<string>bhunter</string>
+			<string>Bruce.Hunter</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -38,7 +38,7 @@
 			<key>Key</key>
 			<string>RHSCPassword</string>
 			<key>DefaultValue</key>
-			<string>Maxw3ll</string>
+			<string>maxwell</string>
 			<key>KeyboardType</key>
 			<string>Alphabet</string>
 		</dict>

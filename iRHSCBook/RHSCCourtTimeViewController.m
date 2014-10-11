@@ -232,7 +232,7 @@
         // lock the booking
         RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         RHSCUser *curUser = tbc.currentUser;
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",[self.selectedCourtTime bookingId],curUser.data.name];
 //        NSLog(@"fetch URL = %@",fetchURL);
         NSURL *target = [[NSURL alloc] initWithString:fetchURL relativeToURL:tbc.server];
         NSURLRequest *request = [NSURLRequest requestWithURL:[target absoluteURL]
@@ -358,7 +358,7 @@
         [dtFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
         
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                               curDate,self.selectionSet,
                               self.incBookings.on?@"YES":@"NO",
                               curUser.data.name];
@@ -409,7 +409,7 @@
         [dtFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString *curDate = [dtFormatter stringFromDate:self.selectionDate];
         
-        NSString *fetchURL = [NSString stringWithFormat:@"Reserve/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
+        NSString *fetchURL = [NSString stringWithFormat:@"Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",curDate,self.selectionSet,self.includeInd,curUser.data.name];
         
 //        NSLog(@"fetch URL = %@",fetchURL);
         
