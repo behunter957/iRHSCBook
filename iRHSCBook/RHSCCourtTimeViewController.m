@@ -7,6 +7,7 @@
 //
 
 #import "RHSCCourtTimeViewController.h"
+#import "RHSCCourtTimeTableViewCell.h"
 #import "RHSCTabBarController.h"
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
@@ -30,6 +31,8 @@
 @end
 
 @implementation RHSCCourtTimeViewController
+
+UIAlertView *includeAlert;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -107,7 +110,7 @@
 -(void) viewDidAppear:(BOOL)animated
 {
 //    NSLog(@"CourtTime viewDidAppear");
-    [self refreshLeftBarButton];
+//    [self refreshLeftBarButton];
     [self refreshTable];
 }
 
@@ -124,6 +127,8 @@
 
 -(IBAction) includeChanged
 {
+    NSString *incText = self.incBookings.on?@"Include":@"Exclude";
+    [self showStatus:[NSString stringWithFormat:@"%@ bookings",incText] timeout:0.5 ];
     [self asyncLoadSelectedCourtTimes];
 }
 
@@ -191,7 +196,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableSinglesViewCell"];
+    static NSString *rhscCourtTimeTableIdentifier = @"RHSCCourtTimeTableViewCell";
+
+    RHSCCourtTimeTableViewCell *cell = (RHSCCourtTimeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:rhscCourtTimeTableIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:rhscCourtTimeTableIdentifier owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
     
     RHSCCourtTime *ct = self.courtTimes[indexPath.row];
     
@@ -199,13 +211,33 @@
     [dtFormatter setLocale:[NSLocale systemLocale]];
     [dtFormatter setDateFormat:@"h:mm a"];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
+    cell.courtAndTimeLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
                            [dtFormatter stringFromDate:ct.courtTime]];
-    cell.detailTextLabel.text = ct.status;
+    cell.statusLabel.text = ct.status;
     if ([ct.status isEqualToString:@"Booked"]) {
-        cell.detailTextLabel.textColor = [UIColor redColor];
+        cell.statusLabel.textColor = [UIColor redColor];
+        if ([ct.court isEqualToString:@"Court 5"]) {
+            cell.typeAndPlayersLabel.text = [NSString stringWithFormat:@"%@ - %@,%@,%@,%@",ct.event,
+                                             [ct.players objectForKey:@"player1_lname"],
+                                             [ct.players objectForKey:@"player3_lname"],
+                                             [ct.players objectForKey:@"player2_lname"],
+                                             [ct.players objectForKey:@"player4_lname"] ];
+        } else {
+            cell.typeAndPlayersLabel.text = [NSString stringWithFormat:@"%@ - %@,%@",ct.event,
+                                             [ct.players objectForKey:@"player1_lname"],
+                                             [ct.players objectForKey:@"player2_lname"] ];
+        }
+        if (ct.bookedForUser) {
+            cell.statusLabel.textColor = [UIColor redColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell.statusLabel.textColor = [UIColor blackColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
     } else {
-        cell.detailTextLabel.textColor = [UIColor blueColor];
+        cell.typeAndPlayersLabel.text = @"";
+        cell.statusLabel.textColor = [UIColor colorWithRed:7/255.0f green:128/255.0f blue:9/255.0f alpha:1.0f];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }
@@ -271,8 +303,10 @@
             [alert show];
         }
     } else {
-        NSString *segueName = @"CancelFromAvailable";
-        [self performSegueWithIdentifier: segueName sender: self];
+        if (self.selectedCourtTime.bookedForUser) {
+            NSString *segueName = @"CancelFromAvailable";
+            [self performSegueWithIdentifier: segueName sender: self];
+        }
     }
 }
 
@@ -318,14 +352,14 @@
 {
 //    NSLog(@"delegate setSetSelection %@",setSelection);
     self.selectionSet = setSelection;
-    [self refreshLeftBarButton];
+ //   [self refreshLeftBarButton];
 }
 
 -(void)setDateSelection:(NSDate *)setDate
 {
 //    NSLog(@"delegate setDateSelection %@",setDate);
     self.selectionDate = setDate;
-    [self refreshLeftBarButton];
+//    [self refreshLeftBarButton];
 }
 
 -(void)setInclude:(NSString *)setSwitch
@@ -336,17 +370,17 @@
 //    [self.tableView reloadData];
 }
 
--(void)refreshLeftBarButton
-{
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE, MMM d"];
-    
-    NSString *fmtStr = @"%@ courts for %@";
-    if ([self.selectionSet isEqualToString:@"Doubles"]) {
-        fmtStr = @"%@ court for %@";
-    }
-    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
-}
+//-(void)refreshLeftBarButton
+//{
+//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//    [dateFormat setDateFormat:@"EEE, MMM d"];
+//    
+//    NSString *fmtStr = @"%@ courts for %@";
+//    if ([self.selectionSet isEqualToString:@"Doubles"]) {
+//        fmtStr = @"%@ court for %@";
+//    }
+//    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:fmtStr,self.selectionSet,[dateFormat stringFromDate:self.selectionDate]];
+//}
 
 -(void)asyncLoadSelectedCourtTimes
 {
@@ -387,7 +421,7 @@
                         // Iterate through the array of dictionaries
                         for(NSDictionary *dict in array) {
                             // Create a new Location object for each one and initialise it with information in the dictionary
-                            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+                            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict forUser:curUser.data.name];
                             // Add the court time object to the array
                             [self.courtTimes addObject:courtTimeObj];
                         }
@@ -433,7 +467,7 @@
         // Iterate through the array of dictionaries
         for(NSDictionary *dict in array) {
             // Create a new Location object for each one and initialise it with information in the dictionary
-            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+            RHSCCourtTime *courtTimeObj = [[RHSCCourtTime alloc] initWithJSONDictionary:dict forUser:curUser.data.name];
             // Add the court time object to the array
             [self.courtTimes addObject:courtTimeObj];
         }
@@ -444,46 +478,31 @@
     //TODO: refresh your data
     [self.refreshControl endRefreshing];
     [self asyncLoadSelectedCourtTimes];
+    self.dayValues = [[NSMutableArray alloc] init];
+    NSDate *curDate = [NSDate date];
+    for (int i = 0; i < 30; i++) {
+        [self.dayValues addObject:curDate];
+        curDate = [curDate dateByAddingTimeInterval:24*60*60];
+    }
 //    [self.tableView reloadData];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+
+- (void)showStatus:(NSString *)message timeout:(double)timeout {
+    includeAlert = [[UIAlertView alloc] initWithTitle:nil
+                                             message:message
+                                            delegate:nil
+                                   cancelButtonTitle:nil
+                                   otherButtonTitles:nil];
+    [includeAlert show];
+    [NSTimer scheduledTimerWithTimeInterval:timeout
+                                     target:self
+                                   selector:@selector(timerExpired:)
+                                   userInfo:nil
+                                    repeats:NO];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)timerExpired:(NSTimer *)timer {
+    [includeAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 
 @end

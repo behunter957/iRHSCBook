@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSArray *bookingList;
 
 - (void)loadFromJSON:(RHSCServer *)server user:(RHSCUser *)curUser;
-- (void)loadFromData:(NSData *) data;
+- (void)loadFromData:(NSData *) data forUser:(NSString *)userId;
 
 @end

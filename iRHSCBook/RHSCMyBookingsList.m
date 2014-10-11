@@ -29,10 +29,10 @@
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
     
     // Now create a NSDictionary from the JSON data
-    [self loadFromData:data];
+    [self loadFromData:data forUser:curUser.data.name];
 }
 
-- (void)loadFromData:(NSData *) data {
+- (void)loadFromData:(NSData *) data forUser:(NSString *)userId {
     // Create a NSURLRequest with the given URL
     // Now create a NSDictionary from the JSON data
     NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -45,7 +45,7 @@
     // Iterate through the array of dictionaries
     for(NSDictionary *dict in array) {
         // Create a new Location object for each one and initialise it with information in the dictionary
-        RHSCCourtTime *booking = [[RHSCCourtTime alloc] initWithJSONDictionary:dict];
+        RHSCCourtTime *booking = [[RHSCCourtTime alloc] initWithJSONDictionary:dict forUser:userId];
         // Add the Location object to the array
         [bookList addObject:booking];
     }

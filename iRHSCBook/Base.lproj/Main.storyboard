@@ -22,7 +22,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1134" y="700"/>
+            <point key="canvasLocation" x="-1942" y="772"/>
         </scene>
         <!--Court Time View Controller-->
         <scene sceneID="ccz-q6-nhL">
@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourtTimeCell" textLabel="fZg-E3-8TQ" style="IBUITableViewCellStyleDefault" id="1gt-U2-Bbh">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourtTimeCell" textLabel="fZg-E3-8TQ" style="IBUITableViewCellStyleDefault" id="1gt-U2-Bbh" customClass="RHSCCourtTimeTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1gt-U2-Bbh" id="Z7n-GH-r5d">
@@ -58,9 +58,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="7bm-qQ-ZxY">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="courtSet" id="ARL-ai-FIK">
+                        <barButtonItem key="leftBarButtonItem" title="courtSet" width="11" id="ARL-ai-FIK">
                             <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" id="GHh-Az-Oqj">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <rect key="frame" x="16" y="7" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="set">
@@ -75,7 +75,7 @@
                             </textField>
                         </barButtonItem>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" id="un6-fo-Vzf">
-                            <rect key="frame" x="93" y="7" width="156" height="30"/>
+                            <rect key="frame" x="111" y="7" width="138" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <attributedString key="attributedText">
                                 <fragment content="day">
@@ -109,7 +109,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-260" y="710"/>
+            <point key="canvasLocation" x="-364" y="86"/>
         </scene>
         <!--Bookings View Controller - My Bookings-->
         <scene sceneID="aB8-aE-tr5">
@@ -158,7 +158,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPX-5R-ZqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="544" y="1549"/>
+            <point key="canvasLocation" x="440" y="925"/>
         </scene>
         <!--Reserve Doubles View Controller - Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
@@ -310,7 +310,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="497" y="-24"/>
+            <point key="canvasLocation" x="393" y="-648"/>
         </scene>
         <!--Guest Details View Controller - Guest Details-->
         <scene sceneID="mGq-iH-idI">
@@ -382,7 +382,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ode-j3-fYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="-12"/>
+            <point key="canvasLocation" x="1226" y="-636"/>
         </scene>
         <!--Navigation Controller - My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -398,7 +398,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TR8-aO-15e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-29" y="1549"/>
+            <point key="canvasLocation" x="-133" y="925"/>
         </scene>
         <!--Members View Controller - Member List-->
         <scene sceneID="326-Gn-ctq">
@@ -462,7 +462,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="550" y="2373"/>
+            <point key="canvasLocation" x="446" y="1749"/>
         </scene>
         <!--Booking Detail-->
         <scene sceneID="XbS-YL-lxl">
@@ -571,7 +571,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Umb-24-A4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="1543"/>
+            <point key="canvasLocation" x="1061" y="919"/>
         </scene>
         <!--Member Detail View Controller - Member Name-->
         <scene sceneID="amI-V8-wWB">
@@ -670,7 +670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5zt-9F-DC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="2380"/>
+            <point key="canvasLocation" x="1061" y="1756"/>
         </scene>
         <!--Navigation Controller - Members-->
         <scene sceneID="cEk-L8-WsX">
@@ -686,7 +686,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj6-t2-pqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-29" y="2366"/>
+            <point key="canvasLocation" x="-133" y="1742"/>
         </scene>
         <!--Navigation Controller - Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
@@ -702,7 +702,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6e-ID-wFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-572" y="-838"/>
+            <point key="canvasLocation" x="-1124" y="86"/>
         </scene>
         <!--Reserve Singles View Controller - Book Front Court 4-->
         <scene sceneID="5Zu-FF-rN6">
@@ -801,7 +801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="491" y="693"/>
+            <point key="canvasLocation" x="387" y="69"/>
         </scene>
         <!--Find Member View Controller - Select Player-->
         <scene sceneID="fjf-bm-Vrk">
@@ -859,7 +859,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1198" y="710"/>
+            <point key="canvasLocation" x="1094" y="86"/>
         </scene>
     </scenes>
     <resources>
@@ -877,7 +877,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
-        <segue reference="jYf-s5-loM"/>
-        <segue reference="OL0-yK-twA"/>
+        <segue reference="Ado-XA-n7W"/>
+        <segue reference="qSg-fy-r0c"/>
     </inferredMetricsTieBreakers>
 </document>

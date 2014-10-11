@@ -10,13 +10,14 @@
 
 @interface RHSCCourtTime : NSObject
 
-- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary;
+- (id)initWithJSONDictionary:(NSDictionary *)jsonDictionary forUser:(NSString *)userId;
 
 @property (nonatomic, strong) NSString *bookingId;
 @property (nonatomic, strong) NSString *court;
 @property (nonatomic, strong) NSDate *courtTime;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) NSString *event;
+@property (nonatomic, assign) BOOL bookedForUser;
 @property (nonatomic, strong) NSMutableDictionary *players;
 //eventDesc
 //noshow
