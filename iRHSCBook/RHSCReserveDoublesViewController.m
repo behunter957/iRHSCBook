@@ -12,7 +12,7 @@
 #import "RHSCGuest.h"
 #import "RHSCGuestDetailsViewController.h"
 
-@interface RHSCReserveDoublesViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
+@interface RHSCReserveDoublesViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>
 
 @property (nonatomic,strong) RHSCMember *player2Member;
 @property (nonatomic,strong) RHSCMember *player3Member;

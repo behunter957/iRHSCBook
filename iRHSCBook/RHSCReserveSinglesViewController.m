@@ -13,7 +13,7 @@
 #import "RHSCMember.h"
 #import "RHSCGuest.h"
 
-@interface RHSCReserveSinglesViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
+@interface RHSCReserveSinglesViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>
 
 @property (nonatomic,strong) RHSCMember *player2Member;
 @property (nonatomic,strong) UIAlertView *successAlert;
