@@ -20,8 +20,6 @@
 @property (nonatomic, strong) RHSCMyBookingsList *bookingList;
 @property (nonatomic, strong) RHSCCourtTime *selectedBooking;
 
-@property (nonatomic, strong) UIRefreshControl* refreshControl;
-
 @end
 
 @implementation RHSCBookingsViewController
