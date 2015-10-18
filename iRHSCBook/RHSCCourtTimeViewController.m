@@ -12,7 +12,7 @@
 #import "RHSCCourtTime.h"
 #import "RHSCMember.h"
 
-@interface RHSCCourtTimeViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
+@interface RHSCCourtTimeViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *headerButton;
 

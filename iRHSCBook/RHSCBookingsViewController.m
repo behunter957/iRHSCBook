@@ -15,7 +15,7 @@
 #import "RHSCMember.h"
 #import "RHSCUser.h"
 
-@interface RHSCBookingsViewController () <cancelBookingProtocol>
+@interface RHSCBookingsViewController () <cancelBookingProtocol,NSFileManagerDelegate>
 
 @property (nonatomic, strong) RHSCMyBookingsList *bookingList;
 @property (nonatomic, strong) RHSCCourtTime *selectedBooking;
