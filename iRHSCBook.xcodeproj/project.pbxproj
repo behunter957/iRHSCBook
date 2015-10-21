@@ -12,6 +12,7 @@
 		4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A922D71196BF979007A7478 /* RHSCMemberDetailViewController.m */; };
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
 		4A95922819825C3F0010332D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95922719825C3F0010332D /* Reachability.m */; };
+		4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8C3AE1BD647010077A23F /* RHSCMember.swift */; settings = {ASSET_TAGS = (); }; };
 		4AD36F1E196CC4610015BB52 /* RHSCMyBookingsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F1D196CC4610015BB52 /* RHSCMyBookingsList.m */; };
 		4AD36F21196DE2F80015BB52 /* RHSCBookingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */; };
 		4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD36F27196FF22A0015BB52 /* MessageUI.framework */; };
@@ -63,6 +64,8 @@
 		4A922D73196C9C5B007A7478 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4A95922619825C340010332D /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4A95922719825C3F0010332D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4AC8C3AD1BD647010077A23F /* iRHSCBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRHSCBook-Bridging-Header.h"; sourceTree = "<group>"; };
+		4AC8C3AE1BD647010077A23F /* RHSCMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMember.swift; sourceTree = "<group>"; };
 		4AD36F1C196CC4610015BB52 /* RHSCMyBookingsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCMyBookingsList.h; sourceTree = "<group>"; };
 		4AD36F1D196CC4610015BB52 /* RHSCMyBookingsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCMyBookingsList.m; sourceTree = "<group>"; };
 		4AD36F1F196DE2F80015BB52 /* RHSCBookingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCBookingDetailViewController.h; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				4AFD3DE01961B54600665999 /* RHSCUser.m */,
 				4AD36F2F1977524D0015BB52 /* RHSCGuest.h */,
 				4AD36F301977524D0015BB52 /* RHSCGuest.m */,
+				4AC8C3AE1BD647010077A23F /* RHSCMember.swift */,
+				4AC8C3AD1BD647010077A23F /* iRHSCBook-Bridging-Header.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RHSC;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Richmond Hill Squash Club";
 				TargetAttributes = {
@@ -407,6 +413,7 @@
 				ACAC33D01960496600F7562F /* RHSCReserveDoublesViewController.m in Sources */,
 				4AFD3DDE1961B14100665999 /* RHSCMemberList.m in Sources */,
 				4A922D72196BF979007A7478 /* RHSCMemberDetailViewController.m in Sources */,
+				4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */,
 				4AFD3DD51961AFCC00665999 /* RHSCMember.m in Sources */,
 				4AFD3DD81961AFF600665999 /* RHSCCourtTime.m in Sources */,
 				4AD36F311977524D0015BB52 /* RHSCGuest.m in Sources */,
@@ -537,11 +544,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -552,11 +563,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
