@@ -212,7 +212,7 @@ UIAlertView *includeAlert;
     cell.courtAndTimeLabel.text = [NSString stringWithFormat:@"%@ - %@",ct.court,
                            [dtFormatter stringFromDate:ct.courtTime]];
     cell.statusLabel.text = ct.status;
-    if ([ct.status isEqualToString:@"Booked"]) {
+    if ([ct.status isEqualToString:@"Booked"] || [ct.status isEqualToString:@"Reserved"]) {
         cell.statusLabel.textColor = [UIColor redColor];
         if ([ct.court isEqualToString:@"Court 5"]) {
             cell.typeAndPlayersLabel.text = [NSString stringWithFormat:@"%@ - %@,%@,%@,%@",ct.event,
