@@ -21,10 +21,8 @@
 @property (nonatomic, weak) RHSCCourtTime* selectedCourtTime;
 @property (nonatomic, strong) NSMutableArray* courtTimes;
 @property (nonatomic, strong) NSString* includeInd;
-@property (nonatomic, strong) UIRefreshControl* refreshControl;
 @property (nonatomic,strong) UIAlertView *successAlert;
 @property (nonatomic,strong) UIAlertView *errorAlert;
-
 @property (nonatomic, strong) NSArray* setValues;
 @property (nonatomic, strong) NSMutableArray* dayValues;
 

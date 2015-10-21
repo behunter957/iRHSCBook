@@ -346,6 +346,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Richmond Hill Squash Club";
 				TargetAttributes = {
+					ACAC337F195EF27F00F7562F = {
+						DevelopmentTeam = FLLCB46B75;
+					};
 					ACAC33A3195EF27F00F7562F = {
 						TestTargetID = ACAC337F195EF27F00F7562F;
 					};
@@ -487,6 +490,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -592,6 +596,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "iRHSCBookTests/iRHSCBookTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -610,6 +615,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBookTests/iRHSCBookTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

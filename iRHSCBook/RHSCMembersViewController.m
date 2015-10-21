@@ -16,7 +16,6 @@
 
 @property (nonatomic,strong) NSMutableArray *filteredList;
 @property (nonatomic,weak) IBOutlet UITableView *searchResultsView;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) RHSCMember *selectedMember;
 
