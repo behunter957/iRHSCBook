@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RHSCGuest.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCGuest.h"
 
 @protocol setGuestProtocol <NSObject>
 

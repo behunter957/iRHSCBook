@@ -18,10 +18,10 @@ import Foundation
     init( fromServer srvr : RHSCServer, userid uid : String, password pwd : String) {
         userid = uid;
         password = pwd;
-        data = RHSCUser.userFromJSON(fromServer: srvr, userid: uid, password: pwd)
+        data = try? RHSCUser.userFromJSON(fromServer: srvr, userid: uid, password: pwd)!
     }
     
-    class func userFromJSON(fromServer server:RHSCServer,userid uid:String, password pwd:String) -> RHSCMember? {
+    class func userFromJSON(fromServer server:RHSCServer,userid uid:String, password pwd:String) throws -> RHSCMember? {
         let logonURL : String = String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", uid,pwd)
         let target = NSURL(string:logonURL, relativeToURL:server)
         let request = NSURLRequest(URL:target!,
@@ -29,26 +29,19 @@ import Foundation
             timeoutInterval:30.0)
         // Get the data
         let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        let error: AutoreleasingUnsafeMutablePointer<NSErrorPointer?> = nil
         // Sending Synchronous request using NSURLConnection
-        do {
-            let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-            if (error == nil) {
-                let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+        let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
+        let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                 
-                // Get an array of dictionaries with the key "locations"
-                let array : Array<NSDictionary> = jsonDictionary["user"]! as! Array<NSDictionary>
-                // Iterate through the array of dictionaries
-                for dict in array {
-                    loggedOn = true
-                    // Create a new Location object for each one and initialise it with information in the dictionary
-                    return RHSCMember(fromJSONDictionary:dict )
-                }
-            }
-        } catch {
-            
+            // Get an array of dictionaries with the key "locations"
+        let array : Array<NSDictionary> = jsonDictionary["user"]! as! Array<NSDictionary>
+            // Iterate through the array of dictionaries
+        for dict in array {
+            loggedOn = true
+            // Create a new Location object for each one and initialise it with information in the dictionary
+            return RHSCMember(fromJSONDictionary:dict )
         }
-        return nil;
+        return nil
     }
     
     func isLoggedOn() -> Bool {

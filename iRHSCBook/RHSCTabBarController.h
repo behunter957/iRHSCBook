@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RHSCMemberList.h"
-#import "RHSCUser.h"
-#import "RHSCServer.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMemberList.h"
+//#import "RHSCUser.h"
+//#import "RHSCServer.h"
 
 @interface RHSCTabBarController : UITabBarController
 

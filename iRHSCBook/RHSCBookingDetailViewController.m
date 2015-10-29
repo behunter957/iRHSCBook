@@ -8,10 +8,11 @@
 
 #import "RHSCBookingDetailViewController.h"
 #import <MessageUI/MessageUI.h>
-#import "RHSCTabBarController.h"
-#import "RHSCCourtTime.h"
-#import "RHSCMemberList.h"
-#import "RHSCMember.h"
+//#import "RHSCTabBarController.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCCourtTime.h"
+//#import "RHSCMemberList.h"
+//#import "RHSCMember.h"
 
 @interface RHSCBookingDetailViewController ()
 

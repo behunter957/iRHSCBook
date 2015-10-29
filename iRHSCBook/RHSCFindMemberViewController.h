@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RHSCMember.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMember.h"
 
 @protocol setPlayerProtocol <NSObject>
 

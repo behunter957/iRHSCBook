@@ -8,12 +8,13 @@
 
 #import "RHSCBookingsViewController.h"
 #import "RHSCBookingDetailViewController.h"
-#import "RHSCTabBarController.h"
-#import "RHSCMyBookingsList.h"
-#import "RHSCCourtTime.h"
-#import "RHSCServer.h"
-#import "RHSCMember.h"
-#import "RHSCUser.h"
+//#import "RHSCTabBarController.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMyBookingsList.h"
+//#import "RHSCCourtTime.h"
+//#import "RHSCServer.h"
+//#import "RHSCMember.h"
+//#import "RHSCUser.h"
 
 @interface RHSCBookingsViewController () <cancelBookingProtocol,NSFileManagerDelegate>
 
@@ -155,7 +156,8 @@
                 // handle response
                 // Now create a NSDictionary from the JSON data
                 if (error == nil) {
-                    [self.bookingList loadFromData:data forUser:tbc.currentUser.data.name];
+                    [self.bookingList loadFromData:data forUser:tbc.currentUser.data.name error:nil];
+//                    [self.bookingList loadFromData:data forUser:tbc.currentUser.data.name];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     [self.tableView reloadData];

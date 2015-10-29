@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RHSCCourtTime.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCCourtTime.h"
 
 @protocol reserveDoublesProtocol <NSObject>
 

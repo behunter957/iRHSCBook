@@ -10,25 +10,25 @@ import Foundation
 
 @objc class RHSCMember : NSObject {
     
-    var name : String = ""
-    var email : String = ""
-    var phone1 : String = ""
-    var phone2 : String = ""
-    var type : String = ""
-    var status : String = ""
-    var firstName : String = ""
-    var lastName : String = ""
+    var name : String? = nil
+    var email : String? = nil
+    var phone1 : String? = nil
+    var phone2 : String? = nil
+    var type : String? = nil
+    var status : String? = nil
+    var firstName : String? = nil
+    var lastName : String? = nil
 
     init(fromJSONDictionary jsonDictionary : NSDictionary) {
         // Assign all properties with keyed values from the dictionary
-        name  = jsonDictionary["id"]! as! String
-        firstName  = jsonDictionary["fname"]! as! String
-        lastName  = jsonDictionary["lname"]! as! String
-        email  = jsonDictionary["email"]! as! String
-        phone1  = jsonDictionary["primary_phone"]! as! String
-        phone2  = jsonDictionary["home_phone"]! as! String
-        status  = jsonDictionary["status"]! as! String
-        type  = jsonDictionary["member_type"]! as! String
+        name  = jsonDictionary["id"] as! String?
+        firstName  = jsonDictionary["fname"] as! String?
+        lastName  = jsonDictionary["lname"] as! String?
+        email  = jsonDictionary["email"] as! String?
+        phone1  = jsonDictionary["primary_phone"] as! String?
+        phone2  = jsonDictionary["home_phone"] as! String?
+        status  = jsonDictionary["status"] as! String?
+        type  = jsonDictionary["member_type"] as! String?
     }
     
     init(fromName name : String,fromType type : String) {

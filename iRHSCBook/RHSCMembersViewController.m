@@ -8,9 +8,10 @@
 
 #import "RHSCMembersViewController.h"
 #import "RHSCTabBarController.h"
-#import "RHSCMemberList.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMemberList.h"
 #import "RHSCMemberDetailViewController.h"
-#import "RHSCMember.h"
+//#import "RHSCMember.h"
 
 @interface RHSCMembersViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 

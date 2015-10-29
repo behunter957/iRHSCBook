@@ -8,6 +8,7 @@
 
 #import "RHSCTabBarController.h"
 #import "Reachability.h"
+#import "iRHSCBook-Swift.h"
 
 @interface RHSCTabBarController () 
 
@@ -80,7 +81,7 @@
                                                   otherButtonTitles:nil];
             [alert show];
         } else {
-            [self.memberList loadFromJSON:self.server];
+            [self.memberList loadFromJSONFromServer:self.server];
             if (![self.memberList loadedSuccessfully]) {
                 [self.view setUserInteractionEnabled:NO];
                 // if not found then logon failes
