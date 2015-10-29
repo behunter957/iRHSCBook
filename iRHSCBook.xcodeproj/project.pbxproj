@@ -18,6 +18,7 @@
 		4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE161BE029020012CC4E /* Reachability.swift */; };
 		4A2EDE191BE045030012CC4E /* RHSCMemberDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE181BE045030012CC4E /* RHSCMemberDetailViewController.swift */; };
 		4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE1A1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift */; };
+		4A2EDE1D1BE2253A0012CC4E /* RHSCBookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE1C1BE2253A0012CC4E /* RHSCBookingsViewController.swift */; };
 		4A850B9519871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A850B9319871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m */; };
 		4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */; };
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
@@ -67,6 +68,7 @@
 		4A2EDE161BE029020012CC4E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		4A2EDE181BE045030012CC4E /* RHSCMemberDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMemberDetailViewController.swift; sourceTree = "<group>"; };
 		4A2EDE1A1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCBookingDetailViewController.swift; sourceTree = "<group>"; };
+		4A2EDE1C1BE2253A0012CC4E /* RHSCBookingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCBookingsViewController.swift; sourceTree = "<group>"; };
 		4A850B9219871BB700D29EB7 /* RHSCCourtTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSCCourtTimeTableViewCell.h; sourceTree = "<group>"; };
 		4A850B9319871BB700D29EB7 /* RHSCCourtTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSCCourtTimeTableViewCell.m; sourceTree = "<group>"; };
 		4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTimeTableViewCell.xib; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				4AD36F20196DE2F80015BB52 /* RHSCBookingDetailViewController.m */,
 				ACAC33C4195EF8FF00F7562F /* RHSCBookingsViewController.m */,
 				4A2EDE1A1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift */,
+				4A2EDE1C1BE2253A0012CC4E /* RHSCBookingsViewController.swift */,
 			);
 			name = Bookings;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */,
 				4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */,
 				4A2EDE051BDD8AC00012CC4E /* RHSCServer.swift in Sources */,
+				4A2EDE1D1BE2253A0012CC4E /* RHSCBookingsViewController.swift in Sources */,
 				4A2EDE0D1BDD8E080012CC4E /* RHSCMyBookingsList.swift in Sources */,
 				4A2EDE071BDD8DA80012CC4E /* RHSCUser.swift in Sources */,
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,

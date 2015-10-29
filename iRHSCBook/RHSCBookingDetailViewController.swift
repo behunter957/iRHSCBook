@@ -26,7 +26,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
     var user : RHSCUser? = nil
     var booking : RHSCCourtTime? = nil
     
-    var delegate : AnyObject? = nil
+    var delegate : cancelBookingProtocol? = nil
     
     var player1 : RHSCMember? = nil
     var player2 : RHSCMember? = nil
@@ -119,12 +119,12 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             // Get an array of dictionaries with the key "locations"
             // NSArray *array = [jsonDictionary objectForKey:@"user"];
             //            NSLog(@"%@",jsonDictionary);
-            let successAlert = UIAlertView(title: "Success",
-                message: "CBooking successfully cancelled. Notices will be sent to all players",
+            let alert = UIAlertView(title: "Success",
+                message: "Booking successfully cancelled. Notices will be sent to all players",
                 delegate: self,
                 cancelButtonTitle: "OK",
                 otherButtonTitles: "", "")
-            successAlert.show()
+            alert.show()
         } else {
             let alert = UIAlertView(title: "Error",
                 message: jsonDictionary["error"] as! String,
@@ -137,132 +137,133 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
     
     func alertView(forView alertView:UIAlertView, clickedButtonAtIndex buttonIndex:NSInteger) {
         if (alertView == successAlert) {
-            delegate.refreshTable()
-            [self.navigationController popViewControllerAnimated:YES];
+            delegate!.refreshTable()
+            self.navigationController!.popViewControllerAnimated(true)
         }
     }
     
-    - (IBAction)emailPlayers:(id)sender {
-    if ([MFMailComposeViewController canSendMail])
-    {
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    // Email Subject
-    NSString *emailTitle = @"";
-    // Email Content
-    NSString *messageBody = @"";
-    // To address
+    @IBAction func emailPlayers(sender: AnyObject) {
+        if MFMailComposeViewController.canSendMail() {
+            let tbc = tabBarController as! RHSCTabBarController
+            let ml = tbc.memberList
+            // Email Subject
+            let emailTitle = ""
+            // Email Content
+            let messageBody = ""
+            // To address
+            let toRecipents = [booking!.players["player1_id"],
+                booking!.players["player2_id"],
+                booking!.players["player3_id"],
+                booking!.players["player4_id"]]
+            var emailAddresses = Array<String>()
+            for playerId in toRecipents {
+                for mem in ml!.memberList {
+                    if (mem.name == playerId) {
+                        if (mem.email != nil) {
+                            if (mem.email != "NULL") {
+                                if (mem.name != tbc.currentUser!.data!.name) {
+                                    emailAddresses.append(mem.email!)
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
     
-    NSArray *toRecipents = [NSArray arrayWithObjects:[self.booking.players objectForKey:@"player1_id"],[self.booking.players objectForKey:@"player2_id"],[self.booking.players objectForKey:@"player3_id"],[self.booking.players objectForKey:@"player4_id"],nil];
-    NSMutableArray *emailAddresses = [[NSMutableArray alloc] init];
-    for (NSString *playerId in toRecipents) {
-    for (RHSCMember *mem in ml.memberList) {
-    if ([mem.name isEqualToString:playerId]) {
-    if (mem.email != nil) {
-    if (![mem.email isEqualToString:@"NULL"]) {
-    if (![mem.name isEqualToString:tbc.currentUser.data.name]) {
-    [emailAddresses addObject:mem.email];
-    }
-    }
-    }
-    break;
-    }
-    }
-    }
+            let mc = MFMailComposeViewController()
+            mc.mailComposeDelegate = self;
+            mc.setSubject(emailTitle)
+            mc.setMessageBody(messageBody, isHTML: false)
+            mc.setToRecipients(emailAddresses)
     
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:emailAddresses];
-    
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
-    } else {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send email"
-    message:@"Cannot email from this device"
-    delegate:nil
-    cancelButtonTitle:@"OK"
-    otherButtonTitles:nil];
-    [alert show];
-    }
-    }
-    
-    - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-    {
-    switch (result)
-    {
-    case MFMailComposeResultCancelled:
-    //            NSLog(@"Mail cancelled");
-    break;
-    case MFMailComposeResultSaved:
-    //            NSLog(@"Mail saved");
-    break;
-    case MFMailComposeResultSent:
-    //            NSLog(@"Mail sent");
-    break;
-    case MFMailComposeResultFailed:
-    //            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
-    break;
-    default:
-    break;
+            // Present mail view controller on screen
+            self.presentViewController(mc, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertView(title: "Cannot send email",
+                message: "Cannot email from this device",
+                delegate: nil,
+                cancelButtonTitle: "OK",
+                otherButtonTitles: "", "")
+            alert.show()
+        }
     }
     
-    // Close the Mail Interface
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        switch (result) {
+        case MFMailComposeResultCancelled:
+            //            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            //            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            //            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            //            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+        }
+    
+        // Close the Mail Interface
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    - (IBAction)smsPlayers:(id)sender {
-    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
-    RHSCMemberList *ml = tbc.memberList;
-    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
-    if([MFMessageComposeViewController canSendText])
-    {
-    NSArray *toRecipents = [NSArray arrayWithObjects:[self.booking.players objectForKey:@"player1_id"],[self.booking.players objectForKey:@"player2_id"],[self.booking.players objectForKey:@"player3_id"],[self.booking.players objectForKey:@"player4_id"],nil];
-    NSMutableArray *phoneNumbers = [[NSMutableArray alloc] init];
-    for (NSString *playerId in toRecipents) {
-    for (RHSCMember *mem in ml.memberList) {
-    if ([mem.name isEqualToString:playerId]) {
-    if (mem.phone1 != nil) {
-    if (![mem.phone1 isEqualToString:@"NULL"]) {
-    if (![mem.name isEqualToString:tbc.currentUser.data.name]) {
-    NSString *cleanedString = [[[mem phone1] componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]] componentsJoinedByString:@""];
-    [phoneNumbers addObject:cleanedString];
-    }
-    }
-    }
-    break;
-    }
-    }
-    }
-    controller.body = @"";
-    controller.recipients = phoneNumbers;
-    controller.messageComposeDelegate = self;
-    [self presentViewController:controller animated:YES completion:NULL];
-    }
+    @IBAction func smsPlayers(sender: AnyObject) {
+        let tbc = tabBarController as! RHSCTabBarController
+        let ml = tbc.memberList
+        let controller = MFMessageComposeViewController()
+        if MFMessageComposeViewController.canSendText() {
+            let toRecipents = [booking!.players["player1_id"],
+                booking!.players["player2_id"],
+                booking!.players["player3_id"],
+                booking!.players["player4_id"]]
+            var phoneNumbers = Array<String>()
+            for playerId in toRecipents {
+                for mem in ml!.memberList {
+                    if (mem.name == playerId) {
+                        if (mem.email != nil) {
+                            if (mem.email != "NULL") {
+                                if (mem.name != tbc.currentUser!.data!.name) {
+                                    let cleanedString = mem.phone1!
+                                        .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
+                                            .invertedSet).joinWithSeparator("")
+                                    phoneNumbers.append(cleanedString)
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            controller.body = ""
+            controller.recipients = phoneNumbers
+            controller.messageComposeDelegate = self
+            self.presentViewController(controller, animated: true, completion: nil)
+        }
     }
     
-    - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-    {
-    switch (result) {
-    case MessageComposeResultCancelled:
-    //			NSLog(@"Cancelled");
-    break;
-    case MessageComposeResultFailed: {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot send SMS"
-    message:@"Cannot message from this device"
-    delegate:nil
-    cancelButtonTitle:@"OK"
-    otherButtonTitles:nil];
-    [alert show];
-    break;
-    }
-    case MessageComposeResultSent:
-    break;
-    default:
-    break;
-    }
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        switch (result) {
+        case MessageComposeResultCancelled:
+            //			NSLog(@"Cancelled");
+            break;
+        case MessageComposeResultFailed:
+            let alert = UIAlertView(title: "Cannot send SMS",
+                message: "Cannot message from this device",
+                delegate: nil,
+                cancelButtonTitle: "OK",
+                otherButtonTitles: "", "")
+            alert.show()
+            break;
+        case MessageComposeResultSent:
+            break;
+        default:
+            break;
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
