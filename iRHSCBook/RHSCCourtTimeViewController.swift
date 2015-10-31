@@ -261,19 +261,18 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         if segue.identifier == "ReserveSingles" {
             // lock the court
             // set the selectedCourtTime record
-            (segue.destinationViewController as RHSCReserveSinglesViewController).
-            [[segue destinationViewController] setDelegate:self];
-            [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
+            (segue.destinationViewController as! RHSCReserveSinglesViewController).delegate = self
+            (segue.destinationViewController as! RHSCReserveSinglesViewController).courtTimeRecord = self.selectedCourtTime
         }
         if segue.identifier == "ReserveDoubles" {
             // set the selectedCourtTime record
-            [[segue destinationViewController] setDelegate:self];
-            [[segue destinationViewController] setCourtTimeRecord:self.selectedCourtTime];
+            (segue.destinationViewController as! RHSCReserveDoublesViewController).delegate = self
+            (segue.destinationViewController as! RHSCReserveDoublesViewController).courtTimeRecord = self.selectedCourtTime
         }
         if segue.identifier == "CancelFromAvailable" {
             // set the selectionSet and selectionDate properties
-            [[segue destinationViewController] setDelegate:self];
-            [[segue destinationViewController] setBooking:self.selectedCourtTime];
+            (segue.destinationViewController as! RHSCBookingDetailViewController).delegate = self
+            (segue.destinationViewController as! RHSCBookingDetailViewController).booking = self.selectedCourtTime
         }
     }
     

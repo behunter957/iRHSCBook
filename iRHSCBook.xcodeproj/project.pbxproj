@@ -35,7 +35,6 @@
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
 		ACAC338E195EF27F00F7562F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAC338C195EF27F00F7562F /* InfoPlist.strings */; };
 		ACAC3390195EF27F00F7562F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC338F195EF27F00F7562F /* main.m */; };
-		ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */; };
 		ACAC3397195EF27F00F7562F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAC3395195EF27F00F7562F /* Main.storyboard */; };
 		ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACAC339E195EF27F00F7562F /* Images.xcassets */; };
 		ACAC33A6195EF27F00F7562F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC33A5195EF27F00F7562F /* XCTest.framework */; };
@@ -88,8 +87,6 @@
 		ACAC338D195EF27F00F7562F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACAC338F195EF27F00F7562F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ACAC3391195EF27F00F7562F /* iRHSCBook-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRHSCBook-Prefix.pch"; sourceTree = "<group>"; };
-		ACAC3392195EF27F00F7562F /* RHSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHSCAppDelegate.h; sourceTree = "<group>"; };
-		ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHSCAppDelegate.m; sourceTree = "<group>"; };
 		ACAC3396195EF27F00F7562F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACAC339E195EF27F00F7562F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ACAC33A4195EF27F00F7562F /* iRHSCBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iRHSCBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,8 +216,6 @@
 			children = (
 				ACAC3395195EF27F00F7562F /* Main.storyboard */,
 				ACAC339E195EF27F00F7562F /* Images.xcassets */,
-				ACAC3392195EF27F00F7562F /* RHSCAppDelegate.h */,
-				ACAC3393195EF27F00F7562F /* RHSCAppDelegate.m */,
 				4AD36F22196FE5310015BB52 /* Model */,
 				4AD36F23196FE5710015BB52 /* View */,
 				ACAC338A195EF27F00F7562F /* Supporting Files */,
@@ -363,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2EDE251BE421C10012CC4E /* RHSCFindMemberViewController.swift in Sources */,
-				ACAC3394195EF27F00F7562F /* RHSCAppDelegate.m in Sources */,
 				4A2EDE211BE25ABE0012CC4E /* RHSCCourtTimeTableViewCell.swift in Sources */,
 				4A2EDE1F1BE25A5C0012CC4E /* RHSCCourtTimeViewController.swift in Sources */,
 				4A2EDE231BE377960012CC4E /* RHSCReserveSinglesViewController.swift in Sources */,
