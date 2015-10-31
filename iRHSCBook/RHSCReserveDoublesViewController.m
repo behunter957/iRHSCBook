@@ -7,9 +7,10 @@
 //
 
 #import "RHSCReserveDoublesViewController.h"
-#import "RHSCTabBarController.h"
+//#import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
-#import "RHSCGuest.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCGuest.h"
 #import "RHSCGuestDetailsViewController.h"
 
 @interface RHSCReserveDoublesViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>

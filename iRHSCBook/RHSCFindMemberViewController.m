@@ -7,7 +7,7 @@
 //
 
 #import "RHSCFindMemberViewController.h"
-#import "RHSCTabBarController.h"
+//#import "RHSCTabBarController.h"
 
 @interface RHSCFindMemberViewController () <UISearchDisplayDelegate,UISearchBarDelegate>
 

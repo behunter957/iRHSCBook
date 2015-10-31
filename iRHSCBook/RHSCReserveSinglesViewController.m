@@ -7,11 +7,12 @@
 //
 
 #import "RHSCReserveSinglesViewController.h"
-#import "RHSCTabBarController.h"
+//#import "RHSCTabBarController.h"
 #import "RHSCFindMemberViewController.h"
 #import "RHSCGuestDetailsViewController.h"
-#import "RHSCMember.h"
-#import "RHSCGuest.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMember.h"
+//#import "RHSCGuest.h"
 
 @interface RHSCReserveSinglesViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>
 

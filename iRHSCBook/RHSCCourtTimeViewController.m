@@ -8,9 +8,10 @@
 
 #import "RHSCCourtTimeViewController.h"
 #import "RHSCCourtTimeTableViewCell.h"
-#import "RHSCTabBarController.h"
-#import "RHSCCourtTime.h"
-#import "RHSCMember.h"
+//#import "RHSCTabBarController.h"
+// #import "RHSCCourtTime.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCMember.h"
 
 @interface RHSCCourtTimeViewController () <UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate>
 
@@ -72,7 +73,7 @@ UIAlertView *includeAlert;
     self.selectionSet = tbc.courtSet;
     self.courtSet.text = self.selectionSet;
 
-    self.incBookings.on = [tbc.includeBookings boolValue];
+    self.incBookings.on = tbc.includeBookings;
     
     self.selectedCourtTime = nil;
     
@@ -471,6 +472,7 @@ UIAlertView *includeAlert;
         }
     }
 }
+
 
 - (void)refreshTable {
     //TODO: refresh your data

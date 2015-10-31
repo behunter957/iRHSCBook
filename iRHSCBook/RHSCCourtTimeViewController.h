@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RHSCReserveSinglesViewController.h"
 #import "RHSCReserveDoublesViewController.h"
-#import "RHSCBookingDetailViewController.h"
+//#import "RHSCBookingDetailViewController.h"
 
 @interface RHSCCourtTimeViewController : UITableViewController <reserveSinglesProtocol, reserveDoublesProtocol, cancelBookingProtocol>
 

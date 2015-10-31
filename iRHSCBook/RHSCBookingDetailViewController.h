@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "RHSCUser.h"
-#import "RHSCCourtTime.h"
+#import "iRHSCBook-Swift.h"
+//#import "RHSCUser.h"
+//#import "RHSCCourtTime.h"
 
 @protocol cancelBookingProtocol <NSObject>
 
