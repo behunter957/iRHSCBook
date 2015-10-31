@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
             <objects>
-                <tabBarController storyboardIdentifier="TabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8YX-ce-x5E" customClass="RHSCTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8YX-ce-x5E" customClass="RHSCTabBarController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="JQR-rB-NYL">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
@@ -29,7 +28,7 @@
         <!--Court Time View Controller-->
         <scene sceneID="ccz-q6-nhL">
             <objects>
-                <tableViewController storyboardIdentifier="CourtTime" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cPP-nu-Wuu" customClass="RHSCCourtTimeViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CourtTime" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cPP-nu-Wuu" customClass="RHSCCourtTimeViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hQ5-gL-e8a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -123,7 +122,7 @@
         <!--My Bookings-->
         <scene sceneID="aB8-aE-tr5">
             <objects>
-                <tableViewController storyboardIdentifier="Bookings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3i0-la-ZhI" customClass="RHSCBookingsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Bookings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3i0-la-ZhI" customClass="RHSCBookingsViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GvS-gf-9rh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -177,7 +176,7 @@
         <!--Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
             <objects>
-                <viewController storyboardIdentifier="ReserveDoubles" title="Reserve Doubles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PeM-PD-Smf" customClass="RHSCReserveDoublesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReserveDoubles" title="Reserve Doubles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PeM-PD-Smf" customClass="RHSCReserveDoublesViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qSA-Jm-3fE"/>
                         <viewControllerLayoutGuide type="bottom" id="C9H-BM-O4L"/>
@@ -330,7 +329,7 @@
         <!--Guest Details-->
         <scene sceneID="mGq-iH-idI">
             <objects>
-                <viewController storyboardIdentifier="Guest Details" id="Chq-vS-dmK" customClass="RHSCGuestDetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Guest Details" id="Chq-vS-dmK" customClass="RHSCGuestDetailsViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="on7-LE-MyU"/>
                         <viewControllerLayoutGuide type="bottom" id="f5O-Y2-A06"/>
@@ -420,7 +419,7 @@
         <!--Member List-->
         <scene sceneID="326-Gn-ctq">
             <objects>
-                <tableViewController storyboardIdentifier="Members" useStoryboardIdentifierAsRestorationIdentifier="YES" id="I5f-dz-59e" customClass="RHSCMembersViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Members" useStoryboardIdentifierAsRestorationIdentifier="YES" id="I5f-dz-59e" customClass="RHSCMembersViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="B1T-hP-T03">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -489,7 +488,7 @@
         <!--Booking Detail-->
         <scene sceneID="XbS-YL-lxl">
             <objects>
-                <viewController storyboardIdentifier="BookingDetail" title="Booking Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dn2-hE-uzA" userLabel="Booking Detail" customClass="RHSCBookingDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingDetail" title="Booking Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dn2-hE-uzA" userLabel="Booking Detail" customClass="RHSCBookingDetailViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YTL-PN-taL"/>
                         <viewControllerLayoutGuide type="bottom" id="0at-h5-VhI"/>
@@ -599,7 +598,7 @@
         <!--Member Name-->
         <scene sceneID="amI-V8-wWB">
             <objects>
-                <viewController storyboardIdentifier="Member Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ucl-ri-u0P" customClass="RHSCMemberDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Member Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ucl-ri-u0P" customClass="RHSCMemberDetailViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="shk-HU-Vfz"/>
                         <viewControllerLayoutGuide type="bottom" id="IxI-Qj-6eV"/>
@@ -733,7 +732,7 @@
         <!--Book Front Court 4-->
         <scene sceneID="5Zu-FF-rN6">
             <objects>
-                <viewController storyboardIdentifier="ReserveSingles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5GM-gx-kgf" customClass="RHSCReserveSinglesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReserveSingles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5GM-gx-kgf" customClass="RHSCReserveSinglesViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jba-fl-mEC"/>
                         <viewControllerLayoutGuide type="bottom" id="opH-Iq-Xtd"/>
@@ -833,7 +832,7 @@
         <!--Select Player-->
         <scene sceneID="fjf-bm-Vrk">
             <objects>
-                <tableViewController storyboardIdentifier="FindMember" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kbR-ab-SN7" customClass="RHSCFindMemberViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FindMember" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kbR-ab-SN7" customClass="RHSCFindMemberViewController" customModule="iRHSCBook" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lGA-jF-r7P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -903,8 +902,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vhh-Zx-dhL"/>
-        <segue reference="Ado-XA-n7W"/>
-        <segue reference="qSg-fy-r0c"/>
+        <segue reference="jYf-s5-loM"/>
+        <segue reference="OL0-yK-twA"/>
+        <segue reference="c3E-dF-B3k"/>
     </inferredMetricsTieBreakers>
 </document>

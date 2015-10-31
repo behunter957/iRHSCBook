@@ -37,7 +37,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         var appDefaults = Dictionary<String, AnyObject>()
         appDefaults["RHSCCourtSet"] = "All"
         appDefaults["RHSCIncludeBookings"] = false
-        appDefaults["RHSCServerURL"] = "www.rhsquashclub.com"
+        appDefaults["RHSCServerURL"] = "http://www.rhsquashclub.com"
         appDefaults["RHSCUserID"] = "userid"
         appDefaults["RHSCPassword"] = "password"
         NSUserDefaults.standardUserDefaults().registerDefaults(appDefaults)
@@ -59,12 +59,16 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
             alert.show()
         } else {
             let srvrname = NSUserDefaults.standardUserDefaults().stringForKey("RHSCServerURL")
-            self.server = RHSCServer(fileURLWithPath: String.init(format: "http://%@", arguments: [srvrname!]))
             
+            self.server = RHSCServer(string: "", relativeToURL: NSURL(string: srvrname!))
+//            self.server = RHSCServer(scheme: "http://", host: srvrname!, path: "")
+
             let userid = NSUserDefaults.standardUserDefaults().stringForKey("RHSCUserID")
             let passwd = NSUserDefaults.standardUserDefaults().stringForKey("RHSCPassword")
+//            print("Logging on with: ",userid," ",passwd)
             
-            self.currentUser = RHSCUser(fromServer: server!, userid: userid!, password: passwd!)
+            self.currentUser = RHSCUser(forUserid: userid!, forPassword: passwd!)
+            self.currentUser!.validate(fromServer: server!)
 
             self.memberList = RHSCMemberList()
 
