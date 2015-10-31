@@ -25,8 +25,10 @@ import Foundation
 //        print(server.absoluteString)
         let url = NSURL(string: String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", arguments: [userid!, password!]), relativeToURL: server )
 //        print(url!.absoluteString)
-        let session = NSURLSession.sharedSession()
-        var semaphore = dispatch_semaphore_create(0)
+        let sessionCfg = NSURLSession.sharedSession().configuration
+//        sessionCfg.timeoutIntervalForResource = 30.0
+        let session = NSURLSession(configuration: sessionCfg)
+        let semaphore_logon = dispatch_semaphore_create(0)
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
@@ -45,36 +47,12 @@ import Foundation
                     print(error)
                 }
             }
-            dispatch_semaphore_signal(semaphore)
+            dispatch_semaphore_signal(semaphore_logon)
         })
         task.resume()
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        dispatch_semaphore_wait(semaphore_logon, DISPATCH_TIME_FOREVER)
 
     }
-
-    
-        
-//        let logonURL : String = String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", uid,pwd)
-//        let target = NSURL(string:logonURL, relativeToURL:server)
-//        let request = NSURLRequest(URL:target!,
-//            cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData,
-//            timeoutInterval:30.0)
-//        // Get the data
-//        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-//        // Sending Synchronous request using NSURLConnection
-//        let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-//        let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-//
-//            // Get an array of dictionaries with the key "locations"
-//        let array : Array<NSDictionary> = jsonDictionary["user"]! as! Array<NSDictionary>
-//            // Iterate through the array of dictionaries
-//        for dict in array {
-//            loggedOn = true
-//            // Create a new Location object for each one and initialise it with information in the dictionary
-//            return RHSCMember(fromJSONDictionary:dict )
-//        }
-//        return nil
-//    }
     
     func isLoggedOn() -> Bool {
         return RHSCUser.loggedOn;

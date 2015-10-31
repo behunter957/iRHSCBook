@@ -92,7 +92,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
     
     @IBAction func includeChanged() {
         let incText = (self.incBookings!.on ? "Include" : "Exclude")
-        self.showStatus(String.init(format: "%@ bookings", arguments: [incText]), timeout: 0.5)
+//        self.showStatus(String.init(format: "%@ bookings", arguments: [incText]), timeout: 0.5)
         self.asyncLoadSelectedCourtTimes()
     }
     
@@ -165,20 +165,20 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         dtFormatter.dateFormat = "h:mm a"
     
         let rcell = (cell as! RHSCCourtTimeTableViewCell)
-        rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court,dtFormatter.stringFromDate(ct.courtTime)])
+        rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
         rcell.statusLabel!.text = ct.status;
         if (ct.status == "Booked") || (ct.status == "Reserved") {
             rcell.statusLabel!.textColor = UIColor.redColor()
             if ct.court == "Court 5" {
                 rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@,%@,%@",
-                    arguments: [ct.event,
+                    arguments: [ct.event!,
                         ct.players["player1_lname"]!,
                         ct.players["player3_lname"]!,
                         ct.players["player2_lname"]!,
                         ct.players["player4_lname"]! ])
             } else {
                 rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@",
-                    arguments: [ct.event,
+                    arguments: [ct.event!,
                         ct.players["player1_lname"]!,
                         ct.players["player2_lname"]! ])
             }
@@ -203,7 +203,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         //    [self.tableView reloadData];
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
         self.selectedCourtTime = self.courtTimes[indexPath.row]
@@ -211,41 +211,51 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             // lock the booking
             let tbc = self.tabBarController as! RHSCTabBarController
             let curUser = tbc.currentUser
-            let fetchURL = String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
-                arguments: [self.selectedCourtTime!.bookingId, curUser!.data!.name!])
-            //        NSLog(@"fetch URL = %@",fetchURL);
-            let target = NSURL.init(string: fetchURL, relativeToURL: tbc.server!)
-            let request = NSURLRequest.init(URL: target!, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
-            // Get the data
-            let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-            let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-            if response != nil {
-                //TODO handle error in locking
-                let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
-                if jsonDictionary["error"] == nil {
-                    // determine the correct view to navigate to
-                    var segueName = "ReserveSingles"
-                    if self.courtTimes[indexPath.row].court == "Court 5" {
-                        segueName = "ReserveDoubles";
-                    }
-                    self.performSegueWithIdentifier(segueName, sender: self)
-                } else {
-                    let alert = UIAlertView(title: "Error locking the booking",
-                        message: jsonDictionary["error"] as! String,
+            let url = NSURL(string: String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
+                arguments: [self.selectedCourtTime!.bookingId!, curUser!.data!.name!]),
+                relativeToURL: tbc.server )
+            print(url!.absoluteString)
+            //            let sessionCfg = NSURLSession.sharedSession().configuration
+            //            sessionCfg.timeoutIntervalForResource = 30.0
+            //            let session = NSURLSession(configuration: sessionCfg)
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                    let alert = UIAlertView(title: "Network error",
+                        message: "Unable to lock the court",
                         delegate: nil,
                         cancelButtonTitle: "OK",
                         otherButtonTitles: "", "")
                     alert.show()
+                } else if data != nil {
+                    print("received data")
+                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    if jsonDictionary["error"] == nil {
+                        // determine the correct view to navigate to
+                        var segueName = "ReserveSingles"
+                        if self.courtTimes[indexPath.row].court == "Court 5" {
+                            segueName = "ReserveDoubles"
+                        }
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            // do some task
+                            dispatch_async(dispatch_get_main_queue(), {
+                                // update some UI
+                                print("segueing to \(segueName)")
+                                self.performSegueWithIdentifier(segueName, sender: self)
+                            });
+                        });
+                    } else {
+                        let alert = UIAlertView(title: "Error locking the booking",
+                            message: jsonDictionary["error"] as! String,
+                            delegate: nil,
+                            cancelButtonTitle: "OK",
+                            otherButtonTitles: "", "")
+                        alert.show()
+                    }
                 }
-                // check for an error return
-            } else {
-                let alert = UIAlertView(title: "Network error",
-                    message: "Unable to lock the court",
-                    delegate: nil,
-                    cancelButtonTitle: "OK",
-                    otherButtonTitles: "", "")
-                alert.show()
-            }
+            })
+            task.resume()
         } else {
             if (self.selectedCourtTime!.bookedForUser) {
                 self.performSegueWithIdentifier("CancelFromAvailable", sender: self)
@@ -290,7 +300,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
     
     func setInclude(setSwitch:String) {
         //    NSLog(@"delegate setInclude %@",setSwitch);
-        self.includeInd = setSwitch;
+        self.includeInd = setSwitch
         //    [self loadSelectedCourtTimes];
         //    [self.tableView reloadData];
     }
@@ -315,29 +325,39 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             dtFormatter.locale = NSLocale.systemLocale()
             dtFormatter.dateFormat = "yyyy/MM/dd"
             let curDate = dtFormatter.stringFromDate(self.selectionDate!)
-            let fetchURL = String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+            let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
                     (self.incBookings!.on ? "YES" : "NO"),
-                    curUser!.data!.name!])
-            //    NSLog(@"fetch URL = %@",fetchURL);
-        
-            let target = NSURL.init(fileURLWithPath: fetchURL, relativeToURL: tbc.server)
-            // Get the data
-            let task = NSURLSession.sharedSession().dataTaskWithURL(target) {(data, response, error) in
-                if (error == nil) {
-                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options:     NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                    
+                    curUser!.data!.name!]),
+                relativeToURL: tbc.server )
+                print(url!.absoluteString)
+//            let sessionCfg = NSURLSession.sharedSession().configuration
+//            sessionCfg.timeoutIntervalForResource = 30.0
+//            let session = NSURLSession(configuration: sessionCfg)
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                } else if data != nil {
+                    print("received data")
+                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                     // Get an array of dictionaries with the key "locations"
                     let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
                     // Iterate through the array of dictionaries
+                    self.courtTimes.removeAll()
                     for dict in array {
                         self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.data!.name!))
                     }
                 }
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.tableView.reloadData()
-                }
-            }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        // update some UI
+                            print("reloading tableview")
+                            self.tableView.reloadData()
+                        });
+                    });
+            })
             task.resume()
         }
     }
@@ -351,35 +371,42 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             dtFormatter.locale = NSLocale.systemLocale()
             dtFormatter.dateFormat = "yyyy/MM/dd"
             let curDate = dtFormatter.stringFromDate(self.selectionDate!)
-            let fetchURL = String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+            let semaphore_loadcourt = dispatch_semaphore_create(0)
+            let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
                     (self.incBookings!.on ? "YES" : "NO"),
-                    curUser!.data!.name!])
-            //    NSLog(@"fetch URL = %@",fetchURL);
-            
-            let target = NSURL.init(fileURLWithPath: fetchURL, relativeToURL: tbc.server)
-            let request = NSURLRequest(URL:target,
-                cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData,
-                timeoutInterval:30.0)
-            // Get the data
-            let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-            // Sending Synchronous request using NSURLConnection
-            let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-            let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(responseData,options:     NSJSONReadingOptions.MutableContainers) as! NSDictionary
-            
-            // Get an array of dictionaries with the key "locations"
-            let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
-            // Iterate through the array of dictionaries
-            for dict in array {
-                self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.data!.name!))
-            }
+                    curUser!.data!.name!]),
+                relativeToURL: tbc.server )
+            //        print(url!.absoluteString)
+            let sessionCfg = NSURLSession.sharedSession().configuration
+            sessionCfg.timeoutIntervalForResource = 30.0
+            let session = NSURLSession(configuration: sessionCfg)
+            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                } else if data != nil {
+                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    // Get an array of dictionaries with the key "locations"
+                    let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
+                    // Iterate through the array of dictionaries
+                    self.courtTimes.removeAll()
+                    for dict in array {
+                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.data!.name!))
+                    }
+                }
+                dispatch_semaphore_signal(semaphore_loadcourt)
+            })
+            task.resume()
+            dispatch_semaphore_wait(semaphore_loadcourt, DISPATCH_TIME_FOREVER)
+            self.tableView.reloadData()
         }
+
     }
     
     func refreshTable() {
         //TODO: refresh your data
         self.refreshControl?.endRefreshing()
-        self .asyncLoadSelectedCourtTimes()
+        self.asyncLoadSelectedCourtTimes()
         self.dayValues = [];
         var curDate = NSDate()
         for _ in 1...30 {

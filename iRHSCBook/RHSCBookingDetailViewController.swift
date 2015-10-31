@@ -94,45 +94,53 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         var fetchURL : String? = nil;
         if (booking!.court == "Court 5") {
             fetchURL = String.init(format: "Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",
-                arguments: [booking!.bookingId, (tbc.currentUser?.data?.name)!,booking!.players["player2_id"]!,
+                arguments: [booking!.bookingId!, (tbc.currentUser?.data?.name)!,booking!.players["player2_id"]!,
                     booking!.players["player3_id"]!,booking!.players["player4_id"]!,
                     (tbc.currentUser?.data?.name)!,"iPhone"])
             
         } else {
-            fetchURL = String.init(format:"Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",[booking!.bookingId,
+            fetchURL = String.init(format:"Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",arguments: [booking!.bookingId!,
                 (tbc.currentUser?.data?.name)!,
                 booking!.players["player2_id"]!,"","",
                     (tbc.currentUser?.data?.name)!,"iPhone"])
         }
-    
-        //    NSLog(@"fetch URL = %@",fetchURL);
-        let target = NSURL(string:fetchURL!, relativeToURL:tbc.server)
-        let request = NSURLRequest(URL:target!,
-            cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData,
-            timeoutInterval:30.0)
-        // Get the data
-        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        // Sending Synchronous request using NSURLConnection
-        let data = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-        let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-        if (jsonDictionary["error"] == nil) {
-            // Get an array of dictionaries with the key "locations"
-            // NSArray *array = [jsonDictionary objectForKey:@"user"];
-            //            NSLog(@"%@",jsonDictionary);
-            let alert = UIAlertView(title: "Success",
-                message: "Booking successfully cancelled. Notices will be sent to all players",
-                delegate: self,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
-        } else {
-            let alert = UIAlertView(title: "Error",
-                message: jsonDictionary["error"] as! String,
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
-        }
+        let url = NSURL(string: fetchURL!, relativeToURL: tbc.server )
+        //        print(url!.absoluteString)
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        sessionCfg.timeoutIntervalForResource = 30.0
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                do {
+                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                        if (jsonDictionary["error"] == nil) {
+                            // Get an array of dictionaries with the key "locations"
+                            // NSArray *array = [jsonDictionary objectForKey:@"user"];
+                            //            NSLog(@"%@",jsonDictionary);
+                            let alert = UIAlertView(title: "Success",
+                                message: "Booking successfully cancelled. Notices will be sent to all players",
+                                delegate: self,
+                                cancelButtonTitle: "OK",
+                                otherButtonTitles: "", "")
+                            alert.show()
+                        } else {
+                            let alert = UIAlertView(title: "Error",
+                                message: jsonDictionary["error"] as! String,
+                                delegate: nil,
+                                cancelButtonTitle: "OK",
+                                otherButtonTitles: "", "")
+                            alert.show()
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        })
+        task.resume()
     }
     
     func alertView(forView alertView:UIAlertView, clickedButtonAtIndex buttonIndex:NSInteger) {

@@ -63,14 +63,14 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
         let dtFormatter = NSDateFormatter()
         dtFormatter.dateFormat = "EEE, MMMM d - h:mm a"
     
-        cell.textLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court,
-            dtFormatter.stringFromDate(ct.courtTime)])
+        cell.textLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,
+            dtFormatter.stringFromDate(ct.courtTime!)])
         if ct.court == "Court 5" {
             cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@,%@,%@", arguments: ["Doubles",
                 ct.players["player1_lname"]!,ct.players["player2_lname"]!,
                 ct.players["player3_lname"]!,ct.players["player4_lname"]!])
         } else {
-            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@", arguments: [ct.event,
+            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@", arguments: [ct.event!,
                 ct.players["player1_lname"]!,ct.players["player2_lname"]!])
         }
         return cell;
@@ -102,21 +102,24 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
     
     func asyncLoadBookings() {
         let tbc = tabBarController as! RHSCTabBarController
-        let fetchURL = String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@", arguments: [(tbc.currentUser?.data?.name)!])
-        //    NSLog(@"fetch URL = %@",fetchURL);
-    
-        let target = NSURL.init(fileURLWithPath: fetchURL, relativeToURL: tbc.server)
-        // Get the data
-        let task = NSURLSession.sharedSession().dataTaskWithURL(target) {(data, response, error) in
-            // handle response
-            // Now create a NSDictionary from the JSON data
-            if (error == nil) {
-                try! self.bookingList?.loadFromData(data!, forUser: tbc.currentUser!.data!.name!)
+        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",
+            (tbc.currentUser?.data?.name)!),
+            relativeToURL: tbc.server )
+        //        print(url!.absoluteString)
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        sessionCfg.timeoutIntervalForResource = 30.0
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                self.bookingList?.loadFromData(data!, forUser: tbc.currentUser!.data!.name!)
             }
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
             }
-        }
+        })
         task.resume()
     }
 

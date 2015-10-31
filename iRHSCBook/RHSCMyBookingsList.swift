@@ -13,34 +13,34 @@ import Foundation
     var bookingList : Array<RHSCCourtTime> = Array<RHSCCourtTime>()
 
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser) throws {
-        let logonURL : String = String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.data!.name!)
-        let target = NSURL(string:logonURL, relativeToURL:server)
-        let request = NSURLRequest(URL:target!,
-            cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData,
-            timeoutInterval:30.0)
-        // Get the data
-        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        // Sending Synchronous request using NSURLConnection
-        let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-        let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(responseData,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                
-        // Get an array of dictionaries with the key "locations"
-        let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
-        // Iterate through the array of dictionaries
-        for dict in array {
-            bookingList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser.userid!))
-        }
+        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.data!.name!),
+            relativeToURL: server )
+        //        print(url!.absoluteString)
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        sessionCfg.timeoutIntervalForResource = 30.0
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                self.loadFromData(data!, forUser: (curUser.data?.name)!)
+            }
+        })
+        task.resume()
     }
     
-    func loadFromData(fromData:NSData, forUser: String) throws {
-            let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(fromData,options:     NSJSONReadingOptions.MutableContainers) as! NSDictionary
-        
-            // Get an array of dictionaries with the key "locations"
-            let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
-            // Iterate through the array of dictionaries
-            for dict in array {
-                bookingList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser))
+    func loadFromData(fromData:NSData, forUser: String) {
+        do {
+            if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
+                let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
+                for dict in array {
+                    bookingList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser))
+                }
             }
+        } catch {
+            print(error)
+        }
     }
     
 }

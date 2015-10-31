@@ -804,7 +804,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-ag-rFv">
-                                <rect key="frame" x="102" y="195" width="42" height="21"/>
+                                <rect key="frame" x="81" y="195" width="63" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -902,8 +902,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="vhh-Zx-dhL"/>
         <segue reference="jYf-s5-loM"/>
         <segue reference="OL0-yK-twA"/>
-        <segue reference="c3E-dF-B3k"/>
     </inferredMetricsTieBreakers>
 </document>

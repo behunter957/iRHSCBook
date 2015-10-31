@@ -16,35 +16,45 @@ import Foundation
     var isLoaded : Bool = false
     
     func loadFromJSON(fromServer server :RHSCServer) throws {
-    // Create a NSURLRequest with the given URL
-        let logonURL : String = "Reserve20/IOSMemberListJSON.php"
-        let target = NSURL(string:logonURL, relativeToURL:server)
-        let request = NSURLRequest(URL:target!,
-                cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData,
-                timeoutInterval:30.0)
-    // Get the data
-        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        // Sending Synchronous request using NSURLConnection
-        let responseData = try NSURLConnection.sendSynchronousRequest(request,returningResponse: response) as NSData
-        try loadFromData(responseData)
+        let url = NSURL(string: "Reserve20/IOSMemberListJSON.php", relativeToURL: server )
+        //        print(url!.absoluteString)
+//        let sessionCfg = NSURLSession.sharedSession().configuration
+//        sessionCfg.timeoutIntervalForResource = 30.0
+//        let session = NSURLSession(configuration: sessionCfg)
+        let session = NSURLSession.sharedSession()
+        let semaphore_memlist = dispatch_semaphore_create(0)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                self.loadFromData(data)
+            }
+            dispatch_semaphore_signal(semaphore_memlist)
+        })
+        task.resume()
+        dispatch_semaphore_wait(semaphore_memlist, DISPATCH_TIME_FOREVER)
+        
     }
     
-    func loadFromData(data : NSData) throws {
+    func loadFromData(data : NSData?) {
         // Now create a NSDictionary from the JSON data
-        let jsonDictionary: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data,options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-    
-        // Get an array of dictionaries with the key "locations"
-        let array : Array<NSDictionary> = jsonDictionary["members"]! as! Array<NSDictionary>
-        // Iterate through the array of dictionaries
-        for dict in array {
-            // Create a new Location object for each one and initialise it with information in the dictionary
-            let member = RHSCMember(fromJSONDictionary:dict )
-            // Add the Location object to the array
-            memberList.append(member)
+        do {
+            if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                let array : Array<NSDictionary> = jsonDictionary["members"]! as! Array<NSDictionary>
+                for dict in array {
+                    // Create a new Location object for each one and initialise it with information in the dictionary
+                    let member = RHSCMember(fromJSONDictionary:dict )
+                    // Add the Location object to the array
+                    memberList.append(member)
+                }
+                isLoaded = (self.memberList.count != 0);
+                memberList.append(RHSCMember(fromName: "TBD", fromType: "Active"))
+                memberList.append(RHSCMember(fromName: "GUEST", fromType: "Active"))
+            }
+        } catch {
+            print(error)
         }
-        isLoaded = (self.memberList.count != 0);
-        memberList.append(RHSCMember(fromName: "TBD", fromType: "Active"))
-        memberList.append(RHSCMember(fromName: "GUEST", fromType: "Active"))
     }
     
     func find(member name : String) -> RHSCMember? {

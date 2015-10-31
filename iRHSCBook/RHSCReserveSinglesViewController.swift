@@ -46,7 +46,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEEE, MMMM d - h:mm a"
-        self.courtDate!.text = dateFormat.stringFromDate(self.courtTimeRecord!.courtTime)
+        self.courtDate!.text = dateFormat.stringFromDate(self.courtTimeRecord!.courtTime!)
     
         self.typeList = ["Friendly","Ladder","MNHL","Lesson","Tournament"]
     
@@ -55,7 +55,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
             courtType = "Back"
         }
         self.navigationItem.title = String.init(format: "Book %@ %@",
-            arguments: [courtType,self.courtTimeRecord!.court])
+            arguments: [courtType,self.courtTimeRecord!.court!])
         self.player2Control!.selectedSegmentIndex = 1
         self.guest2 = RHSCGuest()
     
@@ -153,7 +153,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     func unlockBooking() {
         let tbc = self.tabBarController as! RHSCTabBarController
         let fetchURL = String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
-            arguments: [self.courtTimeRecord!.bookingId])
+            arguments: [self.courtTimeRecord!.bookingId!])
         //        NSLog(@"fetch URL = %@",fetchURL);
         let target = NSURL.init(string: fetchURL, relativeToURL: tbc.server!)
         let request = NSURLRequest.init(URL: target!, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
@@ -165,7 +165,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     func bookCourt() {
         let tbc = self.tabBarController as! RHSCTabBarController
         let fetchURL = String.init(format: "Reserve20/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@&courtEvent=%@",
-            arguments: [self.courtTimeRecord!.bookingId,
+            arguments: [self.courtTimeRecord!.bookingId!,
             tbc.currentUser!.data!.name!,
             (self.player2Member != nil ? self.player2Member!.name : "")!,"","",
             tbc.currentUser!.data!.name!,"iPhone",
