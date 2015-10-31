@@ -6,10 +6,11 @@
 //  Copyright © 2015 Richmond Hill Squash Club. All rights reserved.
 //
 
+
 import Foundation
 import UIKit
 
-class RHSCAppDelegate : UIResponder,UIApplicationDelegate {
+@UIApplicationMain class RHSCAppDelegate : UIResponder,UIApplicationDelegate {
 
     var window : UIWindow? = nil
 

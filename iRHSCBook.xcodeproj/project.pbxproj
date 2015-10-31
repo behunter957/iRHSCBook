@@ -34,7 +34,6 @@
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
 		ACAC338E195EF27F00F7562F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAC338C195EF27F00F7562F /* InfoPlist.strings */; };
-		ACAC3390195EF27F00F7562F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC338F195EF27F00F7562F /* main.m */; };
 		ACAC3397195EF27F00F7562F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAC3395195EF27F00F7562F /* Main.storyboard */; };
 		ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACAC339E195EF27F00F7562F /* Images.xcassets */; };
 		ACAC33A6195EF27F00F7562F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC33A5195EF27F00F7562F /* XCTest.framework */; };
@@ -85,7 +84,6 @@
 		ACAC3387195EF27F00F7562F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACAC338B195EF27F00F7562F /* iRHSCBook-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iRHSCBook-Info.plist"; sourceTree = "<group>"; };
 		ACAC338D195EF27F00F7562F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ACAC338F195EF27F00F7562F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ACAC3391195EF27F00F7562F /* iRHSCBook-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRHSCBook-Prefix.pch"; sourceTree = "<group>"; };
 		ACAC3396195EF27F00F7562F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACAC339E195EF27F00F7562F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 			children = (
 				ACAC338B195EF27F00F7562F /* iRHSCBook-Info.plist */,
 				ACAC338C195EF27F00F7562F /* InfoPlist.strings */,
-				ACAC338F195EF27F00F7562F /* main.m */,
 				ACAC3391195EF27F00F7562F /* iRHSCBook-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -365,7 +362,6 @@
 				4A2EDE191BE045030012CC4E /* RHSCMemberDetailViewController.swift in Sources */,
 				4A2EDE0B1BDD8DE20012CC4E /* RHSCCourtTime.swift in Sources */,
 				4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */,
-				ACAC3390195EF27F00F7562F /* main.m in Sources */,
 				4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */,
 				4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */,
 				4A2EDE051BDD8AC00012CC4E /* RHSCServer.swift in Sources */,
@@ -507,7 +503,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
@@ -526,7 +522,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
