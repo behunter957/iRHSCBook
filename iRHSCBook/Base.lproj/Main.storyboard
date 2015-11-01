@@ -425,15 +425,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" placeholder="partial name" id="Q82-bM-GbJ">
-                            <rect key="frame" x="0.0" y="130" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="b62-QP-Shw" id="KIf-Tb-uIN"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MemberListCell" id="Wtq-Ed-o0I">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -455,33 +446,11 @@
                     <navigationItem key="navigationItem" title="Member List" id="ZVO-hG-IKg"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="tDb-FN-5lk" id="FMe-FN-PXu"/>
                         <outlet property="tableView" destination="B1T-hP-T03" id="p3S-iy-Tqq"/>
                         <segue destination="Ucl-ri-u0P" kind="push" identifier="MemberDetail" id="JgX-kW-eMA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchBar contentMode="redraw" placeholder="Search Member List" id="b62-QP-Shw">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="I5f-dz-59e" id="hwG-Q0-skz"/>
-                    </connections>
-                </searchBar>
-                <searchDisplayController id="tDb-FN-5lk">
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="displaysSearchBarInNavigationBar" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="delegate" destination="I5f-dz-59e" id="lyt-yE-4ST"/>
-                        <outlet property="searchBar" destination="b62-QP-Shw" id="gfw-bo-uB6"/>
-                        <outlet property="searchContentsController" destination="I5f-dz-59e" id="p4I-WT-5Um"/>
-                        <outlet property="searchResultsDataSource" destination="I5f-dz-59e" id="VhU-e1-sHp"/>
-                        <outlet property="searchResultsDelegate" destination="I5f-dz-59e" id="ckI-jd-KX0"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="446" y="1749"/>
         </scene>
@@ -867,7 +836,6 @@
                     <navigationItem key="navigationItem" title="Select Player" id="T1M-J8-F6T"/>
                     <connections>
                         <outlet property="memberListView" destination="lGA-jF-r7P" id="aPd-oB-j1e"/>
-                        <outlet property="searchDisplayController" destination="0Xf-G8-BaX" id="59B-um-0Ge"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6i-Zz-plV" userLabel="First Responder" sceneMemberID="firstResponder"/>

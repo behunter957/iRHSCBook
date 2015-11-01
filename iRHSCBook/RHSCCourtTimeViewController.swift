@@ -330,7 +330,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                     (self.incBookings!.on ? "YES" : "NO"),
                     curUser!.data!.name!]),
                 relativeToURL: tbc.server )
-                print(url!.absoluteString)
+//                print(url!.absoluteString)
 //            let sessionCfg = NSURLSession.sharedSession().configuration
 //            sessionCfg.timeoutIntervalForResource = 30.0
 //            let session = NSURLSession(configuration: sessionCfg)
@@ -339,7 +339,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                 if error != nil {
                     print("Error: \(error!.localizedDescription) \(error!.userInfo)")
                 } else if data != nil {
-                    print("received data")
+//                    print("received data")
                     let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                     // Get an array of dictionaries with the key "locations"
                     let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
@@ -353,7 +353,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {
                         // update some UI
-                            print("reloading tableview")
+//                            print("reloading tableview")
                             self.tableView.reloadData()
                         });
                     });

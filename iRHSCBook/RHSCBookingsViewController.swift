@@ -12,7 +12,7 @@ import UIKit
 @available(iOS 9.0, *)
 class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,NSFileManagerDelegate {
 
-    var bookingList : RHSCMyBookingsList? = nil
+    var bookingList = RHSCMyBookingsList()
     var selectedBooking : RHSCCourtTime? = nil
     
     override func viewDidLoad() {
@@ -25,9 +25,8 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
         // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
         //    [self refreshTable];
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: "refreshTable", forControlEvents: .ValueChanged)
-        self.refreshControl = refresh
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "refreshTable", forControlEvents: .ValueChanged)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,15 +52,15 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.bookingList!.bookingList.count;
+        return self.bookingList.bookingList.count;
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyBookingCell", forIndexPath: indexPath)
         // Configure the cell...
-        let ct = self.bookingList!.bookingList[indexPath.row];
+        let ct = self.bookingList.bookingList[indexPath.row];
         let dtFormatter = NSDateFormatter()
-        dtFormatter.dateFormat = "EEE, MMMM d - h:mm a"
+        dtFormatter.dateFormat = "EEE, MMM d - h:mm a"
     
         cell.textLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,
             dtFormatter.stringFromDate(ct.courtTime!)])
@@ -76,10 +75,10 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
         return cell;
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
-        self.selectedBooking = self.bookingList?.bookingList[indexPath.row]
+        self.selectedBooking = self.bookingList.bookingList[indexPath.row]
         let segueName = "BookingDetail"
         self.performSegueWithIdentifier(segueName, sender: self)
     }
@@ -106,19 +105,25 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
             (tbc.currentUser?.data?.name)!),
             relativeToURL: tbc.server )
         //        print(url!.absoluteString)
-        let sessionCfg = NSURLSession.sharedSession().configuration
-        sessionCfg.timeoutIntervalForResource = 30.0
-        let session = NSURLSession(configuration: sessionCfg)
+//        let sessionCfg = NSURLSession.sharedSession().configuration
+//        sessionCfg.timeoutIntervalForResource = 30.0
+//        let session = NSURLSession(configuration: sessionCfg)
+        let session  = NSURLSession.sharedSession()
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.bookingList?.loadFromData(data!, forUser: tbc.currentUser!.data!.name!)
+                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.data!.name!)
             }
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    // update some UI
+//                    print("reloading tableview")
+                    self.tableView.reloadData()
+                });
+            });
         })
         task.resume()
     }

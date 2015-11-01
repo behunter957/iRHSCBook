@@ -15,12 +15,14 @@ protocol setPlayerProtocol {
 
 }
 
-class RHSCFindMemberViewController : UITableViewController,UISearchDisplayDelegate,UISearchBarDelegate {
+class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdating,UISearchBarDelegate {
 
     var playerNumber : UInt16 = 0
     var delegate : AnyObject? = nil
     
     var filteredList : Array<RHSCMember> = []
+    var resultSearchController = UISearchController()
+    
     @IBOutlet weak var searchResultsView : UITableView? = nil
     @IBOutlet weak var memberListView : UITableView? = nil
     
@@ -39,81 +41,74 @@ class RHSCFindMemberViewController : UITableViewController,UISearchDisplayDelega
         let ml = tbc.memberList
         self.filteredList = []
         self.filteredList.appendContentsOf(ml!.memberList)
+        
+        self.resultSearchController = UISearchController.init(searchResultsController: nil)
+        self.resultSearchController.searchResultsUpdater = self
+        self.resultSearchController.dimsBackgroundDuringPresentation = false
+        self.resultSearchController.searchBar.scopeButtonTitles = []
+        self.resultSearchController.searchBar.delegate = self
+        self.tableView.tableHeaderView = self.resultSearchController.searchBar
+        self.definesPresentationContext = true
+        self.resultSearchController.searchBar.sizeToFit()
+        
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // Return the number of sections.
-        return 1;
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
-        if (self.searchDisplayController!.searchResultsTableView == tableView) {
-            return self.filteredList.count
-        } else {
-            // get memberList count
-            let tbc = self.tabBarController as! RHSCTabBarController
-            let ml = tbc.memberList
-            return ml!.memberList.count
-        }
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath)
-        if (self.searchDisplayController!.searchResultsTableView == tableView) {
-            let member = self.filteredList[indexPath.row]
-            cell.textLabel!.text = String.init(format: "%@, %@", arguments: [member.lastName!,member.firstName!])
-            return cell;
-        } else {
-            // Configure the cell...
-            let tbc = self.tabBarController as! RHSCTabBarController
-            let ml = tbc.memberList
-            let member = ml!.memberList[indexPath.row];
-            cell.textLabel!.text = String.init(format: "%@, %@", arguments: [member.lastName!,member.firstName!])
-            return cell;
-        }
-    }
-    
-    func searchTableView() {
-        let searchText = self.searchDisplayController!.searchBar.text
-    
+    func updateSearchResultsForSearchController(searchController : UISearchController) {
+        let searchString = searchController.searchBar.text
         let tbc = self.tabBarController as! RHSCTabBarController
         let ml = tbc.memberList
+        self.filteredList.removeAll()
         for item in ml!.memberList {
             let srchtext = String.init(format: "%@, %@", arguments: [item.lastName!,item.firstName!])
             
-            if srchtext.lowercaseString.rangeOfString((searchText?.lowercaseString)!) != nil {
+            if srchtext.lowercaseString.rangeOfString((searchString?.lowercaseString)!) != nil {
                 self.filteredList.append(item)
             }
         }
+        self.tableView.reloadData()
     }
     
-    func searchDisplayControllerWillBeginSearch(controller: UISearchDisplayController) {
-        searching = false
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
     
-    func searchDisplayControllerWillEndSearch(controller: UISearchDisplayController) {
-        searching = false
-        self.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
-        self.filteredList.removeAll()
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
-        self.filteredList.removeAll()
-        if searchString?.characters.count > 1 {
-            searching = true
-            self.searchTableView()
-        } else {
-            searching = false
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if (self.resultSearchController.active)
+        {
+            return self.filteredList.count
         }
-        return true
+        else
+        {
+            let tbc = self.tabBarController as! RHSCTabBarController
+            return tbc.memberList!.memberList.count
+        }
     }
-
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath) as UITableViewCell?
+        
+        if (self.resultSearchController.active)
+        {
+            let mem = self.filteredList[indexPath.row]
+            cell!.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
+            return cell!
+        }
+        else
+        {
+            let tbc = self.tabBarController as! RHSCTabBarController
+            let mem = tbc.memberList!.memberList[indexPath.row]
+            cell!.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
+            return cell!
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSLog(@"popping FindMember on table select");
         let selectedIndexPath = tableView.indexPathForSelectedRow
         var selmem : RHSCMember? = nil
-        if (searching) {
+        if (self.resultSearchController.active) {
             selmem = self.filteredList[selectedIndexPath!.row]
         } else {
             let tbc = self.tabBarController as! RHSCTabBarController

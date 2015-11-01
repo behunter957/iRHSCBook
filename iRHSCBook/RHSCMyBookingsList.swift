@@ -10,7 +10,7 @@ import Foundation
 
 @objc class RHSCMyBookingsList : NSObject {
 
-    var bookingList : Array<RHSCCourtTime> = Array<RHSCCourtTime>()
+    var bookingList : Array<RHSCCourtTime> = []
 
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser) throws {
         let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.data!.name!),
