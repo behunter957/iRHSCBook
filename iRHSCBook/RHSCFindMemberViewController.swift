@@ -21,7 +21,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     var delegate : AnyObject? = nil
     
     var filteredList : Array<RHSCMember> = []
-    var resultSearchController = UISearchController()
+    var resultSearchController : UISearchController? = nil
     
     @IBOutlet weak var searchResultsView : UITableView? = nil
     @IBOutlet weak var memberListView : UITableView? = nil
@@ -43,13 +43,13 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
         self.filteredList.appendContentsOf(ml!.memberList)
         
         self.resultSearchController = UISearchController.init(searchResultsController: nil)
-        self.resultSearchController.searchResultsUpdater = self
-        self.resultSearchController.dimsBackgroundDuringPresentation = false
-        self.resultSearchController.searchBar.scopeButtonTitles = []
-        self.resultSearchController.searchBar.delegate = self
-        self.tableView.tableHeaderView = self.resultSearchController.searchBar
+        self.resultSearchController!.searchResultsUpdater = self
+        self.resultSearchController!.dimsBackgroundDuringPresentation = false
+        self.resultSearchController!.searchBar.scopeButtonTitles = []
+        self.resultSearchController!.searchBar.delegate = self
+        self.tableView.tableHeaderView = self.resultSearchController!.searchBar
         self.definesPresentationContext = true
-        self.resultSearchController.searchBar.sizeToFit()
+        self.resultSearchController!.searchBar.sizeToFit()
         
     }
     
@@ -74,7 +74,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (self.resultSearchController.active)
+        if (self.resultSearchController!.active)
         {
             return self.filteredList.count
         }
@@ -89,7 +89,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath) as UITableViewCell?
         
-        if (self.resultSearchController.active)
+        if (self.resultSearchController!.active)
         {
             let mem = self.filteredList[indexPath.row]
             cell!.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
@@ -108,7 +108,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
         //    NSLog(@"popping FindMember on table select");
         let selectedIndexPath = tableView.indexPathForSelectedRow
         var selmem : RHSCMember? = nil
-        if (self.resultSearchController.active) {
+        if (self.resultSearchController!.active) {
             selmem = self.filteredList[selectedIndexPath!.row]
         } else {
             let tbc = self.tabBarController as! RHSCTabBarController

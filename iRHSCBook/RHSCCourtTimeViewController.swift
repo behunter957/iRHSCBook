@@ -91,7 +91,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
     }
     
     @IBAction func includeChanged() {
-        let incText = (self.incBookings!.on ? "Include" : "Exclude")
+//        let incText = (self.incBookings!.on ? "Include" : "Exclude")
 //        self.showStatus(String.init(format: "%@ bookings", arguments: [incText]), timeout: 0.5)
         self.asyncLoadSelectedCourtTimes()
     }
@@ -214,7 +214,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             let url = NSURL(string: String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
                 arguments: [self.selectedCourtTime!.bookingId!, curUser!.data!.name!]),
                 relativeToURL: tbc.server )
-            print(url!.absoluteString)
+//            print(url!.absoluteString)
             //            let sessionCfg = NSURLSession.sharedSession().configuration
             //            sessionCfg.timeoutIntervalForResource = 30.0
             //            let session = NSURLSession(configuration: sessionCfg)
@@ -229,7 +229,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                         otherButtonTitles: "", "")
                     alert.show()
                 } else if data != nil {
-                    print("received data")
+//                    print("received data")
                     let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                     if jsonDictionary["error"] == nil {
                         // determine the correct view to navigate to
@@ -241,7 +241,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                             // do some task
                             dispatch_async(dispatch_get_main_queue(), {
                                 // update some UI
-                                print("segueing to \(segueName)")
+//                                print("segueing to \(segueName)")
                                 self.performSegueWithIdentifier(segueName, sender: self)
                             });
                         });

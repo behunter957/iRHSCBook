@@ -108,12 +108,13 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
         }
         if (self.player2Control!.selectedSegmentIndex == 1) {
             self.player2Member = tbc.memberList!.TBD
+            self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
         }
         if (self.player2Control!.selectedSegmentIndex == 2) {
             self.player2Member = tbc.memberList!.GUEST
+            self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
             self.performSegueWithIdentifier("SinglesGuest2", sender: self)
         }
-        self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
     }
     
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
@@ -152,19 +153,25 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     
     func unlockBooking() {
         let tbc = self.tabBarController as! RHSCTabBarController
-        let fetchURL = String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
-            arguments: [self.courtTimeRecord!.bookingId!])
-        //        NSLog(@"fetch URL = %@",fetchURL);
-        let target = NSURL.init(string: fetchURL, relativeToURL: tbc.server!)
-        let request = NSURLRequest.init(URL: target!, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
-        // Get the data
-        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        try! NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+        let url = NSURL(string: String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
+            arguments: [self.courtTimeRecord!.bookingId!]),
+            relativeToURL: tbc.server )
+        //        print(url!.absoluteString)
+        //        let sessionCfg = NSURLSession.sharedSession().configuration
+        //        sessionCfg.timeoutIntervalForResource = 30.0
+        //        let session = NSURLSession(configuration: sessionCfg)
+        let session  = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            }
+        })
+        task.resume()
     }
     
     func bookCourt() {
         let tbc = self.tabBarController as! RHSCTabBarController
-        let fetchURL = String.init(format: "Reserve20/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@&courtEvent=%@",
+        let url = NSURL(string: String.init(format: "Reserve20/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@&courtEvent=%@",
             arguments: [self.courtTimeRecord!.bookingId!,
             tbc.currentUser!.data!.name!,
             (self.player2Member != nil ? self.player2Member!.name : "")!,"","",
@@ -172,44 +179,66 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
             self.guest2!.name,self.guest2!.phone,self.guest2!.email,
             "","","",
             "","","",
-            self.eventType!.text!])
+            self.eventType!.text!]),
+            relativeToURL: tbc.server )
         //        NSLog(@"fetch URL = %@",fetchURL);
-        let target = NSURL.init(string: fetchURL, relativeToURL: tbc.server!)
-        let request = NSURLRequest.init(URL: target!, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
-        // Get the data
-        let response:AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
-        let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
-        if response != nil {
-            //TODO handle error in locking
-            let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
-            if jsonDictionary["error"] == nil {
-                successAlert = UIAlertView(title: "Success",
-                    message: "Court time successfully booked. Notices will be sent to all players",
-                    delegate: self,
-                    cancelButtonTitle: "OK",
-                    otherButtonTitles: "", "")
-                successAlert!.show()
+//        print(url)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                    print("received data")
+                let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+//                print(jsonDictionary)
+                if jsonDictionary["error"] == nil {
+                    self.successAlert = UIAlertView(title: "Success",
+                        message: "Court time successfully booked. Notices will be sent to all players",
+                        delegate: self,
+                        cancelButtonTitle: "OK",
+                        otherButtonTitles: "", "")
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.successAlert!.show()
+                        });
+                    });
+                } else {
+                    self.errorAlert = UIAlertView(title: "Error",
+                        message: jsonDictionary["error"] as! String,
+                        delegate: self,
+                        cancelButtonTitle: "OK",
+                        otherButtonTitles: "", "")
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.errorAlert!.show()
+                        });
+                    });
+                }
             } else {
-                let alert = UIAlertView(title: "Error",
-                    message: jsonDictionary["error"] as! String,
+                self.errorAlert = UIAlertView(title: "Network error",
+                    message: "Unable to book the court",
                     delegate: self,
                     cancelButtonTitle: "OK",
                     otherButtonTitles: "", "")
-                alert.show()
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.errorAlert!.show()
+                    });
+                });
             }
-            // check for an error return
-        } else {
-            let alert = UIAlertView(title: "Network error",
-                message: "Unable to book the court",
-                delegate: self,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
-        }
+        })
+        task.resume()
+
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if (alertView == self.successAlert) {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        if (alertView == self.errorAlert) {
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
