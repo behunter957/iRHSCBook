@@ -105,12 +105,13 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         }
         if (self.player2Control!.selectedSegmentIndex == 1) {
             self.player2Member = tbc.memberList!.TBD
+            self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
         }
         if (self.player2Control!.selectedSegmentIndex == 2) {
             self.player2Member = tbc.memberList!.GUEST
+            self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
             self.performSegueWithIdentifier("DoublesGuest2", sender: self)
         }
-        self.player2Control!.setTitle("Select Member", forSegmentAtIndex: 0)
     }
     
     @IBAction func player3Clicked(sender:AnyObject?) {
@@ -122,12 +123,13 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         }
         if (self.player3Control!.selectedSegmentIndex == 1) {
             self.player3Member = tbc.memberList!.TBD
+            self.player3Control!.setTitle("Select Member", forSegmentAtIndex: 0)
         }
         if (self.player3Control!.selectedSegmentIndex == 2) {
             self.player3Member = tbc.memberList!.GUEST
+            self.player3Control!.setTitle("Select Member", forSegmentAtIndex: 0)
             self.performSegueWithIdentifier("DoublesGuest3", sender: self)
         }
-        self.player3Control!.setTitle("Select Member", forSegmentAtIndex: 0)
     }
     
     @IBAction func player4Clicked(sender:AnyObject?) {
