@@ -32,8 +32,8 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
     var player2 : RHSCMember? = nil
     var player3 : RHSCMember? = nil
     var player4 : RHSCMember? = nil
-    var successAlert : UIAlertView? = nil
-    var errorAlert : UIAlertView? = nil
+    var successAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,14 +50,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
 
         eventLabel!.text = String.init(format: "%@ match between:", arguments: [(booking?.event)!])
         
-        player1 = findPlayer("player1_id",inList: tbc.memberList!)
+        player1 = findPlayer((booking?.players["player1_id"])!,inList: tbc.memberList!)
         if (player1 != nil) {
             player1Label!.text = String.init(format: "%@ %@", arguments: [player1!.firstName!,player1!.lastName!])
         } else {
             player1Label!.text = ""
         }
         
-        player2 = findPlayer("player2_id",inList: tbc.memberList!)
+        player2 = findPlayer((booking?.players["player2_id"])!,inList: tbc.memberList!)
         if (player2 != nil) {
             player2Label!.text = String.init(format: "%@ %@", arguments: [player2!.firstName!,player2!.lastName!])
         } else {
@@ -65,13 +65,13 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         }
         
         if (booking!.court == "Court 5") {
-            player3 = findPlayer("player3_id",inList: tbc.memberList!)
+            player3 = findPlayer((booking?.players["player3_id"])!,inList: tbc.memberList!)
             if (player3Label != nil) {
                 player3Label!.text = String.init(format: "%@ %@", arguments: [player3!.firstName!,player3!.lastName!])
             } else {
                 player3Label!.text = ""
             }
-            player4 = findPlayer("player4_id",inList: tbc.memberList!)
+            player4 = findPlayer((booking?.players["player4_id"])!,inList: tbc.memberList!)
             if (player4Label != nil) {
                 player4Label!.text = String.init(format: "%@ %@", arguments: [player4!.firstName!,player4!.lastName!])
             } else {
@@ -89,7 +89,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         return nil;
     }
 
-    @IBAction func cancelBooking(sender : AnyObject) throws {
+    @IBAction func cancelBooking(sender : AnyObject?) {
         let tbc = tabBarController as! RHSCTabBarController
         var fetchURL : String? = nil;
         if (booking!.court == "Court 5") {
@@ -120,19 +120,37 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                             // Get an array of dictionaries with the key "locations"
                             // NSArray *array = [jsonDictionary objectForKey:@"user"];
                             //            NSLog(@"%@",jsonDictionary);
-                            let alert = UIAlertView(title: "Success",
-                                message: "Booking successfully cancelled. Notices will be sent to all players",
-                                delegate: self,
-                                cancelButtonTitle: "OK",
-                                otherButtonTitles: "", "")
-                            alert.show()
+                            self.successAlert = UIAlertController(title: "Success",
+                                message: "Booking successfully cancelled. Notices will be sent to all players", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                // do some task
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.presentViewController(self.successAlert!, animated: true, completion: nil)
+                                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                        self.delegate!.refreshTable()
+                                        self.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                })
+                            })
                         } else {
-                            let alert = UIAlertView(title: "Error",
-                                message: jsonDictionary["error"] as! String,
-                                delegate: nil,
-                                cancelButtonTitle: "OK",
-                                otherButtonTitles: "", "")
-                            alert.show()
+                            self.errorAlert = UIAlertController(title: "Error",
+                                message: jsonDictionary["error"] as? String, preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                // do some task
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                        self.delegate!.refreshTable()
+                                        self.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                })
+                            })
                         }
                     }
                 } catch {
@@ -141,13 +159,6 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             }
         })
         task.resume()
-    }
-    
-    func alertView(forView alertView:UIAlertView, clickedButtonAtIndex buttonIndex:NSInteger) {
-        if (alertView == successAlert) {
-            delegate!.refreshTable()
-            self.navigationController!.popViewControllerAnimated(true)
-        }
     }
     
     @IBAction func emailPlayers(sender: AnyObject) {
@@ -188,12 +199,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             // Present mail view controller on screen
             self.presentViewController(mc, animated: true, completion: nil)
         } else {
-            let alert = UIAlertView(title: "Cannot send email",
-                message: "Cannot email from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Error",
+                message: "Cannot email from this device", preferredStyle: .Alert)
+            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+            let delay = 5.0 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue(), {
+                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
     }
     
@@ -259,12 +272,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             //			NSLog(@"Cancelled");
             break;
         case MessageComposeResultFailed:
-            let alert = UIAlertView(title: "Cannot send SMS",
-                message: "Cannot message from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Error",
+                message: "Cannot message from this device", preferredStyle: .Alert)
+            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+            let delay = 5.0 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue(), {
+                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+            })
             break;
         case MessageComposeResultSent:
             break;

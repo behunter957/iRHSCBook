@@ -117,7 +117,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-364" y="86"/>
+            <point key="canvasLocation" x="-364" y="85.999999999999986"/>
         </scene>
         <!--My Bookings-->
         <scene sceneID="aB8-aE-tr5">
@@ -171,7 +171,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPX-5R-ZqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="440" y="925"/>
+            <point key="canvasLocation" x="440" y="924.99999999999989"/>
         </scene>
         <!--Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
@@ -324,7 +324,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="393" y="-648"/>
+            <point key="canvasLocation" x="393" y="-647.99999999999989"/>
         </scene>
         <!--Guest Details-->
         <scene sceneID="mGq-iH-idI">
@@ -397,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ode-j3-fYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="-636"/>
+            <point key="canvasLocation" x="1226" y="-635.99999999999989"/>
         </scene>
         <!--My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -414,7 +414,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TR8-aO-15e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="925"/>
+            <point key="canvasLocation" x="-133" y="924.99999999999989"/>
         </scene>
         <!--Member List-->
         <scene sceneID="326-Gn-ctq">
@@ -452,7 +452,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="446" y="1749"/>
+            <point key="canvasLocation" x="446" y="1748.9999999999998"/>
         </scene>
         <!--Booking Detail-->
         <scene sceneID="XbS-YL-lxl">
@@ -662,7 +662,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5zt-9F-DC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1061" y="1756"/>
+            <point key="canvasLocation" x="1061" y="1755.9999999999998"/>
         </scene>
         <!--Members-->
         <scene sceneID="cEk-L8-WsX">
@@ -679,7 +679,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj6-t2-pqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="1742"/>
+            <point key="canvasLocation" x="-133" y="1741.9999999999998"/>
         </scene>
         <!--Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
@@ -696,7 +696,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6e-ID-wFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1124" y="86"/>
+            <point key="canvasLocation" x="-1124" y="85.999999999999986"/>
         </scene>
         <!--Book Front Court 4-->
         <scene sceneID="5Zu-FF-rN6">
@@ -808,7 +808,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableFooterView" contentMode="redraw" placeholder="partial name" id="YeR-k2-1Xx">
-                            <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="130" width="40" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <textInputTraits key="textInputTraits"/>
@@ -858,7 +858,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1094" y="86"/>
+            <point key="canvasLocation" x="1094" y="85.999999999999986"/>
         </scene>
     </scenes>
     <resources>
@@ -871,7 +871,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
+        <segue reference="xWf-Lb-3pk"/>
         <segue reference="jYf-s5-loM"/>
-        <segue reference="OL0-yK-twA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,6 +26,7 @@
 		4A2EDE271BE431F00012CC4E /* RHSCGuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE261BE431F00012CC4E /* RHSCGuestDetailsViewController.swift */; };
 		4A2EDE291BE43AA90012CC4E /* RHSCReserveDoublesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE281BE43AA90012CC4E /* RHSCReserveDoublesViewController.swift */; };
 		4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE2A1BE445B50012CC4E /* RHSCAppDelegate.swift */; };
+		4A2EDE311BE974F50012CC4E /* RHSCColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE301BE974F50012CC4E /* RHSCColors.swift */; };
 		4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */; };
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
 		4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8C3AE1BD647010077A23F /* RHSCMember.swift */; };
@@ -73,6 +74,7 @@
 		4A2EDE261BE431F00012CC4E /* RHSCGuestDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCGuestDetailsViewController.swift; sourceTree = "<group>"; };
 		4A2EDE281BE43AA90012CC4E /* RHSCReserveDoublesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCReserveDoublesViewController.swift; sourceTree = "<group>"; };
 		4A2EDE2A1BE445B50012CC4E /* RHSCAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCAppDelegate.swift; sourceTree = "<group>"; };
+		4A2EDE301BE974F50012CC4E /* RHSCColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCColors.swift; sourceTree = "<group>"; };
 		4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTimeTableViewCell.xib; sourceTree = "<group>"; };
 		4A922D73196C9C5B007A7478 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4AC8C3AD1BD647010077A23F /* iRHSCBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRHSCBook-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				4A2EDE081BDD8DC00012CC4E /* RHSCGuest.swift */,
 				4A2EDE0A1BDD8DE20012CC4E /* RHSCCourtTime.swift */,
 				4A2EDE0C1BDD8E080012CC4E /* RHSCMyBookingsList.swift */,
+				4A2EDE301BE974F50012CC4E /* RHSCColors.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				4A2EDE1D1BE2253A0012CC4E /* RHSCBookingsViewController.swift in Sources */,
 				4A2EDE271BE431F00012CC4E /* RHSCGuestDetailsViewController.swift in Sources */,
 				4A2EDE0D1BDD8E080012CC4E /* RHSCMyBookingsList.swift in Sources */,
+				4A2EDE311BE974F50012CC4E /* RHSCColors.swift in Sources */,
 				4A2EDE071BDD8DA80012CC4E /* RHSCUser.swift in Sources */,
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,
 				4A2EDE151BDED8DE0012CC4E /* RHSCTabBarController.swift in Sources */,

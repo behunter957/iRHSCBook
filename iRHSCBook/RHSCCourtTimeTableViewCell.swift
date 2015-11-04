@@ -15,6 +15,4 @@ class RHSCCourtTimeTableViewCell : UITableViewCell {
     @IBOutlet weak var statusLabel : UILabel? = nil
     @IBOutlet weak var typeAndPlayersLabel : UILabel? = nil
     
-    
-
 }

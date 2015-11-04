@@ -149,6 +149,25 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         return self.courtTimes.count;
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let curCourtTime = self.courtTimes[indexPath.row]
+        switch curCourtTime.status! {
+            case "Booked","Reserved":
+                switch curCourtTime.event! {
+                    case "Lesson","Clinic":
+                        cell.contentView.backgroundColor = UIColor.lessonYellow()
+                    case "T&D","MNHL","Ladder":
+                        cell.contentView.backgroundColor = UIColor.leaguePurple()
+                    default:
+                        cell.contentView.backgroundColor = UIColor.bookedBlue()
+                }
+                break
+            default:
+                cell.contentView.backgroundColor = UIColor.availableGreen()
+        }
+
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let rhscCourtTimeTableIdentifier = "RHSCCourtTimeTableViewCell"
     
@@ -193,6 +212,20 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             rcell.typeAndPlayersLabel!.text = ""
             rcell.statusLabel!.textColor = UIColor.init(colorLiteralRed: 7/255.0, green: 128/255.0, blue: 9/255.0, alpha: 1.0)
             rcell.accessoryType = .DisclosureIndicator
+        }
+        switch ct.status! {
+        case "Booked","Reserved":
+            switch ct.event! {
+            case "Lesson","Clinic":
+                rcell.contentView.backgroundColor = UIColor.lessonYellow()
+            case "T&D","MNHL","Ladder":
+                rcell.contentView.backgroundColor = UIColor.leaguePurple()
+            default:
+                rcell.contentView.backgroundColor = UIColor.bookedBlue()
+            }
+            break
+        default:
+            rcell.contentView.backgroundColor = UIColor.availableGreen()
         }
         return rcell;
     }
