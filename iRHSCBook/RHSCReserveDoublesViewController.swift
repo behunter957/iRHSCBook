@@ -15,7 +15,7 @@ protocol reserveDoublesProtocol {
 
 }
 
-class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate {
+class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
 
     @IBOutlet weak var typePicker : UIPickerView? = nil
     @IBOutlet weak var player2Control : UISegmentedControl? = nil
@@ -36,8 +36,8 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
     var player2Member : RHSCMember? = nil
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
-    var successAlert : UIAlertView? = nil
-    var errorAlert : UIAlertView? = nil
+    var successAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
     var guest2 : RHSCGuest? = nil
     var guest3 : RHSCGuest? = nil
     var guest4 : RHSCGuest? = nil
@@ -270,60 +270,74 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                self.errorAlert = UIAlertController(title: "Error",
+                    message: "Unable to book the court", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 5.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
             } else if data != nil {
                 //                    print("received data")
                 let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                 //                print(jsonDictionary)
                 if jsonDictionary["error"] == nil {
-                    self.successAlert = UIAlertView(title: "Success",
-                        message: "Court time successfully booked. Notices will be sent to all players",
-                        delegate: self,
-                        cancelButtonTitle: "OK",
-                        otherButtonTitles: "", "")
+                    self.successAlert = UIAlertController(title: "Success",
+                        message: "Court time successfully booked. Notices will be sent to all players", preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.successAlert!.show()
-                        });
-                    });
+                            self.presentViewController(self.successAlert!, animated: true, completion: nil)
+                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
                 } else {
-                    self.errorAlert = UIAlertView(title: "Error",
-                        message: jsonDictionary["error"] as! String,
-                        delegate: self,
-                        cancelButtonTitle: "OK",
-                        otherButtonTitles: "", "")
+                    self.errorAlert = UIAlertController(title: "Error",
+                        message: "Unable to book the court", preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.errorAlert!.show()
-                        });
-                    });
-                }
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+               }
             } else {
-                self.errorAlert = UIAlertView(title: "Network error",
-                    message: "Unable to book the court",
-                    delegate: self,
-                    cancelButtonTitle: "OK",
-                    otherButtonTitles: "", "")
+                self.errorAlert = UIAlertController(title: "Error",
+                    message: "Unable to book the court", preferredStyle: .Alert)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.errorAlert!.show()
-                    });
-                });
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 5.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
             }
         })
         task.resume()
         
     }
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if (alertView == self.successAlert) {
-            self.navigationController?.popViewControllerAnimated(true)
-        }
-        if (alertView == self.errorAlert) {
-            self.navigationController?.popViewControllerAnimated(true)
-        }
-    }
-        
 }

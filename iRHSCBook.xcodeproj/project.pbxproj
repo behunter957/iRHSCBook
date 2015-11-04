@@ -77,7 +77,6 @@
 		4A2EDE301BE974F50012CC4E /* RHSCColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCColors.swift; sourceTree = "<group>"; };
 		4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTimeTableViewCell.xib; sourceTree = "<group>"; };
 		4A922D73196C9C5B007A7478 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		4AC8C3AD1BD647010077A23F /* iRHSCBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRHSCBook-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AC8C3AE1BD647010077A23F /* RHSCMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMember.swift; sourceTree = "<group>"; };
 		4AD36F27196FF22A0015BB52 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				4AC8C3AE1BD647010077A23F /* RHSCMember.swift */,
-				4AC8C3AD1BD647010077A23F /* iRHSCBook-Bridging-Header.h */,
 				4A2EDE021BDD7B270012CC4E /* RHSCMemberList.swift */,
 				4A2EDE041BDD8AC00012CC4E /* RHSCServer.swift */,
 				4A2EDE061BDD8DA80012CC4E /* RHSCUser.swift */,

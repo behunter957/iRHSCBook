@@ -16,6 +16,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
     var server : RHSCServer? = nil
     var courtSet : String? = nil
     var includeBookings : Bool = true
+    var errorAlert : UIAlertController? = nil
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -51,12 +52,19 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         if (networkStatus == Reachability.NetworkStatus.NotReachable) {
             self.view.userInteractionEnabled = false
             // if not found then logon failes
-            let alert = UIAlertView(title: "No Internet Connection",
-                message: "Close the application and try later.",
-                delegate: self,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "No Internet Connection",
+                message: "Close the application and try later.", preferredStyle: .Alert)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
+            })
         } else {
             let srvrname = NSUserDefaults.standardUserDefaults().stringForKey("RHSCServerURL")
             
@@ -75,23 +83,37 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
             if (!self.currentUser!.isLoggedOn()) {
                 self.view.userInteractionEnabled = false
                 // if not found then logon failes
-                let alert = UIAlertView(title: "Logon Failed",
-                    message: "Please check settings and provide a valid userid and password.",
-                    delegate: self,
-                    cancelButtonTitle: "OK",
-                    otherButtonTitles: "", "")
-                alert.show()
+                self.errorAlert = UIAlertController(title: "Logon Failed",
+                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 5.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                        })
+                    })
+                })
             } else {
                 try! self.memberList?.loadFromJSON(fromServer: self.server!)
                 if (!self.memberList!.loadedSuccessfully()) {
                     self.view.userInteractionEnabled = false
                     // if not found then logon failes
-                    let alert = UIAlertView(title: "Load Members Failed",
-                        message: "Please check settings and restart iRHSCBook or contact administrator.",
-                        delegate: self,
-                        cancelButtonTitle: "OK",
-                        otherButtonTitles: "", "")
-                    alert.show()
+                    self.errorAlert = UIAlertController(title: "Load Members Failed",
+                        message: "Please check settings and restart iRHSCBook or contact administrator.", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        })
+                    })
                 }
             }
         }

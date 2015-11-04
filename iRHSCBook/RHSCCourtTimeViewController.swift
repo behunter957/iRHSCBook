@@ -19,7 +19,8 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
 
     @IBOutlet weak var headerButton : UIBarButtonItem? = nil
 
-    var includeAlert : UIAlertView? = nil
+    var includeAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
 
     var selectionDate : NSDate? = nil
     var selectionSet : String? = nil
@@ -255,12 +256,19 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
                 if error != nil {
                     print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-                    let alert = UIAlertView(title: "Network error",
-                        message: "Unable to lock the court",
-                        delegate: nil,
-                        cancelButtonTitle: "OK",
-                        otherButtonTitles: "", "")
-                    alert.show()
+                    self.errorAlert = UIAlertController(title: "Error",
+                        message: "Unable to lock the court", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        })
+                    })
                 } else if data != nil {
 //                    print("received data")
                     let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
@@ -279,12 +287,19 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                             });
                         });
                     } else {
-                        let alert = UIAlertView(title: "Error locking the booking",
-                            message: jsonDictionary["error"] as! String,
-                            delegate: nil,
-                            cancelButtonTitle: "OK",
-                            otherButtonTitles: "", "")
-                        alert.show()
+                        self.errorAlert = UIAlertController(title: "Error",
+                            message: "Unable to lock the court", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            // do some task
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                                let delay = 5.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                })
+                            })
+                        })
                     }
                 }
             })
@@ -450,23 +465,19 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
     }
     
     func showStatus(message:String?,timeout:Double) {
-        includeAlert = UIAlertView(title: "",
-            message: message!,
-            delegate: nil,
-            cancelButtonTitle: nil,
-            otherButtonTitles: "", "")
-        includeAlert!.show()
-        NSTimer.scheduledTimerWithTimeInterval(timeout,
-            target:self,
-            selector:"timerExpired",
-            userInfo:nil,
-            repeats:false)
+        self.includeAlert = UIAlertController(title: "",
+            message: message!, preferredStyle: .Alert)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            // do some task
+            dispatch_async(dispatch_get_main_queue(), {
+                self.presentViewController(self.includeAlert!, animated: true, completion: nil)
+                let delay = 5.0 * Double(NSEC_PER_SEC)
+                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                dispatch_after(time, dispatch_get_main_queue(), {
+                    self.includeAlert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            })
+        })
     }
-    
-    func timerExpired(timer:NSTimer) {
-        includeAlert?.dismissWithClickedButtonIndex(0, animated: true)
-    }
-    
-    
     
 }

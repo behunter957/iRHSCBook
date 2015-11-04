@@ -20,6 +20,8 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
     @IBOutlet weak var ph2SMSBtn : UIButton? = nil
     @IBOutlet weak var ph2CallBtn : UIButton? = nil
     
+    var errorAlert : UIAlertController? = nil
+    
     var member : RHSCMember? = nil
     
     override func viewDidLoad() {
@@ -75,12 +77,19 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
             // Present mail view controller on screen
             self.presentViewController(mc, animated: true, completion: nil)
         } else {
-            let alert = UIAlertView(title: "Cannot send email",
-                message: "Cannot email from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Unavailable",
+                message: "Cannot email from this device", preferredStyle: .Alert)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
+            })
         }
     }
     
@@ -111,12 +120,19 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:phoneNumber)!)) {
             UIApplication.sharedApplication().openURL(NSURL(string:phoneNumber)!)
         } else {
-            let alert = UIAlertView(title: "Cannot place call",
-                message: "Cannot phone from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Unavailable",
+                message: "Cannot phone from this device", preferredStyle: .Alert)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
+            })
         }
     }
     
@@ -129,12 +145,19 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:phoneNumber)!)) {
             UIApplication.sharedApplication().openURL(NSURL(string:phoneNumber)!)
         } else {
-            let alert = UIAlertView(title: "Cannot place call",
-                message: "Cannot phone from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Unavailable",
+                message: "Cannot phone from this device", preferredStyle: .Alert)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
+            })
         }
     }
     
@@ -172,12 +195,19 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
             //			NSLog(@"Cancelled");
             break;
         case MessageComposeResultFailed:
-            let alert = UIAlertView(title: "Cannot send message",
-                message: "Cannot SMS from this device",
-                delegate: nil,
-                cancelButtonTitle: "OK",
-                otherButtonTitles: "", "")
-            alert.show()
+            self.errorAlert = UIAlertController(title: "Unavailable",
+                message: "Cannot SMS from this device", preferredStyle: .Alert)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // do some task
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
+            })
             break;
         case MessageComposeResultSent:
             break;
