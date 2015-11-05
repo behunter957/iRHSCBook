@@ -21,19 +21,19 @@ import UIKit
 extension UIColor {
     // Local Palette
     class func availableGreen() -> UIColor {
-        return UIColor(red:0.64, green:1.00, blue:0.60, alpha:1.0)
+        return UIColor(red:0.00, green:0.66, blue:0.09, alpha:1.0)
     }
     
     class func lessonYellow() -> UIColor {
-        return UIColor(red:1.00, green:0.99, blue:0.44, alpha:1.0)
+        return UIColor(red:0.98, green:1.00, blue:0.00, alpha:1.0)
     }
     
     class func leaguePurple() -> UIColor {
-        return UIColor(red:0.86, green:0.64, blue:1.00, alpha:1.0)
+        return UIColor(red:0.44, green:0.00, blue:1.00, alpha:1.0)
     }
     
     class func bookedBlue() -> UIColor {
-        return UIColor(red:0.64, green:0.91, blue:1.00, alpha:1.0)
+        return UIColor(red:0.00, green:0.26, blue:0.79, alpha:1.0)
     }
     
     class func historyBrown() -> UIColor {

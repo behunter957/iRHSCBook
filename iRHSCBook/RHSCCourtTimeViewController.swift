@@ -32,6 +32,8 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.tableView.separatorColor = UIColor.blackColor()
+//        self.tableView.separatorInset = UIEdgeInsetsZero
         
         // Uncomment the following line to preserve selection between presentations.
         self.clearsSelectionOnViewWillAppear = false;
@@ -150,6 +152,17 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         return self.courtTimes.count;
     }
     
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let curCourtTime = self.courtTimes[indexPath.row]
+        switch curCourtTime.status! {
+        case "Available":
+            return true
+            break
+        default:
+            return false
+        }
+    }
+    
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let curCourtTime = self.courtTimes[indexPath.row]
         switch curCourtTime.status! {
@@ -202,18 +215,38 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                         ct.players["player1_lname"]!,
                         ct.players["player2_lname"]! ])
             }
+            switch ct.status! {
+            case "Booked","Reserved":
+                switch ct.event! {
+                case "Lesson","Clinic":
+                    rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
+                    rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
+                    rcell.statusLabel!.textColor = UIColor.blackColor()
+                case "T&D","MNHL","Ladder":
+                    rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+                    rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+                    rcell.statusLabel!.textColor = UIColor.whiteColor()
+                default:
+                    rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+                    rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+                    rcell.statusLabel!.textColor = UIColor.whiteColor()
+                }
+                break
+            default:
+                rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+                rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+                rcell.statusLabel!.textColor = UIColor.whiteColor()
+            }
             if (ct.bookedForUser) {
                 rcell.statusLabel!.textColor = UIColor.redColor()
-                rcell.accessoryType = .DisclosureIndicator
-            } else {
-                rcell.statusLabel!.textColor = UIColor.blackColor()
-                rcell.accessoryType = .None
             }
         } else {
             rcell.typeAndPlayersLabel!.text = ""
-            rcell.statusLabel!.textColor = UIColor.init(colorLiteralRed: 7/255.0, green: 128/255.0, blue: 9/255.0, alpha: 1.0)
-            rcell.accessoryType = .DisclosureIndicator
+            rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+            rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+            rcell.statusLabel!.textColor = UIColor.whiteColor()
         }
+        rcell.accessoryType = .None
         return rcell;
     }
 

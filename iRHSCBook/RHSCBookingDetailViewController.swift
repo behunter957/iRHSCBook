@@ -78,6 +78,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                 player4Label!.text = ""
             }
         }
+        self.view.backgroundColor = UIColor.bookedBlue()
     }
     
     func findPlayer(playerId : String, inList memList: RHSCMemberList) -> RHSCMember?{
