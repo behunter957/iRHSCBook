@@ -214,20 +214,6 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             rcell.statusLabel!.textColor = UIColor.init(colorLiteralRed: 7/255.0, green: 128/255.0, blue: 9/255.0, alpha: 1.0)
             rcell.accessoryType = .DisclosureIndicator
         }
-        switch ct.status! {
-        case "Booked","Reserved":
-            switch ct.event! {
-            case "Lesson","Clinic":
-                rcell.contentView.backgroundColor = UIColor.lessonYellow()
-            case "T&D","MNHL","Ladder":
-                rcell.contentView.backgroundColor = UIColor.leaguePurple()
-            default:
-                rcell.contentView.backgroundColor = UIColor.bookedBlue()
-            }
-            break
-        default:
-            rcell.contentView.backgroundColor = UIColor.availableGreen()
-        }
         return rcell;
     }
 
