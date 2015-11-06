@@ -11,8 +11,9 @@ import Foundation
 @objc class RHSCMemberList : NSObject {
 
     var memberList : Array<RHSCMember> = Array<RHSCMember>()
-    var TBD : RHSCMember? = nil
-    var GUEST : RHSCMember? = nil
+    var TBD = RHSCMember(fromName: "TBD", fromType: "Active")
+    var GUEST = RHSCMember(fromName: "Guest", fromType: "Active")
+
     var isLoaded : Bool = false
     
     func loadFromJSON(fromServer server :RHSCServer) throws {
@@ -49,8 +50,8 @@ import Foundation
                     memberList.append(member)
                 }
                 isLoaded = (self.memberList.count != 0);
-                memberList.append(RHSCMember(fromName: "TBD", fromType: "Active"))
-                memberList.append(RHSCMember(fromName: "GUEST", fromType: "Active"))
+//                memberList.append(RHSCMember(fromName: "TBD", fromType: "Active"))
+//                memberList.append(RHSCMember(fromName: "GUEST", fromType: "Active"))
             }
         } catch {
             print(error)

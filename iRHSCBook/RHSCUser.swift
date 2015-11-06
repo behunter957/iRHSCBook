@@ -36,12 +36,17 @@ import Foundation
 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
                     if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-                        let array : Array<NSDictionary> = jsonDictionary["user"]! as! Array<NSDictionary>
-                        for dict in array {
-                            RHSCUser.loggedOn = true
-                            // Create a new Location object for each one and initialise it with information in the dictionary
-                            self.data = RHSCMember(fromJSONDictionary:dict )
+                        if let array  = jsonDictionary["user"] {
+                            for dict in array as! Array<NSDictionary> {
+                                RHSCUser.loggedOn = true
+                                // Create a new Location object for each one and initialise it with information in the dictionary
+                                self.data = RHSCMember(fromJSONDictionary:dict )
+                            }
+                        } else {
+                            print("user not found")
                         }
+                    } else {
+                        print("response was not JSON")
                     }
                 } catch {
                     print(error)
