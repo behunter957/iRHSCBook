@@ -55,6 +55,10 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
         return self.bookingList.bookingList.count;
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.contentView.backgroundColor = UIColor.bookedBlue()
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyBookingCell", forIndexPath: indexPath)
         // Configure the cell...
@@ -72,6 +76,11 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
             cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@", arguments: [ct.event!,
                 ct.players["player1_lname"]!,ct.players["player2_lname"]!])
         }
+        cell.textLabel!.backgroundColor = UIColor.clearColor()
+        cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
+        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.detailTextLabel!.textColor = UIColor.whiteColor()
+        cell.accessoryType = .None
         return cell;
     }
     

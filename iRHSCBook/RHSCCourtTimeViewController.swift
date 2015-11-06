@@ -94,8 +94,20 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
     }
     
     @IBAction func includeChanged() {
-//        let incText = (self.incBookings!.on ? "Include" : "Exclude")
-//        self.showStatus(String.init(format: "%@ bookings", arguments: [incText]), timeout: 0.5)
+        let incText = (self.incBookings!.on ? "Show only Booked courts" : "Show only Available courts")
+        self.errorAlert = UIAlertController(title: "",
+            message: incText, preferredStyle: .Alert)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            // do some task
+            dispatch_async(dispatch_get_main_queue(), {
+                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                let delay = 1.0 * Double(NSEC_PER_SEC)
+                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                dispatch_after(time, dispatch_get_main_queue(), {
+                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            })
+        })
         self.asyncLoadSelectedCourtTimes()
     }
     
@@ -157,9 +169,8 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         switch curCourtTime.status! {
         case "Available":
             return true
-            break
         default:
-            return false
+            return curCourtTime.bookedForUser
         }
     }
     

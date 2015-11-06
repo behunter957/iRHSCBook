@@ -62,23 +62,29 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
         }
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.contentView.backgroundColor = UIColor.redColor()
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MemberListCell", forIndexPath: indexPath) as UITableViewCell?
+        let cell = tableView.dequeueReusableCellWithIdentifier("MemberListCell", forIndexPath: indexPath)
         
         if (self.resultSearchController.active)
         {
             let mem = self.filteredList[indexPath.row]
-            cell!.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
-            return cell!
+            cell.textLabel!.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
         }
         else
         {
             let tbc = self.tabBarController as! RHSCTabBarController
             let mem = tbc.memberList!.memberList[indexPath.row]
-            cell!.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
-            return cell!
+            cell.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
         }
+        cell.textLabel!.backgroundColor = UIColor.clearColor()
+        cell.textLabel!.textColor = UIColor.blackColor()
+        cell.accessoryType = .None
+        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

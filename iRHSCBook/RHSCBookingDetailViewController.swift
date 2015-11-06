@@ -127,7 +127,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                                 // do some task
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.presentViewController(self.successAlert!, animated: true, completion: nil)
-                                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                                    let delay = 3.0 * Double(NSEC_PER_SEC)
                                     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                                     dispatch_after(time, dispatch_get_main_queue(), {
                                         self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
@@ -143,7 +143,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                                 // do some task
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                                    let delay = 5.0 * Double(NSEC_PER_SEC)
+                                    let delay = 3.0 * Double(NSEC_PER_SEC)
                                     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                                     dispatch_after(time, dispatch_get_main_queue(), {
                                         self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)

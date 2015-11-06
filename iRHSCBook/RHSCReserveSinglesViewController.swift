@@ -171,15 +171,16 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     
     func bookCourt() {
         let tbc = self.tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSUpdateBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@&g2name=%@&g2phone=%@&g2email=%@&g3name=%@&g3phone=%@&g3email=%@&g4name=%@&g4phone=%@&g4email=%@&courtEvent=%@",
+        let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court='%@'&courtEvent=%@&reserved=false",
             arguments: [self.courtTimeRecord!.bookingId!,
-            tbc.currentUser!.data!.name!,
-            (self.player2Member != nil ? self.player2Member!.name : "")!,"","",
-            tbc.currentUser!.data!.name!,"iPhone",
-            self.guest2!.name,self.guest2!.phone,self.guest2!.email,
-            "","","",
-            "","","",
-            self.eventType!.text!]),
+                tbc.currentUser!.data!.name!,
+                (self.player2Member != nil ? self.player2Member!.name : "")!, "", "",
+                tbc.currentUser!.data!.name!,"iPhone",
+                (self.guest2 != nil ? self.guest2!.name : ""), "", "",
+                "iPhone", (self.courtTimeRecord?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.eventType!.text!])
+//        print(urlstr)
+        let url = NSURL(string: urlstr,
             relativeToURL: tbc.server )
         //        NSLog(@"fetch URL = %@",fetchURL);
 //        print(url)
@@ -212,7 +213,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
                             self.presentViewController(self.successAlert!, animated: true, completion: nil)
-                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let delay = 3.0 * Double(NSEC_PER_SEC)
                             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                             dispatch_after(time, dispatch_get_main_queue(), {
                                 self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
@@ -221,13 +222,13 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
                         })
                     })
                 } else {
-                    self.errorAlert = UIAlertController(title: "Error",
-                        message: "Unable to book the court", preferredStyle: .Alert)
+                    self.errorAlert = UIAlertController(title: "Unable to Book Court",
+                        message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
                             self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 5.0 * Double(NSEC_PER_SEC)
+                            let delay = 3.0 * Double(NSEC_PER_SEC)
                             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                             dispatch_after(time, dispatch_get_main_queue(), {
                                 self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
@@ -243,7 +244,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                        let delay = 5.0 * Double(NSEC_PER_SEC)
+                        let delay = 3.0 * Double(NSEC_PER_SEC)
                         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                         dispatch_after(time, dispatch_get_main_queue(), {
                             self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
