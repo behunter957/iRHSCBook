@@ -15,17 +15,17 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     @IBOutlet var searchResultsView : UITableView? = nil
     var selectedMember : RHSCMember? = nil
     var searching : Bool = false
-    var resultSearchController = UISearchController()
+    var resultSearchController : UISearchController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.resultSearchController = UISearchController(searchResultsController: nil)
-        self.resultSearchController.searchResultsUpdater = self
-        self.resultSearchController.dimsBackgroundDuringPresentation = false
-        self.resultSearchController.searchBar.sizeToFit()
+        self.resultSearchController!.searchResultsUpdater = self
+        self.resultSearchController!.dimsBackgroundDuringPresentation = false
+        self.resultSearchController!.searchBar.sizeToFit()
         
-        self.tableView.tableHeaderView = self.resultSearchController.searchBar
+        self.tableView.tableHeaderView = self.resultSearchController!.searchBar
         
         self.tableView.reloadData()
     }
@@ -51,7 +51,7 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (self.resultSearchController.active)
+        if (self.resultSearchController!.active)
         {
             return self.filteredList.count
         }
@@ -70,7 +70,7 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemberListCell", forIndexPath: indexPath)
         
-        if (self.resultSearchController.active)
+        if (self.resultSearchController!.active)
         {
             let mem = self.filteredList[indexPath.row]
             cell.textLabel!.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
@@ -90,7 +90,7 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = indexPath.row
         let segueName = "MemberDetail"
-        if (self.resultSearchController.active) {
+        if (self.resultSearchController!.active) {
             selectedMember = filteredList[row];
         } else {
             let tbc = self.tabBarController as! RHSCTabBarController
