@@ -9,101 +9,112 @@
 import Foundation
 import UIKit
 
-class RHSCBookCourtViewController : UITableViewController {
+class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
-    @IBOutlet weak var s1r0 : UITableViewCell? = nil
-    @IBOutlet weak var s1r1 : UITableViewCell? = nil
-    @IBOutlet weak var s1r2 : UITableViewCell? = nil
-    @IBOutlet weak var s2r0 : UITableViewCell? = nil
-    @IBOutlet weak var s2r1 : UITableViewCell? = nil
-    @IBOutlet weak var s2r2 : UITableViewCell? = nil
-    @IBOutlet weak var s2r3 : UITableViewCell? = nil
-    @IBOutlet weak var s3r0 : UITableViewCell? = nil
-    @IBOutlet weak var s3r1 : UITableViewCell? = nil
-    var cells : Array<Array<UITableViewCell?>> = [[],[],[]]
+    var user : RHSCUser? = nil
+    
+    var s1r0 : RHSCLabelTableViewCell? = nil
+    var s1r1 : RHSCLabelTableViewCell? = nil
+    var s1r2 : RHSCLabelTableViewCell? = nil
+    var s2r0 : RHSCButtonTableViewCell? = nil
+    var s2r1 : RHSCButtonTableViewCell? = nil
+    var s2r2 : RHSCButtonTableViewCell? = nil
+    var s2r3 : RHSCButtonTableViewCell? = nil
+    var s3r0 : RHSCButtonTableViewCell? = nil
+    var s3r1 : RHSCTextTableViewCell? = nil
+    
+    var cells : Array<Array<UITableViewCell?>> = []
     var delegate : AnyObject? = nil
         
     override func viewDidLoad() {
         
-        let titleCell = RHSCCourtTitleTableViewCell()
-        titleCell.courtNameLabel = UILabel()
-        titleCell.courtNameLabel?.text = ct?.court
-        cells[0].append(titleCell)
-        let dateCell = RHSCCourtInfoTableViewCell()
-        dateCell.infoNameLabel = UILabel()
-        dateCell.infoNameLabel?.text = "Date"
         let dateFormat = NSDateFormatter()
-        dateFormat.dateFormat = "EEEE, MMMM d"
-        dateCell.infoValueLabel = UILabel()
-        dateCell.infoValueLabel?.text = dateFormat.stringFromDate((ct?.courtTime)!)
-        cells[0].append(dateCell)
-        let timeCell = RHSCCourtInfoTableViewCell()
-        timeCell.infoNameLabel = UILabel()
-        timeCell.infoNameLabel?.text = "Time"
+        dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()
         timeFormat.dateFormat = "h:mm a"
-        timeCell.infoValueLabel = UILabel()
-        timeCell.infoValueLabel?.text = timeFormat.stringFromDate((ct?.courtTime)!)
-        cells[0].append(timeCell)
-        
-        let p1Cell = RHSCCourtInfoTableViewCell()
-        p1Cell.infoNameLabel = UILabel()
-        p1Cell.infoValueLabel = UILabel()
-        p1Cell.infoNameLabel?.text = "Player 1"
-        p1Cell.infoValueLabel?.text = ct?.players["player1_id"]
-        cells[1].append(p1Cell)
-        let p2Cell = RHSCCourtInfoTableViewCell()
-        p2Cell.infoNameLabel = UILabel()
-        p2Cell.infoValueLabel = UILabel()
-        p2Cell.infoNameLabel?.text = "Player 2"
-        p2Cell.infoValueLabel?.text = ct?.players["player2_id"]
-        cells[1].append(p2Cell)
+        // create the cells
+        s1r0 = formTable.dequeueReusableCellWithIdentifier("Court Title Cell") as? RHSCLabelTableViewCell
+        if (s1r0 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r0 = nib[0] as? RHSCLabelTableViewCell
+        }
+        s1r0?.configure(ct!.court)
+        s1r1 = formTable.dequeueReusableCellWithIdentifier("Date Cell") as? RHSCLabelTableViewCell
+        if (s1r1 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r1 = nib[1] as? RHSCLabelTableViewCell
+        }
+        s1r1?.configure(dateFormat.stringFromDate(ct!.courtTime!))
+        s1r2 = formTable.dequeueReusableCellWithIdentifier("Time Cell") as? RHSCLabelTableViewCell
+        if (s1r2 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r2 = nib[2] as? RHSCLabelTableViewCell
+        }
+        s1r2?.configure(timeFormat.stringFromDate(ct!.courtTime!))
+        s2r0 = formTable.dequeueReusableCellWithIdentifier("Player 1 Cell") as? RHSCButtonTableViewCell
+        if (s2r0 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r0 = nib[3] as? RHSCButtonTableViewCell
+        }
+        s2r0?.configure(user!.userid)
+        s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
+        if (s2r1 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r1 = nib[4] as? RHSCButtonTableViewCell
+        }
+        s2r1?.configure("TBD")
+        s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
+        if (s2r2 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r2 = nib[5] as? RHSCButtonTableViewCell
+        }
+        s2r2?.configure(ct!.players["player3_id"])
+        s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
+        if (s2r3 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r3 = nib[6] as? RHSCButtonTableViewCell
+        }
+        s2r3?.configure("TBD")
+        s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCButtonTableViewCell
+        if (s3r0 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s3r0 = nib[7] as? RHSCButtonTableViewCell
+        }
+        s3r0?.configure("Friendly")
+        s3r1 = formTable.dequeueReusableCellWithIdentifier("Desc Cell") as? RHSCTextTableViewCell
+        if (s3r1 == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s3r1 = nib[8] as? RHSCTextTableViewCell
+        }
+        s3r1?.configure("")
+
         if ct?.court == "Court 5" {
-            let p3Cell = RHSCCourtInfoTableViewCell()
-            p3Cell.infoNameLabel = UILabel()
-            p3Cell.infoValueLabel = UILabel()
-            p3Cell.infoNameLabel?.text = "Player 3"
-            p3Cell.infoValueLabel?.text = ct?.players["player3_id"]
-            cells[1].append(p3Cell)
-            let p4Cell = RHSCCourtInfoTableViewCell()
-            p4Cell.infoNameLabel = UILabel()
-            p4Cell.infoValueLabel = UILabel()
-            p4Cell.infoNameLabel?.text = "Player 4"
-            p4Cell.infoValueLabel?.text = ct?.players["player4_id"]
-            cells[1].append(p4Cell)
+            cells = [[s1r0, s1r1, s1r2],[s2r0, s2r1, s2r2, s2r3],[s3r0, s3r1]]
+        } else {
+            cells = [[s1r0, s1r1, s1r2],[s2r0, s2r1],[s3r0, s3r1]]
         }
         
-        let eventCell = RHSCCourtInfoTableViewCell()
-        eventCell.infoNameLabel = UILabel()
-        eventCell.infoValueLabel = UILabel()
-        eventCell.infoNameLabel?.text = "Type"
-        eventCell.infoValueLabel?.text = ct?.event
-        cells[2].append(eventCell)
-        let descCell = RHSCCourtInfoTableViewCell()
-        descCell.infoNameLabel = UILabel()
-        descCell.infoValueLabel = UILabel()
-        descCell.infoNameLabel?.text = "Desc"
-        descCell.infoValueLabel?.text = ct?.eventDesc
-        cells[2].append(descCell)
+        for sect in cells {
+            for myview in sect {
+                myview?.selectionStyle = .None
+            }
+        }
+        
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
-        return 3;
+        return cells.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        switch section {
-        case 1: return 3
-        case 2: return (ct?.court == "Court 5" ? 4 : 2)
-        case 3: return 2
-        default: return 0
-        }
+        return cells[section].count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return self.cells[indexPath.section - 1][indexPath.row]!
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return self.cells[indexPath.section][indexPath.row]!
     }
 }

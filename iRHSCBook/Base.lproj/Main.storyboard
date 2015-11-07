@@ -117,12 +117,12 @@
                         <segue destination="PeM-PD-Smf" kind="push" identifier="ReserveDoubles" id="vvn-Ha-0Fc"/>
                         <segue destination="5GM-gx-kgf" kind="push" identifier="ReserveSingles" id="yZ2-A6-zmk"/>
                         <segue destination="Dn2-hE-uzA" kind="push" identifier="CancelFromAvailable" id="vhh-Zx-dhL"/>
-                        <segue destination="a9Z-ss-5HP" kind="push" identifier="BookCourt" id="VUc-Bu-VHR"/>
+                        <segue destination="eAy-wV-3fN" kind="push" identifier="BookCourt" id="Sej-lI-cfY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-402" y="-432"/>
+            <point key="canvasLocation" x="-474" y="-602"/>
         </scene>
         <!--My Bookings-->
         <scene sceneID="aB8-aE-tr5">
@@ -180,79 +180,31 @@
             </objects>
             <point key="canvasLocation" x="440" y="924.99999999999989"/>
         </scene>
-        <!--Book Court-->
-        <scene sceneID="GGM-1O-Uom">
+        <!--Book Court View Controller-->
+        <scene sceneID="whE-N6-vpe">
             <objects>
-                <tableViewController storyboardIdentifier="BookCourt" title="Book Court" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a9Z-ss-5HP" customClass="RHSCBookCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7aa-Zr-5t1">
+                <viewController id="eAy-wV-3fN" customClass="RHSCBookCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="KYd-RE-Xji">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourtNameCell" textLabel="BPC-Zh-tKq" style="IBUITableViewCellStyleDefault" id="HgC-VG-G4j">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgC-VG-G4j" id="UjQ-Ln-iw1">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Court Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BPC-Zh-tKq">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <animations/>
-                                </tableViewCellContentView>
-                                <animations/>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourtInfoCell" textLabel="B9c-h3-lPu" style="IBUITableViewCellStyleDefault" id="Mm8-Qe-ukc">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mm8-Qe-ukc" id="elT-vd-ZqW">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B9c-h3-lPu">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69l-OY-lZs">
-                                            <rect key="frame" x="178" y="0.0" width="134" height="43"/>
-                                            <animations/>
-                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <animations/>
-                                </tableViewCellContentView>
-                                <animations/>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="a9Z-ss-5HP" id="OUy-Ob-EdH"/>
-                            <outlet property="delegate" destination="a9Z-ss-5HP" id="xj8-lT-nL6"/>
+                            <outlet property="dataSource" destination="eAy-wV-3fN" id="VRH-k6-6pm"/>
+                            <outlet property="delegate" destination="eAy-wV-3fN" id="pDq-ZY-X2G"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Book Court" id="JIB-lY-Zk0">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="pQe-dL-eRa"/>
-                        <barButtonItem key="rightBarButtonItem" title="Book" id="8cQ-XI-PQ4"/>
+                    <navigationItem key="navigationItem" id="pRx-j7-JMQ">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="zc3-vh-5YR"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="vYM-cK-icl"/>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W6S-vU-Slv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="formTable" destination="KYd-RE-Xji" id="nmP-H9-mB4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V2B-dP-AIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="382" y="-1351"/>
+            <point key="canvasLocation" x="684" y="-1495"/>
         </scene>
         <!--Reserve Doubles-->
         <scene sceneID="Wvv-9L-XhH">
@@ -971,7 +923,7 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="c3E-dF-B3k"/>
+        <segue reference="vhh-Zx-dhL"/>
         <segue reference="Ojl-Ca-M1M"/>
         <segue reference="xWf-Lb-3pk"/>
     </inferredMetricsTieBreakers>

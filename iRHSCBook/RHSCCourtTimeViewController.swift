@@ -352,6 +352,8 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             // set the selectedCourtTime record
             (segue.destinationViewController as! RHSCBookCourtViewController).delegate = self
             (segue.destinationViewController as! RHSCBookCourtViewController).ct = self.selectedCourtTime
+            let tbc = self.tabBarController as! RHSCTabBarController
+            (segue.destinationViewController as! RHSCBookCourtViewController).user = tbc.currentUser
         }
         if segue.identifier == "ReserveSingles" {
             // lock the court
