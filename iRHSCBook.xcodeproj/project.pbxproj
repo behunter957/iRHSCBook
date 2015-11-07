@@ -28,6 +28,10 @@
 		4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE2A1BE445B50012CC4E /* RHSCAppDelegate.swift */; };
 		4A2EDE311BE974F50012CC4E /* RHSCColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE301BE974F50012CC4E /* RHSCColors.swift */; };
 		4A2EDE371BED5C1C0012CC4E /* RHSCBookCourtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE361BED5C1C0012CC4E /* RHSCBookCourtViewController.swift */; };
+		4A2EDE391BED82DE0012CC4E /* RHSCCourtTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A2EDE381BED82DE0012CC4E /* RHSCCourtTitleTableViewCell.xib */; };
+		4A2EDE3B1BED83120012CC4E /* RHSCCourtInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A2EDE3A1BED83120012CC4E /* RHSCCourtInfoTableViewCell.xib */; };
+		4A2EDE3D1BED83650012CC4E /* RHSCCourtTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE3C1BED83650012CC4E /* RHSCCourtTitleTableViewCell.swift */; };
+		4A2EDE3F1BED837E0012CC4E /* RHSCCourtInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE3E1BED837E0012CC4E /* RHSCCourtInfoTableViewCell.swift */; };
 		4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */; };
 		4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A922D73196C9C5B007A7478 /* Settings.bundle */; };
 		4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8C3AE1BD647010077A23F /* RHSCMember.swift */; };
@@ -77,6 +81,10 @@
 		4A2EDE2A1BE445B50012CC4E /* RHSCAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCAppDelegate.swift; sourceTree = "<group>"; };
 		4A2EDE301BE974F50012CC4E /* RHSCColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCColors.swift; sourceTree = "<group>"; };
 		4A2EDE361BED5C1C0012CC4E /* RHSCBookCourtViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCBookCourtViewController.swift; sourceTree = "<group>"; };
+		4A2EDE381BED82DE0012CC4E /* RHSCCourtTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTitleTableViewCell.xib; sourceTree = "<group>"; };
+		4A2EDE3A1BED83120012CC4E /* RHSCCourtInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtInfoTableViewCell.xib; sourceTree = "<group>"; };
+		4A2EDE3C1BED83650012CC4E /* RHSCCourtTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCCourtTitleTableViewCell.swift; sourceTree = "<group>"; };
+		4A2EDE3E1BED837E0012CC4E /* RHSCCourtInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCCourtInfoTableViewCell.swift; sourceTree = "<group>"; };
 		4A850B9419871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCCourtTimeTableViewCell.xib; sourceTree = "<group>"; };
 		4A922D73196C9C5B007A7478 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4AC8C3AE1BD647010077A23F /* RHSCMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMember.swift; sourceTree = "<group>"; };
@@ -159,6 +167,10 @@
 				4A2EDE261BE431F00012CC4E /* RHSCGuestDetailsViewController.swift */,
 				4A2EDE281BE43AA90012CC4E /* RHSCReserveDoublesViewController.swift */,
 				4A2EDE361BED5C1C0012CC4E /* RHSCBookCourtViewController.swift */,
+				4A2EDE381BED82DE0012CC4E /* RHSCCourtTitleTableViewCell.xib */,
+				4A2EDE3A1BED83120012CC4E /* RHSCCourtInfoTableViewCell.xib */,
+				4A2EDE3C1BED83650012CC4E /* RHSCCourtTitleTableViewCell.swift */,
+				4A2EDE3E1BED837E0012CC4E /* RHSCCourtInfoTableViewCell.swift */,
 			);
 			name = Courts;
 			sourceTree = "<group>";
@@ -335,10 +347,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A2EDE391BED82DE0012CC4E /* RHSCCourtTitleTableViewCell.xib in Resources */,
 				4A850B9619871BB700D29EB7 /* RHSCCourtTimeTableViewCell.xib in Resources */,
 				4A922D74196C9C5B007A7478 /* Settings.bundle in Resources */,
 				ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */,
 				ACAC338E195EF27F00F7562F /* InfoPlist.strings in Resources */,
+				4A2EDE3B1BED83120012CC4E /* RHSCCourtInfoTableViewCell.xib in Resources */,
 				ACAC3397195EF27F00F7562F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +378,7 @@
 				4A2EDE231BE377960012CC4E /* RHSCReserveSinglesViewController.swift in Sources */,
 				4A2EDE091BDD8DC00012CC4E /* RHSCGuest.swift in Sources */,
 				4A2EDE191BE045030012CC4E /* RHSCMemberDetailViewController.swift in Sources */,
+				4A2EDE3F1BED837E0012CC4E /* RHSCCourtInfoTableViewCell.swift in Sources */,
 				4A2EDE0B1BDD8DE20012CC4E /* RHSCCourtTime.swift in Sources */,
 				4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */,
 				4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */,
@@ -376,6 +391,7 @@
 				4A2EDE071BDD8DA80012CC4E /* RHSCUser.swift in Sources */,
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,
 				4A2EDE371BED5C1C0012CC4E /* RHSCBookCourtViewController.swift in Sources */,
+				4A2EDE3D1BED83650012CC4E /* RHSCCourtTitleTableViewCell.swift in Sources */,
 				4A2EDE151BDED8DE0012CC4E /* RHSCTabBarController.swift in Sources */,
 				4A2EDE111BDED34D0012CC4E /* RHSCMembersViewController.swift in Sources */,
 				4A2EDE291BE43AA90012CC4E /* RHSCReserveDoublesViewController.swift in Sources */,

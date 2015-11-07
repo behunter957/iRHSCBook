@@ -308,6 +308,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                         if self.courtTimes[indexPath.row].court == "Court 5" {
                             segueName = "ReserveDoubles"
                         }
+                        segueName = "BookCourt"
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             // do some task
                             dispatch_async(dispatch_get_main_queue(), {
@@ -346,6 +347,12 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         //    NSLog(@"segue: %@",segue.identifier);
+        if segue.identifier == "BookCourt" {
+            // lock the court
+            // set the selectedCourtTime record
+            (segue.destinationViewController as! RHSCBookCourtViewController).delegate = self
+            (segue.destinationViewController as! RHSCBookCourtViewController).ct = self.selectedCourtTime
+        }
         if segue.identifier == "ReserveSingles" {
             // lock the court
             // set the selectedCourtTime record

@@ -15,6 +15,7 @@ import Foundation
     var courtTime : NSDate? = nil
     var status : String? = nil
     var event : String? = nil
+    var eventDesc : String? = nil
     var bookedForUser : Bool = false
     var players : Dictionary<String,String> = Dictionary<String,String>()
     
@@ -37,6 +38,7 @@ import Foundation
             [ nullToString(jsonDictionary["courtdate"])!, nullToString(jsonDictionary["courttime"])! ]))!
         status = nullToString(jsonDictionary["courtStatus"])
         event = nullToString(jsonDictionary["courtEvent"])
+        eventDesc = nullToString(jsonDictionary["eventDesc"])
         bookedForUser = false;
         if let player1_id = nullToString(jsonDictionary["player1_id"]) {
             if (player1_id == userId) {
