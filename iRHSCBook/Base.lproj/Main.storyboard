@@ -180,22 +180,22 @@
             </objects>
             <point key="canvasLocation" x="440" y="924.99999999999989"/>
         </scene>
-        <!--Book Court View Controller-->
+        <!--Book Court-->
         <scene sceneID="whE-N6-vpe">
             <objects>
                 <viewController id="eAy-wV-3fN" customClass="RHSCBookCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="KYd-RE-Xji">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="KYd-RE-Xji">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="eAy-wV-3fN" id="VRH-k6-6pm"/>
                             <outlet property="delegate" destination="eAy-wV-3fN" id="pDq-ZY-X2G"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pRx-j7-JMQ">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="zc3-vh-5YR"/>
+                    <navigationItem key="navigationItem" title="Book Court" id="pRx-j7-JMQ">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="vYM-cK-icl"/>
                     </navigationItem>
                     <connections>
@@ -924,7 +924,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vhh-Zx-dhL"/>
-        <segue reference="Ojl-Ca-M1M"/>
         <segue reference="xWf-Lb-3pk"/>
+        <segue reference="Ojl-Ca-M1M"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, PlayerButtonDelegate {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -22,7 +22,7 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
     var s2r1 : RHSCButtonTableViewCell? = nil
     var s2r2 : RHSCButtonTableViewCell? = nil
     var s2r3 : RHSCButtonTableViewCell? = nil
-    var s3r0 : RHSCButtonTableViewCell? = nil
+    var s3r0 : RHSCPickerTableViewCell? = nil
     var s3r1 : RHSCTextTableViewCell? = nil
     
     var cells : Array<Array<UITableViewCell?>> = []
@@ -58,31 +58,31 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r0 = nib[3] as? RHSCButtonTableViewCell
         }
-        s2r0?.configure(user!.userid)
+        s2r0?.configure(self,buttonNum: 1,buttonText: user!.userid)
         s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r1 = nib[4] as? RHSCButtonTableViewCell
         }
-        s2r1?.configure("TBD")
+        s2r1?.configure(self,buttonNum: 2,buttonText: "TBD")
         s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
         if (s2r2 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r2 = nib[5] as? RHSCButtonTableViewCell
         }
-        s2r2?.configure(ct!.players["player3_id"])
+        s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players["player3_id"])
         s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
         if (s2r3 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r3 = nib[6] as? RHSCButtonTableViewCell
         }
-        s2r3?.configure("TBD")
-        s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCButtonTableViewCell
+        s2r3?.configure(self,buttonNum: 4,buttonText: "TBD")
+        s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s3r0 = nib[7] as? RHSCButtonTableViewCell
+            s3r0 = nib[7] as? RHSCPickerTableViewCell
         }
-        s3r0?.configure("Friendly")
+        s3r0?.configure()
         s3r1 = formTable.dequeueReusableCellWithIdentifier("Desc Cell") as? RHSCTextTableViewCell
         if (s3r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
@@ -117,4 +117,56 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return self.cells[indexPath.section][indexPath.row]!
     }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0: return "Coordinates"
+//        case 1: return "Players"
+//        case 2: return "Event"
+//        default: return ""
+//        }
+        return nil
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.grayColor()
+        let txtView = view as! UITableViewHeaderFooterView
+        txtView.textLabel?.textColor = UIColor.blackColor()
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
+        
+        let optionMenu = UIAlertController(title: nil, message: "Choose Player", preferredStyle: .ActionSheet)
+        let memberAction = UIAlertAction(title: "Member", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                print("Member")
+        })
+        let guestAction = UIAlertAction(title: "Guest", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                print("Guest")
+        })
+        let TBDAction = UIAlertAction(title: "TBD", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                print("TBD")
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                print("TBD")
+        })
+        optionMenu.addAction(memberAction)
+        optionMenu.addAction(guestAction)
+        optionMenu.addAction(TBDAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+    }
+
 }
