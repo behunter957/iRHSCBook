@@ -37,15 +37,18 @@ class RHSCGuestDetailsViewController : UIViewController {
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.guest!.name = self.guestNameField!.text!
-        self.guest!.email = self.guestEmailField!.text!
-        self.guest!.phone = self.guestPhoneField!.text!
-        if delegate is RHSCReserveSinglesViewController {
-            let deltarget = (delegate as! RHSCReserveSinglesViewController)
-            deltarget.setGuest(self.guest, number: self.guestNumber)
-        } else {
-            let deltarget = (delegate as! RHSCReserveDoublesViewController)
-            deltarget.setGuest(self.guest, number: self.guestNumber)
+    }
+    
+    @IBAction func done() {
+        if self.guestNameField?.text?.characters.count > 5 {
+            self.guest!.name = self.guestNameField!.text!
+            self.guest!.email = self.guestEmailField!.text!
+            self.guest!.phone = self.guestPhoneField!.text!
+            if delegate is RHSCBookCourtViewController {
+                let deltarget = (delegate as! RHSCBookCourtViewController)
+                deltarget.setGuest(self.guest, number: self.guestNumber)
+            }
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 9.0, *)
-class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol,reserveDoublesProtocol, cancelBookingProtocol,UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate {
+class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol,UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate {
 
     @IBOutlet weak var selectedSetCtrl : UISegmentedControl? = nil
     @IBOutlet weak var courtSet : UITextField? = nil
@@ -354,17 +354,6 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             (segue.destinationViewController as! RHSCBookCourtViewController).ct = self.selectedCourtTime
             let tbc = self.tabBarController as! RHSCTabBarController
             (segue.destinationViewController as! RHSCBookCourtViewController).user = tbc.currentUser
-        }
-        if segue.identifier == "ReserveSingles" {
-            // lock the court
-            // set the selectedCourtTime record
-            (segue.destinationViewController as! RHSCReserveSinglesViewController).delegate = self
-            (segue.destinationViewController as! RHSCReserveSinglesViewController).courtTimeRecord = self.selectedCourtTime
-        }
-        if segue.identifier == "ReserveDoubles" {
-            // set the selectedCourtTime record
-            (segue.destinationViewController as! RHSCReserveDoublesViewController).delegate = self
-            (segue.destinationViewController as! RHSCReserveDoublesViewController).courtTimeRecord = self.selectedCourtTime
         }
         if segue.identifier == "CancelFromAvailable" {
             // set the selectionSet and selectionDate properties

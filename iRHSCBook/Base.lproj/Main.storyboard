@@ -114,8 +114,6 @@
                         <outlet property="courtSet" destination="GHh-Az-Oqj" id="Buk-gj-ZwR"/>
                         <outlet property="incBookings" destination="GQu-jt-W8f" id="d6f-C7-Tb7"/>
                         <outlet property="selectionDay" destination="un6-fo-Vzf" id="WXX-zo-qPP"/>
-                        <segue destination="PeM-PD-Smf" kind="push" identifier="ReserveDoubles" id="vvn-Ha-0Fc"/>
-                        <segue destination="5GM-gx-kgf" kind="push" identifier="ReserveSingles" id="yZ2-A6-zmk"/>
                         <segue destination="Dn2-hE-uzA" kind="push" identifier="CancelFromAvailable" id="vhh-Zx-dhL"/>
                         <segue destination="eAy-wV-3fN" kind="push" identifier="BookCourt" id="Sej-lI-cfY"/>
                     </connections>
@@ -196,168 +194,25 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Book Court" id="pRx-j7-JMQ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="vYM-cK-icl"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="vYM-cK-icl">
+                            <connections>
+                                <action selector="book" destination="eAy-wV-3fN" id="PPz-gN-XDs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="formTable" destination="KYd-RE-Xji" id="nmP-H9-mB4"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer2" id="kBG-fc-atP"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer3" id="ElC-ZO-Lvx"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer4" id="imv-WQ-nMh"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest2" id="vix-cR-AoT"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest3" id="07g-hs-QHZ"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest4" id="mQ3-LH-Ecr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2B-dP-AIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="684" y="-1495"/>
-        </scene>
-        <!--Reserve Doubles-->
-        <scene sceneID="Wvv-9L-XhH">
-            <objects>
-                <viewController storyboardIdentifier="ReserveDoubles" title="Reserve Doubles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PeM-PD-Smf" customClass="RHSCReserveDoublesViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qSA-Jm-3fE"/>
-                        <viewControllerLayoutGuide type="bottom" id="C9H-BM-O4L"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="HOR-Bu-y5U">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o29-O0-mF8" userLabel="Court Date">
-                                <rect key="frame" x="28" y="76" width="264" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPP-eD-dTS" userLabel="Player 1">
-                                <rect key="frame" x="40" y="134" width="181" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFC-3k-OGq">
-                                <rect key="frame" x="28" y="347" width="100" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Book">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="book" destination="PeM-PD-Smf" eventType="touchUpInside" id="UKT-ak-cK4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ty2-7n-Tsl">
-                                <rect key="frame" x="200" y="347" width="100" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel" destination="PeM-PD-Smf" eventType="touchUpInside" id="ArB-8c-wdz"/>
-                                </connections>
-                            </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AX8-F9-gLh" userLabel="Player 2">
-                                <rect key="frame" x="40" y="228" width="240" height="29"/>
-                                <animations/>
-                                <segments>
-                                    <segment title="Select Member"/>
-                                    <segment title="TBD"/>
-                                    <segment title="Guest"/>
-                                </segments>
-                                <connections>
-                                    <action selector="player2Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="Czn-g5-yI9"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BbQ-ZZ-5VX" userLabel="Player 3">
-                                <rect key="frame" x="40" y="163" width="240" height="29"/>
-                                <animations/>
-                                <segments>
-                                    <segment title="Select Member"/>
-                                    <segment title="TBD"/>
-                                    <segment title="Guest"/>
-                                </segments>
-                                <connections>
-                                    <action selector="player3Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="q9h-ZR-fJb"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bOK-ib-yCZ" userLabel="Player 4">
-                                <rect key="frame" x="40" y="264" width="240" height="29"/>
-                                <animations/>
-                                <segments>
-                                    <segment title="Select Member"/>
-                                    <segment title="TBD"/>
-                                    <segment title="Guest"/>
-                                </segments>
-                                <connections>
-                                    <action selector="player4Clicked:" destination="PeM-PD-Smf" eventType="valueChanged" id="a5E-lB-zse"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team 2:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6h-ah-uyb">
-                                <rect key="frame" x="28" y="199" width="69" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team 1:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR9-bm-J0M">
-                                <rect key="frame" x="28" y="105" width="69" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Friendly" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pwg-Z0-zay" userLabel="Event Type">
-                                <rect key="frame" x="141" y="309" width="88" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAO-rM-ZcG">
-                                <rect key="frame" x="91" y="313" width="42" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Book Doubles Court" id="Oyh-Vu-GM2"/>
-                    <connections>
-                        <outlet property="courtDate" destination="o29-O0-mF8" id="h8n-iW-0yQ"/>
-                        <outlet property="eventType" destination="Pwg-Z0-zay" id="vzJ-yD-Uhl"/>
-                        <outlet property="player2Control" destination="AX8-F9-gLh" id="SyI-MG-CDv"/>
-                        <outlet property="player3Control" destination="BbQ-ZZ-5VX" id="Gwv-Sf-iQc"/>
-                        <outlet property="player4Control" destination="bOK-ib-yCZ" id="OHg-F2-Jl5"/>
-                        <outlet property="searchDisplayController" destination="dHy-QA-6PQ" id="oDg-aN-2L9"/>
-                        <outlet property="userLabel" destination="NPP-eD-dTS" id="oc5-zw-w10"/>
-                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer2" id="xWf-Lb-3pk"/>
-                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer3" id="qSg-fy-r0c"/>
-                        <segue destination="kbR-ab-SN7" kind="push" identifier="DoublesPlayer4" id="5Vx-Kx-zDo"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest2" id="3PW-WX-dlK"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest3" id="Ado-XA-n7W"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="DoublesGuest4" id="Ojl-Ca-M1M"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oza-FD-Izo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="54y-tt-OAk">
-                    <connections>
-                        <outlet property="delegate" destination="PeM-PD-Smf" id="eH9-KT-fnr"/>
-                        <outlet property="searchContentsController" destination="PeM-PD-Smf" id="bOD-VG-0ik"/>
-                        <outlet property="searchResultsDataSource" destination="PeM-PD-Smf" id="7GK-4a-Dw8"/>
-                        <outlet property="searchResultsDelegate" destination="PeM-PD-Smf" id="NbH-2C-pqz"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="JtI-xY-e7e">
-                    <connections>
-                        <outlet property="delegate" destination="PeM-PD-Smf" id="1DA-dc-Dcf"/>
-                        <outlet property="searchContentsController" destination="PeM-PD-Smf" id="ata-hB-E4E"/>
-                        <outlet property="searchResultsDataSource" destination="PeM-PD-Smf" id="K7i-J9-ImP"/>
-                        <outlet property="searchResultsDelegate" destination="PeM-PD-Smf" id="8MQ-uJ-Qm4"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="dHy-QA-6PQ">
-                    <connections>
-                        <outlet property="delegate" destination="PeM-PD-Smf" id="lPH-lO-9wt"/>
-                        <outlet property="searchContentsController" destination="PeM-PD-Smf" id="RU9-aG-cCg"/>
-                        <outlet property="searchResultsDataSource" destination="PeM-PD-Smf" id="eSS-EO-5GX"/>
-                        <outlet property="searchResultsDelegate" destination="PeM-PD-Smf" id="62R-pB-imY"/>
-                    </connections>
-                </searchDisplayController>
-            </objects>
-            <point key="canvasLocation" x="849" y="-728"/>
+            <point key="canvasLocation" x="440" y="-1497"/>
         </scene>
         <!--Guest Details-->
         <scene sceneID="mGq-iH-idI">
@@ -421,7 +276,13 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Guest Details" id="Icz-Si-KnM"/>
+                    <navigationItem key="navigationItem" title="Guest Details" id="Icz-Si-KnM">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="5xY-fx-Jwe">
+                            <connections>
+                                <action selector="done" destination="Chq-vS-dmK" id="bBd-BL-KcC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="guestEmailField" destination="vg8-7A-BF8" id="SC0-hE-Nhx"/>
                         <outlet property="guestNameField" destination="R4o-90-n2N" id="AKW-p9-gjg"/>
@@ -750,106 +611,6 @@
             </objects>
             <point key="canvasLocation" x="-1124" y="85.999999999999986"/>
         </scene>
-        <!--Book Front Court 4-->
-        <scene sceneID="5Zu-FF-rN6">
-            <objects>
-                <viewController storyboardIdentifier="ReserveSingles" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5GM-gx-kgf" customClass="RHSCReserveSinglesViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jba-fl-mEC"/>
-                        <viewControllerLayoutGuide type="bottom" id="opH-Iq-Xtd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9Th-GC-Tgr">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monday, June 30 - 6:20 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqb-hR-8cL" userLabel="Court Date">
-                                <rect key="frame" x="20" y="76" width="264" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaP-KL-Gjc">
-                                <rect key="frame" x="20" y="105" width="21" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHD-d5-9hX">
-                                <rect key="frame" x="53" y="105" width="181" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-pD-Wvu">
-                                <rect key="frame" x="20" y="138" width="21" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JyR-Ir-dbi">
-                                <rect key="frame" x="18" y="237" width="100" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Book">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="book" destination="5GM-gx-kgf" eventType="touchUpInside" id="OUq-fY-1NH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNf-XZ-KgW">
-                                <rect key="frame" x="192" y="237" width="100" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel" destination="5GM-gx-kgf" eventType="touchUpInside" id="SbL-wG-ndS"/>
-                                </connections>
-                            </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Pf-PD-oT5">
-                                <rect key="frame" x="51" y="135" width="240" height="29"/>
-                                <animations/>
-                                <segments>
-                                    <segment title="Select Member"/>
-                                    <segment title="TBD"/>
-                                    <segment title="Guest"/>
-                                </segments>
-                                <connections>
-                                    <action selector="playerClicked:" destination="5GM-gx-kgf" eventType="valueChanged" id="VGO-SZ-WHv"/>
-                                </connections>
-                            </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Friendly" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6Y-jJ-e1K" userLabel="Event Type">
-                                <rect key="frame" x="152" y="191" width="88" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-ag-rFv">
-                                <rect key="frame" x="81" y="195" width="63" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Book Front Court 4" id="iRA-Ye-okh"/>
-                    <connections>
-                        <outlet property="bookButton" destination="JyR-Ir-dbi" id="vee-y1-dIG"/>
-                        <outlet property="cancelButton" destination="MNf-XZ-KgW" id="zpx-dB-lvF"/>
-                        <outlet property="courtDate" destination="Dqb-hR-8cL" id="anT-HR-ceT"/>
-                        <outlet property="eventType" destination="o6Y-jJ-e1K" id="N9H-E4-qzb"/>
-                        <outlet property="player2Control" destination="0Pf-PD-oT5" id="OB1-TK-78l"/>
-                        <outlet property="userLabel" destination="qHD-d5-9hX" id="Mbq-ys-XFJ"/>
-                        <segue destination="kbR-ab-SN7" kind="push" identifier="SinglesPlayer2" id="OL0-yK-twA"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="SinglesGuest2" id="jYf-s5-loM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="341" y="-273"/>
-        </scene>
         <!--Select Player-->
         <scene sceneID="fjf-bm-Vrk">
             <objects>
@@ -891,12 +652,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6i-Zz-plV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchBar contentMode="redraw" id="qI1-8Z-wVh">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <searchDisplayController id="0Xf-G8-BaX">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="displaysSearchBarInNavigationBar" value="YES"/>
@@ -910,7 +665,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1094" y="85.999999999999986"/>
+            <point key="canvasLocation" x="1264" y="-1766"/>
         </scene>
     </scenes>
     <resources>
@@ -922,8 +677,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OL0-yK-twA"/>
         <segue reference="c3E-dF-B3k"/>
-        <segue reference="jYf-s5-loM"/>
+        <segue reference="kBG-fc-atP"/>
+        <segue reference="vix-cR-AoT"/>
     </inferredMetricsTieBreakers>
 </document>

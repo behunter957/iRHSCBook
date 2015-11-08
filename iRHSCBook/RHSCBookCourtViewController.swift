@@ -27,7 +27,18 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
     
     var cells : Array<Array<UITableViewCell?>> = []
     var delegate : AnyObject? = nil
-        
+
+    var player2Member : RHSCMember? = nil
+    var player3Member : RHSCMember? = nil
+    var player4Member : RHSCMember? = nil
+
+    var guest2 = RHSCGuest()
+    var guest3 = RHSCGuest()
+    var guest4 = RHSCGuest()
+
+    var successAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
+
     override func viewDidLoad() {
         
         let dateFormat = NSDateFormatter()
@@ -144,22 +155,61 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         let memberAction = UIAlertAction(title: "Member", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                print("Member")
+//                print("Member")
+                switch buttonIndex {
+                case 2:
+                    self.performSegueWithIdentifier("ChoosePlayer2", sender: self)
+                    break
+                case 3:
+                    self.performSegueWithIdentifier("ChoosePlayer3", sender: self)
+                    break
+                case 4:
+                    self.performSegueWithIdentifier("ChoosePlayer4", sender: self)
+                    break
+                default:
+                    break
+                }
         })
         let guestAction = UIAlertAction(title: "Guest", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                print("Guest")
+                //                print("Guest")
+                switch buttonIndex {
+                case 2:
+                    self.performSegueWithIdentifier("IdentifyGuest2", sender: self)
+                    break
+                case 3:
+                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
+                    break
+                case 4:
+                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
+                    break
+                default:
+                    break
+                }
         })
         let TBDAction = UIAlertAction(title: "TBD", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                print("TBD")
+//                print("TBD")
+                switch buttonIndex {
+                case 2:
+                    self.s2r1?.updateButtonText("TBD")
+                    break
+                case 3:
+                    self.s2r2?.updateButtonText("TBD")
+                    break
+                case 4:
+                    self.s2r3?.updateButtonText("TBD")
+                    break
+                default:
+                    break
+                }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                print("TBD")
+//                print("TBD")
         })
         optionMenu.addAction(memberAction)
         optionMenu.addAction(guestAction)
@@ -168,5 +218,182 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         self.presentViewController(optionMenu, animated: true, completion: nil)
         
     }
+
+    func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
+        //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+        if number == 2 {
+            player2Member = setPlayer
+            s2r1?.updateButtonText((setPlayer?.fullName)!)
+        }
+        if number == 3 {
+            player3Member = setPlayer
+            s2r2?.updateButtonText((setPlayer?.fullName)!)
+        }
+        if number == 4 {
+            player4Member = setPlayer
+            s2r3?.updateButtonText((setPlayer?.fullName)!)
+        }
+    }
+
+    func setGuest(guest:RHSCGuest?, number:UInt16) {
+        //    NSLog(@"setGuest %@",guestNumber);
+        if number == 2 {
+            s2r1?.updateButtonText("Guest")
+        }
+        if number == 3 {
+            s2r2?.updateButtonText("Guest")
+        }
+        if number == 4 {
+            s2r3?.updateButtonText("Guest")
+        }
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ChoosePlayer2" {
+            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
+            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 2
+        }
+        if segue.identifier == "ChoosePlayer3" {
+            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
+            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 3
+        }
+        if segue.identifier == "ChoosePlayer4" {
+            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
+            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 4
+        }
+        if segue.identifier == "IdentifyGuest2" {
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest2
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 2
+        }
+        if segue.identifier == "IdentifyGuest3" {
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest3
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 3
+        }
+        if segue.identifier == "IdentifyGuest4" {
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest4
+            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 4
+        }
+    }
+    
+    func unlockBooking() {
+        let tbc = self.tabBarController as! RHSCTabBarController
+        let url = NSURL(string: String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
+            arguments: [self.ct!.bookingId!]),
+            relativeToURL: tbc.server )
+        //        print(url!.absoluteString)
+        //        let sessionCfg = NSURLSession.sharedSession().configuration
+        //        sessionCfg.timeoutIntervalForResource = 30.0
+        //        let session = NSURLSession(configuration: sessionCfg)
+        let session  = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            }
+        })
+        task.resume()
+    }
+    
+    @IBAction func book() {
+        //    NSLog(@"booking singles court and exiting ReserveSingles");
+        self.bookCourt()
+        //    [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    
+    func bookCourt() {
+        let tbc = self.tabBarController as! RHSCTabBarController
+        let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
+            arguments: [self.ct!.bookingId!,
+                tbc.currentUser!.name!,
+                (self.player2Member != nil ? self.player2Member!.name : "")!,
+                (self.player3Member != nil ? self.player3Member!.name : "")!,
+                (self.player4Member != nil ? self.player4Member!.name : "")!,
+                tbc.currentUser!.name!,"iPhone",
+                self.guest2.name,
+                self.guest3.name,
+                self.guest4.name,
+                "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                (self.s3r0?.eventType?.text)!])
+        let url = NSURL(string: urlstr, relativeToURL: tbc.server )
+        //        NSLog(@"fetch URL = %@",fetchURL);
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                self.errorAlert = UIAlertController(title: "Error",
+                    message: "Unable to book the court", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
+            } else if data != nil {
+                //                    print("received data")
+                let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                //                print(jsonDictionary)
+                if jsonDictionary["error"] == nil {
+                    self.successAlert = UIAlertController(title: "Success",
+                        message: "Court time successfully booked. Notices will be sent to all players", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(self.successAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+                } else {
+                    self.errorAlert = UIAlertController(title: "Unable to Book Court",
+                        message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        // do some task
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+                }
+            } else {
+                self.errorAlert = UIAlertController(title: "Error",
+                    message: "Unable to book the court", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            self.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
+            }
+        })
+        task.resume()
+        
+    }
+    
+    
 
 }

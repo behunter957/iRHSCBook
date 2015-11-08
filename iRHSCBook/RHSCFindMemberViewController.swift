@@ -15,13 +15,13 @@ protocol setPlayerProtocol {
 
 }
 
-class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdating,UISearchBarDelegate {
+class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdating {
 
     var playerNumber : UInt16 = 0
     var delegate : AnyObject? = nil
     
     var filteredList : Array<RHSCMember> = []
-    var resultSearchController : UISearchController? = nil
+    var resultSearchController : UISearchController!
     
     @IBOutlet weak var searchResultsView : UITableView? = nil
     @IBOutlet weak var memberListView : UITableView? = nil
@@ -39,33 +39,36 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
         //self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
         let tbc = self.tabBarController as! RHSCTabBarController
         let ml = tbc.memberList
+        
         self.filteredList = []
         self.filteredList.appendContentsOf(ml!.memberList)
         
-        self.resultSearchController = UISearchController.init(searchResultsController: nil)
-        self.resultSearchController!.searchResultsUpdater = self
-        self.resultSearchController!.dimsBackgroundDuringPresentation = false
-        self.resultSearchController!.searchBar.scopeButtonTitles = []
-        self.resultSearchController!.searchBar.delegate = self
-        self.tableView.tableHeaderView = self.resultSearchController!.searchBar
-        self.definesPresentationContext = true
-        self.resultSearchController!.searchBar.sizeToFit()
+        resultSearchController = UISearchController(searchResultsController: nil)
+        resultSearchController.searchResultsUpdater = self
+        resultSearchController.hidesNavigationBarDuringPresentation = false
+        resultSearchController.dimsBackgroundDuringPresentation = false
+        resultSearchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        resultSearchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = resultSearchController.searchBar
         
+        self.tableView.reloadData()
     }
     
-    func updateSearchResultsForSearchController(searchController : UISearchController) {
-        let searchString = searchController.searchBar.text
-        let tbc = self.tabBarController as! RHSCTabBarController
-        let ml = tbc.memberList
-        self.filteredList.removeAll()
-        for item in ml!.memberList {
-            let srchtext = item.sortName
-            
-            if srchtext!.lowercaseString.rangeOfString((searchString?.lowercaseString)!) != nil {
-                self.filteredList.append(item)
-            }
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if searchController.searchBar.text?.characters.count > 0 {
+            filteredList.removeAll(keepCapacity: false)
+            let searchPredicate = NSPredicate(format: "self.fullName contains[c] %@", searchController.searchBar.text!)
+            let tbc = self.tabBarController as! RHSCTabBarController
+            let array = (tbc.memberList!.memberList as NSArray).filteredArrayUsingPredicate(searchPredicate)
+            filteredList = array as! [RHSCMember]
+            tableView.reloadData()
         }
-        self.tableView.reloadData()
+        else {
+            filteredList.removeAll(keepCapacity: false)
+            let tbc = self.tabBarController as! RHSCTabBarController
+            filteredList = tbc.memberList!.memberList
+            tableView.reloadData()
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -74,7 +77,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (self.resultSearchController!.active)
+        if (resultSearchController.active)
         {
             return self.filteredList.count
         }
@@ -89,7 +92,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath) as UITableViewCell?
         
-        if (self.resultSearchController!.active)
+        if (resultSearchController.active)
         {
             let mem = self.filteredList[indexPath.row]
             cell!.textLabel?.text = mem.sortName
@@ -108,20 +111,18 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
         //    NSLog(@"popping FindMember on table select");
         let selectedIndexPath = tableView.indexPathForSelectedRow
         var selmem : RHSCMember? = nil
-        if (self.resultSearchController!.active) {
+        if (resultSearchController.active) {
             selmem = self.filteredList[selectedIndexPath!.row]
         } else {
             let tbc = self.tabBarController as! RHSCTabBarController
             let ml = tbc.memberList
             selmem = ml!.memberList[selectedIndexPath!.row]
         }
-        if delegate is RHSCReserveSinglesViewController {
-            let deltarget = (delegate as! RHSCReserveSinglesViewController)
-            deltarget.setPlayer(selmem, number: 2)
-        } else {
-            let deltarget = (delegate as! RHSCReserveDoublesViewController)
-            deltarget.setPlayer(selmem, number:self.playerNumber)
+        if delegate is RHSCBookCourtViewController {
+            let deltarget = (delegate as! RHSCBookCourtViewController)
+            deltarget.setPlayer(selmem, number: playerNumber)
         }
+        resultSearchController.active = false
         self.navigationController?.popViewControllerAnimated(false)
     }
 

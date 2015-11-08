@@ -9,40 +9,45 @@
 import Foundation
 import UIKit
 
-class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,UISearchBarDelegate {
+class RHSCMembersViewController : UITableViewController, UISearchResultsUpdating {
 
-    var filteredList : Array<RHSCMember> = []
+    var filteredList : [RHSCMember] = []
     @IBOutlet var searchResultsView : UITableView? = nil
     var selectedMember : RHSCMember? = nil
     var searching : Bool = false
-    var resultSearchController : UISearchController? = nil
+    var resultSearchController : UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.resultSearchController = UISearchController(searchResultsController: nil)
-        self.resultSearchController!.searchResultsUpdater = self
-        self.resultSearchController!.dimsBackgroundDuringPresentation = false
-        self.resultSearchController!.searchBar.sizeToFit()
-        
-        self.tableView.tableHeaderView = self.resultSearchController!.searchBar
+        resultSearchController = UISearchController(searchResultsController: nil)
+        resultSearchController.searchResultsUpdater = self
+        resultSearchController.hidesNavigationBarDuringPresentation = false
+        resultSearchController.dimsBackgroundDuringPresentation = false
+        resultSearchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        resultSearchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = resultSearchController.searchBar
         
         self.tableView.reloadData()
     }
     
-    func updateSearchResultsForSearchController(searchController : UISearchController) {
-        let searchString = searchController.searchBar.text
-        let tbc = self.tabBarController as! RHSCTabBarController
-        let ml = tbc.memberList
-        self.filteredList.removeAll()
-        for item in ml!.memberList {
-            let srchtext = item.sortName
-            
-            if srchtext!.lowercaseString.rangeOfString((searchString?.lowercaseString)!) != nil {
-                self.filteredList.append(item)
-            }
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if searchController.searchBar.text?.characters.count > 0 {
+            filteredList.removeAll(keepCapacity: false)
+            let searchPredicate = NSPredicate(format: "self.fullName contains[c] %@", searchController.searchBar.text!)
+            let tbc = self.tabBarController as! RHSCTabBarController
+            let array = (tbc.memberList!.memberList as NSArray).filteredArrayUsingPredicate(searchPredicate)
+            // 4
+            filteredList = array as! [RHSCMember]
+            // 5
+            tableView.reloadData()
         }
-        self.tableView.reloadData()
+        else {
+            filteredList.removeAll(keepCapacity: false)
+            let tbc = self.tabBarController as! RHSCTabBarController
+            filteredList = tbc.memberList!.memberList
+            tableView.reloadData()
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -51,7 +56,7 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (self.resultSearchController!.active)
+        if (resultSearchController.active)
         {
             return self.filteredList.count
         }
@@ -70,7 +75,7 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemberListCell", forIndexPath: indexPath)
         
-        if (self.resultSearchController!.active)
+        if (resultSearchController.active)
         {
             let mem = self.filteredList[indexPath.row]
             cell.textLabel!.text = mem.sortName
