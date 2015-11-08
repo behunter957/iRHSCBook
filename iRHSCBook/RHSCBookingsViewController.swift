@@ -111,7 +111,7 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
     func asyncLoadBookings() {
         let tbc = tabBarController as! RHSCTabBarController
         let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",
-            (tbc.currentUser?.data?.name)!),
+            (tbc.currentUser?.name)!),
             relativeToURL: tbc.server )
         //        print(url!.absoluteString)
 //        let sessionCfg = NSURLSession.sharedSession().configuration
@@ -123,7 +123,7 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.data!.name!)
+                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.name!)
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 // do some task

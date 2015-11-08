@@ -36,9 +36,9 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
         let ml = tbc.memberList
         self.filteredList.removeAll()
         for item in ml!.memberList {
-            let srchtext = String.init(format: "%@, %@", arguments: [item.lastName!,item.firstName!])
+            let srchtext = item.sortName
             
-            if srchtext.lowercaseString.rangeOfString((searchString?.lowercaseString)!) != nil {
+            if srchtext!.lowercaseString.rangeOfString((searchString?.lowercaseString)!) != nil {
                 self.filteredList.append(item)
             }
         }
@@ -73,13 +73,13 @@ class RHSCMembersViewController : UITableViewController,UISearchResultsUpdating,
         if (self.resultSearchController!.active)
         {
             let mem = self.filteredList[indexPath.row]
-            cell.textLabel!.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
+            cell.textLabel!.text = mem.sortName
         }
         else
         {
             let tbc = self.tabBarController as! RHSCTabBarController
             let mem = tbc.memberList!.memberList[indexPath.row]
-            cell.textLabel?.text = String.init(format: "%@, %@", arguments: [mem.lastName!,mem.firstName!])
+            cell.textLabel?.text = mem.sortName
         }
         cell.textLabel!.backgroundColor = UIColor.clearColor()
         cell.textLabel!.textColor = UIColor.blackColor()

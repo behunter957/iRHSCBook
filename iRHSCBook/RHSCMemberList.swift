@@ -11,8 +11,8 @@ import Foundation
 @objc class RHSCMemberList : NSObject {
 
     var memberList : Array<RHSCMember> = Array<RHSCMember>()
-    var TBD = RHSCMember(fromName: "TBD", fromType: "Active")
-    var GUEST = RHSCMember(fromName: "Guest", fromType: "Active")
+    var TBD = RHSCMember(fromName: "TBD", fromType: "Single")
+    var GUEST = RHSCMember(fromName: "Guest", fromType: "Single")
 
     var isLoaded : Bool = false
     

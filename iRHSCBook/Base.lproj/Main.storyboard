@@ -51,7 +51,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -148,7 +148,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iKD-t7-f7Z">
@@ -156,7 +156,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -483,7 +483,6 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Member List" id="ZVO-hG-IKg"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="B1T-hP-T03" id="p3S-iy-Tqq"/>
                         <segue destination="Ucl-ri-u0P" kind="push" identifier="MemberDetail" id="JgX-kW-eMA"/>
@@ -849,7 +848,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1k-sE-ZpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="387" y="69"/>
+            <point key="canvasLocation" x="341" y="-273"/>
         </scene>
         <!--Select Player-->
         <scene sceneID="fjf-bm-Vrk">
@@ -923,8 +922,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vhh-Zx-dhL"/>
-        <segue reference="xWf-Lb-3pk"/>
-        <segue reference="Ojl-Ca-M1M"/>
+        <segue reference="OL0-yK-twA"/>
+        <segue reference="c3E-dF-B3k"/>
+        <segue reference="jYf-s5-loM"/>
     </inferredMetricsTieBreakers>
 </document>

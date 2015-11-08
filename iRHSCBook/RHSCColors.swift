@@ -44,6 +44,10 @@ extension UIColor {
         return UIColor(red:1.00, green:0.55, blue:0.48, alpha:1.0)
     }
     
+    class func fieldBackground() -> UIColor {
+        return UIColor(red:0.48, green:0.48, blue:0.48, alpha:1.0)
+    }
+    
     // Global Function
 //    class func primaryColor() -> UIColor { return ralphRed() }
 }

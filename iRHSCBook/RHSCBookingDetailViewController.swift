@@ -52,14 +52,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         
         player1 = findPlayer((booking?.players["player1_id"])!,inList: tbc.memberList!)
         if (player1 != nil) {
-            player1Label!.text = String.init(format: "%@ %@", arguments: [player1!.firstName!,player1!.lastName!])
+            player1Label!.text = player1!.fullName
         } else {
             player1Label!.text = ""
         }
         
         player2 = findPlayer((booking?.players["player2_id"])!,inList: tbc.memberList!)
         if (player2 != nil) {
-            player2Label!.text = String.init(format: "%@ %@", arguments: [player2!.firstName!,player2!.lastName!])
+            player2Label!.text = player2!.fullName
         } else {
             player2Label!.text = ""
         }
@@ -67,13 +67,13 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         if (booking!.court == "Court 5") {
             player3 = findPlayer((booking?.players["player3_id"])!,inList: tbc.memberList!)
             if (player3Label != nil) {
-                player3Label!.text = String.init(format: "%@ %@", arguments: [player3!.firstName!,player3!.lastName!])
+                player3Label!.text = player3!.fullName
             } else {
                 player3Label!.text = ""
             }
             player4 = findPlayer((booking?.players["player4_id"])!,inList: tbc.memberList!)
             if (player4Label != nil) {
-                player4Label!.text = String.init(format: "%@ %@", arguments: [player4!.firstName!,player4!.lastName!])
+                player4Label!.text = player4!.fullName
             } else {
                 player4Label!.text = ""
             }
@@ -95,15 +95,15 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         var fetchURL : String? = nil;
         if (booking!.court == "Court 5") {
             fetchURL = String.init(format: "Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",
-                arguments: [booking!.bookingId!, (tbc.currentUser?.data?.name)!,booking!.players["player2_id"]!,
+                arguments: [booking!.bookingId!, (tbc.currentUser?.name)!,booking!.players["player2_id"]!,
                     booking!.players["player3_id"]!,booking!.players["player4_id"]!,
-                    (tbc.currentUser?.data?.name)!,"iPhone"])
+                    (tbc.currentUser?.name)!,"iPhone"])
             
         } else {
             fetchURL = String.init(format:"Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",arguments: [booking!.bookingId!,
-                (tbc.currentUser?.data?.name)!,
+                (tbc.currentUser?.name)!,
                 booking!.players["player2_id"]!,"","",
-                    (tbc.currentUser?.data?.name)!,"iPhone"])
+                    (tbc.currentUser?.name)!,"iPhone"])
         }
         let url = NSURL(string: fetchURL!, relativeToURL: tbc.server )
         //        print(url!.absoluteString)
@@ -181,7 +181,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                     if (mem.name == playerId) {
                         if (mem.email != nil) {
                             if (mem.email != "NULL") {
-                                if (mem.name != tbc.currentUser!.data!.name) {
+                                if (mem.name != tbc.currentUser!.name) {
                                     emailAddresses.append(mem.email!)
                                 }
                             }
@@ -248,7 +248,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                     if (mem.name == playerId) {
                         if (mem.email != nil) {
                             if (mem.email != "NULL") {
-                                if (mem.name != tbc.currentUser!.data!.name) {
+                                if (mem.name != tbc.currentUser!.name) {
                                     let cleanedString = mem.phone1!
                                         .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
                                             .invertedSet).joinWithSeparator("")

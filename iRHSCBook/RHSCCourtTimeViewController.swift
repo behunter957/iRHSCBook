@@ -276,7 +276,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             let tbc = self.tabBarController as! RHSCTabBarController
             let curUser = tbc.currentUser
             let url = NSURL(string: String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
-                arguments: [self.selectedCourtTime!.bookingId!, curUser!.data!.name!]),
+                arguments: [self.selectedCourtTime!.bookingId!, curUser!.name!]),
                 relativeToURL: tbc.server )
 //            print(url!.absoluteString)
             //            let sessionCfg = NSURLSession.sharedSession().configuration
@@ -415,7 +415,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
                     (self.incBookings!.on ? "YES" : "NO"),
-                    curUser!.data!.name!]),
+                    curUser!.name!]),
                 relativeToURL: tbc.server )
 //                print(url!.absoluteString)
 //            let sessionCfg = NSURLSession.sharedSession().configuration
@@ -433,7 +433,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
-                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.data!.name!))
+                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!))
                     }
                 }
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -462,7 +462,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
             let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
                     (self.incBookings!.on ? "YES" : "NO"),
-                    curUser!.data!.name!]),
+                    curUser!.name!]),
                 relativeToURL: tbc.server )
             //        print(url!.absoluteString)
             let sessionCfg = NSURLSession.sharedSession().configuration
@@ -478,7 +478,7 @@ class RHSCCourtTimeViewController : UITableViewController,reserveSinglesProtocol
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
-                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.data!.name!))
+                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!))
                     }
                 }
                 dispatch_semaphore_signal(semaphore_loadcourt)

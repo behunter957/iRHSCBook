@@ -8,17 +8,16 @@
 
 import Foundation
 
-@objc class RHSCUser : NSObject {
+@objc class RHSCUser : RHSCMember {
     
-    var data : RHSCMember? = nil
     static var loggedOn : Bool = false
     var userid : String? = nil
     var password : String? = nil
 
     init( forUserid uid : String, forPassword pwd : String) {
-        super.init()
         userid = uid;
         password = pwd;
+        super.init(name: userid!)
     }
     
     func validate(fromServer server:RHSCServer) {
@@ -40,7 +39,8 @@ import Foundation
                             for dict in array as! Array<NSDictionary> {
                                 RHSCUser.loggedOn = true
                                 // Create a new Location object for each one and initialise it with information in the dictionary
-                                self.data = RHSCMember(fromJSONDictionary:dict )
+                                
+                                self.assign(fromJSONDictionary: dict)
                             }
                         } else {
                             print("user not found")

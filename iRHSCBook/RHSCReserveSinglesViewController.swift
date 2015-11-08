@@ -42,7 +42,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let tbc = self.tabBarController as! RHSCTabBarController
-        self.userLabel!.text = String.init(format: "%@ %@", arguments: [tbc.currentUser!.data!.firstName!, tbc.currentUser!.data!.lastName!])
+        self.userLabel!.text = tbc.currentUser?.fullName
     
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEEE, MMMM d - h:mm a"
@@ -122,8 +122,7 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
         self.player2Member = setPlayer;
-        let newTitle = String.init(format: "%@ %@", arguments: [setPlayer!.firstName!,setPlayer!.lastName!])
-        self.player2Control?.setTitle(newTitle, forSegmentAtIndex: 0)
+        self.player2Control?.setTitle(setPlayer!.fullName, forSegmentAtIndex: 0)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -175,9 +174,9 @@ class RHSCReserveSinglesViewController : UIViewController,UIPickerViewDataSource
         let tbc = self.tabBarController as! RHSCTabBarController
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court='%@'&courtEvent=%@&reserved=false",
             arguments: [self.courtTimeRecord!.bookingId!,
-                tbc.currentUser!.data!.name!,
+                tbc.currentUser!.name!,
                 (self.player2Member != nil ? self.player2Member!.name : "")!, "", "",
-                tbc.currentUser!.data!.name!,"iPhone",
+                tbc.currentUser!.name!,"iPhone",
                 (self.guest2 != nil ? self.guest2!.name : ""), "", "",
                 "iPhone", (self.courtTimeRecord?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 self.eventType!.text!])

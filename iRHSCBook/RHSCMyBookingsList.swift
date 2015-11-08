@@ -13,7 +13,7 @@ import Foundation
     var bookingList : Array<RHSCCourtTime> = []
 
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser) throws {
-        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.data!.name!),
+        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.name!),
             relativeToURL: server )
         //        print(url!.absoluteString)
         let sessionCfg = NSURLSession.sharedSession().configuration
@@ -24,7 +24,7 @@ import Foundation
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.loadFromData(data!, forUser: (curUser.data?.name)!)
+                self.loadFromData(data!, forUser: (curUser.name)!)
             }
         })
         task.resume()

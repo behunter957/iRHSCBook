@@ -12,7 +12,7 @@ public class RHSCTextTableViewCell : UITableViewCell {
     @IBOutlet weak var textField: UITextField!
     
     public func configure(setText: String?) {
-        textField.attributedPlaceholder = NSAttributedString(string: "enter description", attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+        textField.attributedPlaceholder = NSAttributedString(string: "optional description", attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
         if (setText != nil) && (setText?.characters.count > 0) {
             textField.text = setText
         }

@@ -27,7 +27,7 @@ class RHSCMemberDetailViewController : UIViewController,MFMailComposeViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationItem.title = String.init(format: "%@ %@", arguments: [member!.firstName!,member!.lastName!])
+        self.navigationItem.title = member!.fullName
         
         self.emailLabel!.text = ""
         self.emailBtn!.hidden = true

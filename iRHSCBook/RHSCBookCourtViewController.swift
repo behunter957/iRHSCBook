@@ -58,7 +58,7 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r0 = nib[3] as? RHSCButtonTableViewCell
         }
-        s2r0?.configure(self,buttonNum: 1,buttonText: user!.userid)
+        s2r0?.configure(self,buttonNum: 1,buttonText: user!.fullName)
         s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
@@ -70,7 +70,7 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r2 = nib[5] as? RHSCButtonTableViewCell
         }
-        s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players["player3_id"])
+        s2r2?.configure(self,buttonNum: 3,buttonText: "TBD")
         s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
         if (s2r3 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)

@@ -47,8 +47,7 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         // Do any additional setup after loading the view.
         self.typeList = ["Friendly","Ladder","Lesson","Tournament"]
         let tbc = self.tabBarController as! RHSCTabBarController
-        self.userLabel!.text = String.init(format: "%@ %@",
-            arguments: [tbc.currentUser!.data!.firstName!,tbc.currentUser!.data!.lastName!])
+        self.userLabel!.text = tbc.currentUser?.fullName
         self.player2Control!.selectedSegmentIndex = 1
         self.player3Control!.selectedSegmentIndex = 1
         self.player4Control!.selectedSegmentIndex = 1
@@ -152,18 +151,17 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
     
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
-        let newTitle = String.init(format: "%@ %@", arguments: [setPlayer!.firstName!,setPlayer!.lastName!])
         if number == 2 {
             self.player2Member = setPlayer
-            self.player2Control?.setTitle(newTitle, forSegmentAtIndex: 0)
+            self.player2Control?.setTitle(setPlayer?.fullName, forSegmentAtIndex: 0)
         }
         if number == 3 {
             self.player3Member = setPlayer
-            self.player3Control?.setTitle(newTitle, forSegmentAtIndex: 0)
+            self.player3Control?.setTitle(setPlayer?.fullName, forSegmentAtIndex: 0)
         }
         if number == 4 {
             self.player4Member = setPlayer
-            self.player4Control?.setTitle(newTitle, forSegmentAtIndex: 0)
+            self.player4Control?.setTitle(setPlayer?.fullName, forSegmentAtIndex: 0)
         }
     }
     
@@ -255,11 +253,11 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         let tbc = self.tabBarController as! RHSCTabBarController
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.courtTimeRecord!.bookingId!,
-                tbc.currentUser!.data!.name!,
+                tbc.currentUser!.name!,
                 (self.player2Member != nil ? self.player2Member!.name : "")!,
                 (self.player3Member != nil ? self.player3Member!.name : "")!,
                 (self.player4Member != nil ? self.player4Member!.name : "")!,
-                tbc.currentUser!.data!.name!,"iPhone",
+                tbc.currentUser!.name!,"iPhone",
                 self.guest2!.name, self.guest3!.name, self.guest4!.name,
                 "iPhone", (self.courtTimeRecord?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 self.eventType!.text!])
