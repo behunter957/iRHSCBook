@@ -76,30 +76,32 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
             s2r1 = nib[4] as? RHSCButtonTableViewCell
         }
         s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.fullName)
+        if ct!.court == "Court 5" {
         s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
-        if (s2r2 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r2 = nib[5] as? RHSCButtonTableViewCell
+            if (s2r2 == nil) {
+                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r2 = nib[5] as? RHSCButtonTableViewCell
+            }
+            s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.fullName)
+            s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
+            if (s2r3 == nil) {
+                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r3 = nib[6] as? RHSCButtonTableViewCell
+            }
+            s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.fullName)
         }
-        s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.fullName)
-        s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
-        if (s2r3 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r3 = nib[6] as? RHSCButtonTableViewCell
-        }
-        s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.fullName)
         s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s3r0 = nib[7] as? RHSCPickerTableViewCell
         }
-        s3r0?.configure()
+        s3r0?.configure((ct?.event)!)
         s3r1 = formTable.dequeueReusableCellWithIdentifier("Desc Cell") as? RHSCTextTableViewCell
         if (s3r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s3r1 = nib[8] as? RHSCTextTableViewCell
         }
-        s3r1?.configure("")
+        s3r1?.configure(ct?.eventDesc)
         
         if ct?.court == "Court 5" {
             cells = [[s1r0, s1r1, s1r2],[s2r0, s2r1, s2r2, s2r3],[s3r0, s3r1]]
@@ -150,6 +152,8 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     }
     
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
+        let tbc = self.tabBarController as! RHSCTabBarController
+        let ml = tbc.memberList
         let optionMenu = UIAlertController(title: nil, message: "Choose Player", preferredStyle: .ActionSheet)
         let memberAction = UIAlertAction(title: "Member", style: .Default, handler:
             {
@@ -157,13 +161,13 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 //                print("Member")
                 switch buttonIndex {
                 case 2:
-                    self.performSegueWithIdentifier("ChoosePlayer2", sender: self)
+                    self.performSegueWithIdentifier("UpdatePlayer2", sender: self)
                     break
                 case 3:
-                    self.performSegueWithIdentifier("ChoosePlayer3", sender: self)
+                    self.performSegueWithIdentifier("UpdatePlayer3", sender: self)
                     break
                 case 4:
-                    self.performSegueWithIdentifier("ChoosePlayer4", sender: self)
+                    self.performSegueWithIdentifier("UpdatePlayer4", sender: self)
                     break
                 default:
                     break
@@ -175,13 +179,16 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 //                print("Guest")
                 switch buttonIndex {
                 case 2:
-                    self.performSegueWithIdentifier("IdentifyGuest2", sender: self)
+                    self.ct!.players[2] = ml?.GUEST
+                    self.performSegueWithIdentifier("UpdateGuest2", sender: self)
                     break
                 case 3:
-                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
+                    self.ct!.players[3] = ml?.GUEST
+                    self.performSegueWithIdentifier("UpdateGuest4", sender: self)
                     break
                 case 4:
-                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
+                    self.ct!.players[4] = ml?.GUEST
+                    self.performSegueWithIdentifier("UpdateGuest4", sender: self)
                     break
                 default:
                     break
@@ -193,12 +200,15 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 //                print("TBD")
                 switch buttonIndex {
                 case 2:
+                    self.ct!.players[2] = ml?.TBD
                     self.s2r1?.updateButtonText("TBD")
                     break
                 case 3:
+                    self.ct!.players[3] = ml?.TBD
                     self.s2r2?.updateButtonText("TBD")
                     break
                 case 4:
+                    self.ct!.players[4] = ml?.TBD
                     self.s2r3?.updateButtonText("TBD")
                     break
                 default:
@@ -249,29 +259,29 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ChoosePlayer2" {
+        if segue.identifier == "UpdatePlayer2" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
             (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 2
         }
-        if segue.identifier == "ChoosePlayer3" {
+        if segue.identifier == "UpdatePlayer3" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
             (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 3
         }
-        if segue.identifier == "ChoosePlayer4" {
+        if segue.identifier == "UpdatePlayer4" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
             (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 4
         }
-        if segue.identifier == "IdentifyGuest2" {
+        if segue.identifier == "UpdateGuest2" {
             (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest2
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 2
         }
-        if segue.identifier == "IdentifyGuest3" {
+        if segue.identifier == "UpdateGuest3" {
             (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest3
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 3
         }
-        if segue.identifier == "IdentifyGuest4" {
+        if segue.identifier == "UpdateGuest4" {
             (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest4
             (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 4
@@ -307,10 +317,10 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         let tbc = self.tabBarController as! RHSCTabBarController
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.ct!.bookingId!,
-                tbc.currentUser!.name!,
-                (self.player2Member != nil ? self.player2Member!.name : "")!,
-                (self.player3Member != nil ? self.player3Member!.name : "")!,
-                (self.player4Member != nil ? self.player4Member!.name : "")!,
+                (self.ct!.players[1] != nil ? self.ct!.players[1]?.name : "")!,
+                (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!,
+                (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")!,
+                (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")!,
                 tbc.currentUser!.name!,"iPhone",
                 self.guest2.name,
                 self.guest3.name,

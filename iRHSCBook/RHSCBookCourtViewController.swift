@@ -76,18 +76,20 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
             s2r1 = nib[4] as? RHSCButtonTableViewCell
         }
         s2r1?.configure(self,buttonNum: 2,buttonText: "TBD")
-        s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
-        if (s2r2 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r2 = nib[5] as? RHSCButtonTableViewCell
+        if ct!.court == "Court 5" {
+            s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
+            if (s2r2 == nil) {
+                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r2 = nib[5] as? RHSCButtonTableViewCell
+            }
+            s2r2?.configure(self,buttonNum: 3,buttonText: "TBD")
+            s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
+            if (s2r3 == nil) {
+                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r3 = nib[6] as? RHSCButtonTableViewCell
+            }
+            s2r3?.configure(self,buttonNum: 4,buttonText: "TBD")
         }
-        s2r2?.configure(self,buttonNum: 3,buttonText: "TBD")
-        s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
-        if (s2r3 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r3 = nib[6] as? RHSCButtonTableViewCell
-        }
-        s2r3?.configure(self,buttonNum: 4,buttonText: "TBD")
         s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
@@ -150,6 +152,8 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
     }
     
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
+        let tbc = self.tabBarController as! RHSCTabBarController
+        let ml = tbc.memberList
         
         let optionMenu = UIAlertController(title: nil, message: "Choose Player", preferredStyle: .ActionSheet)
         let memberAction = UIAlertAction(title: "Member", style: .Default, handler:
@@ -176,12 +180,15 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
                 //                print("Guest")
                 switch buttonIndex {
                 case 2:
+                    self.ct!.players[2] = ml?.GUEST
                     self.performSegueWithIdentifier("IdentifyGuest2", sender: self)
                     break
                 case 3:
+                    self.ct!.players[3] = ml?.GUEST
                     self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
                     break
                 case 4:
+                    self.ct!.players[4] = ml?.GUEST
                     self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
                     break
                 default:
@@ -194,12 +201,15 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
 //                print("TBD")
                 switch buttonIndex {
                 case 2:
+                    self.ct!.players[2] = ml?.TBD
                     self.s2r1?.updateButtonText("TBD")
                     break
                 case 3:
+                    self.ct!.players[3] = ml?.TBD
                     self.s2r2?.updateButtonText("TBD")
                     break
                 case 4:
+                    self.ct!.players[4] = ml?.TBD
                     self.s2r3?.updateButtonText("TBD")
                     break
                 default:
@@ -309,15 +319,16 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.ct!.bookingId!,
                 tbc.currentUser!.name!,
-                (self.player2Member != nil ? self.player2Member!.name : "")!,
-                (self.player3Member != nil ? self.player3Member!.name : "")!,
-                (self.player4Member != nil ? self.player4Member!.name : "")!,
+                (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!,
+                (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")!,
+                (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")!,
                 tbc.currentUser!.name!,"iPhone",
                 self.guest2.name,
                 self.guest3.name,
                 self.guest4.name,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
+        print(urlstr)
         let url = NSURL(string: urlstr, relativeToURL: tbc.server )
         //        NSLog(@"fetch URL = %@",fetchURL);
         let session = NSURLSession.sharedSession()

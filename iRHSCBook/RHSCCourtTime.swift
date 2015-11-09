@@ -17,11 +17,12 @@ import Foundation
     var event : String? = nil
     var eventDesc : String? = nil
     var bookedForUser : Bool = false
+    var summary : String? = nil
     var players = Dictionary<Int,RHSCMember>()
     
     func nullToString(value:AnyObject?) -> String? {
         if value is NSNull {
-            return nil
+            return ""
         } else {
             return value as! String?
         }
@@ -41,48 +42,95 @@ import Foundation
         eventDesc = nullToString(jsonDictionary["eventDesc"])
         let ml = members.memberDict
         bookedForUser = false;
-        if let player1_id = nullToString(jsonDictionary["player1_id"]) {
+        let player1_id = nullToString(jsonDictionary["player1_id"])
+        let player2_id = nullToString(jsonDictionary["player2_id"])
+        let player3_id = nullToString(jsonDictionary["player3_id"])
+        let player4_id = nullToString(jsonDictionary["player4_id"])
+        if ["School","Clinic","RoundRobin","T&D"].contains(event!) {
+            players[1] = members.EMPTY
+            players[2] = members.EMPTY
+            players[3] = members.EMPTY
+            players[4] = members.EMPTY
+            summary = String.init(format: "%@ - %@",arguments: [event!,eventDesc!])
+        } else if ["MNHL","Tournament"].contains(event!) {
+            players[1] = player1_id == "" ? members.EMPTY : ml[player1_id!]
+            players[2] = player1_id == "" ? members.EMPTY : ml[player2_id!]
+            players[3] = player1_id == "" ? members.EMPTY : ml[player3_id!]
+            players[4] = player1_id == "" ? members.EMPTY : ml[player4_id!]
+            if court == "Court 5" {
+                if (player1_id == "") || (player2_id == "") || (player3_id == "") || (player4_id == "") {
+                    summary = String.init(format: "%@ - %@",[event!,eventDesc!])
+                } else {
+                    summary = String.init(format: "%@ - %@,%@,%@,%@",
+                        arguments: [event!,
+                            players[1]!.lastName!,
+                            players[2]!.lastName!,
+                            players[3]!.lastName!,
+                            players[4]!.lastName! ])
+                }
+            } else {
+                if (player1_id == "") || (player2_id == "") {
+                    summary = String.init(format: "%@ - %@",[event!,eventDesc!])
+                } else {
+                    summary = String.init(format: "%@ - %@,%@",
+                        arguments: [event!,
+                            players[1]!.lastName!,
+                            players[2]!.lastName! ])
+                }
+            }
+        } else {
             if (player1_id == userId) {
                 bookedForUser = true;
             }
-            players[1] = ml[player1_id]
-        }
-        if let player2_id = nullToString(jsonDictionary["player2_id"]) {
+            if (player1_id == "TBD") || (player1_id == "") {
+                players[1] = members.TBD
+            } else {
+                players[1] = ml[player1_id!]
+            }
             if (player2_id == userId) {
                 bookedForUser = true;
             }
-            if player2_id == "TBD" {
+            if (player2_id == "TBD") || (player2_id == "") {
                 players[2] = members.TBD
             } else if player2_id == "Guest" {
                 players[2] = members.GUEST
             } else {
-                players[1] = ml[player2_id]
+                players[2] = ml[player2_id!]
             }
-        }
-        if let player3_id = nullToString(jsonDictionary["player3_id"]) {
             if (player3_id == userId) {
                 bookedForUser = true;
             }
-            if player3_id == "TBD" {
+            if (player3_id == "TBD") || (player3_id == "") {
                 players[3] = members.TBD
             } else if player3_id == "Guest" {
                 players[3] = members.GUEST
             } else {
-                players[3] = ml[player3_id]
+                players[3] = ml[player3_id!]
             }
-        }
-        if let player4_id = nullToString(jsonDictionary["player4_id"]) {
             if (player4_id == userId) {
                 bookedForUser = true;
             }
-            if player4_id == "TBD" {
+            if (player4_id == "TBD") || (player4_id == "") {
                 players[4] = members.TBD
             } else if player4_id == "Guest" {
                 players[4] = members.GUEST
             } else {
-                players[4] = ml[player4_id]
+                players[4] = ml[player4_id!]
+            }
+            if court == "Court 5" {
+                summary = String.init(format: "%@ - %@,%@,%@,%@",
+                    arguments: [event!,
+                        players[1]!.lastName!,
+                        players[2]!.lastName!,
+                        players[3]!.lastName!,
+                        players[4]!.lastName! ])
+            } else {
+                summary = String.init(format: "%@ - %@,%@",
+                    arguments: [event!,
+                        players[1]!.lastName!,
+                        players[2]!.lastName! ])
             }
         }
-    }
+   }
     
 }

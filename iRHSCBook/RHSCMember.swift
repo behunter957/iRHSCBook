@@ -50,7 +50,7 @@ import Foundation
         }
     }
     
-    init(fromName name : String,fromType type : String) {
+    init(fromName name : String, fromType type : String) {
         self.name  = name
         firstName  = ""
         lastName  = name
@@ -67,15 +67,15 @@ import Foundation
                 sortName = lastName!
                 fullName = lastName!
             } else {
-                sortName = "Unknown"
-                fullName = "Unknown"
+                sortName = ""
+                fullName = ""
             }
         }
-        email  = "";
-        phone1  = "";
-        phone2  = "";
-        status  = "Active";
-        self.type  = type;
+        email  = ""
+        phone1  = ""
+        phone2  = ""
+        status  = "Active"
+        self.type  = type
     }
     
     init(name : String) {
@@ -99,11 +99,11 @@ import Foundation
                 fullName = "Unknown"
             }
         }
-        email  = "";
-        phone1  = "";
-        phone2  = "";
-        status  = "Active";
-        self.type  = "Single";
+        email  = ""
+        phone1  = ""
+        phone2  = ""
+        status  = "Active"
+        self.type  = "Single"
     }
     
     func assign(fromJSONDictionary jsonDictionary : NSDictionary) {

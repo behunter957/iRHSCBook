@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 9.0, *)
-class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol,UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate {
+class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate {
 
     @IBOutlet weak var selectedSetCtrl : UISegmentedControl? = nil
     @IBOutlet weak var courtSet : UITextField? = nil
@@ -179,9 +179,9 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
         switch curCourtTime.status! {
             case "Booked","Reserved":
                 switch curCourtTime.event! {
-                    case "Lesson","Clinic":
+                    case "Lesson","Clinic","School":
                         cell.contentView.backgroundColor = UIColor.lessonYellow()
-                    case "T&D","MNHL","Ladder":
+                    case "T&D","MNHL","Ladder","RoundRobin","Tournament":
                         cell.contentView.backgroundColor = UIColor.leaguePurple()
                     default:
                         cell.contentView.backgroundColor = UIColor.bookedBlue()
@@ -213,27 +213,15 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
         rcell.statusLabel!.text = ct.status;
         if (ct.status == "Booked") || (ct.status == "Reserved") {
             rcell.statusLabel!.textColor = UIColor.redColor()
-            if ct.court == "Court 5" {
-                rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@,%@,%@",
-                    arguments: [ct.event!,
-                        ct.players[1]!.lastName!,
-                        ct.players[2]!.lastName! ,
-                        ct.players[3]!.lastName!,
-                        ct.players[4]!.lastName! ])
-            } else {
-                rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@",
-                    arguments: [ct.event!,
-                        ct.players[1]!.lastName!,
-                        ct.players[2]!.lastName! ])
-            }
+            rcell.typeAndPlayersLabel!.text = ct.summary!
             switch ct.status! {
             case "Booked","Reserved":
                 switch ct.event! {
-                case "Lesson","Clinic":
+                case "Lesson","Clinic","School":
                     rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
                     rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
                     rcell.statusLabel!.textColor = UIColor.blackColor()
-                case "T&D","MNHL","Ladder":
+                case "T&D","MNHL","Ladder","RoundRobin","Tournament":
                     rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
                     rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
                     rcell.statusLabel!.textColor = UIColor.whiteColor()
@@ -304,11 +292,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
                     let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                     if jsonDictionary["error"] == nil {
                         // determine the correct view to navigate to
-                        var segueName = "ReserveSingles"
-                        if self.courtTimes[indexPath.row].court == "Court 5" {
-                            segueName = "ReserveDoubles"
-                        }
-                        segueName = "BookCourt"
+                        let segueName = "BookCourt"
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             // do some task
                             dispatch_async(dispatch_get_main_queue(), {
@@ -337,7 +321,28 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
             task.resume()
         } else {
             if (self.selectedCourtTime!.bookedForUser) {
-                self.performSegueWithIdentifier("CancelFromAvailable", sender: self)
+                //TODO if court has a TBD, then present action sheet for edit or cancel
+                let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
+                let updateAction = UIAlertAction(title: "Update", style: .Default, handler:
+                    {
+                        (alert: UIAlertAction!) -> Void in
+                            self.performSegueWithIdentifier("UpdateCourt", sender: self)
+                })
+                let unbookAction = UIAlertAction(title: "Unbook", style: .Default, handler:
+                    {
+                        (alert: UIAlertAction!) -> Void in
+                        self.performSegueWithIdentifier("CancelCourt", sender: self)
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
+                    {
+                        (alert: UIAlertAction!) -> Void in
+                        //                print("TBD")
+                })
+                optionMenu.addAction(updateAction)
+                optionMenu.addAction(unbookAction)
+                optionMenu.addAction(cancelAction)
+                self.presentViewController(optionMenu, animated: true, completion: nil)
+
             }
         }
     }
@@ -347,6 +352,14 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         //    NSLog(@"segue: %@",segue.identifier);
+        if segue.identifier == "UpdateCourt" {
+            // lock the court
+            // set the selectedCourtTime record
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).delegate = self
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).ct = self.selectedCourtTime
+            let tbc = self.tabBarController as! RHSCTabBarController
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).user = tbc.currentUser
+        }
         if segue.identifier == "BookCourt" {
             // lock the court
             // set the selectedCourtTime record
@@ -355,10 +368,12 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
             let tbc = self.tabBarController as! RHSCTabBarController
             (segue.destinationViewController as! RHSCBookCourtViewController).user = tbc.currentUser
         }
-        if segue.identifier == "CancelFromAvailable" {
+        if segue.identifier == "CancelCourt" {
             // set the selectionSet and selectionDate properties
-            (segue.destinationViewController as! RHSCBookingDetailViewController).delegate = self
-            (segue.destinationViewController as! RHSCBookingDetailViewController).booking = self.selectedCourtTime
+            (segue.destinationViewController as! RHSCCancelCourtViewController).delegate = self
+            (segue.destinationViewController as! RHSCCancelCourtViewController).ct = self.selectedCourtTime
+            let tbc = self.tabBarController as! RHSCTabBarController
+            (segue.destinationViewController as! RHSCCancelCourtViewController).user = tbc.currentUser
         }
     }
     

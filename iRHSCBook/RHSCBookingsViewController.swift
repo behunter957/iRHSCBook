@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 9.0, *)
-class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,NSFileManagerDelegate {
+class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSFileManagerDelegate {
 
     var bookingList = RHSCMyBookingsList()
     var selectedBooking : RHSCCourtTime? = nil
@@ -88,18 +88,46 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
         self.selectedBooking = self.bookingList.bookingList[indexPath.row]
-        let segueName = "BookingDetail"
-        self.performSegueWithIdentifier(segueName, sender: self)
+        let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
+        let updateAction = UIAlertAction(title: "Update", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                self.performSegueWithIdentifier("UpdateBooking", sender: self)
+        })
+        let unbookAction = UIAlertAction(title: "Unbook", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                self.performSegueWithIdentifier("CancelBooking", sender: self)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                //                print("TBD")
+        })
+        optionMenu.addAction(updateAction)
+        optionMenu.addAction(unbookAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         //    NSLog(@"segue: %@",segue.identifier);
-        if segue.identifier == "BookingDetail" {
+        if segue.identifier == "UpdateBooking" {
+            // lock the court
+            // set the selectedCourtTime record
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).delegate = self
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).ct = self.selectedBooking
+            let tbc = self.tabBarController as! RHSCTabBarController
+            (segue.destinationViewController as! RHSCUpdateCourtViewController).user = tbc.currentUser
+        }
+        if segue.identifier == "CancelBooking" {
             // set the selectionSet and selectionDate properties
-            (segue.destinationViewController as! RHSCBookingDetailViewController).delegate = self
-            (segue.destinationViewController as! RHSCBookingDetailViewController).booking = self.selectedBooking
+            (segue.destinationViewController as! RHSCCancelCourtViewController).delegate = self
+            (segue.destinationViewController as! RHSCCancelCourtViewController).ct = self.selectedBooking
+            let tbc = self.tabBarController as! RHSCTabBarController
+            (segue.destinationViewController as! RHSCCancelCourtViewController).user = tbc.currentUser
         }
     }
     

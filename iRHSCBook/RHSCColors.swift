@@ -29,7 +29,8 @@ extension UIColor {
     }
     
     class func leaguePurple() -> UIColor {
-        return UIColor(red:0.44, green:0.00, blue:1.00, alpha:1.0)
+        return UIColor(red:0.80, green:0.00, blue:1.00, alpha:1.0)
+//        return UIColor(red:0.44, green:0.00, blue:1.00, alpha:1.0)
     }
     
     class func bookedBlue() -> UIColor {

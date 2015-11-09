@@ -114,8 +114,9 @@
                         <outlet property="courtSet" destination="GHh-Az-Oqj" id="Buk-gj-ZwR"/>
                         <outlet property="incBookings" destination="GQu-jt-W8f" id="d6f-C7-Tb7"/>
                         <outlet property="selectionDay" destination="un6-fo-Vzf" id="WXX-zo-qPP"/>
-                        <segue destination="Dn2-hE-uzA" kind="push" identifier="CancelFromAvailable" id="vhh-Zx-dhL"/>
                         <segue destination="eAy-wV-3fN" kind="push" identifier="BookCourt" id="Sej-lI-cfY"/>
+                        <segue destination="cR0-2O-UTZ" kind="push" identifier="CancelCourt" id="vCP-6t-2Mf"/>
+                        <segue destination="exz-5r-W9s" kind="push" identifier="UpdateCourt" id="ZgL-mx-E6N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnF-Fe-bGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -171,12 +172,13 @@
                     <navigationItem key="navigationItem" title="My Bookings" id="cI2-j0-4p3"/>
                     <connections>
                         <outlet property="tableView" destination="GvS-gf-9rh" id="Lvd-AZ-gbC"/>
-                        <segue destination="Dn2-hE-uzA" kind="push" identifier="BookingDetail" id="c3E-dF-B3k"/>
+                        <segue destination="exz-5r-W9s" kind="push" identifier="UpdateBooking" id="hUA-ux-bju"/>
+                        <segue destination="cR0-2O-UTZ" kind="push" identifier="CancelBooking" id="del-6M-c7h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPX-5R-ZqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="440" y="924.99999999999989"/>
+            <point key="canvasLocation" x="-474" y="350"/>
         </scene>
         <!--Book Court-->
         <scene sceneID="whE-N6-vpe">
@@ -212,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2B-dP-AIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="440" y="-1497"/>
+            <point key="canvasLocation" x="511" y="-1493"/>
         </scene>
         <!--Guest Details-->
         <scene sceneID="mGq-iH-idI">
@@ -291,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ode-j3-fYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="-635.99999999999989"/>
+            <point key="canvasLocation" x="1262" y="-358"/>
         </scene>
         <!--My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -310,7 +312,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TR8-aO-15e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="924.99999999999989"/>
+            <point key="canvasLocation" x="-1131" y="820"/>
         </scene>
         <!--Member List-->
         <scene sceneID="326-Gn-ctq">
@@ -352,127 +354,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="446" y="1748.9999999999998"/>
-        </scene>
-        <!--Booking Detail-->
-        <scene sceneID="XbS-YL-lxl">
-            <objects>
-                <viewController storyboardIdentifier="BookingDetail" title="Booking Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dn2-hE-uzA" userLabel="Booking Detail" customClass="RHSCBookingDetailViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YTL-PN-taL"/>
-                        <viewControllerLayoutGuide type="bottom" id="0at-h5-VhI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Nyq-ca-wNa">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Court X for DDD, MMM d - h:mm a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOR-ep-Kvq" userLabel="Court and Time">
-                                <rect key="frame" x="20" y="99" width="280" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EventType match between:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rda-yc-ufT">
-                                <rect key="frame" x="39" y="149" width="218" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R44-bi-j4b" userLabel="Player 1">
-                                <rect key="frame" x="74" y="178" width="173" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4L-pC-kJB" userLabel="Player 2">
-                                <rect key="frame" x="72" y="267" width="173" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="and:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isZ-CF-f6L" userLabel="andLabel">
-                                <rect key="frame" x="39" y="236" width="42" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ik5-bW-WC5" userLabel="Player 3">
-                                <rect key="frame" x="74" y="207" width="173" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxc-Ke-mvT" userLabel="Player 4">
-                                <rect key="frame" x="72" y="296" width="173" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact players:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmR-20-BFn">
-                                <rect key="frame" x="56" y="357" width="132" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h36-mR-bMm">
-                                <rect key="frame" x="196" y="357" width="30" height="22"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="Email">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailPlayers:" destination="Dn2-hE-uzA" eventType="touchUpInside" id="qCI-Wu-ydO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmU-D4-PoF">
-                                <rect key="frame" x="234" y="354" width="30" height="27"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="SMS">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="smsPlayers:" destination="Dn2-hE-uzA" eventType="touchUpInside" id="dML-kg-lSA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GfH-I8-Bx2">
-                                <rect key="frame" x="104" y="411" width="120" height="30"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Cancel Booking">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelBooking:" destination="Dn2-hE-uzA" eventType="touchUpInside" id="CyP-Vy-pLp"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Booking" id="Ghf-mq-Yus"/>
-                    <connections>
-                        <outlet property="courtAndTime" destination="cOR-ep-Kvq" id="Iw2-st-IGp"/>
-                        <outlet property="eventLabel" destination="rda-yc-ufT" id="0eN-K9-8rU"/>
-                        <outlet property="player1Label" destination="R44-bi-j4b" id="NPo-jy-NLx"/>
-                        <outlet property="player2Label" destination="J4L-pC-kJB" id="WGu-eh-Z55"/>
-                        <outlet property="player3Label" destination="Ik5-bW-WC5" id="Upd-ux-foH"/>
-                        <outlet property="player4Label" destination="sxc-Ke-mvT" id="pFR-u7-chW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Umb-24-A4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1061" y="919"/>
+            <point key="canvasLocation" x="-474" y="1617"/>
         </scene>
         <!--Member Name-->
         <scene sceneID="amI-V8-wWB">
@@ -572,7 +454,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5zt-9F-DC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1061" y="1755.9999999999998"/>
+            <point key="canvasLocation" x="500" y="1617"/>
         </scene>
         <!--Members-->
         <scene sceneID="cEk-L8-WsX">
@@ -591,7 +473,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj6-t2-pqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="1741.9999999999998"/>
+            <point key="canvasLocation" x="-1124" y="1617"/>
         </scene>
         <!--Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
@@ -658,7 +540,73 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1264" y="-1766"/>
+            <point key="canvasLocation" x="1262" y="-1802"/>
+        </scene>
+        <!--Update Court-->
+        <scene sceneID="yUU-es-gBn">
+            <objects>
+                <viewController storyboardIdentifier="Update Court" id="exz-5r-W9s" customClass="RHSCUpdateCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K1u-Zd-vf3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="exz-5r-W9s" id="LVO-Jp-bNO"/>
+                            <outlet property="delegate" destination="exz-5r-W9s" id="n3j-KS-cCM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Update Court" id="wDb-ah-s0g">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="IKd-ru-aL5">
+                            <connections>
+                                <action selector="book" destination="exz-5r-W9s" id="U4b-8X-nbh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="formTable" destination="K1u-Zd-vf3" id="d6x-7V-V26"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer2" id="pLP-Tn-ial"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer3" id="BiM-wB-wUZ"/>
+                        <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer4" id="fhe-Re-Lyc"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest4" id="vFk-KU-yfI"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest3" id="YZr-a4-SqZ"/>
+                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest2" id="93v-Qz-3sy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XeL-tQ-4gR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="511" y="-602"/>
+        </scene>
+        <!--Cancel Court-->
+        <scene sceneID="iCP-0i-fix">
+            <objects>
+                <viewController storyboardIdentifier="Cancel Court" id="cR0-2O-UTZ" customClass="RHSCCancelCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Ox-wQ-knk">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="cR0-2O-UTZ" id="USa-vQ-6O4"/>
+                            <outlet property="delegate" destination="cR0-2O-UTZ" id="s7O-PE-sqs"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Cancel Court" id="dVd-p8-Jgg">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="M2y-tc-3gA">
+                            <connections>
+                                <action selector="cancelBooking" destination="cR0-2O-UTZ" id="EP1-oC-ra8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="formTable" destination="6Ox-wQ-knk" id="tar-y4-fY7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9G-n7-l0s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="500" y="344"/>
         </scene>
     </scenes>
     <resources>
@@ -670,8 +618,9 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="c3E-dF-B3k"/>
-        <segue reference="kBG-fc-atP"/>
+        <segue reference="hUA-ux-bju"/>
+        <segue reference="del-6M-c7h"/>
         <segue reference="vix-cR-AoT"/>
+        <segue reference="kBG-fc-atP"/>
     </inferredMetricsTieBreakers>
 </document>

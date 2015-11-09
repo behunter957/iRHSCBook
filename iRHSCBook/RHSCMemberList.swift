@@ -14,6 +14,7 @@ import Foundation
     var memberDict = Dictionary<String,RHSCMember>()
     var TBD = RHSCMember(fromName: "TBD", fromType: "Single")
     var GUEST = RHSCMember(fromName: "Guest", fromType: "Single")
+    var EMPTY = RHSCMember(fromName: "", fromType: "Single")
 
     var isLoaded : Bool = false
     
