@@ -216,15 +216,15 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
             if ct.court == "Court 5" {
                 rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@,%@,%@",
                     arguments: [ct.event!,
-                        ct.players["player1_lname"]!,
-                        ct.players["player3_lname"]!,
-                        ct.players["player2_lname"]!,
-                        ct.players["player4_lname"]! ])
+                        ct.players[1]!.lastName!,
+                        ct.players[2]!.lastName! ,
+                        ct.players[3]!.lastName!,
+                        ct.players[4]!.lastName! ])
             } else {
                 rcell.typeAndPlayersLabel!.text = String.init(format: "%@ - %@,%@",
                     arguments: [ct.event!,
-                        ct.players["player1_lname"]!,
-                        ct.players["player2_lname"]! ])
+                        ct.players[1]!.lastName!,
+                        ct.players[2]!.lastName! ])
             }
             switch ct.status! {
             case "Booked","Reserved":
@@ -422,7 +422,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
-                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!))
+                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!, members: tbc.memberList!))
                     }
                 }
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -467,7 +467,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelBookingProtocol
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
-                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!))
+                        self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!, members: tbc.memberList!))
                     }
                 }
                 dispatch_semaphore_signal(semaphore_loadcourt)

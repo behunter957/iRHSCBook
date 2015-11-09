@@ -90,23 +90,30 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath) as UITableViewCell?
+        let cell = tableView.dequeueReusableCellWithIdentifier("MemberCell", forIndexPath: indexPath) as UITableViewCell
         
         if (resultSearchController.active)
         {
             let mem = self.filteredList[indexPath.row]
-            cell!.textLabel?.text = mem.sortName
-            return cell!
+            cell.textLabel?.text = mem.sortName
         }
         else
         {
             let tbc = self.tabBarController as! RHSCTabBarController
             let mem = tbc.memberList!.memberList[indexPath.row]
-            cell!.textLabel?.text = mem.sortName
-            return cell!
+            cell.textLabel?.text = mem.sortName
         }
+        cell.textLabel!.backgroundColor = UIColor.clearColor()
+        cell.textLabel!.textColor = UIColor.blackColor()
+        cell.accessoryType = .None
+        return cell
+    }
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.contentView.backgroundColor = UIColor.redColor()
     }
     
+   
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSLog(@"popping FindMember on table select");
         let selectedIndexPath = tableView.indexPathForSelectedRow

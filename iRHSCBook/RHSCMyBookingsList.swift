@@ -10,9 +10,9 @@ import Foundation
 
 @objc class RHSCMyBookingsList : NSObject {
 
-    var bookingList : Array<RHSCCourtTime> = []
+    var bookingList = Array<RHSCCourtTime>()
 
-    func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser) throws {
+    func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser, memberList ml:RHSCMemberList) throws {
         let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.name!),
             relativeToURL: server )
         //        print(url!.absoluteString)
@@ -24,18 +24,18 @@ import Foundation
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.loadFromData(data!, forUser: (curUser.name)!)
+                self.loadFromData(data!, forUser: (curUser.name)!, memberList: ml)
             }
         })
         task.resume()
     }
     
-    func loadFromData(fromData:NSData, forUser: String) {
+    func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList) {
         do {
             if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
                 for dict in array {
-                    bookingList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser))
+                    bookingList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
                 }
             }
         } catch {

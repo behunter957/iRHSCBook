@@ -10,7 +10,8 @@ import Foundation
 
 @objc class RHSCMemberList : NSObject {
 
-    var memberList : Array<RHSCMember> = Array<RHSCMember>()
+    var memberList = [RHSCMember]()
+    var memberDict = Dictionary<String,RHSCMember>()
     var TBD = RHSCMember(fromName: "TBD", fromType: "Single")
     var GUEST = RHSCMember(fromName: "Guest", fromType: "Single")
 
@@ -47,6 +48,7 @@ import Foundation
                     // Create a new Location object for each one and initialise it with information in the dictionary
                     let member = RHSCMember(fromJSONDictionary:dict )
                     // Add the Location object to the array
+                    memberDict[member.name!] = member
                     memberList.append(member)
                 }
                 isLoaded = (self.memberList.count != 0);
@@ -59,12 +61,7 @@ import Foundation
     }
     
     func find(member name : String) -> RHSCMember? {
-        for tst in memberList {
-            if tst.name == name {
-                return tst;
-            }
-        }
-        return nil;
+        return memberDict[name]
     }
     
     func loadedSuccessfully() -> Bool

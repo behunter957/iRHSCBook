@@ -62,7 +62,7 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyBookingCell", forIndexPath: indexPath)
         // Configure the cell...
-        let ct = self.bookingList.bookingList[indexPath.row];
+        let ct = self.bookingList.bookingList[indexPath.row]
         let dtFormatter = NSDateFormatter()
         dtFormatter.dateFormat = "EEE, MMM d - h:mm a"
     
@@ -70,11 +70,11 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
             dtFormatter.stringFromDate(ct.courtTime!)])
         if ct.court == "Court 5" {
             cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@,%@,%@", arguments: ["Doubles",
-                ct.players["player1_lname"]!,ct.players["player2_lname"]!,
-                ct.players["player3_lname"]!,ct.players["player4_lname"]!])
+                ct.players[1]!.lastName!,ct.players[2]!.lastName!,
+                ct.players[3]!.lastName!,ct.players[4]!.lastName!])
         } else {
             cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@", arguments: [ct.event!,
-                ct.players["player1_lname"]!,ct.players["player2_lname"]!])
+                ct.players[1]!.lastName!,ct.players[2]!.lastName!])
         }
         cell.textLabel!.backgroundColor = UIColor.clearColor()
         cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
@@ -123,7 +123,7 @@ class RHSCBookingsViewController : UITableViewController,cancelBookingProtocol,N
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.name!)
+                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 // do some task

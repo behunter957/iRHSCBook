@@ -50,14 +50,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
 
         eventLabel!.text = String.init(format: "%@ match between:", arguments: [(booking?.event)!])
         
-        player1 = findPlayer((booking?.players["player1_id"])!,inList: tbc.memberList!)
+        player1 = booking?.players[1]
         if (player1 != nil) {
             player1Label!.text = player1!.fullName
         } else {
             player1Label!.text = ""
         }
         
-        player2 = findPlayer((booking?.players["player2_id"])!,inList: tbc.memberList!)
+        player2 = booking?.players[2]
         if (player2 != nil) {
             player2Label!.text = player2!.fullName
         } else {
@@ -65,13 +65,13 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         }
         
         if (booking!.court == "Court 5") {
-            player3 = findPlayer((booking?.players["player3_id"])!,inList: tbc.memberList!)
+            player3 = booking?.players[3]
             if (player3Label != nil) {
                 player3Label!.text = player3!.fullName
             } else {
                 player3Label!.text = ""
             }
-            player4 = findPlayer((booking?.players["player4_id"])!,inList: tbc.memberList!)
+            player4 = booking?.players[4]
             if (player4Label != nil) {
                 player4Label!.text = player4!.fullName
             } else {
@@ -95,14 +95,14 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         var fetchURL : String? = nil;
         if (booking!.court == "Court 5") {
             fetchURL = String.init(format: "Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",
-                arguments: [booking!.bookingId!, (tbc.currentUser?.name)!,booking!.players["player2_id"]!,
-                    booking!.players["player3_id"]!,booking!.players["player4_id"]!,
+                arguments: [booking!.bookingId!, (tbc.currentUser?.name)!,booking!.players[2]!.name!,
+                    booking!.players[3]!.name!,booking!.players[4]!.name!,
                     (tbc.currentUser?.name)!,"iPhone"])
             
         } else {
             fetchURL = String.init(format:"Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",arguments: [booking!.bookingId!,
                 (tbc.currentUser?.name)!,
-                booking!.players["player2_id"]!,"","",
+                booking!.players[2]!.name!,"","",
                     (tbc.currentUser?.name)!,"iPhone"])
         }
         let url = NSURL(string: fetchURL!, relativeToURL: tbc.server )
@@ -171,10 +171,10 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             // Email Content
             let messageBody = ""
             // To address
-            let toRecipents = [booking!.players["player1_id"],
-                booking!.players["player2_id"],
-                booking!.players["player3_id"],
-                booking!.players["player4_id"]]
+            let toRecipents = [booking!.players[1]!.name!,
+                booking!.players[2]!.name!,
+                booking!.players[3]!.name!,
+                booking!.players[4]!.name!]
             var emailAddresses = Array<String>()
             for playerId in toRecipents {
                 for mem in ml!.memberList {
@@ -238,10 +238,10 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         let ml = tbc.memberList
         let controller = MFMessageComposeViewController()
         if MFMessageComposeViewController.canSendText() {
-            let toRecipents = [booking!.players["player1_id"],
-                booking!.players["player2_id"],
-                booking!.players["player3_id"],
-                booking!.players["player4_id"]]
+            let toRecipents = [booking!.players[1]!.name!,
+                booking!.players[2]!.name!,
+                booking!.players[3]!.name!,
+                booking!.players[4]!.name!]
             var phoneNumbers = Array<String>()
             for playerId in toRecipents {
                 for mem in ml!.memberList {

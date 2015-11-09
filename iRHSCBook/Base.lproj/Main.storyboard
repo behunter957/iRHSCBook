@@ -316,7 +316,7 @@
         <scene sceneID="326-Gn-ctq">
             <objects>
                 <tableViewController storyboardIdentifier="Members" useStoryboardIdentifierAsRestorationIdentifier="YES" id="I5f-dz-59e" customClass="RHSCMembersViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="B1T-hP-T03">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="B1T-hP-T03">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -330,7 +330,7 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wtq-Ed-o0I" id="uTd-qU-jmB">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -344,6 +344,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Member List" id="ZVO-hG-IKg"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="B1T-hP-T03" id="p3S-iy-Tqq"/>
                         <segue destination="Ucl-ri-u0P" kind="push" identifier="MemberDetail" id="JgX-kW-eMA"/>
@@ -615,26 +616,17 @@
         <scene sceneID="fjf-bm-Vrk">
             <objects>
                 <tableViewController storyboardIdentifier="FindMember" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kbR-ab-SN7" customClass="RHSCFindMemberViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lGA-jF-r7P">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lGA-jF-r7P">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" placeholder="partial name" id="YeR-k2-1Xx">
-                            <rect key="frame" x="0.0" y="66" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="kbR-ab-SN7" id="6xL-3j-xbf"/>
-                            </connections>
-                        </searchBar>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MemberCell" id="8se-NA-qKn">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8se-NA-qKn" id="VjF-wW-XcK">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -646,7 +638,9 @@
                             <outlet property="delegate" destination="kbR-ab-SN7" id="VpN-YR-qrP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Player" id="T1M-J8-F6T"/>
+                    <navigationItem key="navigationItem" title="Select Player" id="T1M-J8-F6T">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="owC-8g-ZaP"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="memberListView" destination="lGA-jF-r7P" id="aPd-oB-j1e"/>
                     </connections>
@@ -658,7 +652,6 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="delegate" destination="kbR-ab-SN7" id="JGO-Qh-OVX"/>
-                        <outlet property="searchBar" destination="YeR-k2-1Xx" id="SK6-t5-s2k"/>
                         <outlet property="searchContentsController" destination="kbR-ab-SN7" id="uZ5-Dk-MJe"/>
                         <outlet property="searchResultsDataSource" destination="kbR-ab-SN7" id="1Mk-hS-UQy"/>
                         <outlet property="searchResultsDelegate" destination="kbR-ab-SN7" id="cqe-zc-uyS"/>
