@@ -53,10 +53,11 @@ import Foundation
             players[4] = members.EMPTY
             summary = String.init(format: "%@ - %@",arguments: [event!,eventDesc!])
         } else if ["MNHL","Tournament"].contains(event!) {
-            players[1] = player1_id == "" ? members.EMPTY : ml[player1_id!]
-            players[2] = player1_id == "" ? members.EMPTY : ml[player2_id!]
-            players[3] = player1_id == "" ? members.EMPTY : ml[player3_id!]
-            players[4] = player1_id == "" ? members.EMPTY : ml[player4_id!]
+            players[1] = player1_id == "" ? members.EMPTY : (player1_id == "TBD" ? members.TBD : (player1_id == "Guest" ? members.GUEST : ml[player1_id!]))
+            players[2] = player2_id == "" ? members.EMPTY : (player2_id == "TBD" ? members.TBD : (player2_id == "Guest" ? members.GUEST : ml[player2_id!]))
+            players[3] = player3_id == "" ? members.EMPTY : (player3_id == "TBD" ? members.TBD : (player3_id == "Guest" ? members.GUEST : ml[player3_id!]))
+            players[4] = player4_id == "" ? members.EMPTY : (player4_id == "TBD" ? members.TBD : (player4_id == "Guest" ? members.GUEST : ml[player4_id!]))
+            bookedForUser = (player1_id == userId) || (player2_id == userId) || (player3_id == userId) || (player4_id == userId)
             if court == "Court 5" {
                 if (player1_id == "") || (player2_id == "") || (player3_id == "") || (player4_id == "") {
                     summary = String.init(format: "%@ - %@",[event!,eventDesc!])
@@ -79,16 +80,11 @@ import Foundation
                 }
             }
         } else {
-            if (player1_id == userId) {
-                bookedForUser = true;
-            }
+            bookedForUser = (player1_id == userId) || (player2_id == userId) || (player3_id == userId) || (player4_id == userId)
             if (player1_id == "TBD") || (player1_id == "") {
                 players[1] = members.TBD
             } else {
                 players[1] = ml[player1_id!]
-            }
-            if (player2_id == userId) {
-                bookedForUser = true;
             }
             if (player2_id == "TBD") || (player2_id == "") {
                 players[2] = members.TBD
@@ -97,18 +93,12 @@ import Foundation
             } else {
                 players[2] = ml[player2_id!]
             }
-            if (player3_id == userId) {
-                bookedForUser = true;
-            }
             if (player3_id == "TBD") || (player3_id == "") {
                 players[3] = members.TBD
             } else if player3_id == "Guest" {
                 players[3] = members.GUEST
             } else {
                 players[3] = ml[player3_id!]
-            }
-            if (player4_id == userId) {
-                bookedForUser = true;
             }
             if (player4_id == "TBD") || (player4_id == "") {
                 players[4] = members.TBD

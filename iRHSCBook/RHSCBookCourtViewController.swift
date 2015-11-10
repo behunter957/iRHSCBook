@@ -323,9 +323,9 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
                 (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")!,
                 (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")!,
                 tbc.currentUser!.name!,"iPhone",
-                self.guest2.name,
-                self.guest3.name,
-                self.guest4.name,
+                self.guest2.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.guest3.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.guest4.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
         print(urlstr)

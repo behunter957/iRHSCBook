@@ -231,15 +231,15 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
         if number == 2 {
-            player2Member = setPlayer
+            ct!.players[2] = setPlayer
             s2r1?.updateButtonText((setPlayer?.fullName)!)
         }
         if number == 3 {
-            player3Member = setPlayer
+            ct!.players[3] = setPlayer
             s2r2?.updateButtonText((setPlayer?.fullName)!)
         }
         if number == 4 {
-            player4Member = setPlayer
+            ct!.players[4] = setPlayer
             s2r3?.updateButtonText((setPlayer?.fullName)!)
         }
     }
@@ -322,9 +322,9 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")!,
                 (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")!,
                 tbc.currentUser!.name!,"iPhone",
-                self.guest2.name,
-                self.guest3.name,
-                self.guest4.name,
+                self.guest2.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.guest3.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.guest4.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
         let url = NSURL(string: urlstr, relativeToURL: tbc.server )
@@ -334,7 +334,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
                 self.errorAlert = UIAlertController(title: "Error",
-                    message: "Unable to book the court", preferredStyle: .Alert)
+                    message: "Unable to update the court", preferredStyle: .Alert)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {
@@ -353,7 +353,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 //                print(jsonDictionary)
                 if jsonDictionary["error"] == nil {
                     self.successAlert = UIAlertController(title: "Success",
-                        message: "Court time successfully booked. Notices will be sent to all players", preferredStyle: .Alert)
+                        message: "Court time successfully updated. Notices will be sent to all players", preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
@@ -367,7 +367,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                         })
                     })
                 } else {
-                    self.errorAlert = UIAlertController(title: "Unable to Book Court",
+                    self.errorAlert = UIAlertController(title: "Unable to Update Court",
                         message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         // do some task
@@ -384,7 +384,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                 }
             } else {
                 self.errorAlert = UIAlertController(title: "Error",
-                    message: "Unable to book the court", preferredStyle: .Alert)
+                    message: "Unable to update the court", preferredStyle: .Alert)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {

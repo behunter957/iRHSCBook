@@ -129,6 +129,10 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
             let deltarget = (delegate as! RHSCBookCourtViewController)
             deltarget.setPlayer(selmem, number: playerNumber)
         }
+        if delegate is RHSCUpdateCourtViewController {
+            let deltarget = (delegate as! RHSCUpdateCourtViewController)
+            deltarget.setPlayer(selmem, number: playerNumber)
+        }
         resultSearchController.active = false
         self.navigationController?.popViewControllerAnimated(false)
     }
