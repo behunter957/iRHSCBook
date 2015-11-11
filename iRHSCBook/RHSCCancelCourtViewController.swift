@@ -170,49 +170,53 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-            } else if data != nil {
-                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                do {
-                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-                        if (jsonDictionary["error"] == nil) {
-                            // Get an array of dictionaries with the key "locations"
-                            // NSArray *array = [jsonDictionary objectForKey:@"user"];
-                            //            NSLog(@"%@",jsonDictionary);
-                            self.successAlert = UIAlertController(title: "Success",
-                                message: "Booking successfully cancelled. Notices will be sent to all players", preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                // do some task
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.presentViewController(self.successAlert!, animated: true, completion: nil)
-                                    let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                        self.delegate!.refreshTable()
-                                        self.navigationController?.popViewControllerAnimated(true)
-                                    })
+            } else {
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                if (statusCode == 200) && (data != nil) {
+                    let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    if jsonDictionary["error"] == nil {
+                        self.successAlert = UIAlertController(title: "Success",
+                            message: "Court time successfully cancelled. Notices will be sent to all players", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.presentViewController(self.successAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    self.navigationController?.popViewControllerAnimated(true)
                                 })
                             })
-                        } else {
-                            self.errorAlert = UIAlertController(title: "Error",
-                                message: jsonDictionary["error"] as? String, preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                // do some task
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                                    let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                        self.delegate!.refreshTable()
-                                        self.navigationController?.popViewControllerAnimated(true)
-                                    })
+                        })
+                    } else {
+                        self.errorAlert = UIAlertController(title: "Unable to Cancel Court",
+                            message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    self.navigationController?.popViewControllerAnimated(true)
                                 })
                             })
-                        }
+                        })
                     }
-                } catch {
-                    print(error)
+                } else {
+                    self.errorAlert = UIAlertController(title: "Unable to Cancel Court",
+                        message: "Error (status code \(statusCode))", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
                 }
             }
         })
