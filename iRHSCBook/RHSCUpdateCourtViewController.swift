@@ -297,8 +297,8 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-                self.errorAlert = UIAlertController(title: "Error",
-                    message: "Unable to update the court", preferredStyle: .Alert)
+                self.errorAlert = UIAlertController(title: "Unable to Update Booking",
+                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {
@@ -317,7 +317,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                     let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
                     if jsonDictionary["error"] == nil {
                         self.successAlert = UIAlertController(title: "Success",
-                            message: "Court time successfully updated. Notices will be sent to all players", preferredStyle: .Alert)
+                            message: "Booking successfully updated. Notices will be sent to all players", preferredStyle: .Alert)
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.presentViewController(self.successAlert!, animated: true, completion: nil)
@@ -330,7 +330,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                             })
                         })
                     } else {
-                        self.errorAlert = UIAlertController(title: "Unable to Update Court",
+                        self.errorAlert = UIAlertController(title: "Unable to Update Booking",
                             message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             dispatch_async(dispatch_get_main_queue(), {
@@ -345,7 +345,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                         })
                     }
                 } else {
-                    self.errorAlert = UIAlertController(title: "Unable to Update Court",
+                    self.errorAlert = UIAlertController(title: "Unable to Update Booking",
                         message: "Error (status code \(statusCode))", preferredStyle: .Alert)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         dispatch_async(dispatch_get_main_queue(), {

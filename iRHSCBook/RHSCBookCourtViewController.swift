@@ -298,8 +298,8 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-                self.errorAlert = UIAlertController(title: "Error",
-                    message: "Unable to book the court", preferredStyle: .Alert)
+                self.errorAlert = UIAlertController(title: "Unable to Book Court",
+                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     // do some task
                     dispatch_async(dispatch_get_main_queue(), {

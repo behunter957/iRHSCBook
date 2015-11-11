@@ -360,10 +360,10 @@
             </objects>
             <point key="canvasLocation" x="1268" y="-1080"/>
         </scene>
-        <!--Update Court-->
+        <!--Update Booking-->
         <scene sceneID="yUU-es-gBn">
             <objects>
-                <viewController storyboardIdentifier="Update Court" id="exz-5r-W9s" customClass="RHSCUpdateCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Update Booking" id="exz-5r-W9s" customClass="RHSCUpdateCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K1u-Zd-vf3">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -375,7 +375,7 @@
                             <outlet property="delegate" destination="exz-5r-W9s" id="n3j-KS-cCM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Update Court" id="wDb-ah-s0g">
+                    <navigationItem key="navigationItem" title="Update Booking" id="wDb-ah-s0g">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="IKd-ru-aL5">
                             <connections>
                                 <action selector="book" destination="exz-5r-W9s" id="U4b-8X-nbh"/>
@@ -393,10 +393,10 @@
             </objects>
             <point key="canvasLocation" x="511" y="-602"/>
         </scene>
-        <!--Cancel Court-->
+        <!--Cancel Booking-->
         <scene sceneID="iCP-0i-fix">
             <objects>
-                <viewController storyboardIdentifier="Cancel Court" id="cR0-2O-UTZ" customClass="RHSCCancelCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Cancel Booking" id="cR0-2O-UTZ" customClass="RHSCCancelCourtViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Ox-wQ-knk">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -408,7 +408,7 @@
                             <outlet property="delegate" destination="cR0-2O-UTZ" id="s7O-PE-sqs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Cancel Court" id="dVd-p8-Jgg">
+                    <navigationItem key="navigationItem" title="Cancel Booking" id="dVd-p8-Jgg">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="M2y-tc-3gA">
                             <connections>
                                 <action selector="cancelBooking" destination="cR0-2O-UTZ" id="EP1-oC-ra8"/>
@@ -462,6 +462,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="hUA-ux-bju"/>
         <segue reference="del-6M-c7h"/>
-        <segue reference="kBG-fc-atP"/>
+        <segue reference="pLP-Tn-ial"/>
     </inferredMetricsTieBreakers>
 </document>
