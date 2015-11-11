@@ -30,9 +30,9 @@ class RHSCGuestDetailsViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.guestNameField!.text = self.guest!.name
-        self.guestEmailField!.text = self.guest!.email
-        self.guestPhoneField!.text = self.guest!.phone
+        self.guestNameField!.text = self.guest!.guestName
+        self.guestEmailField!.text = "" // self.guest!.email
+        self.guestPhoneField!.text = "" // self.guest!.phone
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -41,9 +41,9 @@ class RHSCGuestDetailsViewController : UIViewController {
     
     @IBAction func done() {
         if self.guestNameField?.text?.characters.count > 5 {
-            self.guest!.name = self.guestNameField!.text!
-            self.guest!.email = self.guestEmailField!.text!
-            self.guest!.phone = self.guestPhoneField!.text!
+            self.guest!.guestName = self.guestNameField!.text!
+//            self.guest!.email = self.guestEmailField!.text!
+//            self.guest!.phone = self.guestPhoneField!.text!
             if delegate is RHSCBookCourtViewController {
                 let deltarget = (delegate as! RHSCBookCourtViewController)
                 deltarget.setGuest(self.guest, number: self.guestNumber)

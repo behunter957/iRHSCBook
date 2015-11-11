@@ -20,6 +20,10 @@ import Foundation
     var lastName : String? = nil
     var sortName : String? = nil
     var fullName : String? = nil
+    
+    override init() {
+        super.init()
+    }
 
     init(fromJSONDictionary jsonDictionary : NSDictionary) {
         // Assign all properties with keyed values from the dictionary

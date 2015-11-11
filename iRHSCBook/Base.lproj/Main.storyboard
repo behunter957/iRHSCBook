@@ -349,112 +349,12 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="B1T-hP-T03" id="p3S-iy-Tqq"/>
-                        <segue destination="Ucl-ri-u0P" kind="push" identifier="MemberDetail" id="JgX-kW-eMA"/>
+                        <segue destination="jF5-ty-Grt" kind="push" identifier="ContactMember" id="pr5-Jt-jKm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz8-7V-TkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-474" y="1617"/>
-        </scene>
-        <!--Member Name-->
-        <scene sceneID="amI-V8-wWB">
-            <objects>
-                <viewController storyboardIdentifier="Member Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ucl-ri-u0P" customClass="RHSCMemberDetailViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="shk-HU-Vfz"/>
-                        <viewControllerLayoutGuide type="bottom" id="IxI-Qj-6eV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ARA-yN-iTw">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWp-5L-0jP">
-                                <rect key="frame" x="270" y="102" width="30" height="22"/>
-                                <animations/>
-                                <state key="normal" image="Email">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailMember:" destination="Ucl-ri-u0P" eventType="touchUpInside" id="nlG-wa-z5f"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3c9-lI-tbZ">
-                                <rect key="frame" x="231" y="187" width="30" height="25"/>
-                                <animations/>
-                                <state key="normal" image="Phone">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="phone2Member:" destination="Ucl-ri-u0P" eventType="touchUpInside" id="nep-Ko-tZe"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv1-oF-k7U">
-                                <rect key="frame" x="268" y="186" width="30" height="27"/>
-                                <animations/>
-                                <state key="normal" image="SMS">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sms2Member:" destination="Ucl-ri-u0P" eventType="touchUpInside" id="nqE-EW-sjg"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiM-WY-aZ5" userLabel="Email Address">
-                                <rect key="frame" x="20" y="103" width="242" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CT-Bz-C5k">
-                                <rect key="frame" x="20" y="149" width="203" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUk-Oz-5ae" userLabel="Phone 2">
-                                <rect key="frame" x="20" y="192" width="203" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jwI-Zu-fCc">
-                                <rect key="frame" x="231" y="144" width="30" height="25"/>
-                                <animations/>
-                                <state key="normal" image="Phone">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="phone1Member:" destination="Ucl-ri-u0P" eventType="touchUpInside" id="PiT-rx-82X"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eja-2m-NLS">
-                                <rect key="frame" x="268" y="143" width="30" height="27"/>
-                                <animations/>
-                                <state key="normal" image="SMS">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sms1Member:" destination="Ucl-ri-u0P" eventType="touchUpInside" id="N8A-qX-rIZ"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Member Name" id="PXD-h6-kAJ"/>
-                    <connections>
-                        <outlet property="emailBtn" destination="DWp-5L-0jP" id="0SE-6h-aFo"/>
-                        <outlet property="emailLabel" destination="eiM-WY-aZ5" id="eOb-UE-6Hj"/>
-                        <outlet property="ph1CallBtn" destination="jwI-Zu-fCc" id="5Gh-vo-qQ4"/>
-                        <outlet property="ph1SMSBtn" destination="Eja-2m-NLS" id="rNY-U1-tNb"/>
-                        <outlet property="ph2CallBtn" destination="3c9-lI-tbZ" id="rbf-Wa-xVK"/>
-                        <outlet property="ph2SMSBtn" destination="lv1-oF-k7U" id="Ho7-hi-G7L"/>
-                        <outlet property="phone1Label" destination="0CT-Bz-C5k" id="cnY-DK-M0y"/>
-                        <outlet property="phone2Label" destination="xUk-Oz-5ae" id="Yy1-AE-1iD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5zt-9F-DC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="500" y="1617"/>
         </scene>
         <!--Members-->
         <scene sceneID="cEk-L8-WsX">
@@ -608,13 +508,40 @@
             </objects>
             <point key="canvasLocation" x="500" y="344"/>
         </scene>
+        <!--Member Details-->
+        <scene sceneID="SKl-45-kUC">
+            <objects>
+                <viewController storyboardIdentifier="Contact Member" id="jF5-ty-Grt" customClass="RHSCContactMemberViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="PmG-V8-zDE">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="jF5-ty-Grt" id="84A-Qv-SLm"/>
+                            <outlet property="delegate" destination="jF5-ty-Grt" id="F7P-68-rKJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Member Details" id="o4T-UM-sZ2">
+                        <barButtonItem key="rightBarButtonItem" title="Contact" id="tSi-Hb-niM">
+                            <connections>
+                                <action selector="contactMember" destination="jF5-ty-Grt" id="PU7-0u-a6a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="formTable" destination="PmG-V8-zDE" id="2n9-dw-y4L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qDd-kQ-R2O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="500" y="1617"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Book" width="25" height="22"/>
-        <image name="Email" width="26" height="18"/>
         <image name="Members" width="31" height="29"/>
-        <image name="Phone" width="25" height="25"/>
-        <image name="SMS" width="16" height="27"/>
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>

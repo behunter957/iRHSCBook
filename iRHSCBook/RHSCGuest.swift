@@ -8,10 +8,19 @@
 
 import Foundation
 
-@objc class RHSCGuest : NSObject {
+@objc class RHSCGuest : RHSCMember {
     
-    var name : String = ""
-    var email : String = ""
-    var phone : String = ""
+    var guestName : String = ""
+    
+    init(withGuestName gName: String?) {
+        super.init()
+        name = "Guest"
+        type = "Single"
+        status = "Active"
+        guestName = gName!
+        firstName = ""
+        lastName = "Guest"
+        fullName = "Guest"
+    }
     
 }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol PlayerButtonDelegate {
+protocol playerButtonDelegateProtocol {
     
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int)
     
@@ -17,10 +17,10 @@ protocol PlayerButtonDelegate {
 
 public class RHSCButtonTableViewCell : UITableViewCell {
     @IBOutlet weak var buttonField: UIButton!
-    var delegate: PlayerButtonDelegate? = nil
+    var delegate: playerButtonDelegateProtocol? = nil
     var buttonNum: Int = 0
     
-    func configure(sender: PlayerButtonDelegate?, buttonNum: Int, buttonText: String?) {
+    func configure(sender: playerButtonDelegateProtocol?, buttonNum: Int, buttonText: String?) {
         delegate = sender
         self.buttonNum = buttonNum
         if let targText = buttonText {

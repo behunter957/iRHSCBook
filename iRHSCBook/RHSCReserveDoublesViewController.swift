@@ -51,9 +51,9 @@ class RHSCReserveDoublesViewController : UIViewController,UIPickerViewDataSource
         self.player2Control!.selectedSegmentIndex = 1
         self.player3Control!.selectedSegmentIndex = 1
         self.player4Control!.selectedSegmentIndex = 1
-        self.guest2 = RHSCGuest()
-        self.guest3 = RHSCGuest()
-        self.guest4 = RHSCGuest()
+        self.guest2 = RHSCGuest(withGuestName: "")
+        self.guest3 = RHSCGuest(withGuestName: "")
+        self.guest4 = RHSCGuest(withGuestName: "")
     
         let picker = UIPickerView()
         picker.dataSource = self

@@ -14,7 +14,7 @@ protocol cancelCourtProtocol {
     func refreshTable()
 }
 
-class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, PlayerButtonDelegate {
+class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, playerButtonDelegateProtocol {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -37,9 +37,9 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
     
-    var guest2 = RHSCGuest()
-    var guest3 = RHSCGuest()
-    var guest4 = RHSCGuest()
+    var guest2 = RHSCGuest(withGuestName: "")
+    var guest3 = RHSCGuest(withGuestName: "")
+    var guest4 = RHSCGuest(withGuestName: "")
     
     var successAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil

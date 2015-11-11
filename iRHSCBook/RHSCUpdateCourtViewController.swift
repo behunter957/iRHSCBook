@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, PlayerButtonDelegate {
+class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, playerButtonDelegateProtocol {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -32,9 +32,9 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
     
-    var guest2 = RHSCGuest()
-    var guest3 = RHSCGuest()
-    var guest4 = RHSCGuest()
+    var guest2 = RHSCGuest(withGuestName: "")
+    var guest3 = RHSCGuest(withGuestName: "")
+    var guest4 = RHSCGuest(withGuestName: "")
     
     var successAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil
@@ -177,22 +177,17 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
             {
                 (alert: UIAlertAction!) -> Void in
                 //                print("Guest")
-                switch buttonIndex {
-                case 2:
-                    self.ct!.players[2] = ml?.GUEST
-                    self.performSegueWithIdentifier("UpdateGuest2", sender: self)
-                    break
-                case 3:
-                    self.ct!.players[3] = ml?.GUEST
-                    self.performSegueWithIdentifier("UpdateGuest4", sender: self)
-                    break
-                case 4:
-                    self.ct!.players[4] = ml?.GUEST
-                    self.performSegueWithIdentifier("UpdateGuest4", sender: self)
-                    break
-                default:
-                    break
-                }
+                let alert = UIAlertController(title: "Identify Guest", message: "Enter the name of your Guest:", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default,
+                    handler: {(thisAction: UIAlertAction) in
+                        let textField = alert.textFields![0]
+                        self.ct!.players[buttonIndex] = RHSCGuest(withGuestName: textField.text)
+                        self.setPlayer(self.ct!.players[buttonIndex], number: UInt16(buttonIndex))
+                    } ))
+                alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                    textField.placeholder = "Guest name:"
+                })
+                self.presentViewController(alert, animated: true, completion: nil)
         })
         let TBDAction = UIAlertAction(title: "TBD", style: .Default, handler:
             {
@@ -308,23 +303,23 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     
     @IBAction func book() {
         //    NSLog(@"booking singles court and exiting ReserveSingles");
-        self.bookCourt()
+        self.updateCourt()
         //    [self.navigationController popViewControllerAnimated:YES];
     }
     
     
-    func bookCourt() {
+    func updateCourt() {
         let tbc = self.tabBarController as! RHSCTabBarController
+        let g2name = self.ct!.players[2] is RHSCGuest ? (self.ct!.players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g3name = self.ct!.players[3] is RHSCGuest ? (self.ct!.players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g4name = self.ct!.players[4] is RHSCGuest ? (self.ct!.players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.ct!.bookingId!,
                 (self.ct!.players[1] != nil ? self.ct!.players[1]?.name : "")!,
                 (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!,
-                (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")!,
-                (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")!,
-                tbc.currentUser!.name!,"iPhone",
-                self.guest2.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
-                self.guest3.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
-                self.guest4.name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                self.ct!.court == "Court 5" ? (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")! : "",
+                self.ct!.court == "Court 5" ? (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")! : "",
+                tbc.currentUser!.name!,"iPhone", g2name, g3name, g4name,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
         let url = NSURL(string: urlstr, relativeToURL: tbc.server )

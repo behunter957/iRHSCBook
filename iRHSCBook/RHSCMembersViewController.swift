@@ -94,7 +94,7 @@ class RHSCMembersViewController : UITableViewController, UISearchResultsUpdating
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = indexPath.row
-        let segueName = "MemberDetail"
+        let segueName = "ContactMember"
         if (self.resultSearchController!.active) {
             selectedMember = filteredList[row];
         } else {
@@ -107,11 +107,8 @@ class RHSCMembersViewController : UITableViewController, UISearchResultsUpdating
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        //    NSLog(@"segue: %@",segue.identifier);
-        if (segue.identifier == "MemberDetail") {
-            let mdvc = segue.destinationViewController as! RHSCMemberDetailViewController
+        if (segue.identifier == "ContactMember") {
+            let mdvc = segue.destinationViewController as! RHSCContactMemberViewController
             mdvc.member = selectedMember
         }
     }
