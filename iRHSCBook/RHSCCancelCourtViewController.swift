@@ -37,10 +37,6 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
     
-    var guest2 = RHSCGuest(withGuestName: "")
-    var guest3 = RHSCGuest(withGuestName: "")
-    var guest4 = RHSCGuest(withGuestName: "")
-    
     var successAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil
     
@@ -74,26 +70,26 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r0 = nib[3] as? RHSCButtonTableViewCell
         }
-        s2r0?.configure(self,buttonNum: 1,buttonText: user!.fullName)
+        s2r0?.configure(self,buttonNum: 1,buttonText: user!.buttonText())
         s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r1 = nib[4] as? RHSCButtonTableViewCell
         }
-        s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.fullName)
+        s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.buttonText())
         if ct!.court == "Court 5" {
             s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
             if (s2r2 == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
                 s2r2 = nib[5] as? RHSCButtonTableViewCell
             }
-            s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.fullName)
+            s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.buttonText())
             s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
             if (s2r3 == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
                 s2r3 = nib[6] as? RHSCButtonTableViewCell
             }
-            s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.fullName)
+            s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.buttonText())
         }
         s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {

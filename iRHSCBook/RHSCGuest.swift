@@ -23,4 +23,7 @@ import Foundation
         fullName = "Guest"
     }
     
+    override func buttonText() -> String {
+        return "Guest: \(guestName)"
+    }
 }

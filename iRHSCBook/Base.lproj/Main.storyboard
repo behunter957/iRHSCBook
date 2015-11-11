@@ -207,93 +207,11 @@
                         <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer2" id="kBG-fc-atP"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer3" id="ElC-ZO-Lvx"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="ChoosePlayer4" id="imv-WQ-nMh"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest2" id="vix-cR-AoT"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest3" id="07g-hs-QHZ"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="IdentifyGuest4" id="mQ3-LH-Ecr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2B-dP-AIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="511" y="-1493"/>
-        </scene>
-        <!--Guest Details-->
-        <scene sceneID="mGq-iH-idI">
-            <objects>
-                <viewController storyboardIdentifier="Guest Details" id="Chq-vS-dmK" customClass="RHSCGuestDetailsViewController" customModule="iRHSCBook" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="on7-LE-MyU"/>
-                        <viewControllerLayoutGuide type="bottom" id="f5O-Y2-A06"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gf2-qQ-7jI">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVx-iN-U5d">
-                                <rect key="frame" x="20" y="121" width="58" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZk-c3-PqA">
-                                <rect key="frame" x="20" y="189" width="58" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGe-99-9z0">
-                                <rect key="frame" x="20" y="257" width="58" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R4o-90-n2N">
-                                <rect key="frame" x="93" y="117" width="207" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vg8-7A-BF8">
-                                <rect key="frame" x="93" y="185" width="207" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tx0-uZ-L0g">
-                                <rect key="frame" x="93" y="253" width="143" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2F-F9-9rj">
-                                <rect key="frame" x="141" y="311" width="46" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Clear">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="clear" destination="Chq-vS-dmK" eventType="touchUpInside" id="pAd-55-vWH"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Guest Details" id="Icz-Si-KnM">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="5xY-fx-Jwe">
-                            <connections>
-                                <action selector="done" destination="Chq-vS-dmK" id="bBd-BL-KcC"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="guestEmailField" destination="vg8-7A-BF8" id="SC0-hE-Nhx"/>
-                        <outlet property="guestNameField" destination="R4o-90-n2N" id="AKW-p9-gjg"/>
-                        <outlet property="guestPhoneField" destination="Tx0-uZ-L0g" id="eSk-XN-HYn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ode-j3-fYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1262" y="-358"/>
         </scene>
         <!--My Bookings-->
         <scene sceneID="Vdt-t7-dUZ">
@@ -440,7 +358,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1262" y="-1802"/>
+            <point key="canvasLocation" x="1268" y="-1080"/>
         </scene>
         <!--Update Court-->
         <scene sceneID="yUU-es-gBn">
@@ -469,9 +387,6 @@
                         <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer2" id="pLP-Tn-ial"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer3" id="BiM-wB-wUZ"/>
                         <segue destination="kbR-ab-SN7" kind="push" identifier="UpdatePlayer4" id="fhe-Re-Lyc"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest4" id="vFk-KU-yfI"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest3" id="YZr-a4-SqZ"/>
-                        <segue destination="Chq-vS-dmK" kind="push" identifier="UpdateGuest2" id="93v-Qz-3sy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeL-tQ-4gR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -547,7 +462,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="hUA-ux-bju"/>
         <segue reference="del-6M-c7h"/>
-        <segue reference="vix-cR-AoT"/>
         <segue reference="kBG-fc-atP"/>
     </inferredMetricsTieBreakers>
 </document>

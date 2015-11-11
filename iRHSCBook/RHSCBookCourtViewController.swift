@@ -32,10 +32,6 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
 
-    var guest2 = RHSCGuest(withGuestName: "")
-    var guest3 = RHSCGuest(withGuestName: "")
-    var guest4 = RHSCGuest(withGuestName: "")
-
     var successAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil
 
@@ -69,7 +65,7 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r0 = nib[3] as? RHSCButtonTableViewCell
         }
-        s2r0?.configure(self,buttonNum: 1,buttonText: user!.fullName)
+        s2r0?.configure(self,buttonNum: 1,buttonText: user!.buttonText())
         s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
@@ -185,33 +181,14 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
                         self.ct!.players[buttonIndex] = RHSCGuest(withGuestName: textField.text)
                         self.setPlayer(self.ct!.players[buttonIndex], number: UInt16(buttonIndex))
                 } ))
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,
+                    handler: nil))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                     textField.placeholder = "Guest name:"
                     textField.text = self.ct!.players[buttonIndex] is RHSCGuest ? (self.ct!.players[buttonIndex] as! RHSCGuest).guestName : ""
                 })
                 self.presentViewController(alert, animated: true, completion: nil)
         })
-//        let guestAction = UIAlertAction(title: "Guest", style: .Default, handler:
-//            {
-//                (alert: UIAlertAction!) -> Void in
-//                //                print("Guest")
-//                switch buttonIndex {
-//                case 2:
-//                    self.ct!.players[2] = ml?.GUEST
-//                    self.performSegueWithIdentifier("IdentifyGuest2", sender: self)
-//                    break
-//                case 3:
-//                    self.ct!.players[3] = ml?.GUEST
-//                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
-//                    break
-//                case 4:
-//                    self.ct!.players[4] = ml?.GUEST
-//                    self.performSegueWithIdentifier("IdentifyGuest4", sender: self)
-//                    break
-//                default:
-//                    break
-//                }
-//        })
         let TBDAction = UIAlertAction(title: "TBD", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
@@ -248,33 +225,17 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
 
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+        ct!.players[Int(number)] = setPlayer
         if number == 2 {
-            player2Member = setPlayer
-            s2r1?.updateButtonText((setPlayer?.fullName)!)
+            s2r1?.updateButtonText(setPlayer!.buttonText())
         }
         if number == 3 {
-            player3Member = setPlayer
-            s2r2?.updateButtonText((setPlayer?.fullName)!)
+            s2r2?.updateButtonText(setPlayer!.buttonText())
         }
         if number == 4 {
-            player4Member = setPlayer
-            s2r3?.updateButtonText((setPlayer?.fullName)!)
+            s2r3?.updateButtonText(setPlayer!.buttonText())
         }
     }
-
-    func setGuest(guest:RHSCGuest?, number:UInt16) {
-        //    NSLog(@"setGuest %@",guestNumber);
-        if number == 2 {
-            s2r1?.updateButtonText("Guest")
-        }
-        if number == 3 {
-            s2r2?.updateButtonText("Guest")
-        }
-        if number == 4 {
-            s2r3?.updateButtonText("Guest")
-        }
-    }
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ChoosePlayer2" {
@@ -288,21 +249,6 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         if segue.identifier == "ChoosePlayer4" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
             (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 4
-        }
-        if segue.identifier == "IdentifyGuest2" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest2
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 2
-        }
-        if segue.identifier == "IdentifyGuest3" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest3
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 3
-        }
-        if segue.identifier == "IdentifyGuest4" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest4
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 4
         }
     }
     
@@ -336,16 +282,16 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         let g2name = self.ct!.players[2] is RHSCGuest ? (self.ct!.players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g3name = self.ct!.players[3] is RHSCGuest ? (self.ct!.players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g4name = self.ct!.players[4] is RHSCGuest ? (self.ct!.players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let pl2 = (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!
+        let pl3 = self.ct!.court == "Court 5" ? (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")! : ""
+        let pl4 = self.ct!.court == "Court 5" ? (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")! : ""
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.ct!.bookingId!,
-                tbc.currentUser!.name!,
-                (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!,
-                self.ct!.court == "Court 5" ? (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")! : "",
-                self.ct!.court == "Court 5" ? (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")! : "",
-                tbc.currentUser!.name!,"iPhone", g2name, g3name, g4name,
+                tbc.currentUser!.name!, pl2, pl3, pl4,
+                tbc.currentUser!.name!,"iPhone", g2name!, g3name!, g4name!,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
-        print(urlstr)
+//        print(urlstr)
         let url = NSURL(string: urlstr, relativeToURL: tbc.server )
         //        NSLog(@"fetch URL = %@",fetchURL);
         let session = NSURLSession.sharedSession()

@@ -98,21 +98,21 @@ import Foundation
             if (player2_id == "TBD") || (player2_id == "") {
                 players[2] = members.TBD
             } else if player2_id == "Guest" {
-                players[2] = members.GUEST
+                players[2] = RHSCGuest(withGuestName: g2name)
             } else {
                 players[2] = ml[player2_id!]
             }
             if (player3_id == "TBD") || (player3_id == "") {
                 players[3] = members.TBD
             } else if player3_id == "Guest" {
-                players[3] = members.GUEST
+                players[3] = RHSCGuest(withGuestName: g3name)
             } else {
                 players[3] = ml[player3_id!]
             }
             if (player4_id == "TBD") || (player4_id == "") {
                 players[4] = members.TBD
             } else if player4_id == "Guest" {
-                players[4] = members.GUEST
+                players[4] = RHSCGuest(withGuestName: g4name)
             } else {
                 players[4] = ml[player4_id!]
             }

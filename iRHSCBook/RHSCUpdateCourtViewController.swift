@@ -32,10 +32,6 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     var player3Member : RHSCMember? = nil
     var player4Member : RHSCMember? = nil
     
-    var guest2 = RHSCGuest(withGuestName: "")
-    var guest3 = RHSCGuest(withGuestName: "")
-    var guest4 = RHSCGuest(withGuestName: "")
-    
     var successAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil
     
@@ -69,26 +65,26 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r0 = nib[3] as? RHSCButtonTableViewCell
         }
-        s2r0?.configure(self,buttonNum: 1,buttonText: user!.fullName)
+        s2r0?.configure(self,buttonNum: 1,buttonText: user!.buttonText())
         s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
             s2r1 = nib[4] as? RHSCButtonTableViewCell
         }
-        s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.fullName)
+        s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.buttonText())
         if ct!.court == "Court 5" {
         s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
             if (s2r2 == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
                 s2r2 = nib[5] as? RHSCButtonTableViewCell
             }
-            s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.fullName)
+            s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.buttonText())
             s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
             if (s2r3 == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
                 s2r3 = nib[6] as? RHSCButtonTableViewCell
             }
-            s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.fullName)
+            s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.buttonText())
         }
         s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {
@@ -183,9 +179,12 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                         let textField = alert.textFields![0]
                         self.ct!.players[buttonIndex] = RHSCGuest(withGuestName: textField.text)
                         self.setPlayer(self.ct!.players[buttonIndex], number: UInt16(buttonIndex))
-                    } ))
+                } ))
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,
+                    handler: nil))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                     textField.placeholder = "Guest name:"
+                    textField.text = self.ct!.players[buttonIndex] is RHSCGuest ? (self.ct!.players[buttonIndex] as! RHSCGuest).guestName : ""
                 })
                 self.presentViewController(alert, animated: true, completion: nil)
         })
@@ -225,33 +224,17 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     
     func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
+        ct!.players[Int(number)] = setPlayer
         if number == 2 {
-            ct!.players[2] = setPlayer
-            s2r1?.updateButtonText((setPlayer?.fullName)!)
+            s2r1?.updateButtonText(setPlayer!.buttonText())
         }
         if number == 3 {
-            ct!.players[3] = setPlayer
-            s2r2?.updateButtonText((setPlayer?.fullName)!)
+            s2r2?.updateButtonText(setPlayer!.buttonText())
         }
         if number == 4 {
-            ct!.players[4] = setPlayer
-            s2r3?.updateButtonText((setPlayer?.fullName)!)
+            s2r3?.updateButtonText(setPlayer!.buttonText())
         }
     }
-    
-    func setGuest(guest:RHSCGuest?, number:UInt16) {
-        //    NSLog(@"setGuest %@",guestNumber);
-        if number == 2 {
-            s2r1?.updateButtonText("Guest")
-        }
-        if number == 3 {
-            s2r2?.updateButtonText("Guest")
-        }
-        if number == 4 {
-            s2r3?.updateButtonText("Guest")
-        }
-    }
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "UpdatePlayer2" {
@@ -265,21 +248,6 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         if segue.identifier == "UpdatePlayer4" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
             (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 4
-        }
-        if segue.identifier == "UpdateGuest2" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest2
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 2
-        }
-        if segue.identifier == "UpdateGuest3" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest3
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 3
-        }
-        if segue.identifier == "UpdateGuest4" {
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).delegate = self
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guest = self.guest4
-            (segue.destinationViewController as! RHSCGuestDetailsViewController).guestNumber = 4
         }
     }
     
@@ -313,15 +281,16 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         let g2name = self.ct!.players[2] is RHSCGuest ? (self.ct!.players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g3name = self.ct!.players[3] is RHSCGuest ? (self.ct!.players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g4name = self.ct!.players[4] is RHSCGuest ? (self.ct!.players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
-        let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
+        let pl2 = (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!
+        let pl3 = self.ct!.court == "Court 5" ? (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")! : ""
+        let pl4 = self.ct!.court == "Court 5" ? (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")! : ""
+        let urlstr = String.init(format: "Reserve20/IOSUpdateBookingJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
             arguments: [self.ct!.bookingId!,
-                (self.ct!.players[1] != nil ? self.ct!.players[1]?.name : "")!,
-                (self.ct!.players[2] != nil ? self.ct!.players[2]?.name : "")!,
-                self.ct!.court == "Court 5" ? (self.ct!.players[3] != nil ? self.ct!.players[3]?.name : "")! : "",
-                self.ct!.court == "Court 5" ? (self.ct!.players[4] != nil ? self.ct!.players[4]?.name : "")! : "",
-                tbc.currentUser!.name!,"iPhone", g2name, g3name, g4name,
+                tbc.currentUser!.name!, pl2, pl3, pl4,
+                tbc.currentUser!.name!,"iPhone", g2name!, g3name!, g4name!,
                 "iPhone", (self.ct?.court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
                 (self.s3r0?.eventType?.text)!])
+//        print(urlstr)
         let url = NSURL(string: urlstr, relativeToURL: tbc.server )
         //        NSLog(@"fetch URL = %@",fetchURL);
         let session = NSURLSession.sharedSession()

@@ -94,7 +94,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
     }
     
     @IBAction func includeChanged() {
-        let incText = (self.incBookings!.on ? "Show only Booked courts" : "Show only Available courts")
+        let incText = (self.incBookings!.on ? "Showing only Booked courts" : "Showing only Available courts")
         self.errorAlert = UIAlertController(title: "",
             message: incText, preferredStyle: .Alert)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

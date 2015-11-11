@@ -138,4 +138,8 @@ import Foundation
             }
         }
     }
+    
+    func buttonText() -> String {
+        return fullName!
+    }
 }
