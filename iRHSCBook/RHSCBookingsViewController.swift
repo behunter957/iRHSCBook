@@ -56,7 +56,21 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.contentView.backgroundColor = UIColor.bookedBlue()
+        let curCourtTime = self.bookingList.bookingList[indexPath.row]
+        switch curCourtTime.status! {
+        case "Booked","Reserved":
+            switch curCourtTime.event! {
+            case "Lesson","Clinic","School":
+                cell.contentView.backgroundColor = UIColor.lessonYellow()
+            case "T&D","MNHL","Ladder","RoundRobin","Tournament":
+                cell.contentView.backgroundColor = UIColor.leaguePurple()
+            default:
+                cell.contentView.backgroundColor = UIColor.bookedBlue()
+            }
+            break
+        default:
+            cell.contentView.backgroundColor = UIColor.availableGreen()
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -78,8 +92,17 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
         }
         cell.textLabel!.backgroundColor = UIColor.clearColor()
         cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
-        cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.detailTextLabel!.textColor = UIColor.whiteColor()
+        switch ct.event! {
+        case "Lesson","Clinic","School":
+            cell.textLabel!.textColor = UIColor.blackColor()
+            cell.detailTextLabel!.textColor = UIColor.blackColor()
+        case "T&D","MNHL","Ladder","RoundRobin","Tournament":
+            cell.textLabel!.textColor = UIColor.whiteColor()
+            cell.detailTextLabel!.textColor = UIColor.whiteColor()
+        default:
+            cell.textLabel!.textColor = UIColor.whiteColor()
+            cell.detailTextLabel!.textColor = UIColor.whiteColor()
+        }
         cell.accessoryType = .None
         return cell;
     }
@@ -102,6 +125,7 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
             {
                 (alert: UIAlertAction!) -> Void in
+                    tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //                print("TBD")
         })
         optionMenu.addAction(updateAction)

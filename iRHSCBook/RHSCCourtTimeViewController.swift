@@ -190,7 +190,6 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
             default:
                 cell.contentView.backgroundColor = UIColor.availableGreen()
         }
-
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -336,7 +335,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
-                        //                print("TBD")
+                            tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 })
                 optionMenu.addAction(updateAction)
                 optionMenu.addAction(unbookAction)

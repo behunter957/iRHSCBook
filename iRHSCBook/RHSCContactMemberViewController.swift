@@ -116,6 +116,10 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
                 (alert: UIAlertAction!) -> Void in
                 self.sms2Member()
         })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+        })
         if member!.email != "" {
             optionMenu.addAction(emailAction)
         }
@@ -127,6 +131,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
             optionMenu.addAction(phone2Action)
             optionMenu.addAction(sms2Action)
         }
+        optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
 
