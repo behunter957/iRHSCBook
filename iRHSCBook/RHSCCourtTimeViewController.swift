@@ -200,52 +200,56 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
             let nib = NSBundle.mainBundle().loadNibNamed(rhscCourtTimeTableIdentifier, owner: self, options: nil)
             cell = nib[0] as! RHSCCourtTimeTableViewCell
         }
-    
-        let ct = self.courtTimes[indexPath.row]
-    
-        let dtFormatter = NSDateFormatter()
-        dtFormatter.locale = NSLocale.systemLocale()
-        dtFormatter.dateFormat = "h:mm a"
-    
-        let rcell = (cell as! RHSCCourtTimeTableViewCell)
-        rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
-        rcell.statusLabel!.text = ct.status;
-        if (ct.status == "Booked") || (ct.status == "Reserved") {
-            rcell.statusLabel!.textColor = UIColor.redColor()
-            rcell.typeAndPlayersLabel!.text = ct.summary!
-            switch ct.status! {
-            case "Booked","Reserved":
-                switch ct.event! {
-                case "Lesson","Clinic","School":
-                    rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
-                    rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
-                    rcell.statusLabel!.textColor = UIColor.blackColor()
-                case "T&D","MNHL","Ladder","RoundRobin","Tournament":
-                    rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-                    rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-                    rcell.statusLabel!.textColor = UIColor.whiteColor()
+        if indexPath.row < self.courtTimes.count {
+            let ct = self.courtTimes[indexPath.row]
+            
+            let dtFormatter = NSDateFormatter()
+            dtFormatter.locale = NSLocale.systemLocale()
+            dtFormatter.dateFormat = "h:mm a"
+            
+            let rcell = (cell as! RHSCCourtTimeTableViewCell)
+            rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
+            rcell.statusLabel!.text = ct.status;
+            if (ct.status == "Booked") || (ct.status == "Reserved") {
+                rcell.statusLabel!.textColor = UIColor.redColor()
+                rcell.typeAndPlayersLabel!.text = ct.summary!
+                switch ct.status! {
+                case "Booked","Reserved":
+                    switch ct.event! {
+                    case "Lesson","Clinic","School":
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
+                        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
+                        rcell.statusLabel!.textColor = UIColor.blackColor()
+                    case "T&D","MNHL","Ladder","RoundRobin","Tournament":
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+                        rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+                        rcell.statusLabel!.textColor = UIColor.whiteColor()
+                    default:
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
+                        rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
+                        rcell.statusLabel!.textColor = UIColor.whiteColor()
+                    }
+                    break
                 default:
                     rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
                     rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
                     rcell.statusLabel!.textColor = UIColor.whiteColor()
                 }
-                break
-            default:
+                if (ct.bookedForUser) {
+                    rcell.statusLabel!.textColor = UIColor.redColor()
+                }
+            } else {
+                rcell.typeAndPlayersLabel!.text = ""
                 rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
                 rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
                 rcell.statusLabel!.textColor = UIColor.whiteColor()
             }
-            if (ct.bookedForUser) {
-                rcell.statusLabel!.textColor = UIColor.redColor()
-            }
+            rcell.accessoryType = .None
+            return rcell
         } else {
-            rcell.typeAndPlayersLabel!.text = ""
-            rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-            rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-            rcell.statusLabel!.textColor = UIColor.whiteColor()
+            print("unexpected out of range row=\(indexPath.row), container size=\(self.courtTimes.count)" )
+            return UITableViewCell()
         }
-        rcell.accessoryType = .None
-        return rcell;
     }
 
     @IBAction func syncCourts(sender:AnyObject?) {
