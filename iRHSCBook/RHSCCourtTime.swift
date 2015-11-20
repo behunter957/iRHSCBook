@@ -66,7 +66,8 @@ import Foundation
             bookedForUser = (player1_id == userId) || (player2_id == userId) || (player3_id == userId) || (player4_id == userId)
             if court == "Court 5" {
                 if (player1_id == "") || (player2_id == "") || (player3_id == "") || (player4_id == "") {
-                    summary = String.init(format: "%@ - %@",[event!,eventDesc!])
+                    summary = String.init(format: "%@ - %@",
+                        arguments: [event!,eventDesc!])
                 } else {
                     summary = String.init(format: "%@ - %@,%@,%@,%@",
                         arguments: [event!,
@@ -80,7 +81,8 @@ import Foundation
                 players[3] = player3_id == "TBD" ? members.EMPTY : players[3]
                 players[3] = player3_id == "TBD" ? members.EMPTY : players[3]
                 if (player1_id == "") || (player2_id == "") {
-                    summary = String.init(format: "%@ - %@",[event!,eventDesc!])
+                    summary = String.init(format: "%@ - %@",
+                        arguments: [event!,eventDesc!])
                 } else {
                     summary = String.init(format: "%@ - %@,%@",
                         arguments: [event!,
