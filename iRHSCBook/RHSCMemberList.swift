@@ -49,7 +49,7 @@ import Foundation
                     // Create a new Location object for each one and initialise it with information in the dictionary
                     let member = RHSCMember(fromJSONDictionary:dict )
                     // Add the Location object to the array
-                    memberDict[member.name!] = member
+                    memberDict[member.name!.lowercaseString ] = member
                     memberList.append(member)
                 }
                 isLoaded = (self.memberList.count != 0);

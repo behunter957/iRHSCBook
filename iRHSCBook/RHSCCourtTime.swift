@@ -56,13 +56,13 @@ import Foundation
             players[4] = members.EMPTY
             summary = String.init(format: "%@ - %@",arguments: [event!,eventDesc!])
         } else if ["MNHL","Tournament"].contains(event!) {
-            players[1] = player1_id == "" ? members.EMPTY : (player1_id == "TBD" ? members.TBD :  ml[player1_id!])
+            players[1] = player1_id == "" ? members.EMPTY : (player1_id == "TBD" ? members.TBD :  ml[player1_id!.lowercaseString])
             players[2] = player2_id == "" ? members.EMPTY : (player2_id == "TBD" ? members.TBD :
-                (player2_id == "Guest" ? RHSCGuest(withGuestName: g2name) : ml[player2_id!]))
+                (player2_id == "Guest" ? RHSCGuest(withGuestName: g2name) : ml[player2_id!.lowercaseString]))
             players[3] = player3_id == "" ? members.EMPTY : (player3_id == "TBD" ? members.TBD :
-                (player3_id == "Guest" ? RHSCGuest(withGuestName: g3name) : ml[player3_id!]))
+                (player3_id == "Guest" ? RHSCGuest(withGuestName: g3name) : ml[player3_id!.lowercaseString]))
             players[4] = player4_id == "" ? members.EMPTY : (player4_id == "TBD" ? members.TBD :
-                (player4_id == "Guest" ? RHSCGuest(withGuestName: g4name) : ml[player4_id!]))
+                (player4_id == "Guest" ? RHSCGuest(withGuestName: g4name) : ml[player4_id!.lowercaseString]))
             bookedForUser = (player1_id == userId) || (player2_id == userId) || (player3_id == userId) || (player4_id == userId)
             if court == "Court 5" {
                 if (player1_id == "") || (player2_id == "") || (player3_id == "") || (player4_id == "") {
@@ -95,28 +95,28 @@ import Foundation
             if (player1_id == "TBD") || (player1_id == "") {
                 players[1] = members.TBD
             } else {
-                players[1] = ml[player1_id!]
+                players[1] = ml[player1_id!.lowercaseString]
             }
             if (player2_id == "TBD") || (player2_id == "") {
                 players[2] = members.TBD
             } else if player2_id == "Guest" {
                 players[2] = RHSCGuest(withGuestName: g2name)
             } else {
-                players[2] = ml[player2_id!]
+                players[2] = ml[player2_id!.lowercaseString]
             }
             if (player3_id == "TBD") || (player3_id == "") {
                 players[3] = members.TBD
             } else if player3_id == "Guest" {
                 players[3] = RHSCGuest(withGuestName: g3name)
             } else {
-                players[3] = ml[player3_id!]
+                players[3] = ml[player3_id!.lowercaseString]
             }
             if (player4_id == "TBD") || (player4_id == "") {
                 players[4] = members.TBD
             } else if player4_id == "Guest" {
                 players[4] = RHSCGuest(withGuestName: g4name)
             } else {
-                players[4] = ml[player4_id!]
+                players[4] = ml[player4_id!.lowercaseString]
             }
             if court == "Court 5" {
                 summary = String.init(format: "%@ - %@,%@,%@,%@",
