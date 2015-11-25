@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A1471D41C0651A400D824D3 /* RHSCHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */; };
+		4A1471D71C06528C00D824D3 /* RHSCHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1471D61C06528C00D824D3 /* RHSCHistoryViewController.swift */; };
 		4A2EDE031BDD7B270012CC4E /* RHSCMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE021BDD7B270012CC4E /* RHSCMemberList.swift */; };
 		4A2EDE051BDD8AC00012CC4E /* RHSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE041BDD8AC00012CC4E /* RHSCServer.swift */; };
 		4A2EDE071BDD8DA80012CC4E /* RHSCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE061BDD8DA80012CC4E /* RHSCUser.swift */; };
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryList.swift; sourceTree = "<group>"; };
+		4A1471D61C06528C00D824D3 /* RHSCHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryViewController.swift; sourceTree = "<group>"; };
 		4A2EDE021BDD7B270012CC4E /* RHSCMemberList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMemberList.swift; sourceTree = "<group>"; };
 		4A2EDE041BDD8AC00012CC4E /* RHSCServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCServer.swift; sourceTree = "<group>"; };
 		4A2EDE061BDD8DA80012CC4E /* RHSCUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCUser.swift; sourceTree = "<group>"; };
@@ -132,6 +136,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A1471D51C06526400D824D3 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				4A1471D61C06528C00D824D3 /* RHSCHistoryViewController.swift */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
 		4AD36F22196FE5310015BB52 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +155,7 @@
 				4A2EDE0A1BDD8DE20012CC4E /* RHSCCourtTime.swift */,
 				4A2EDE0C1BDD8E080012CC4E /* RHSCMyBookingsList.swift */,
 				4A2EDE301BE974F50012CC4E /* RHSCColors.swift */,
+				4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -150,6 +163,7 @@
 		4AD36F23196FE5710015BB52 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4A1471D51C06526400D824D3 /* History */,
 				4AD36F26196FE5A30015BB52 /* Members */,
 				4AD36F25196FE59B0015BB52 /* Bookings */,
 				4AD36F24196FE5870015BB52 /* Courts */,
@@ -381,6 +395,7 @@
 				4AB4C5E51BF2143200EBDED9 /* RHSCContactMemberViewController.swift in Sources */,
 				4A2EDE1F1BE25A5C0012CC4E /* RHSCCourtTimeViewController.swift in Sources */,
 				4A2EDE091BDD8DC00012CC4E /* RHSCGuest.swift in Sources */,
+				4A1471D41C0651A400D824D3 /* RHSCHistoryList.swift in Sources */,
 				4A2EDE0B1BDD8DE20012CC4E /* RHSCCourtTime.swift in Sources */,
 				4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */,
 				4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */,
@@ -395,6 +410,7 @@
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,
 				4A2EDE371BED5C1C0012CC4E /* RHSCBookCourtViewController.swift in Sources */,
 				4AB35CF61BF0150C00CABFF1 /* RHSCUpdateCourtViewController.swift in Sources */,
+				4A1471D71C06528C00D824D3 /* RHSCHistoryViewController.swift in Sources */,
 				ACE70CF51BEE5CDE00999569 /* RHSCTextTableViewCell.swift in Sources */,
 				4A2EDE151BDED8DE0012CC4E /* RHSCTabBarController.swift in Sources */,
 				4A2EDE111BDED34D0012CC4E /* RHSCMembersViewController.swift in Sources */,

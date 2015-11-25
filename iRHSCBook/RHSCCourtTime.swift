@@ -19,6 +19,7 @@ import Foundation
     var bookedForUser : Bool = false
     var summary : String? = nil
     var players = Dictionary<Int,RHSCMember>()
+    var isNoShow : Bool = false
     
     func nullToString(value:AnyObject?) -> String? {
         if value is NSNull {
@@ -40,6 +41,7 @@ import Foundation
         status = nullToString(jsonDictionary["courtStatus"])
         event = nullToString(jsonDictionary["courtEvent"])
         eventDesc = nullToString(jsonDictionary["eventDesc"])
+        isNoShow = (nullToString(jsonDictionary["noshow"]) == "true")
         let ml = members.memberDict
         bookedForUser = false;
         let player1_id = nullToString(jsonDictionary["player1_id"])

@@ -19,13 +19,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="QwW-Sp-DNa" kind="relationship" relationship="viewControllers" id="hkP-2T-U49"/>
+                        <segue destination="Iar-0g-w5A" kind="relationship" relationship="viewControllers" id="y3d-Nv-tHe"/>
                         <segue destination="Nsk-AX-vCz" kind="relationship" relationship="viewControllers" id="ryu-kL-ant"/>
                         <segue destination="1lk-ak-SZG" kind="relationship" relationship="viewControllers" id="8aL-pJ-FwN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1942" y="772"/>
+            <point key="canvasLocation" x="-2218" y="1062"/>
         </scene>
         <!--Court Time View Controller-->
         <scene sceneID="ccz-q6-nhL">
@@ -293,6 +294,58 @@
             </objects>
             <point key="canvasLocation" x="-1124" y="1617"/>
         </scene>
+        <!--History List-->
+        <scene sceneID="eki-zm-CSI">
+            <objects>
+                <tableViewController storyboardIdentifier="History" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RD8-ED-kkt" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WFr-Ol-5IQ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="71o-iv-oXA">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="71o-iv-oXA" id="h4q-uu-via">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="RD8-ED-kkt" id="ya4-fc-wAQ"/>
+                            <outlet property="delegate" destination="RD8-ED-kkt" id="6Ih-qj-33b"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="History List" id="d4a-yP-0iW"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KwL-In-1FF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-826" y="2580"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="agW-3a-TZ9">
+            <objects>
+                <navigationController id="Iar-0g-w5A" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="History" id="z9W-La-oS0"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="OHR-52-JHa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RD8-ED-kkt" kind="relationship" relationship="rootViewController" id="JiG-Kj-HXG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rfg-fl-EIZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1558" y="2580"/>
+        </scene>
         <!--Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
             <objects>
@@ -456,6 +509,7 @@
     </scenes>
     <resources>
         <image name="Book" width="25" height="22"/>
+        <image name="History" width="25" height="20"/>
         <image name="Members" width="31" height="29"/>
         <image name="Search" width="25" height="24"/>
     </resources>
