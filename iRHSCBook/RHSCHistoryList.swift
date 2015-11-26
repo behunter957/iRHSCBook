@@ -33,7 +33,7 @@ import Foundation
     func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList) {
         do {
             if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
-                let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
+                let array : Array<NSDictionary> = jsonDictionary["history"]! as! Array<NSDictionary>
                 for dict in array {
                     historyList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
                 }

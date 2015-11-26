@@ -50,5 +50,5 @@ extension UIColor {
     }
     
     // Global Function
-//    class func primaryColor() -> UIColor { return ralphRed() }
+    //    class func primaryColor() -> UIColor { return ralphRed() }
 }

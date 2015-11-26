@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 9.0, *)
-class RHSCHistoryViewController : UITableViewController,cancelCourtProtocol,NSFileManagerDelegate {
+class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     
     var historyList = RHSCHistoryList()
     var selectedBooking : RHSCCourtTime? = nil
@@ -64,26 +64,29 @@ class RHSCHistoryViewController : UITableViewController,cancelCourtProtocol,NSFi
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyBookingCell", forIndexPath: indexPath)
+        let rhscHistoryTableIdentifier = "RHSCHistoryTableViewCell"
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier(rhscHistoryTableIdentifier)
+        if (cell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed(rhscHistoryTableIdentifier, owner: self, options: nil)
+            cell = nib[0] as! RHSCHistoryTableViewCell
+        }
         // Configure the cell...
         let ct = self.historyList.historyList[indexPath.row]
         let dtFormatter = NSDateFormatter()
-        dtFormatter.dateFormat = "EEE, MMM d - h:mm a"
+        dtFormatter.locale = NSLocale.systemLocale()
+        dtFormatter.dateFormat = "EEE, MM d 'at' h:mm a"
         
-        cell.textLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,
-            dtFormatter.stringFromDate(ct.courtTime!)])
-        if ct.court == "Court 5" {
-            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@,%@,%@", arguments: ["Doubles",
-                ct.players[1]!.lastName!,ct.players[2]!.lastName!,
-                ct.players[3]!.lastName!,ct.players[4]!.lastName!])
-        } else {
-            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@", arguments: [ct.event!,
-                ct.players[1]!.lastName!,ct.players[2]!.lastName!])
-        }
-        cell.textLabel!.textColor = UIColor.blackColor()
-        cell.detailTextLabel!.textColor = UIColor.blackColor()
-        cell.accessoryType = .None
-        return cell;
+        let rcell = (cell as! RHSCHistoryTableViewCell)
+        rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
+        rcell.noShowIndLabel!.text = ct.isNoShow ? "No Show" : "";
+        rcell.typeAndPlayersLabel!.text = ct.summary!
+        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
+        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
+        rcell.noShowIndLabel!.textColor = UIColor.blackColor()
+
+        rcell.accessoryType = .None
+        return rcell;
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -115,10 +118,10 @@ class RHSCHistoryViewController : UITableViewController,cancelCourtProtocol,NSFi
         }
         if segue.identifier == "ReportNoShow" {
             // set the selectionSet and selectionDate properties
-            (segue.destinationViewController as! RHSCCancelCourtViewController).delegate = self
-            (segue.destinationViewController as! RHSCCancelCourtViewController).ct = self.selectedBooking
+            (segue.destinationViewController as! RHSCReportNoShowViewController).delegate = self
+            (segue.destinationViewController as! RHSCReportNoShowViewController).ct = self.selectedBooking
             let tbc = self.tabBarController as! RHSCTabBarController
-            (segue.destinationViewController as! RHSCCancelCourtViewController).user = tbc.currentUser
+            (segue.destinationViewController as! RHSCReportNoShowViewController).user = tbc.currentUser
         }
     }
     
