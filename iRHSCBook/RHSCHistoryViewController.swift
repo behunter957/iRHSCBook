@@ -91,6 +91,11 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         //    NSLog(@"Selected row : %d",row);
         self.selectedBooking = self.historyList.historyList[indexPath.row]
         let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
+        let recordScoresAction = UIAlertAction(title: "Record Scores", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                self.performSegueWithIdentifier("RecordScores", sender: self)
+        })
         let reportNoShowAction = UIAlertAction(title: "Report No-Show", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
@@ -102,6 +107,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //                print("TBD")
         })
+        optionMenu.addAction(recordScoresAction)
         optionMenu.addAction(reportNoShowAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
@@ -114,10 +120,10 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         if segue.identifier == "RecordScores" {
             // lock the court
             // set the selectedCourtTime record
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).delegate = self
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).ct = self.selectedBooking
+            (segue.destinationViewController as! RHSCRecordScoresViewController).delegate = self
+            (segue.destinationViewController as! RHSCRecordScoresViewController).ct = self.selectedBooking
             let tbc = self.tabBarController as! RHSCTabBarController
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).user = tbc.currentUser
+            (segue.destinationViewController as! RHSCRecordScoresViewController).user = tbc.currentUser
         }
         if segue.identifier == "ReportNoShow" {
             // set the selectionSet and selectionDate properties

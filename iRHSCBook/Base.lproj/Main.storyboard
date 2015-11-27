@@ -44,11 +44,11 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1gt-U2-Bbh" id="Z7n-GH-r5d">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fZg-E3-8TQ">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -140,11 +140,11 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gRl-Qt-LUT" id="6CV-hH-4zJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7qt-xK-SN1">
-                                            <rect key="frame" x="15" y="4" width="35.5" height="21.5"/>
+                                            <rect key="frame" x="15" y="3" width="36" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -152,7 +152,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iKD-t7-f7Z">
-                                            <rect key="frame" x="15" y="25.5" width="33" height="14.5"/>
+                                            <rect key="frame" x="15" y="25" width="33" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -309,7 +309,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="71o-iv-oXA" id="h4q-uu-via">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -325,6 +325,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="Yf1-Jz-NbL" kind="push" identifier="ReportNoShow" id="Mm2-Aa-mIq"/>
+                        <segue destination="PS4-8W-ndJ" kind="push" identifier="RecordScores" id="dfb-On-EJQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KwL-In-1FF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -359,7 +360,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8DA-Hp-zyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-209" y="2459"/>
+            <point key="canvasLocation" x="-107" y="2251"/>
+        </scene>
+        <!--Record Scores-->
+        <scene sceneID="hvp-YG-WJH">
+            <objects>
+                <viewController storyboardIdentifier="Record Scores" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PS4-8W-ndJ" customClass="RHSCRecordScoresViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CES-8Q-ZEg">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="PS4-8W-ndJ" id="e1x-xr-3dj"/>
+                            <outlet property="delegate" destination="PS4-8W-ndJ" id="afA-HB-K6S"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Record Scores" id="iVP-pg-uDL">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Z2B-CT-D6X">
+                            <connections>
+                                <action selector="recordScores" destination="PS4-8W-ndJ" id="0gH-xK-GT9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="formTable" destination="CES-8Q-ZEg" id="bjO-dC-KsP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aEI-eV-AW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-126" y="2928"/>
         </scene>
         <!--History-->
         <scene sceneID="agW-3a-TZ9">
@@ -548,8 +579,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="del-6M-c7h"/>
-        <segue reference="hUA-ux-bju"/>
+        <segue reference="vCP-6t-2Mf"/>
+        <segue reference="ZgL-mx-E6N"/>
         <segue reference="fhe-Re-Lyc"/>
     </inferredMetricsTieBreakers>
 </document>

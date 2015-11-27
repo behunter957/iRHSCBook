@@ -40,6 +40,10 @@
 		4AF4171F1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4171E1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift */; };
 		4AF417211C0782B600C2CA2E /* RHSCReportNoShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF417201C0782B600C2CA2E /* RHSCReportNoShowViewController.swift */; };
 		4AF417231C0786A400C2CA2E /* RHSCReportNoShowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AF417221C0786A400C2CA2E /* RHSCReportNoShowTableViewCell.xib */; };
+		4AF417251C08932F00C2CA2E /* RHSCRecordScoresTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AF417241C08932F00C2CA2E /* RHSCRecordScoresTableViewCell.xib */; };
+		4AF417271C089EB900C2CA2E /* RHSCRecordScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF417261C089EB900C2CA2E /* RHSCRecordScoresViewController.swift */; };
+		4AF4172B1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */; };
+		4AF4172D1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
@@ -100,6 +104,10 @@
 		4AF4171E1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		4AF417201C0782B600C2CA2E /* RHSCReportNoShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCReportNoShowViewController.swift; sourceTree = "<group>"; };
 		4AF417221C0786A400C2CA2E /* RHSCReportNoShowTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCReportNoShowTableViewCell.xib; sourceTree = "<group>"; };
+		4AF417241C08932F00C2CA2E /* RHSCRecordScoresTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCRecordScoresTableViewCell.xib; sourceTree = "<group>"; };
+		4AF417261C089EB900C2CA2E /* RHSCRecordScoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCRecordScoresViewController.swift; sourceTree = "<group>"; };
+		4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTeamSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTeamScoresTableViewCell.swift; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC3383195EF27F00F7562F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACAC3385195EF27F00F7562F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -152,6 +160,10 @@
 				4AF4171E1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift */,
 				4AF417201C0782B600C2CA2E /* RHSCReportNoShowViewController.swift */,
 				4AF417221C0786A400C2CA2E /* RHSCReportNoShowTableViewCell.xib */,
+				4AF417241C08932F00C2CA2E /* RHSCRecordScoresTableViewCell.xib */,
+				4AF417261C089EB900C2CA2E /* RHSCRecordScoresViewController.swift */,
+				4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */,
+				4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -381,6 +393,7 @@
 				4AF417231C0786A400C2CA2E /* RHSCReportNoShowTableViewCell.xib in Resources */,
 				4AF4171D1C074D3500C2CA2E /* RHSCHistoryTableViewCell.xib in Resources */,
 				ACAC339F195EF27F00F7562F /* Images.xcassets in Resources */,
+				4AF417251C08932F00C2CA2E /* RHSCRecordScoresTableViewCell.xib in Resources */,
 				4AB4C5E91BF215C300EBDED9 /* RHSCContactMemberTableViewCell.xib in Resources */,
 				ACAC338E195EF27F00F7562F /* InfoPlist.strings in Resources */,
 				4A2EDE3B1BED83120012CC4E /* RHSCBookCourtTableViewCell.xib in Resources */,
@@ -405,6 +418,7 @@
 			files = (
 				4AB35CF81BF14FB400CABFF1 /* RHSCCancelCourtViewController.swift in Sources */,
 				4A2EDE251BE421C10012CC4E /* RHSCFindMemberViewController.swift in Sources */,
+				4AF417271C089EB900C2CA2E /* RHSCRecordScoresViewController.swift in Sources */,
 				4A2EDE211BE25ABE0012CC4E /* RHSCCourtTimeTableViewCell.swift in Sources */,
 				4AB4C5E51BF2143200EBDED9 /* RHSCContactMemberViewController.swift in Sources */,
 				4A2EDE1F1BE25A5C0012CC4E /* RHSCCourtTimeViewController.swift in Sources */,
@@ -417,6 +431,8 @@
 				4A2EDE051BDD8AC00012CC4E /* RHSCServer.swift in Sources */,
 				4A2EDE411BEE929F0012CC4E /* RHSCPickerTableViewCell.swift in Sources */,
 				ACE70CF11BEE583300999569 /* RHSCLabelTableViewCell.swift in Sources */,
+				4AF4172D1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift in Sources */,
+				4AF4172B1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift in Sources */,
 				4A2EDE1D1BE2253A0012CC4E /* RHSCBookingsViewController.swift in Sources */,
 				4A2EDE0D1BDD8E080012CC4E /* RHSCMyBookingsList.swift in Sources */,
 				4A2EDE311BE974F50012CC4E /* RHSCColors.swift in Sources */,
