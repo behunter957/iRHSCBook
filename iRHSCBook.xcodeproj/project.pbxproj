@@ -342,7 +342,7 @@
 			attributes = {
 				CLASSPREFIX = RHSC;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Richmond Hill Squash Club";
+				ORGANIZATIONNAME = "Bruce Hunter";
 				TargetAttributes = {
 					ACAC337F195EF27F00F7562F = {
 						DevelopmentTeam = FLLCB46B75;

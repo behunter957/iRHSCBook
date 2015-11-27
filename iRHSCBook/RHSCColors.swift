@@ -3,7 +3,7 @@
 //  iRHSCBook
 //
 //  Created by Bruce Hunter on 2015-11-03.
-//  Copyright © 2015 Richmond Hill Squash Club. All rights reserved.
+//  Copyright © 2015 Bruce Hunter. All rights reserved.
 //
 // green: (available)  #A4FF98 (164,255,152)
 // yellow: (lesson/clinic)  #FEFC70 (254,252,112)
