@@ -81,9 +81,6 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
         rcell.noShowIndLabel!.text = ct.isNoShow ? "No Show" : "";
         rcell.typeAndPlayersLabel!.text = ct.summary!
-        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
-        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
-        rcell.noShowIndLabel!.textColor = UIColor.blackColor()
 
         rcell.accessoryType = .None
         return rcell;
@@ -94,12 +91,18 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         //    NSLog(@"Selected row : %d",row);
         self.selectedBooking = self.historyList.historyList[indexPath.row]
         let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
+        let reportNoShowAction = UIAlertAction(title: "Report No-Show", style: .Default, handler:
+            {
+                (alert: UIAlertAction!) -> Void in
+                self.performSegueWithIdentifier("ReportNoShow", sender: self)
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //                print("TBD")
         })
+        optionMenu.addAction(reportNoShowAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }

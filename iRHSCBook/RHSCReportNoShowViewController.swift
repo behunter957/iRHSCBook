@@ -50,28 +50,28 @@ class RHSCReportNoShowViewController : UIViewController, UITableViewDataSource, 
         dateCell = formTable.dequeueReusableCellWithIdentifier("NoShow Date") as? RHSCLabelTableViewCell
         if (dateCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            dateCell = nib[0] as? RHSCLabelTableViewCell
+            dateCell = nib[1] as? RHSCLabelTableViewCell
         }
         dateCell?.configure(ct!.court)
         
         timeCell = formTable.dequeueReusableCellWithIdentifier("NoShow Time") as? RHSCLabelTableViewCell
         if (timeCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            timeCell = nib[0] as? RHSCLabelTableViewCell
+            timeCell = nib[2] as? RHSCLabelTableViewCell
         }
         timeCell?.configure(ct!.court)
         
         player1Cell = formTable.dequeueReusableCellWithIdentifier("NoShow Player1") as? RHSCLabelTableViewCell
         if (player1Cell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            player1Cell = nib[0] as? RHSCLabelTableViewCell
+            player1Cell = nib[3] as? RHSCLabelTableViewCell
         }
         player1Cell?.configure(ct!.players[1]!.buttonText())
         
         player2Cell = formTable.dequeueReusableCellWithIdentifier("NoShow Player2") as? RHSCLabelTableViewCell
         if (player2Cell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            player2Cell = nib[0] as? RHSCLabelTableViewCell
+            player2Cell = nib[4] as? RHSCLabelTableViewCell
         }
         player2Cell?.configure(ct!.players[2]!.buttonText())
         
@@ -79,14 +79,14 @@ class RHSCReportNoShowViewController : UIViewController, UITableViewDataSource, 
             player3Cell = formTable.dequeueReusableCellWithIdentifier("NoShow Player3") as? RHSCLabelTableViewCell
             if (player3Cell == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-                player3Cell = nib[0] as? RHSCLabelTableViewCell
+                player3Cell = nib[5] as? RHSCLabelTableViewCell
             }
             player3Cell?.configure(ct!.players[3]!.buttonText())
             
             player4Cell = formTable.dequeueReusableCellWithIdentifier("NoShow Player4") as? RHSCLabelTableViewCell
             if (player4Cell == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-                player4Cell = nib[0] as? RHSCLabelTableViewCell
+                player4Cell = nib[6] as? RHSCLabelTableViewCell
             }
             player4Cell?.configure(ct!.players[4]!.buttonText())
             
@@ -95,23 +95,23 @@ class RHSCReportNoShowViewController : UIViewController, UITableViewDataSource, 
         typeCell = formTable.dequeueReusableCellWithIdentifier("NoShow Type") as? RHSCLabelTableViewCell
         if (typeCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            typeCell = nib[0] as? RHSCLabelTableViewCell
+            typeCell = nib[7] as? RHSCLabelTableViewCell
         }
         typeCell?.configure(ct!.event)
         
         descCell = formTable.dequeueReusableCellWithIdentifier("NoShow Desc") as? RHSCLabelTableViewCell
         if (descCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            descCell = nib[0] as? RHSCLabelTableViewCell
+            descCell = nib[8] as? RHSCLabelTableViewCell
         }
         descCell?.configure(ct!.eventDesc)
         
         notesCell = formTable.dequeueReusableCellWithIdentifier("NoShow Notes") as? RHSCTextTableViewCell
         if (notesCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCReportNoShowTableViewCell", owner: self, options: nil)
-            notesCell = nib[0] as? RHSCTextTableViewCell
+            notesCell = nib[9] as? RHSCTextTableViewCell
         }
-        notesCell?.configure("")
+//        notesCell?.configure(" ")
         
         if ct?.court == "Court 5" {
             cells = [[courtTitleCell, dateCell, timeCell],[player1Cell, player2Cell, player3Cell, player4Cell],[typeCell, descCell, notesCell]]
