@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -21,8 +21,11 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     var player2Cell : RHSCTeamSelectionTableViewCell? = nil
     var player3Cell : RHSCTeamSelectionTableViewCell? = nil
     var player4Cell : RHSCTeamSelectionTableViewCell? = nil
-    var team1ScoresCell : RHSCTeamScoresTableViewCell? = nil
-    var team2ScoresCell : RHSCTeamScoresTableViewCell? = nil
+    var game1ScoreCell : RHSCGameScoreTableViewCell? = nil
+    var game2ScoreCell : RHSCGameScoreTableViewCell? = nil
+    var game3ScoreCell : RHSCGameScoreTableViewCell? = nil
+    var game4ScoreCell : RHSCGameScoreTableViewCell? = nil
+    var game5ScoreCell : RHSCGameScoreTableViewCell? = nil
     
     var cells : Array<Array<UITableViewCell?>> = []
     
@@ -87,34 +90,46 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             
         }
 
-        team1ScoresCell = formTable.dequeueReusableCellWithIdentifier("Team1ScoresCell") as? RHSCTeamScoresTableViewCell
-        if (team1ScoresCell == nil) {
+        game1ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
+        if (game1ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            team1ScoresCell = nib[6] as? RHSCTeamScoresTableViewCell
+            game1ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
         }
-        team1ScoresCell?.configure(1, scores: [0,0,0,0,0],gamesWon: 0)
-        team1ScoresCell?.game1ScoreField.delegate = self
-        team1ScoresCell?.game2ScoreField.delegate = self
-        team1ScoresCell?.game3ScoreField.delegate = self
-        team1ScoresCell?.game4ScoreField.delegate = self
-        team1ScoresCell?.game5ScoreField.delegate = self
+        game1ScoreCell?.configure("Game 1")
         
-        team2ScoresCell = formTable.dequeueReusableCellWithIdentifier("Team2ScoresCell") as? RHSCTeamScoresTableViewCell
-        if (team2ScoresCell == nil) {
+        game2ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
+        if (game2ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            team2ScoresCell = nib[7] as? RHSCTeamScoresTableViewCell
+            game2ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
         }
-        team2ScoresCell?.configure(2, scores: [0,0,0,0,0],gamesWon: 0)
-        team2ScoresCell?.game1ScoreField.delegate = self
-        team2ScoresCell?.game2ScoreField.delegate = self
-        team2ScoresCell?.game3ScoreField.delegate = self
-        team2ScoresCell?.game4ScoreField.delegate = self
-        team2ScoresCell?.game5ScoreField.delegate = self
+        game2ScoreCell?.configure("Game 2")
+        
+        game3ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
+        if (game3ScoreCell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
+            game3ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+        }
+        game3ScoreCell?.configure("Game 3")
+        
+        game4ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
+        if (game4ScoreCell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
+            game4ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+        }
+        game4ScoreCell?.configure("Game 4")
+        
+        game5ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
+        if (game5ScoreCell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
+            game5ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+        }
+        game5ScoreCell?.configure("Game 5")
+        
         
         if ct?.court == "Court 5" {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[team1ScoresCell, team2ScoresCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
         } else {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[team1ScoresCell, team2ScoresCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
         }
         
         for sect in cells {
@@ -159,83 +174,13 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         return 0
     }
     
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return indexPath.section == 2 ? 77.0 : 44.0
+    }
+    
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {    //delegate method
-        
-    }
-    
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {  //delegate method
-        return false
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
-        textField.resignFirstResponder()
-        
-        self.updateGamesWon()
-        return true
-    }
-    
-    func updateGamesWon() {
-        let t1g1:Int? = Int(team1ScoresCell!.game1ScoreField.text!)
-        let t1g2:Int? = Int(team1ScoresCell!.game2ScoreField.text!)
-        let t1g3:Int? = Int(team1ScoresCell!.game3ScoreField.text!)
-        let t1g4:Int? = Int(team1ScoresCell!.game4ScoreField.text!)
-        let t1g5:Int? = Int(team1ScoresCell!.game5ScoreField.text!)
-        
-        let t2g1:Int? = Int(team2ScoresCell!.game1ScoreField.text!)
-        let t2g2:Int? = Int(team2ScoresCell!.game2ScoreField.text!)
-        let t2g3:Int? = Int(team2ScoresCell!.game3ScoreField.text!)
-        let t2g4:Int? = Int(team2ScoresCell!.game4ScoreField.text!)
-        let t2g5:Int? = Int(team2ScoresCell!.game5ScoreField.text!)
-        
-        var t1gw = 0
-        var t2gw = 0
-        if ((t1g1 != nil) && (t2g1 != nil)) {
-            if t1g1 > t2g1 {
-                t1gw++
-            }
-            if t2g1 > t1g1 {
-                t2gw++
-            }
-        }
-        if ((t1g2 != nil) && (t2g2 != nil)) {
-            if t1g2 > t2g2 {
-                t1gw++
-            }
-            if t2g2 > t1g2 {
-                t2gw++
-            }
-        }
-        if ((t1g3 != nil) && (t2g3 != nil)) {
-            if t1g3 > t2g3 {
-                t1gw++
-            }
-            if t2g3 > t1g3 {
-                t2gw++
-            }
-        }
-        if ((t1g4 != nil) && (t2g4 != nil)) {
-            if t1g4 > t2g4 {
-                t1gw++
-            }
-            if t2g4 > t1g4 {
-                t2gw++
-            }
-        }
-        if ((t1g5 != nil) && (t2g5 != nil)) {
-            if t1g5 > t2g5 {
-                t1gw++
-            }
-            if t2g5 > t1g5 {
-                t2gw++
-            }
-        }
-        team1ScoresCell!.gamesWonField.text = String(t1gw)
-        team2ScoresCell!.gamesWonField.text = String(t2gw)
-    }
-
     @IBAction func recordScores() {
         return
         let tbc = tabBarController as! RHSCTabBarController
