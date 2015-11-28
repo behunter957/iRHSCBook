@@ -21,11 +21,13 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     var player2Cell : RHSCTeamSelectionTableViewCell? = nil
     var player3Cell : RHSCTeamSelectionTableViewCell? = nil
     var player4Cell : RHSCTeamSelectionTableViewCell? = nil
+    var scoreHeaderCell : UITableViewCell? = nil
     var game1ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game2ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game3ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game4ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game5ScoreCell : RHSCGameScoreTableViewCell? = nil
+    
     
     var cells : Array<Array<UITableViewCell?>> = []
     
@@ -56,7 +58,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
             eventCell = nib[1] as? RHSCLabelTableViewCell
         }
-        eventCell?.configure(String.init(format:"%@ - %@",
+        eventCell?.configure(String.init(format:"%@: %@",
             arguments: [ct!.event! , ct!.eventDesc!]))
         
         player1Cell = formTable.dequeueReusableCellWithIdentifier("Player1Cell") as? RHSCTeamSelectionTableViewCell
@@ -88,6 +90,12 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             }
             player4Cell?.configure(4, setText: ct!.players[4]?.buttonText(),isTeam1: false)
             
+        }
+
+        scoreHeaderCell = formTable.dequeueReusableCellWithIdentifier("TeamTitleCell")
+        if (scoreHeaderCell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
+            scoreHeaderCell = nib[9] as? UITableViewCell
         }
 
         game1ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
@@ -127,9 +135,9 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         
         
         if ct?.court == "Court 5" {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
         } else {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
         }
         
         for sect in cells {
@@ -174,8 +182,15 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         return 0
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 2 ? 77.0 : 44.0
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0,1:
+            return 44.0
+        case 2:
+            return 39.0
+        default:
+            return 47.0
+        }
     }
     
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {

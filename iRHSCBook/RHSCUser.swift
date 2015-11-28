@@ -20,7 +20,8 @@ import Foundation
         super.init(name: userid!)
     }
     
-    func validate(fromServer server:RHSCServer) {
+    func validate(fromServer server:RHSCServer) -> Bool {
+        
 //        print(server.absoluteString)
         let url = NSURL(string: String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", arguments: [userid!, password!]), relativeToURL: server )
 //        print(url!.absoluteString)
@@ -56,7 +57,7 @@ import Foundation
         })
         task.resume()
         dispatch_semaphore_wait(semaphore_logon, DISPATCH_TIME_FOREVER)
-
+        return RHSCUser.loggedOn
     }
     
     func isLoggedOn() -> Bool {

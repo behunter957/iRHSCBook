@@ -58,11 +58,6 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                 // do some task
                 dispatch_async(dispatch_get_main_queue(), {
                     self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                    let delay = 2.0 * Double(NSEC_PER_SEC)
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                    dispatch_after(time, dispatch_get_main_queue(), {
-                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                    })
                 })
             })
         } else {
@@ -76,27 +71,8 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
 //            print("Logging on with: ",userid," ",passwd)
             
             self.currentUser = RHSCUser(forUserid: userid!, forPassword: passwd!)
-            self.currentUser!.validate(fromServer: server!)
-
-            self.memberList = RHSCMemberList()
-
-            if (!self.currentUser!.isLoggedOn()) {
-                self.view.userInteractionEnabled = false
-                // if not found then logon failes
-                self.errorAlert = UIAlertController(title: "Logon Failed",
-                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .Alert)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    // do some task
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                        let delay = 2.0 * Double(NSEC_PER_SEC)
-                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                        dispatch_after(time, dispatch_get_main_queue(), {
-                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                    })
-                })
-            } else {
+            if self.currentUser!.validate(fromServer: server!) {
+                self.memberList = RHSCMemberList()
                 try! self.memberList?.loadFromJSON(fromServer: self.server!)
                 if (!self.memberList!.loadedSuccessfully()) {
                     self.view.userInteractionEnabled = false
@@ -107,15 +83,22 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                         // do some task
                         dispatch_async(dispatch_get_main_queue(), {
                             self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                            })
                         })
                     })
                 }
+            } else {
+                self.view.userInteractionEnabled = false
+                // if not found then logon failes
+                self.errorAlert = UIAlertController(title: "Logon Failed",
+                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    })
+                })
             }
+
         }
     }
     
