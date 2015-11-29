@@ -24,7 +24,7 @@
                 <animations/>
             </tableViewCellContentView>
             <animations/>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="labelField" destination="X2d-Pv-lkW" id="FD5-ow-h0Y"/>
             </connections>
@@ -86,7 +86,7 @@
                 <animations/>
             </tableViewCellContentView>
             <animations/>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="labelField" destination="UIJ-D2-WGs" id="VwX-BM-8tx"/>
             </connections>
@@ -299,7 +299,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <animations/>
             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="highlightedColor"/>
             <point key="canvasLocation" x="236" y="264.5"/>
         </label>
