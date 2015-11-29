@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class RHSCMember : NSObject {
+class RHSCMember : NSObject {
     
     var name : String? = nil
     var email : String? = nil
