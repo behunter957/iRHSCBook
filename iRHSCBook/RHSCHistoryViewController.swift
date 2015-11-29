@@ -35,7 +35,6 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     }
     
     func refreshTable() {
-        self.refreshControl?.endRefreshing()
         self.historyList = RHSCHistoryList()
         // now get the booking list for the current user
         self.asyncLoadHistory()
@@ -43,6 +42,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         //    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         //    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
         //    [self.tableView reloadData];
+        self.refreshControl?.endRefreshing()
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -56,46 +56,56 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let curCourtTime = self.historyList.historyList[indexPath.row]
-        cell.contentView.backgroundColor = UIColor.historyBrown()
-        if curCourtTime.isNoShow {
-            cell.contentView.backgroundColor = UIColor.noshowRed()
+//       print("willDisplayCell:",indexPath.row)
+        if indexPath.row < historyList.historyList.count {
+            let curCourtTime = self.historyList.historyList[indexPath.row]
+            cell.contentView.backgroundColor = UIColor.historyBrown()
+            if curCourtTime.isNoShow {
+                cell.contentView.backgroundColor = UIColor.noshowRed()
+            }
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        let tbc = tabBarController as! RHSCTabBarController
+        let uid = tbc.currentUser?.name
+        var ct : RHSCCourtTime
+
         let rhscHistoryTableIdentifier = "RHSCHistoryTableViewCell"
-        
         var cell = tableView.dequeueReusableCellWithIdentifier(rhscHistoryTableIdentifier)
         if (cell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed(rhscHistoryTableIdentifier, owner: self, options: nil)
             cell = nib[0] as! RHSCHistoryTableViewCell
         }
         // Configure the cell...
-        let ct = self.historyList.historyList[indexPath.row]
-        let dtFormatter = NSDateFormatter()
-        dtFormatter.locale = NSLocale.systemLocale()
-        dtFormatter.dateFormat = "EEE, MM d 'at' h:mm a"
+        if indexPath.row < historyList.historyList.count {
+            ct = self.historyList.historyList[indexPath.row]
+            let dtFormatter = NSDateFormatter()
+            dtFormatter.locale = NSLocale.systemLocale()
+            dtFormatter.dateFormat = "EEE, MM d 'at' h:mm a"
         
-        let rcell = (cell as! RHSCHistoryTableViewCell)
-        rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
-        rcell.noShowIndLabel!.text = ct.isNoShow ? "No Show" : "";
-        rcell.typeAndPlayersLabel!.text = ct.summary!
-
-        rcell.accessoryType = .None
-        return rcell;
+            let rcell = (cell as! RHSCHistoryTableViewCell)
+            rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
+            rcell.noShowIndLabel!.text = ct.isNoShow ? "No Show" : "";
+            rcell.typeAndPlayersLabel!.text = ct.summary!
+            if ((uid == ct.players[1]?.name) || (uid == ct.players[2]?.name) || (uid == ct.players[3]?.name) || (uid == ct.players[4]?.name)) {
+                rcell.typeAndPlayersLabel!.textColor = UIColor.redColor()
+            }
+            rcell.accessoryType = .None
+            return rcell;
+        } else {
+            return cell!
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
         self.selectedBooking = self.historyList.historyList[indexPath.row]
+        let tbc = tabBarController as! RHSCTabBarController
+        let uid = tbc.currentUser?.name
         let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
-        let recordScoresAction = UIAlertAction(title: "Record Scores", style: .Default, handler:
-            {
-                (alert: UIAlertAction!) -> Void in
-                self.performSegueWithIdentifier("RecordScores", sender: self)
-        })
         let reportNoShowAction = UIAlertAction(title: "Report No-Show", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
@@ -107,7 +117,14 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 //                print("TBD")
         })
-        optionMenu.addAction(recordScoresAction)
+        if ((uid == selectedBooking!.players[1]?.name) || (uid == selectedBooking!.players[2]?.name) || (uid == selectedBooking!.players[3]?.name) || (uid == selectedBooking!.players[4]?.name)) {
+            let recordScoresAction = UIAlertAction(title: "Record Scores", style: .Default, handler:
+                {
+                    (alert: UIAlertAction!) -> Void in
+                    self.performSegueWithIdentifier("RecordScores", sender: self)
+            })
+            optionMenu.addAction(recordScoresAction)
+        }
         optionMenu.addAction(reportNoShowAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
