@@ -56,6 +56,7 @@
 		ACAC33A8195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
 		ACAC33B0195EF27F00F7562F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAC33AE195EF27F00F7562F /* InfoPlist.strings */; };
 		ACAC33B2195EF27F00F7562F /* iRHSCBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */; };
+		ACCBC51C1C0B3934000B0C1D /* RHSCScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCBC51B1C0B3934000B0C1D /* RHSCScore.swift */; };
 		ACE70CF11BEE583300999569 /* RHSCLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE70CF01BEE583300999569 /* RHSCLabelTableViewCell.swift */; };
 		ACE70CF31BEE591400999569 /* RHSCButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE70CF21BEE591400999569 /* RHSCButtonTableViewCell.swift */; };
 		ACE70CF51BEE5CDE00999569 /* RHSCTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE70CF41BEE5CDE00999569 /* RHSCTextTableViewCell.swift */; };
@@ -124,6 +125,7 @@
 		ACAC33AD195EF27F00F7562F /* iRHSCBookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iRHSCBookTests-Info.plist"; sourceTree = "<group>"; };
 		ACAC33AF195EF27F00F7562F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iRHSCBookTests.m; sourceTree = "<group>"; };
+		ACCBC51B1C0B3934000B0C1D /* RHSCScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCScore.swift; sourceTree = "<group>"; };
 		ACE70CF01BEE583300999569 /* RHSCLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCLabelTableViewCell.swift; sourceTree = "<group>"; };
 		ACE70CF21BEE591400999569 /* RHSCButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCButtonTableViewCell.swift; sourceTree = "<group>"; };
 		ACE70CF41BEE5CDE00999569 /* RHSCTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				4A2EDE0C1BDD8E080012CC4E /* RHSCMyBookingsList.swift */,
 				4A2EDE301BE974F50012CC4E /* RHSCColors.swift */,
 				4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */,
+				ACCBC51B1C0B3934000B0C1D /* RHSCScore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */,
 				4A2EDE051BDD8AC00012CC4E /* RHSCServer.swift in Sources */,
 				4A2EDE411BEE929F0012CC4E /* RHSCPickerTableViewCell.swift in Sources */,
+				ACCBC51C1C0B3934000B0C1D /* RHSCScore.swift in Sources */,
 				ACE70CF11BEE583300999569 /* RHSCLabelTableViewCell.swift in Sources */,
 				4AF4172D1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift in Sources */,
 				4AF4172B1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift in Sources */,

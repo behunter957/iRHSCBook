@@ -12,7 +12,7 @@ import UIKit
 @available(iOS 9.0, *)
 class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     
-    var historyList = RHSCHistoryList()
+    var history = RHSCHistoryList()
     var selectedBooking : RHSCCourtTime? = nil
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     }
     
     func refreshTable() {
-        self.historyList = RHSCHistoryList()
+        history = RHSCHistoryList()
         // now get the booking list for the current user
         self.asyncLoadHistory()
         
@@ -52,13 +52,13 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.historyList.historyList.count;
+        return history.list.count;
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 //       print("willDisplayCell:",indexPath.row)
-        if indexPath.row < historyList.historyList.count {
-            let curCourtTime = self.historyList.historyList[indexPath.row]
+        if indexPath.row < history.list.count {
+            let curCourtTime = history.list[indexPath.row]
             cell.contentView.backgroundColor = UIColor.historyBrown()
             if curCourtTime.isNoShow {
                 cell.contentView.backgroundColor = UIColor.noshowRed()
@@ -79,8 +79,8 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
             cell = nib[0] as! RHSCHistoryTableViewCell
         }
         // Configure the cell...
-        if indexPath.row < historyList.historyList.count {
-            ct = self.historyList.historyList[indexPath.row]
+        if indexPath.row < history.list.count {
+            ct = history.list[indexPath.row]
             let dtFormatter = NSDateFormatter()
             dtFormatter.locale = NSLocale.systemLocale()
             dtFormatter.dateFormat = "EEE, MM d 'at' h:mm a"
@@ -102,7 +102,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
-        self.selectedBooking = self.historyList.historyList[indexPath.row]
+        self.selectedBooking = history.list[indexPath.row]
         let tbc = tabBarController as! RHSCTabBarController
         let uid = tbc.currentUser?.name
         let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
@@ -171,7 +171,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.historyList.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
+                self.history.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 // do some task

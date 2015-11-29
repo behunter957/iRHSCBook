@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objc class RHSCHistoryList : NSObject {
+class RHSCHistoryList : NSObject {
     
-    var historyList = Array<RHSCCourtTime>()
+    var list = Array<RHSCCourtTime>()
     
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser, memberList ml:RHSCMemberList) throws {
         let url = NSURL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",curUser.name!),
@@ -35,7 +35,7 @@ import Foundation
             if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["history"]! as! Array<NSDictionary>
                 for dict in array {
-                    historyList.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
+                    list.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
                 }
             }
         } catch {

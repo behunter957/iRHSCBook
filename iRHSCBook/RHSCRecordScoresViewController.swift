@@ -196,6 +196,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
     }
     
+    
     @IBAction func recordScores() {
         return
         let tbc = tabBarController as! RHSCTabBarController
@@ -277,6 +278,17 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             }
         })
         task.resume()
+    }
+    
+    @IBAction func teamChanged() {
+        let p1ctl = player1Cell?.segField
+        let p2ctl = player2Cell?.segField
+        let p3ctl = player3Cell?.segField
+        let p4ctl = player4Cell?.segField
+        if ct?.court == "Court 5" {
+        } else {
+            
+        }
     }
     
 }

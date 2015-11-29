@@ -13,6 +13,8 @@ import Foundation
     var bookingId : String? = nil
     var court : String? = nil
     var courtTime : NSDate? = nil
+    var courtDateStr : String? = nil
+    var courtTimeStr : String? = nil
     var status : String? = nil
     var event : String? = nil
     var eventDesc : String? = nil
@@ -34,10 +36,12 @@ import Foundation
         // Assign all properties with keyed values from the dictionary
         bookingId = nullToString(jsonDictionary["booking_id"])
         court = nullToString(jsonDictionary["court"])
+        courtDateStr = nullToString(jsonDictionary["courtdate"])
+        courtTimeStr = nullToString(jsonDictionary["courttime"])
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
         courtTime = dateFormat.dateFromString(String.init(format: "%@ %@", arguments:
-            [ nullToString(jsonDictionary["courtdate"])!, nullToString(jsonDictionary["courttime"])! ]))!
+            [ courtDateStr!, courtTimeStr! ]))!
         status = nullToString(jsonDictionary["courtStatus"])
         event = nullToString(jsonDictionary["courtEvent"])
         eventDesc = nullToString(jsonDictionary["eventDesc"])
