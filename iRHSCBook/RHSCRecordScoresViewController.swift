@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, segmentChangedProtocol {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -28,6 +28,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     var game4ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game5ScoreCell : RHSCGameScoreTableViewCell? = nil
     
+    var scoresRecord : RHSCScore? = nil
     
     var cells : Array<Array<UITableViewCell?>> = []
     
@@ -61,75 +62,79 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         eventCell?.configure(String.init(format:"%@: %@",
             arguments: [ct!.event! , ct!.eventDesc!]))
         
-        player1Cell = formTable.dequeueReusableCellWithIdentifier("Player1Cell") as? RHSCTeamSelectionTableViewCell
+        player1Cell = formTable.dequeueReusableCellWithIdentifier("PlayerCell") as? RHSCTeamSelectionTableViewCell
         if (player1Cell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
             player1Cell = nib[2] as? RHSCTeamSelectionTableViewCell
         }
-        player1Cell?.configure(1, setText: ct!.players[1]?.buttonText(),isTeam1: true)
+        player1Cell?.configure(1, name: ct!.players[1]?.buttonText(),isTeam1: true)
+        player1Cell?.delegate = self
         
-        player2Cell = formTable.dequeueReusableCellWithIdentifier("Player1Cell") as? RHSCTeamSelectionTableViewCell
+        player2Cell = formTable.dequeueReusableCellWithIdentifier("PlayerCell") as? RHSCTeamSelectionTableViewCell
         if (player2Cell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            player2Cell = nib[3] as? RHSCTeamSelectionTableViewCell
+            player2Cell = nib[2] as? RHSCTeamSelectionTableViewCell
         }
-        player2Cell?.configure(2, setText: ct!.players[2]?.buttonText(),isTeam1: false)
+        player2Cell?.configure(2, name: ct!.players[2]?.buttonText(),isTeam1: false)
+        player2Cell?.delegate = self
         
         if ct!.court == "Court 5" {
-            player3Cell = formTable.dequeueReusableCellWithIdentifier("Player3Cell") as? RHSCTeamSelectionTableViewCell
+            player3Cell = formTable.dequeueReusableCellWithIdentifier("PlayerCell") as? RHSCTeamSelectionTableViewCell
             if (player3Cell == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-                player3Cell = nib[4] as? RHSCTeamSelectionTableViewCell
+                player3Cell = nib[2] as? RHSCTeamSelectionTableViewCell
             }
-            player3Cell?.configure(3, setText: ct!.players[3]?.buttonText(),isTeam1: true)
+            player3Cell?.configure(3, name: ct!.players[3]?.buttonText(),isTeam1: true)
+            player3Cell?.delegate = self
             
-            player4Cell = formTable.dequeueReusableCellWithIdentifier("Player4Cell") as? RHSCTeamSelectionTableViewCell
+            player4Cell = formTable.dequeueReusableCellWithIdentifier("PlayerCell") as? RHSCTeamSelectionTableViewCell
             if (player4Cell == nil) {
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-                player4Cell = nib[5] as? RHSCTeamSelectionTableViewCell
+                player4Cell = nib[2] as? RHSCTeamSelectionTableViewCell
             }
-            player4Cell?.configure(4, setText: ct!.players[4]?.buttonText(),isTeam1: false)
+            player4Cell?.configure(4, name: ct!.players[4]?.buttonText(),isTeam1: false)
+            player4Cell?.delegate = self
             
         }
 
         scoreHeaderCell = formTable.dequeueReusableCellWithIdentifier("TeamTitleCell")
         if (scoreHeaderCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            scoreHeaderCell = nib[9] as? UITableViewCell
+            scoreHeaderCell = nib[4] as? UITableViewCell
         }
 
         game1ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game1ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            game1ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+            game1ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game1ScoreCell?.configure("Game 1")
         
         game2ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game2ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            game2ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+            game2ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game2ScoreCell?.configure("Game 2")
         
         game3ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game3ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            game3ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+            game3ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game3ScoreCell?.configure("Game 3")
         
         game4ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game4ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            game4ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+            game4ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game4ScoreCell?.configure("Game 4")
         
         game5ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game5ScoreCell == nil) {
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
-            game5ScoreCell = nib[8] as? RHSCGameScoreTableViewCell
+            game5ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game5ScoreCell?.configure("Game 5")
         
@@ -280,15 +285,9 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         task.resume()
     }
     
-    @IBAction func teamChanged() {
-        let p1ctl = player1Cell?.segField
-        let p2ctl = player2Cell?.segField
-        let p3ctl = player3Cell?.segField
-        let p4ctl = player4Cell?.segField
-        if ct?.court == "Court 5" {
-        } else {
-            
-        }
+    func teamChanged(forPlayer: Int, isTeam1: Bool) {
+        
+        
     }
     
 }

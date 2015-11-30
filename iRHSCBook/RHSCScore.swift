@@ -44,10 +44,12 @@ class RHSCScore : NSObject {
     var t2p1 : String? = nil
     var t1p2 : String? = nil
     var t2p2 : String? = nil
- 
     
+    var isValid : Bool = false
+
     override init() {
         super.init()
+        
     }
     
     init(fromJSONDictionary jsonDictionary : NSDictionary) {
@@ -86,6 +88,7 @@ class RHSCScore : NSObject {
         t2p1         = jsonDictionary["t2p1"] as! String?
         t1p2         = jsonDictionary["t1p2"] as! String?                   
         t2p2         = jsonDictionary["t2p2"] as! String?
+        isValid = true
     }
     
     init(ct: RHSCCourtTime) {
@@ -123,6 +126,45 @@ class RHSCScore : NSObject {
         t2p1         = ct.players[2]?.name
         t1p2         = ct.players[3]?.name
         t2p2         = ct.players[3]?.name
+        isValid = true
+    }
+    
+    func assign(fromCourtTime ct: RHSCCourtTime) {
+        id           = nil
+        matchdate    = ct.courtDateStr
+        matchtime    = ct.courtTimeStr
+        matchtype    = ct.event
+        matchevent   = ct.eventDesc
+        player1_id   = ct.players[1]?.name
+        player1_won  = 0
+        player2_id   = ct.players[2]?.name
+        player2_won  = 0
+        game1p1      = 0
+        game1p2      = 0
+        game2p1      = 0
+        game2p2      = 0
+        game3p1      = 0
+        game3p2      = 0
+        game4p1      = 0
+        game4p2      = 0
+        game5p1      = 0
+        game5p2      = 0
+        booking_id   = ct.bookingId
+        isTournament = ct.event == "Tournament"
+        isRanked     = false
+        player1_ack  = false
+        player2_ack  = false
+        isLocked     = false
+        updDate      = nil
+        player3_id   = ct.players[3]?.name
+        player3_won  = 0
+        player4_id   = ct.players[4]?.name
+        player4_won  = 0
+        t1p1         = ct.players[1]?.name
+        t2p1         = ct.players[2]?.name
+        t1p2         = ct.players[3]?.name
+        t2p2         = ct.players[3]?.name
+        isValid = true
     }
     
     func assign(fromJSONDictionary jsonDictionary : NSDictionary) {
@@ -161,6 +203,48 @@ class RHSCScore : NSObject {
         t2p1         = jsonDictionary["t2p1"] as! String?
         t1p2         = jsonDictionary["t1p2"] as! String?
         t2p2         = jsonDictionary["t2p2"] as! String?
+        isValid = true
+    }
+    
+    class func getScores(forCourtTime ct: RHSCCourtTime, fromServer server:RHSCServer) -> RHSCScore {
+        // first make sync call to retrieve the score record
+        let scores = RHSCScore()
+        let url = NSURL(string: String.init(format: "Reserve20/IOSGetScoreJSON.php?bid=%@", arguments: [ct.bookingId!]), relativeToURL: server )
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        let session = NSURLSession(configuration: sessionCfg)
+        let semaphore_getscore = dispatch_semaphore_create(0)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                do {
+                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                        if let array  = jsonDictionary["score"] {
+                            for dict in array as! Array<NSDictionary> {
+                                RHSCUser.loggedOn = true
+                                // Create a new Location object for each one and initialise it with information in the dictionary
+                                scores.assign(fromJSONDictionary: dict)
+                            }
+                        } else {
+                            if let _  = jsonDictionary["noscore"] {
+                                scores.assign(fromCourtTime: ct)
+                            } else {
+                                print("unexpected response - not JSON")
+                            }
+                        }
+                    } else {
+                        print("response was not JSON")
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            dispatch_semaphore_signal(semaphore_getscore)
+        })
+        task.resume()
+        dispatch_semaphore_wait(semaphore_getscore, DISPATCH_TIME_FOREVER)
+        return scores
     }
     
 }
