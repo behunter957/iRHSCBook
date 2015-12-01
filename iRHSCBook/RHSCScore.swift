@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class RHSCScore : NSObject {
     
@@ -206,10 +207,22 @@ class RHSCScore : NSObject {
         isValid = true
     }
     
-    class func getScores(forCourtTime ct: RHSCCourtTime, fromServer server:RHSCServer) -> RHSCScore {
+    func addScore(fromView view:UIViewController) {
+        
+    }
+    
+    func updateScore(fromView view:UIViewController) {
+        
+    }
+    
+    class func getScores(forCourtTime ct: RHSCCourtTime, fromView view:UIViewController) -> RHSCScore {
         // first make sync call to retrieve the score record
         let scores = RHSCScore()
-        let url = NSURL(string: String.init(format: "Reserve20/IOSGetScoreJSON.php?bid=%@", arguments: [ct.bookingId!]), relativeToURL: server )
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let curUser = tbc.currentUser
+        let server = tbc.server
+        let url = NSURL(string: String.init(format: "Reserve20/IOSGetScoreJSON.php?b_id=%@&uid=%@",
+            arguments: [ct.bookingId!,curUser!.name!]), relativeToURL: server )
         let sessionCfg = NSURLSession.sharedSession().configuration
         let session = NSURLSession(configuration: sessionCfg)
         let semaphore_getscore = dispatch_semaphore_create(0)
@@ -227,7 +240,7 @@ class RHSCScore : NSObject {
                                 scores.assign(fromJSONDictionary: dict)
                             }
                         } else {
-                            if let _  = jsonDictionary["noscore"] {
+                            if let _  = jsonDictionary["empty"] {
                                 scores.assign(fromCourtTime: ct)
                             } else {
                                 print("unexpected response - not JSON")
