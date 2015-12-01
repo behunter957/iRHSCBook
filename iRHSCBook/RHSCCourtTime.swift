@@ -344,7 +344,6 @@ import UIKit
                                 let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                                 dispatch_after(time, dispatch_get_main_queue(), {
                                     errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                    view.navigationController?.popViewControllerAnimated(true)
                                 })
                             })
                         })
@@ -359,7 +358,6 @@ import UIKit
                             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                             dispatch_after(time, dispatch_get_main_queue(), {
                                 errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                view.navigationController?.popViewControllerAnimated(true)
                             })
                         })
                     })

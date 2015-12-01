@@ -208,11 +208,220 @@ class RHSCScore : NSObject {
     }
     
     func addScore(fromView view:UIViewController) {
+        var successAlert : UIAlertController? = nil
+        var errorAlert : UIAlertController? = nil
+
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let curUser = tbc.currentUser
+        let server = tbc.server
         
+        var parmStr = ""
+        parmStr += String.init(format: "matchdate=%@",arguments: [matchdate!])
+        parmStr += String.init(format: "&matchtime=%@",arguments: [matchtime!])
+        parmStr += String.init(format: "&matchtype=%@",arguments: [matchtype!])
+        parmStr += String.init(format: "&player1_id=%@",arguments: [player1_id!])
+        parmStr += String.init(format: "&player1_won=%@",arguments: [player1_won!])
+        parmStr += String.init(format: "&player2_id=%@",arguments: [player2_id!])
+        parmStr += String.init(format: "&player2_won=%@",arguments: [player2_won!])
+        parmStr += String.init(format: "&game1p1=%@",arguments: [game1p1!])
+        parmStr += String.init(format: "&game1p2=%@",arguments: [game1p2!])
+        parmStr += String.init(format: "&game2p1=%@",arguments: [game2p1!])
+        parmStr += String.init(format: "&game2p2=%@",arguments: [game2p2!])
+        parmStr += String.init(format: "&game3p1=%@",arguments: [game3p1!])
+        parmStr += String.init(format: "&game3p2=%@",arguments: [game3p2!])
+        parmStr += String.init(format: "&game4p1=%@",arguments: [game4p1!])
+        parmStr += String.init(format: "&game4p2=%@",arguments: [game4p2!])
+        parmStr += String.init(format: "&game5p1=%@",arguments: [game5p1!])
+        parmStr += String.init(format: "&game5p2=%@",arguments: [game5p2!])
+        parmStr += String.init(format: "&booking_id=%@",arguments: [booking_id!])
+        parmStr += String.init(format: "&player3_id=%@",arguments: [player3_id!])
+        parmStr += String.init(format: "&player3_won=%@",arguments: [player3_won!])
+        parmStr += String.init(format: "&player4_id=%@",arguments: [player4_id!])
+        parmStr += String.init(format: "&player4_won=%@",arguments: [player4_won!])
+        parmStr += String.init(format: "&t1p1=%@",arguments: [t1p1!])
+        parmStr += String.init(format: "&t2p1=%@",arguments: [t2p1!])
+        parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
+        parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
+        let url = NSURL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
+            arguments: [curUser!.name!, parmStr]), relativeToURL: server )
+        
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                do {
+                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                        if let _ = jsonDictionary["success"] {
+                            successAlert = UIAlertController(title: "Success",
+                                message: "Scores added.", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    view.presentViewController(successAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                        view.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                })
+                            })
+                        } else {
+                            errorAlert = UIAlertController(title: "Unable to Add Scores",
+                                message: "Error TBD1", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    })
+                                })
+                            })
+                        }
+                    } else {
+                        errorAlert = UIAlertController(title: "Unable to Add Scores",
+                            message: "Error TBD2", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                })
+                            })
+                        })
+                    }
+                } catch {
+                    errorAlert = UIAlertController(title: "Unable to Add Scores",
+                        message: "Error TBD3", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        })
+                    })
+                }
+            }
+        })
+        task.resume()
     }
     
     func updateScore(fromView view:UIViewController) {
+        var successAlert : UIAlertController? = nil
+        var errorAlert : UIAlertController? = nil
         
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let curUser = tbc.currentUser
+        let server = tbc.server
+        
+        var parmStr = ""
+        parmStr += String.init(format: "id=%@",arguments: [id!])
+        parmStr += String.init(format: "&matchdate=%@",arguments: [matchdate!])
+        parmStr += String.init(format: "&matchtime=%@",arguments: [matchtime!])
+        parmStr += String.init(format: "&matchtype=%@",arguments: [matchtype!])
+        parmStr += String.init(format: "&player1_id=%@",arguments: [player1_id!])
+        parmStr += String.init(format: "&player1_won=%@",arguments: [player1_won!])
+        parmStr += String.init(format: "&player2_id=%@",arguments: [player2_id!])
+        parmStr += String.init(format: "&player2_won=%@",arguments: [player2_won!])
+        parmStr += String.init(format: "&game1p1=%@",arguments: [game1p1!])
+        parmStr += String.init(format: "&game1p2=%@",arguments: [game1p2!])
+        parmStr += String.init(format: "&game2p1=%@",arguments: [game2p1!])
+        parmStr += String.init(format: "&game2p2=%@",arguments: [game2p2!])
+        parmStr += String.init(format: "&game3p1=%@",arguments: [game3p1!])
+        parmStr += String.init(format: "&game3p2=%@",arguments: [game3p2!])
+        parmStr += String.init(format: "&game4p1=%@",arguments: [game4p1!])
+        parmStr += String.init(format: "&game4p2=%@",arguments: [game4p2!])
+        parmStr += String.init(format: "&game5p1=%@",arguments: [game5p1!])
+        parmStr += String.init(format: "&game5p2=%@",arguments: [game5p2!])
+        parmStr += String.init(format: "&booking_id=%@",arguments: [booking_id!])
+        parmStr += String.init(format: "&player3_id=%@",arguments: [player3_id!])
+        parmStr += String.init(format: "&player3_won=%@",arguments: [player3_won!])
+        parmStr += String.init(format: "&player4_id=%@",arguments: [player4_id!])
+        parmStr += String.init(format: "&player4_won=%@",arguments: [player4_won!])
+        parmStr += String.init(format: "&t1p1=%@",arguments: [t1p1!])
+        parmStr += String.init(format: "&t2p1=%@",arguments: [t2p1!])
+        parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
+        parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
+        let url = NSURL(string: String.init(format: "Reserve20/IOSUpdateScoreJSON.php?uid=%@&%@",
+            arguments: [curUser!.name!, parmStr]), relativeToURL: server )
+        
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                do {
+                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                        if let _ = jsonDictionary["success"] {
+                            successAlert = UIAlertController(title: "Success",
+                                message: "Scores updated.", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    view.presentViewController(successAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                        view.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                })
+                            })
+                        } else {
+                            errorAlert = UIAlertController(title: "Unable to Update Scores",
+                                message: "Error TBD1", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                    dispatch_after(time, dispatch_get_main_queue(), {
+                                        errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    })
+                                })
+                            })
+                        }
+                    } else {
+                        errorAlert = UIAlertController(title: "Unable to Update Scores",
+                            message: "Error TBD2", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                })
+                            })
+                        })
+                    }
+                } catch {
+                    errorAlert = UIAlertController(title: "Unable to Update Scores",
+                        message: "Error TBD3", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        })
+                    })
+                }
+            }
+        })
+        task.resume()
     }
     
     class func getScores(forCourtTime ct: RHSCCourtTime, fromView view:UIViewController) -> RHSCScore {
