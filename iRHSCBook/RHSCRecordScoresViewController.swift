@@ -207,86 +207,62 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     
     
     @IBAction func recordScores() {
-        return
-        let tbc = tabBarController as! RHSCTabBarController
-        let fetchURL = String.init(format: "Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",
-            arguments: [ct!.bookingId!, (tbc.currentUser?.name)!,ct!.players[2]!.name!,
-                ct!.players[3]!.name!,ct!.players[4]!.name!,
-                (tbc.currentUser?.name)!,"iPhone"])
-        
-        let url = NSURL(string: fetchURL, relativeToURL: tbc.server )
-        //        print(url!.absoluteString)
-        let sessionCfg = NSURLSession.sharedSession().configuration
-        sessionCfg.timeoutIntervalForResource = 30.0
-        let session = NSURLSession(configuration: sessionCfg)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-                self.errorAlert = UIAlertController(title: "Unable to Cancel Booking",
-                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    // do some task
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                        let delay = 2.0 * Double(NSEC_PER_SEC)
-                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                        dispatch_after(time, dispatch_get_main_queue(), {
-                            self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                            self.navigationController?.popViewControllerAnimated(true)
-                        })
-                    })
-                })
-            } else {
-                let statusCode = (response as! NSHTTPURLResponse).statusCode
-                if (statusCode == 200) && (data != nil) {
-                    let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
-                    if jsonDictionary["error"] == nil {
-                        self.successAlert = UIAlertController(title: "Success",
-                            message: "Booking successfully cancelled. Notices will be sent to all players", preferredStyle: .Alert)
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.presentViewController(self.successAlert!, animated: true, completion: nil)
-                                let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                dispatch_after(time, dispatch_get_main_queue(), {
-                                    self.successAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                    self.navigationController?.popViewControllerAnimated(true)
-                                })
-                            })
-                        })
-                    } else {
-                        self.errorAlert = UIAlertController(title: "Unable to Cancel Booking",
-                            message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                                let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                dispatch_after(time, dispatch_get_main_queue(), {
-                                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                    self.navigationController?.popViewControllerAnimated(true)
-                                })
-                            })
-                        })
-                    }
+        // obtain teams and values
+        if player1Cell?.segField.selectedSegmentIndex == 0 {
+            score!.t1p1 = ct!.players[1]?.name
+            if ct!.court == "Court 5" {
+                if player2Cell?.segField.selectedSegmentIndex == 0 {
+                    score!.t1p2 = ct!.players[2]?.name
+                    player3Cell?.segField.selectedSegmentIndex = 1
+                    player4Cell?.segField.selectedSegmentIndex = 1
                 } else {
-                    self.errorAlert = UIAlertController(title: "Unable to Cancel Booking",
-                        message: "Error (status code \(statusCode))", preferredStyle: .Alert)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                self.navigationController?.popViewControllerAnimated(true)
-                            })
-                        })
-                    })
+                    score!.t2p1 = ct!.players[2]?.name
+                    if player3Cell?.segField.selectedSegmentIndex == 0 {
+                        score!.t1p2 = ct!.players[3]?.name
+                        player4Cell?.segField.selectedSegmentIndex = 1
+                    } else {
+                        score!.t2p2 = ct!.players[3]?.name
+                        player4Cell?.segField.selectedSegmentIndex = 0
+                    }
                 }
+            } else {
+                score!.t2p1 = ct!.players[2]?.name
+                player2Cell?.segField.selectedSegmentIndex = 1
             }
-        })
-        task.resume()
+        }
+        score!.game1p1 = Int(game1ScoreCell!.team1score!.text!)
+        score!.game1p2 = Int(game1ScoreCell!.team2score!.text!)
+        score!.game2p1 = Int(game2ScoreCell!.team1score!.text!)
+        score!.game2p2 = Int(game2ScoreCell!.team2score!.text!)
+        score!.game3p1 = Int(game3ScoreCell!.team1score!.text!)
+        score!.game3p2 = Int(game3ScoreCell!.team2score!.text!)
+        score!.game4p1 = Int(game4ScoreCell!.team1score!.text!)
+        score!.game4p2 = Int(game4ScoreCell!.team2score!.text!)
+        score!.game5p1 = Int(game5ScoreCell!.team1score!.text!)
+        score!.game5p2 = Int(game5ScoreCell!.team2score!.text!)
+        var t1games = score!.game1p1 > score!.game1p2 ? 1 : 0
+        var t2games = score!.game1p2 > score!.game1p1 ? 1 : 0
+        t1games += score!.game2p1 > score!.game2p2 ? 1 : 0
+        t2games += score!.game2p2 > score!.game2p1 ? 1 : 0
+        t1games += score!.game3p1 > score!.game3p2 ? 1 : 0
+        t2games += score!.game3p2 > score!.game3p1 ? 1 : 0
+        t1games += score!.game4p1 > score!.game4p2 ? 1 : 0
+        t2games += score!.game4p2 > score!.game4p1 ? 1 : 0
+        t1games += score!.game5p1 > score!.game5p2 ? 1 : 0
+        t2games += score!.game5p2 > score!.game5p1 ? 1 : 0
+        score!.player1_won =  ((score!.t1p1 == score!.player1_id) || (score! == score!.player1_id)) ? t1games : t2games
+        score!.player2_won =  ((score!.t1p1 == score!.player2_id) || (score! == score!.player2_id)) ? t1games : t2games
+        if ct!.court == "Court 5" {
+            score!.player3_won =  ((score!.t1p1 == score!.player3_id) || (score! == score!.player3_id)) ? t1games : t2games
+            score!.player4_won =  ((score!.t1p1 == score!.player4_id) || (score! == score!.player4_id)) ? t1games : t2games
+        }
+        
+        // call service to update
+        if ((score?.id) != nil) {
+            score?.updateScore(fromView: self)
+        } else {
+            score?.addScore(fromView: self)
+        }
     }
     
     func teamChanged(forPlayer: Int, isTeam1: Bool) {
