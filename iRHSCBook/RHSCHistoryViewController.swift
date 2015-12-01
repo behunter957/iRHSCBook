@@ -141,6 +141,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
             (segue.destinationViewController as! RHSCRecordScoresViewController).ct = self.selectedBooking
             let tbc = self.tabBarController as! RHSCTabBarController
             (segue.destinationViewController as! RHSCRecordScoresViewController).user = tbc.currentUser
+            (segue.destinationViewController as! RHSCRecordScoresViewController).score = RHSCScore.getScores(forCourtTime: self.selectedBooking!, fromView: self)
         }
         if segue.identifier == "ReportNoShow" {
             // set the selectionSet and selectionDate properties

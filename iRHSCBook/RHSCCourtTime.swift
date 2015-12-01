@@ -165,6 +165,7 @@ import UIKit
                     print("Error: Unable to lock the court")
                 }
             }
+            dispatch_semaphore_signal(semaphore_lock)
         })
         task.resume()
         dispatch_semaphore_wait(semaphore_lock, DISPATCH_TIME_FOREVER)

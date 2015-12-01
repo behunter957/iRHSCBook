@@ -164,7 +164,7 @@ class RHSCScore : NSObject {
         t1p1         = ct.players[1]?.name
         t2p1         = ct.players[2]?.name
         t1p2         = ct.players[3]?.name
-        t2p2         = ct.players[3]?.name
+        t2p2         = ct.players[4]?.name
         isValid = true
     }
     
