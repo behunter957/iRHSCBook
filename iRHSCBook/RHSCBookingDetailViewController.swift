@@ -91,6 +91,8 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
     }
 
     @IBAction func cancelBooking(sender : AnyObject?) {
+        booking!.cancel(fromView: self)
+    }
         let tbc = tabBarController as! RHSCTabBarController
         var fetchURL : String? = nil;
         if (booking!.court == "Court 5") {

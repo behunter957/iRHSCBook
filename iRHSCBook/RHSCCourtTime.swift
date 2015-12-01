@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 @objc class RHSCCourtTime : NSObject {
  
@@ -22,7 +23,7 @@ import Foundation
     var summary : String? = nil
     var players = Dictionary<Int,RHSCMember>()
     var isNoShow : Bool = false
-    
+
     func nullToString(value:AnyObject?) -> String? {
         if value is NSNull {
             return ""
@@ -142,5 +143,275 @@ import Foundation
             }
         }
    }
+    
+    func book(fromView view: UIViewController) {
+        var successAlert : UIAlertController? = nil
+        var errorAlert : UIAlertController? = nil
+        
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let g2name = players[2] is RHSCGuest ? (players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g3name = players[3] is RHSCGuest ? (players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g4name = players[4] is RHSCGuest ? (players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let pl2 = (players[2] != nil ? players[2]?.name : "")!
+        let pl3 = court == "Court 5" ? (players[3] != nil ? players[3]?.name : "")! : ""
+        let pl4 = court == "Court 5" ? (players[4] != nil ? players[4]?.name : "")! : ""
+        let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
+            arguments: [bookingId!,
+                tbc.currentUser!.name!, pl2, pl3, pl4,
+                tbc.currentUser!.name!,"iPhone", g2name!, g3name!, g4name!,
+                "iPhone", court!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                event!])
+        //        print(urlstr)
+        let url = NSURL(string: urlstr, relativeToURL: tbc.server )
+        //        NSLog(@"fetch URL = %@",fetchURL);
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                errorAlert = UIAlertController(title: "Unable to Book Court",
+                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        view.presentViewController(errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            view.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
+            } else {
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                if (statusCode == 200) && (data != nil) {
+                    let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    if jsonDictionary["error"] == nil {
+                        successAlert = UIAlertController(title: "Success",
+                            message: "Court time successfully booked. Notices will be sent to all players", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(successAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    } else {
+                        errorAlert = UIAlertController(title: "Unable to Book Court",
+                            message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    }
+                } else {
+                    errorAlert = UIAlertController(title: "Unable to Book Court",
+                        message: "Error (status code \(statusCode))", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                view.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+                }
+            }
+        })
+        task.resume()
+        
+    }
+
+    
+    func update(fromView view:UIViewController) {
+        var successAlert : UIAlertController? = nil
+        var errorAlert : UIAlertController? = nil
+
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let g2name = players[2] is RHSCGuest ? (players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g3name = players[3] is RHSCGuest ? (players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let g4name = players[4] is RHSCGuest ? (players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
+        let pl2 = (players[2] != nil ? players[2]?.name : "")!
+        let pl3 = court == "Court 5" ? (players[3] != nil ? players[3]?.name : "")! : ""
+        let pl4 = court == "Court 5" ? (players[4] != nil ? players[4]?.name : "")! : ""
+        let urlstr = String.init(format: "Reserve20/IOSUpdateBookingJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
+            arguments: [bookingId!,
+                tbc.currentUser!.name!, pl2, pl3, pl4,
+                tbc.currentUser!.name!,"iPhone", g2name!, g3name!, g4name!,
+                "iPhone", (court)!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!,
+                event!])
+        //        print(urlstr)
+        let url = NSURL(string: urlstr, relativeToURL: tbc.server )
+        //        NSLog(@"fetch URL = %@",fetchURL);
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                errorAlert = UIAlertController(title: "Unable to Update Booking",
+                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        view.presentViewController(errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            view.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
+            } else {
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                if (statusCode == 200) && (data != nil) {
+                    let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    if jsonDictionary["error"] == nil {
+                        successAlert = UIAlertController(title: "Success",
+                            message: "Booking successfully updated. Notices will be sent to all players", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(successAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    } else {
+                        errorAlert = UIAlertController(title: "Unable to Update Booking",
+                            message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    }
+                } else {
+                    errorAlert = UIAlertController(title: "Unable to Update Booking",
+                        message: "Error (status code \(statusCode))", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                view.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+                }
+            }
+        })
+        task.resume()
+    }
+
+    func cancel(fromView view: UIViewController) {
+        var successAlert : UIAlertController? = nil
+        var errorAlert : UIAlertController? = nil
+        
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let fetchURL = String.init(format: "Reserve20/IOSCancelBookingJSON.php?b_id=%@&player1=%@&player2=%@&player3=%@&player4=%@&uid=%@&channel=%@",
+            arguments: [bookingId!, (tbc.currentUser?.name)!,players[2]!.name!,
+                players[3]!.name!,players[4]!.name!,
+                (tbc.currentUser?.name)!,"iPhone"])
+        
+        let url = NSURL(string: fetchURL, relativeToURL: tbc.server )
+        //        print(url!.absoluteString)
+        let sessionCfg = NSURLSession.sharedSession().configuration
+        sessionCfg.timeoutIntervalForResource = 30.0
+        let session = NSURLSession(configuration: sessionCfg)
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                errorAlert = UIAlertController(title: "Unable to Cancel Booking",
+                    message: "Error: \(error!.localizedDescription)", preferredStyle: .Alert)
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    // do some task
+                    dispatch_async(dispatch_get_main_queue(), {
+                        view.presentViewController(errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        dispatch_after(time, dispatch_get_main_queue(), {
+                            errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            view.navigationController?.popViewControllerAnimated(true)
+                        })
+                    })
+                })
+            } else {
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                if (statusCode == 200) && (data != nil) {
+                    let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    if jsonDictionary["error"] == nil {
+                        successAlert = UIAlertController(title: "Success",
+                            message: "Booking successfully cancelled. Notices will be sent to all players", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(successAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    successAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    } else {
+                        errorAlert = UIAlertController(title: "Unable to Cancel Booking",
+                            message: jsonDictionary["error"] as! String?, preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                let delay = 2.0 * Double(NSEC_PER_SEC)
+                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                                dispatch_after(time, dispatch_get_main_queue(), {
+                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    view.navigationController?.popViewControllerAnimated(true)
+                                })
+                            })
+                        })
+                    }
+                } else {
+                    errorAlert = UIAlertController(title: "Unable to Cancel Booking",
+                        message: "Error (status code \(statusCode))", preferredStyle: .Alert)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                view.navigationController?.popViewControllerAnimated(true)
+                            })
+                        })
+                    })
+                }
+            }
+        })
+        task.resume()
+    }
+
     
 }
