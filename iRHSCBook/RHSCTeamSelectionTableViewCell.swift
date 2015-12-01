@@ -11,23 +11,25 @@ import UIKit
 
 protocol segmentChangedProtocol {
     
-    func teamChanged(forPlayer: Int, isTeam1: Bool)
+    func teamChanged(forPlayer player: Int, forMember: RHSCMember?, isTeam1: Bool)
 }
     
 
 public class RHSCTeamSelectionTableViewCell : UITableViewCell {
     @IBOutlet weak var playerNameField: UILabel!
     @IBOutlet weak var segField: UISegmentedControl!
-    var player : Int = 0
+    var playerNum : Int = 0
+    var member : RHSCMember? = nil
     var delegate : segmentChangedProtocol? = nil
     
-    public func configure(forPlayer: Int, name: String?, isTeam1: Bool) {
-        player = forPlayer
-        playerNameField.text = name
+    func configure(forPlayerNum: Int, forMember: RHSCMember?, isTeam1: Bool) {
+        playerNum = forPlayerNum
+        self.member = forMember
+        playerNameField.text = member!.buttonText()
         segField.selectedSegmentIndex = (isTeam1 ? 0 : 1)
     }
     
     @IBAction func indexChanged(sender:UISegmentedControl) {
-        delegate!.teamChanged(player, isTeam1: (sender.selectedSegmentIndex == 0))
+        delegate!.teamChanged(forPlayer: playerNum, forMember: member, isTeam1: (sender.selectedSegmentIndex == 0))
     }
 }

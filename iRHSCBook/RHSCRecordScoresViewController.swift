@@ -67,7 +67,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
             player1Cell = nib[2] as? RHSCTeamSelectionTableViewCell
         }
-        player1Cell?.configure(1, name: ct!.players[1]?.buttonText(),
+        player1Cell?.configure(1, forMember: ct!.players[1],
             isTeam1: ((ct!.players[1]!.name == score?.t1p1) || (ct!.players[1]!.name == score?.t1p2)))
         player1Cell?.delegate = self
         
@@ -76,7 +76,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
             player2Cell = nib[2] as? RHSCTeamSelectionTableViewCell
         }
-        player2Cell?.configure(2, name: ct!.players[2]?.buttonText(),
+        player2Cell?.configure(2, forMember: ct!.players[2],
             isTeam1: ((ct!.players[2]!.name == score?.t1p1) || (ct!.players[2]!.name == score?.t1p2)))
         player2Cell?.delegate = self
         
@@ -86,7 +86,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
                 player3Cell = nib[2] as? RHSCTeamSelectionTableViewCell
             }
-            player3Cell?.configure(3, name: ct!.players[3]?.buttonText(),
+            player3Cell?.configure(3, forMember: ct!.players[3],
                 isTeam1: ((ct!.players[3]!.name == score?.t1p1) || (ct!.players[3]!.name == score?.t1p2)))
             player3Cell?.delegate = self
             
@@ -95,7 +95,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
                 let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
                 player4Cell = nib[2] as? RHSCTeamSelectionTableViewCell
             }
-            player4Cell?.configure(4, name: ct!.players[4]?.buttonText(),
+            player4Cell?.configure(4, forMember: ct!.players[4],
                 isTeam1: ((ct!.players[4]!.name == score?.t1p1) || (ct!.players[4]!.name == score?.t1p2)))
             player4Cell?.delegate = self
             
@@ -250,11 +250,11 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         t2games += score!.game4p2 > score!.game4p1 ? 1 : 0
         t1games += score!.game5p1 > score!.game5p2 ? 1 : 0
         t2games += score!.game5p2 > score!.game5p1 ? 1 : 0
-        score!.player1_won =  ((score!.t1p1 == score!.player1_id) || (score! == score!.player1_id)) ? t1games : t2games
-        score!.player2_won =  ((score!.t1p1 == score!.player2_id) || (score! == score!.player2_id)) ? t1games : t2games
+        score!.player1_won =  ((score!.t1p1 == score!.player1_id) || (score!.t1p2 == score!.player1_id)) ? t1games : t2games
+        score!.player2_won =  ((score!.t1p1 == score!.player2_id) || (score!.t1p2 == score!.player2_id)) ? t1games : t2games
         if ct!.court == "Court 5" {
-            score!.player3_won =  ((score!.t1p1 == score!.player3_id) || (score! == score!.player3_id)) ? t1games : t2games
-            score!.player4_won =  ((score!.t1p1 == score!.player4_id) || (score! == score!.player4_id)) ? t1games : t2games
+            score!.player3_won =  ((score!.t1p1 == score!.player3_id) || (score!.t1p2 == score!.player3_id)) ? t1games : t2games
+            score!.player4_won =  ((score!.t1p1 == score!.player4_id) || (score!.t1p2 == score!.player4_id)) ? t1games : t2games
         }
         
         // call service to update
@@ -265,9 +265,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
         }
     }
     
-    func teamChanged(forPlayer: Int, isTeam1: Bool) {
-        
-        
+    func teamChanged(forPlayer player: Int, forMember: RHSCMember?, isTeam1: Bool) {
     }
     
 }
