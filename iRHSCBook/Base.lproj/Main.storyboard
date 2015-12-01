@@ -44,11 +44,11 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1gt-U2-Bbh" id="Z7n-GH-r5d">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fZg-E3-8TQ">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -140,11 +140,11 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gRl-Qt-LUT" id="6CV-hH-4zJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7qt-xK-SN1">
-                                            <rect key="frame" x="15" y="4" width="35.5" height="21.5"/>
+                                            <rect key="frame" x="15" y="3" width="36" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -152,7 +152,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iKD-t7-f7Z">
-                                            <rect key="frame" x="15" y="25.5" width="33" height="14.5"/>
+                                            <rect key="frame" x="15" y="25" width="33" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -197,7 +197,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Book Court" id="pRx-j7-JMQ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="vYM-cK-icl">
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="vYM-cK-icl">
                             <connections>
                                 <action selector="book" destination="eAy-wV-3fN" id="PPz-gN-XDs"/>
                             </connections>
@@ -309,7 +309,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="71o-iv-oXA" id="h4q-uu-via">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -348,7 +348,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Report No-Show" id="4b7-u1-HVN">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="wuQ-SD-PJE">
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="wuQ-SD-PJE">
                             <connections>
                                 <action selector="reportNoShow" destination="Yf1-Jz-NbL" id="4yZ-ox-TS7"/>
                             </connections>
@@ -378,7 +378,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Record Scores" id="iVP-pg-uDL">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="Z2B-CT-D6X">
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="Z2B-CT-D6X">
                             <connections>
                                 <action selector="recordScores" destination="PS4-8W-ndJ" id="0gH-xK-GT9"/>
                             </connections>
@@ -494,7 +494,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Update Booking" id="wDb-ah-s0g">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="IKd-ru-aL5">
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="IKd-ru-aL5">
                             <connections>
                                 <action selector="book" destination="exz-5r-W9s" id="U4b-8X-nbh"/>
                             </connections>
@@ -527,7 +527,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Cancel Booking" id="dVd-p8-Jgg">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="M2y-tc-3gA">
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="M2y-tc-3gA">
                             <connections>
                                 <action selector="cancelBooking" destination="cR0-2O-UTZ" id="EP1-oC-ra8"/>
                             </connections>
@@ -579,8 +579,8 @@
         <image name="Search" width="25" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vCP-6t-2Mf"/>
         <segue reference="ZgL-mx-E6N"/>
-        <segue reference="fhe-Re-Lyc"/>
+        <segue reference="vCP-6t-2Mf"/>
+        <segue reference="kBG-fc-atP"/>
     </inferredMetricsTieBreakers>
 </document>

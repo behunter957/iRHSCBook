@@ -143,6 +143,47 @@ import UIKit
             }
         }
    }
+
+    func lock(fromView view: UIViewController) -> Bool {
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let curUser = tbc.currentUser
+        let url = NSURL(string: String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
+            arguments: [bookingId!, curUser!.name!]),
+            relativeToURL: tbc.server )
+        let session = NSURLSession.sharedSession()
+        let semaphore_lock = dispatch_semaphore_create(0)
+        var success = false
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            } else if data != nil {
+                //                    print("received data")
+                let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                if jsonDictionary["error"] == nil {
+                    success = true
+                } else {
+                    print("Error: Unable to lock the court")
+                }
+            }
+        })
+        task.resume()
+        dispatch_semaphore_wait(semaphore_lock, DISPATCH_TIME_FOREVER)
+        return success
+    }
+
+    func unlock(fromView view: UIViewController) {
+        let tbc = view.tabBarController as! RHSCTabBarController
+        let url = NSURL(string: String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
+            arguments: [bookingId!]),
+            relativeToURL: tbc.server )
+        let session  = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+            }
+        })
+        task.resume()
+    }
     
     func book(fromView view: UIViewController) {
         var successAlert : UIAlertController? = nil

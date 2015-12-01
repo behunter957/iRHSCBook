@@ -264,64 +264,19 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         self.selectedCourtTime = self.courtTimes[indexPath.row]
         if self.selectedCourtTime!.status == "Available" {
             // lock the booking
-            let tbc = self.tabBarController as! RHSCTabBarController
-            let curUser = tbc.currentUser
-            let url = NSURL(string: String.init(format: "Reserve20/IOSLockBookingJSON.php?bookingId=%@&uid=%@",
-                arguments: [self.selectedCourtTime!.bookingId!, curUser!.name!]),
-                relativeToURL: tbc.server )
-//            print(url!.absoluteString)
-            //            let sessionCfg = NSURLSession.sharedSession().configuration
-            //            sessionCfg.timeoutIntervalForResource = 30.0
-            //            let session = NSURLSession(configuration: sessionCfg)
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-                if error != nil {
-                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-                    self.errorAlert = UIAlertController(title: "Error",
-                        message: "Unable to lock the court", preferredStyle: .Alert)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        // do some task
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                            })
-                        })
-                    })
-                } else if data != nil {
-//                    print("received data")
-                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
-                    if jsonDictionary["error"] == nil {
-                        // determine the correct view to navigate to
-                        let segueName = "BookCourt"
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            // do some task
-                            dispatch_async(dispatch_get_main_queue(), {
-                                // update some UI
-//                                print("segueing to \(segueName)")
-                                self.performSegueWithIdentifier(segueName, sender: self)
-                            });
-                        });
-                    } else {
-                        self.errorAlert = UIAlertController(title: "Error",
-                            message: "Unable to lock the court", preferredStyle: .Alert)
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            // do some task
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
-                                let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                dispatch_after(time, dispatch_get_main_queue(), {
-                                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                })
-                            })
-                        })
-                    }
-                }
-            })
-            task.resume()
+            if self.selectedCourtTime!.lock(fromView: self) {
+                let segueName = "BookCourt"
+                self.performSegueWithIdentifier(segueName, sender: self)
+            } else {
+                self.errorAlert = UIAlertController(title: "Error",
+                    message: "Unable to lock the court", preferredStyle: .Alert)
+                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                let delay = 2.0 * Double(NSEC_PER_SEC)
+                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                dispatch_after(time, dispatch_get_main_queue(), {
+                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
         } else {
             if (self.selectedCourtTime!.bookedForUser) {
                 //TODO if court has a TBD, then present action sheet for edit or cancel
@@ -329,12 +284,36 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 let updateAction = UIAlertAction(title: "Update", style: .Default, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
-                            self.performSegueWithIdentifier("UpdateCourt", sender: self)
+                        if self.selectedCourtTime!.lock(fromView: self) {
+                            let segueName = "UpdateCourt"
+                            self.performSegueWithIdentifier(segueName, sender: self)
+                        } else {
+                            self.errorAlert = UIAlertController(title: "Error",
+                                message: "Unable to lock the court", preferredStyle: .Alert)
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        }
                 })
                 let unbookAction = UIAlertAction(title: "Unbook", style: .Default, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
-                        self.performSegueWithIdentifier("CancelCourt", sender: self)
+                        if self.selectedCourtTime!.lock(fromView: self) {
+                            let segueName = "CancelCourt"
+                            self.performSegueWithIdentifier(segueName, sender: self)
+                        } else {
+                            self.errorAlert = UIAlertController(title: "Error",
+                                message: "Unable to lock the court", preferredStyle: .Alert)
+                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                            let delay = 2.0 * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            dispatch_after(time, dispatch_get_main_queue(), {
+                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            })
+                        }
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
                     {

@@ -237,6 +237,11 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        ct!.unlock(fromView: self)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ChoosePlayer2" {
             (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
@@ -252,28 +257,11 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
         }
     }
     
-    func unlockBooking() {
-        let tbc = self.tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSUnlockBookingJSON.php?bookingId=%@",
-            arguments: [self.ct!.bookingId!]),
-            relativeToURL: tbc.server )
-        //        print(url!.absoluteString)
-        //        let sessionCfg = NSURLSession.sharedSession().configuration
-        //        sessionCfg.timeoutIntervalForResource = 30.0
-        //        let session = NSURLSession(configuration: sessionCfg)
-        let session  = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-            }
-        })
-        task.resume()
-    }
-    
     @IBAction func book() {
         //    NSLog(@"booking singles court and exiting ReserveSingles");
         self.ct!.event = self.s3r0?.eventType?.text
         self.ct!.book(fromView: self)
+        self.ct!.unlock(fromView: self)
         //    [self.navigationController popViewControllerAnimated:YES];
     }
 

@@ -81,6 +81,11 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         self.view.backgroundColor = UIColor.bookedBlue()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        booking!.unlock(fromView: self)
+    }
+    
     func findPlayer(playerId : String, inList memList: RHSCMemberList) -> RHSCMember?{
         for mem in memList.memberList {
             if (mem.name == playerId){
@@ -92,6 +97,7 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
 
     @IBAction func cancelBooking(sender : AnyObject?) {
         booking!.cancel(fromView: self)
+        booking!.unlock(fromView: self)
     }
     
     @IBAction func emailPlayers(sender: AnyObject) {

@@ -132,6 +132,11 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
         return self.cells[indexPath.section][indexPath.row]!
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        ct!.unlock(fromView: self)
+    }
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //        switch section {
         //        case 0: return "Coordinates"
@@ -157,6 +162,7 @@ class RHSCCancelCourtViewController : UIViewController, UITableViewDataSource, U
     
     @IBAction func cancelBooking() {
         ct!.cancel(fromView: self)
+        ct!.unlock(fromView: self)
     }
     
 }

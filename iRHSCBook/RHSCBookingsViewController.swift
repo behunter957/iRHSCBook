@@ -12,9 +12,12 @@ import UIKit
 @available(iOS 9.0, *)
 class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSFileManagerDelegate {
 
-    var bookingList = RHSCMyBookingsList()
+    var booking = RHSCMyBookingsList()
     var selectedBooking : RHSCCourtTime? = nil
-    
+
+    var includeAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -36,9 +39,9 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
     
     func refreshTable() {
         self.refreshControl?.endRefreshing()
-        self.bookingList = RHSCMyBookingsList()
+        self.booking = RHSCMyBookingsList()
         // now get the booking list for the current user
-        self.asyncLoadBookings()
+        self.booking.loadAsync(fromView: self)
     
         //    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         //    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
@@ -52,11 +55,11 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.bookingList.bookingList.count;
+        return self.booking.list.count;
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let curCourtTime = self.bookingList.bookingList[indexPath.row]
+        let curCourtTime = self.booking.list[indexPath.row]
         switch curCourtTime.status! {
         case "Booked","Reserved":
             switch curCourtTime.event! {
@@ -76,7 +79,7 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyBookingCell", forIndexPath: indexPath)
         // Configure the cell...
-        let ct = self.bookingList.bookingList[indexPath.row]
+        let ct = self.booking.list[indexPath.row]
         let dtFormatter = NSDateFormatter()
         dtFormatter.dateFormat = "EEE, MMM d - h:mm a"
     
@@ -110,17 +113,41 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
-        self.selectedBooking = self.bookingList.bookingList[indexPath.row]
+        self.selectedBooking = self.booking.list[indexPath.row]
         let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
         let updateAction = UIAlertAction(title: "Update", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                self.performSegueWithIdentifier("UpdateBooking", sender: self)
+                if self.selectedBooking!.lock(fromView: self) {
+                    let segueName = "UpdateBooking"
+                    self.performSegueWithIdentifier(segueName, sender: self)
+                } else {
+                    self.errorAlert = UIAlertController(title: "Error",
+                        message: "Unable to lock the court", preferredStyle: .Alert)
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                }
         })
         let unbookAction = UIAlertAction(title: "Unbook", style: .Default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
-                self.performSegueWithIdentifier("CancelBooking", sender: self)
+                if self.selectedBooking!.lock(fromView: self) {
+                    let segueName = "CancelBooking"
+                    self.performSegueWithIdentifier(segueName, sender: self)
+                } else {
+                    self.errorAlert = UIAlertController(title: "Error",
+                        message: "Unable to lock the court", preferredStyle: .Alert)
+                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                    dispatch_after(time, dispatch_get_main_queue(), {
+                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
             {
@@ -160,34 +187,4 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
         self.refreshTable()
     }
     
-    func asyncLoadBookings() {
-        let tbc = tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",
-            (tbc.currentUser?.name)!),
-            relativeToURL: tbc.server )
-        //        print(url!.absoluteString)
-//        let sessionCfg = NSURLSession.sharedSession().configuration
-//        sessionCfg.timeoutIntervalForResource = 30.0
-//        let session = NSURLSession(configuration: sessionCfg)
-        let session  = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-            } else if data != nil {
-                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.bookingList.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
-            }
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    // update some UI
-//                    print("reloading tableview")
-                    self.tableView.reloadData()
-                });
-            });
-        })
-        task.resume()
-    }
-
-
 }
