@@ -266,6 +266,43 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     }
     
     func teamChanged(forPlayer player: Int, forMember: RHSCMember?, isTeam1: Bool) {
+        var teamCount = 0
+        var plrCell : RHSCTeamSelectionTableViewCell? = nil
+        for i in 1...4 {
+            if i != player {
+                switch i {
+                case 1:
+                    plrCell = player1Cell
+                    break
+                case 2:
+                    plrCell = player2Cell
+                    break
+                case 3:
+                    plrCell = player3Cell
+                    break
+                case 4:
+                    plrCell = player4Cell
+                    break
+                default:
+                    break
+                }
+                if plrCell != nil {
+                    if plrCell!.segField.selectedSegmentIndex == 0 {
+                        teamCount += (isTeam1 ? 1 : 0)
+                        if teamCount > 1 {
+                            plrCell!.segField.selectedSegmentIndex = (isTeam1 ? 1 : 0)
+                            break
+                        }
+                    } else {
+                        teamCount += (isTeam1 ? 0 : 1)
+                        if teamCount > 1 {
+                            plrCell!.segField.selectedSegmentIndex = (isTeam1 ? 1 : 0)
+                            break
+                        }
+                    }
+                }
+            }
+        }
     }
     
 }

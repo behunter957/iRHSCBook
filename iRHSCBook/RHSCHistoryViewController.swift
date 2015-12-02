@@ -14,6 +14,10 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     
     var history = RHSCHistoryList()
     var selectedBooking : RHSCCourtTime? = nil
+    @IBOutlet weak var onlyMine : UISwitch? = nil
+
+    var includeAlert : UIAlertController? = nil
+    var errorAlert : UIAlertController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +38,29 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
         self.refreshTable()
     }
     
+    @IBAction func onlyMineChanged(sender: AnyObject) {
+        let incText = (self.onlyMine!.on ? "Showing only My History" : "Showing all History")
+        self.errorAlert = UIAlertController(title: "",
+            message: incText, preferredStyle: .Alert)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            // do some task
+            dispatch_async(dispatch_get_main_queue(), {
+                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                let delay = 1.0 * Double(NSEC_PER_SEC)
+                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                dispatch_after(time, dispatch_get_main_queue(), {
+                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            })
+        })
+        print(self.onlyMine!.on)
+        self.history.loadAsync(fromView: self, forMe: self.onlyMine!.on)
+    }
+    
     func refreshTable() {
         history = RHSCHistoryList()
         // now get the booking list for the current user
-        self.asyncLoadHistory()
+        self.history.loadAsync(fromView: self, forMe: self.onlyMine!.on)
         
         //    RHSCTabBarController *tbc = (RHSCTabBarController *)self.tabBarController;
         //    [self.bookingList loadFromJSON:tbc.server user:tbc.currentUser];
@@ -155,35 +178,6 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     @IBAction func syncHistory(sender:AnyObject?) {
         self.refreshControl?.endRefreshing()
         self.refreshTable()
-    }
-    
-    func asyncLoadHistory() {
-        let tbc = tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",
-            (tbc.currentUser?.name)!),
-            relativeToURL: tbc.server )
-        //        print(url!.absoluteString)
-        //        let sessionCfg = NSURLSession.sharedSession().configuration
-        //        sessionCfg.timeoutIntervalForResource = 30.0
-        //        let session = NSURLSession(configuration: sessionCfg)
-        let session  = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
-            } else if data != nil {
-                //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.history.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
-            }
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    // update some UI
-                    //                    print("reloading tableview")
-                    self.tableView.reloadData()
-                });
-            });
-        })
-        task.resume()
     }
     
     
