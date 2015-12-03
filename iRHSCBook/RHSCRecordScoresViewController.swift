@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, segmentChangedProtocol {
+class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, segmentChangedProtocol, scoreChangedProtocol {
     @IBOutlet var formTable: UITableView!
     
     var ct : RHSCCourtTime? = nil
@@ -27,6 +27,8 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     var game3ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game4ScoreCell : RHSCGameScoreTableViewCell? = nil
     var game5ScoreCell : RHSCGameScoreTableViewCell? = nil
+    var gamesWonCell : RHSCGamesWonTableViewCell? = nil
+    
     
     var score : RHSCScore? = nil
     
@@ -113,6 +115,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             game1ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game1ScoreCell?.configure("Game 1",scores: [String(score!.game1p1!),String(score!.game1p2!)])
+        game1ScoreCell?.delegate = self
         
         game2ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game2ScoreCell == nil) {
@@ -120,6 +123,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             game2ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game2ScoreCell?.configure("Game 2",scores: [String(score!.game2p1!),String(score!.game2p2!)])
+        game2ScoreCell?.delegate = self
         
         game3ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game3ScoreCell == nil) {
@@ -127,6 +131,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             game3ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game3ScoreCell?.configure("Game 3",scores: [String(score!.game3p1!),String(score!.game3p2!)])
+        game3ScoreCell?.delegate = self
         
         game4ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game4ScoreCell == nil) {
@@ -134,6 +139,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             game4ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game4ScoreCell?.configure("Game 4",scores: [String(score!.game4p1!),String(score!.game4p2!)])
+        game4ScoreCell?.delegate = self
         
         game5ScoreCell = formTable.dequeueReusableCellWithIdentifier("GameScoreCell") as? RHSCGameScoreTableViewCell
         if (game5ScoreCell == nil) {
@@ -141,12 +147,30 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
             game5ScoreCell = nib[3] as? RHSCGameScoreTableViewCell
         }
         game5ScoreCell?.configure("Game 5",scores: [String(score!.game5p1!),String(score!.game5p2!)])
+        game5ScoreCell?.delegate = self
         
+        gamesWonCell = formTable.dequeueReusableCellWithIdentifier("GamesWonCell") as? RHSCGamesWonTableViewCell
+        if (gamesWonCell == nil) {
+            let nib = NSBundle.mainBundle().loadNibNamed("RHSCRecordScoresTableViewCell", owner: self, options: nil)
+            gamesWonCell = nib[5] as? RHSCGamesWonTableViewCell
+        }
+        var t1games = score!.game1p1 > score!.game1p2 ? 1 : 0
+        var t2games = score!.game1p2 > score!.game1p1 ? 1 : 0
+        t1games += score!.game2p1 > score!.game2p2 ? 1 : 0
+        t2games += score!.game2p2 > score!.game2p1 ? 1 : 0
+        t1games += score!.game3p1 > score!.game3p2 ? 1 : 0
+        t2games += score!.game3p2 > score!.game3p1 ? 1 : 0
+        t1games += score!.game4p1 > score!.game4p2 ? 1 : 0
+        t2games += score!.game4p2 > score!.game4p1 ? 1 : 0
+        t1games += score!.game5p1 > score!.game5p2 ? 1 : 0
+        t2games += score!.game5p2 > score!.game5p1 ? 1 : 0
+        gamesWonCell!.t1won.text = String(t1games)
+        gamesWonCell!.t2won.text = String(t2games)
         
         if ct?.court == "Court 5" {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell, player3Cell, player4Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell,gamesWonCell]]
         } else {
-            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell]]
+            cells = [[courtAndDateCell, eventCell],[player1Cell, player2Cell],[scoreHeaderCell],[game1ScoreCell, game2ScoreCell,game3ScoreCell,game4ScoreCell,game5ScoreCell,gamesWonCell]]
         }
         
         for sect in cells {
@@ -193,7 +217,9 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
-        case 0,1:
+        case 0:
+            return 25.0
+        case 1:
             return 44.0
         case 2:
             return 39.0
@@ -203,6 +229,31 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     }
     
     func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
+    }
+    
+    func scoreChanged() {
+        score!.game1p1 = Int(game1ScoreCell!.team1score!.text!)
+        score!.game1p2 = Int(game1ScoreCell!.team2score!.text!)
+        score!.game2p1 = Int(game2ScoreCell!.team1score!.text!)
+        score!.game2p2 = Int(game2ScoreCell!.team2score!.text!)
+        score!.game3p1 = Int(game3ScoreCell!.team1score!.text!)
+        score!.game3p2 = Int(game3ScoreCell!.team2score!.text!)
+        score!.game4p1 = Int(game4ScoreCell!.team1score!.text!)
+        score!.game4p2 = Int(game4ScoreCell!.team2score!.text!)
+        score!.game5p1 = Int(game5ScoreCell!.team1score!.text!)
+        score!.game5p2 = Int(game5ScoreCell!.team2score!.text!)
+        var t1games = score!.game1p1 > score!.game1p2 ? 1 : 0
+        var t2games = score!.game1p2 > score!.game1p1 ? 1 : 0
+        t1games += score!.game2p1 > score!.game2p2 ? 1 : 0
+        t2games += score!.game2p2 > score!.game2p1 ? 1 : 0
+        t1games += score!.game3p1 > score!.game3p2 ? 1 : 0
+        t2games += score!.game3p2 > score!.game3p1 ? 1 : 0
+        t1games += score!.game4p1 > score!.game4p2 ? 1 : 0
+        t2games += score!.game4p2 > score!.game4p1 ? 1 : 0
+        t1games += score!.game5p1 > score!.game5p2 ? 1 : 0
+        t2games += score!.game5p2 > score!.game5p1 ? 1 : 0
+        gamesWonCell!.t1won.text = String(t1games)
+        gamesWonCell!.t2won.text = String(t2games)
     }
     
     

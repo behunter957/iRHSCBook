@@ -45,6 +45,7 @@
 		4AF4172B1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */; };
 		4AF4172D1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */; };
 		4AF417331C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF417321C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift */; };
+		4AF47F861C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF47F851C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
@@ -111,6 +112,7 @@
 		4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTeamSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTeamScoresTableViewCell.swift; sourceTree = "<group>"; };
 		4AF417321C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCGameScoreTableViewCell.swift; sourceTree = "<group>"; };
+		4AF47F851C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCGamesWonTableViewCell.swift; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC3383195EF27F00F7562F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACAC3385195EF27F00F7562F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -169,6 +171,7 @@
 				4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */,
 				4AF4172A1C08A1B400C2CA2E /* RHSCTeamSelectionTableViewCell.swift */,
 				4AF417321C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift */,
+				4AF47F851C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				4A2EDE1F1BE25A5C0012CC4E /* RHSCCourtTimeViewController.swift in Sources */,
 				4A2EDE091BDD8DC00012CC4E /* RHSCGuest.swift in Sources */,
 				4A1471D41C0651A400D824D3 /* RHSCHistoryList.swift in Sources */,
+				4AF47F861C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift in Sources */,
 				4A2EDE0B1BDD8DE20012CC4E /* RHSCCourtTime.swift in Sources */,
 				4A2EDE2B1BE445B50012CC4E /* RHSCAppDelegate.swift in Sources */,
 				4A2EDE171BE029020012CC4E /* Reachability.swift in Sources */,

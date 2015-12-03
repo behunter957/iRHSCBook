@@ -9,12 +9,19 @@
 import Foundation
 import UIKit
 
+protocol scoreChangedProtocol {
+    
+    func scoreChanged()
+}
+
 public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource,UIPickerViewDelegate {
     //    @IBOutlet weak var typePicker : UIPickerView? = nil
     @IBOutlet weak var gameText: UILabel? = nil
     @IBOutlet weak var team1score: UITextField? = nil
     @IBOutlet weak var team2score: UITextField? = nil
-    
+
+    var delegate : scoreChangedProtocol? = nil
+
     var typeList = ["0","1","2","3","4","5","6","7","8","9",
         "10","11","12","13","14","15","16","17","18","19",
         "20","21","22","23","24","25"]
@@ -66,5 +73,14 @@ public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource
             self.team2score?.resignFirstResponder()
         }
     }
+    
+    @IBAction func val1Changed(sender: AnyObject) {
+        delegate!.scoreChanged()
+    }
+    
+    @IBAction func val2Changed(sender: AnyObject) {
+        delegate!.scoreChanged()
+    }
+    
     
 }
