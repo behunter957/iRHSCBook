@@ -61,19 +61,19 @@ class RHSCScore : NSObject {
         matchtype    = jsonDictionary["matchtype"] as! String?
         matchevent   = jsonDictionary["matchevent"] as! String?
         player1_id   = jsonDictionary["player1_id"] as! String?
-        player1_won  = jsonDictionary["player1_won"] as! Int?
+        player1_won  = Int((jsonDictionary["player1_won"] as! String?)!)
         player2_id   = jsonDictionary["player2_id"] as! String?
-        player2_won  = jsonDictionary["player2_won"] as! Int?
-        game1p1      = jsonDictionary["game1p1"] as! Int?
-        game1p2      = jsonDictionary["game1p2"] as! Int?
-        game2p1      = jsonDictionary["game2p1"] as! Int?
-        game2p2      = jsonDictionary["game2p2"] as! Int?
-        game3p1      = jsonDictionary["game3p1"] as! Int?
-        game3p2      = jsonDictionary["game3p2"] as! Int?
-        game4p1      = jsonDictionary["game4p1"] as! Int?
-        game4p2      = jsonDictionary["game4p2"] as! Int?
-        game5p1      = jsonDictionary["game5p1"] as! Int?
-        game5p2      = jsonDictionary["game5p2"] as! Int?
+        player2_won  = Int((jsonDictionary["player2_won"] as! String?)!)
+        game1p1      = Int((jsonDictionary["game1p1"] as! String?)!)
+        game1p2      = Int((jsonDictionary["game1p2"] as! String?)!)
+        game2p1      = Int((jsonDictionary["game2p1"] as! String?)!)
+        game2p2      = Int((jsonDictionary["game2p2"] as! String?)!)
+        game3p1      = Int((jsonDictionary["game3p1"] as! String?)!)
+        game3p2      = Int((jsonDictionary["game3p2"] as! String?)!)
+        game4p1      = Int((jsonDictionary["game4p1"] as! String?)!)
+        game4p2      = Int((jsonDictionary["game4p2"] as! String?)!)
+        game5p1      = Int((jsonDictionary["game5p1"] as! String?)!)
+        game5p2      = Int((jsonDictionary["game5p2"] as! String?)!)
         booking_id   = jsonDictionary["booking_id"] as! String?
         isTournament = (jsonDictionary["isTournament"] as! String?) == "true"
         isRanked     = (jsonDictionary["isRanked"] as! String?) == "true"
@@ -82,12 +82,12 @@ class RHSCScore : NSObject {
         isLocked     = (jsonDictionary["isLocked"] as! String?) == "true"
         updDate      = jsonDictionary["updDate"] as! String?
         player3_id   = jsonDictionary["player3_id"] as! String?
-        player3_won  = jsonDictionary["player3_won"] as! Int?
+        player3_won  = Int((jsonDictionary["player3_won"] as! String?)!)
         player4_id   = jsonDictionary["player4_id"] as! String?
-        player4_won  = jsonDictionary["player4_won"] as! Int?
+        player4_won  = Int((jsonDictionary["player4_won"] as! String?)!)
         t1p1         = jsonDictionary["t1p1"] as! String?
         t2p1         = jsonDictionary["t2p1"] as! String?
-        t1p2         = jsonDictionary["t1p2"] as! String?                   
+        t1p2         = jsonDictionary["t1p2"] as! String?
         t2p2         = jsonDictionary["t2p2"] as! String?
         isValid = true
     }
@@ -176,19 +176,19 @@ class RHSCScore : NSObject {
         matchtype    = jsonDictionary["matchtype"] as! String?
         matchevent   = jsonDictionary["matchevent"] as! String?
         player1_id   = jsonDictionary["player1_id"] as! String?
-        player1_won  = jsonDictionary["player1_won"] as! Int?
+        player1_won  = Int((jsonDictionary["player1_won"] as! String?)!)
         player2_id   = jsonDictionary["player2_id"] as! String?
-        player2_won  = jsonDictionary["player2_won"] as! Int?
-        game1p1      = jsonDictionary["game1p1"] as! Int?
-        game1p2      = jsonDictionary["game1p2"] as! Int?
-        game2p1      = jsonDictionary["game2p1"] as! Int?
-        game2p2      = jsonDictionary["game2p2"] as! Int?
-        game3p1      = jsonDictionary["game3p1"] as! Int?
-        game3p2      = jsonDictionary["game3p2"] as! Int?
-        game4p1      = jsonDictionary["game4p1"] as! Int?
-        game4p2      = jsonDictionary["game4p2"] as! Int?
-        game5p1      = jsonDictionary["game5p1"] as! Int?
-        game5p2      = jsonDictionary["game5p2"] as! Int?
+        player2_won  = Int((jsonDictionary["player2_won"] as! String?)!)
+        game1p1      = Int((jsonDictionary["game1p1"] as! String?)!)
+        game1p2      = Int((jsonDictionary["game1p2"] as! String?)!)
+        game2p1      = Int((jsonDictionary["game2p1"] as! String?)!)
+        game2p2      = Int((jsonDictionary["game2p2"] as! String?)!)
+        game3p1      = Int((jsonDictionary["game3p1"] as! String?)!)
+        game3p2      = Int((jsonDictionary["game3p2"] as! String?)!)
+        game4p1      = Int((jsonDictionary["game4p1"] as! String?)!)
+        game4p2      = Int((jsonDictionary["game4p2"] as! String?)!)
+        game5p1      = Int((jsonDictionary["game5p1"] as! String?)!)
+        game5p2      = Int((jsonDictionary["game5p2"] as! String?)!)
         booking_id   = jsonDictionary["booking_id"] as! String?
         isTournament = (jsonDictionary["isTournament"] as! String?) == "true"
         isRanked     = (jsonDictionary["isRanked"] as! String?) == "true"
@@ -197,9 +197,9 @@ class RHSCScore : NSObject {
         isLocked     = (jsonDictionary["isLocked"] as! String?) == "true"
         updDate      = jsonDictionary["updDate"] as! String?
         player3_id   = jsonDictionary["player3_id"] as! String?
-        player3_won  = jsonDictionary["player3_won"] as! Int?
+        player3_won  = Int((jsonDictionary["player3_won"] as! String?)!)
         player4_id   = jsonDictionary["player4_id"] as! String?
-        player4_won  = jsonDictionary["player4_won"] as! Int?
+        player4_won  = Int((jsonDictionary["player4_won"] as! String?)!)
         t1p1         = jsonDictionary["t1p1"] as! String?
         t2p1         = jsonDictionary["t2p1"] as! String?
         t1p2         = jsonDictionary["t1p2"] as! String?
@@ -219,25 +219,25 @@ class RHSCScore : NSObject {
         parmStr += String.init(format: "matchdate=%@",arguments: [matchdate!])
         parmStr += String.init(format: "&matchtime=%@",arguments: [matchtime!])
         parmStr += String.init(format: "&matchtype=%@",arguments: [matchtype!])
-        parmStr += String.init(format: "&player1_id=%@",arguments: [player1_id!])
-        parmStr += String.init(format: "&player1_won=%@",arguments: [player1_won!])
-        parmStr += String.init(format: "&player2_id=%@",arguments: [player2_id!])
-        parmStr += String.init(format: "&player2_won=%@",arguments: [player2_won!])
-        parmStr += String.init(format: "&game1p1=%@",arguments: [game1p1!])
-        parmStr += String.init(format: "&game1p2=%@",arguments: [game1p2!])
-        parmStr += String.init(format: "&game2p1=%@",arguments: [game2p1!])
-        parmStr += String.init(format: "&game2p2=%@",arguments: [game2p2!])
-        parmStr += String.init(format: "&game3p1=%@",arguments: [game3p1!])
-        parmStr += String.init(format: "&game3p2=%@",arguments: [game3p2!])
-        parmStr += String.init(format: "&game4p1=%@",arguments: [game4p1!])
-        parmStr += String.init(format: "&game4p2=%@",arguments: [game4p2!])
-        parmStr += String.init(format: "&game5p1=%@",arguments: [game5p1!])
-        parmStr += String.init(format: "&game5p2=%@",arguments: [game5p2!])
+        parmStr += String.init(format: "&player1=%@",arguments: [player1_id!])
+        parmStr += String.init(format: "&p1won=%@",arguments: [String(player1_won!)])
+        parmStr += String.init(format: "&player2=%@",arguments: [player2_id!])
+        parmStr += String.init(format: "&p2won=%@",arguments: [String(player2_won!)])
+        parmStr += String.init(format: "&game1p1=%@",arguments: [String(game1p1!)])
+        parmStr += String.init(format: "&game1p2=%@",arguments: [String(game1p2!)])
+        parmStr += String.init(format: "&game2p1=%@",arguments: [String(game2p1!)])
+        parmStr += String.init(format: "&game2p2=%@",arguments: [String(game2p2!)])
+        parmStr += String.init(format: "&game3p1=%@",arguments: [String(game3p1!)])
+        parmStr += String.init(format: "&game3p2=%@",arguments: [String(game3p2!)])
+        parmStr += String.init(format: "&game4p1=%@",arguments: [String(game4p1!)])
+        parmStr += String.init(format: "&game4p2=%@",arguments: [String(game4p2!)])
+        parmStr += String.init(format: "&game5p1=%@",arguments: [String(game5p1!)])
+        parmStr += String.init(format: "&game5p2=%@",arguments: [String(game5p2!)])
         parmStr += String.init(format: "&b_id=%@",arguments: [booking_id!])
-        parmStr += String.init(format: "&player3_id=%@",arguments: [player3_id!])
-        parmStr += String.init(format: "&player3_won=%@",arguments: [player3_won!])
-        parmStr += String.init(format: "&player4_id=%@",arguments: [player4_id!])
-        parmStr += String.init(format: "&player4_won=%@",arguments: [player4_won!])
+        parmStr += String.init(format: "&player3=%@",arguments: [player3_id!])
+        parmStr += String.init(format: "&p3won=%@",arguments: [String(player3_won!)])
+        parmStr += String.init(format: "&player4=%@",arguments: [player4_id!])
+        parmStr += String.init(format: "&p4won=%@",arguments: [String(player4_won!)])
         parmStr += String.init(format: "&t1p1=%@",arguments: [t1p1!])
         parmStr += String.init(format: "&t2p1=%@",arguments: [t2p1!])
         parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
@@ -271,7 +271,7 @@ class RHSCScore : NSObject {
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Add Scores",
-                                message: "Error TBD1", preferredStyle: .Alert)
+                                message: jsonDictionary["error"] as! String, preferredStyle: .Alert)
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     view.presentViewController(errorAlert!, animated: true, completion: nil)
@@ -326,33 +326,34 @@ class RHSCScore : NSObject {
         
         var parmStr = ""
         parmStr += String.init(format: "id=%@",arguments: [id!])
-        parmStr += String.init(format: "&matchdate=%@",arguments: [matchdate!])
+        parmStr += String.init(format: "matchdate=%@",arguments: [matchdate!])
         parmStr += String.init(format: "&matchtime=%@",arguments: [matchtime!])
         parmStr += String.init(format: "&matchtype=%@",arguments: [matchtype!])
-        parmStr += String.init(format: "&player1_id=%@",arguments: [player1_id!])
-        parmStr += String.init(format: "&player1_won=%@",arguments: [player1_won!])
-        parmStr += String.init(format: "&player2_id=%@",arguments: [player2_id!])
-        parmStr += String.init(format: "&player2_won=%@",arguments: [player2_won!])
-        parmStr += String.init(format: "&game1p1=%@",arguments: [game1p1!])
-        parmStr += String.init(format: "&game1p2=%@",arguments: [game1p2!])
-        parmStr += String.init(format: "&game2p1=%@",arguments: [game2p1!])
-        parmStr += String.init(format: "&game2p2=%@",arguments: [game2p2!])
-        parmStr += String.init(format: "&game3p1=%@",arguments: [game3p1!])
-        parmStr += String.init(format: "&game3p2=%@",arguments: [game3p2!])
-        parmStr += String.init(format: "&game4p1=%@",arguments: [game4p1!])
-        parmStr += String.init(format: "&game4p2=%@",arguments: [game4p2!])
-        parmStr += String.init(format: "&game5p1=%@",arguments: [game5p1!])
-        parmStr += String.init(format: "&game5p2=%@",arguments: [game5p2!])
-        parmStr += String.init(format: "&booking_id=%@",arguments: [booking_id!])
-        parmStr += String.init(format: "&player3_id=%@",arguments: [player3_id!])
-        parmStr += String.init(format: "&player3_won=%@",arguments: [player3_won!])
-        parmStr += String.init(format: "&player4_id=%@",arguments: [player4_id!])
-        parmStr += String.init(format: "&player4_won=%@",arguments: [player4_won!])
+        parmStr += String.init(format: "&player1=%@",arguments: [player1_id!])
+        parmStr += String.init(format: "&p1won=%@",arguments: [String(player1_won!)])
+        parmStr += String.init(format: "&player2=%@",arguments: [player2_id!])
+        parmStr += String.init(format: "&p2won=%@",arguments: [String(player2_won!)])
+        parmStr += String.init(format: "&game1p1=%@",arguments: [String(game1p1!)])
+        parmStr += String.init(format: "&game1p2=%@",arguments: [String(game1p2!)])
+        parmStr += String.init(format: "&game2p1=%@",arguments: [String(game2p1!)])
+        parmStr += String.init(format: "&game2p2=%@",arguments: [String(game2p2!)])
+        parmStr += String.init(format: "&game3p1=%@",arguments: [String(game3p1!)])
+        parmStr += String.init(format: "&game3p2=%@",arguments: [String(game3p2!)])
+        parmStr += String.init(format: "&game4p1=%@",arguments: [String(game4p1!)])
+        parmStr += String.init(format: "&game4p2=%@",arguments: [String(game4p2!)])
+        parmStr += String.init(format: "&game5p1=%@",arguments: [String(game5p1!)])
+        parmStr += String.init(format: "&game5p2=%@",arguments: [String(game5p2!)])
+        parmStr += String.init(format: "&b_id=%@",arguments: [booking_id!])
+        parmStr += String.init(format: "&player3=%@",arguments: [player3_id!])
+        parmStr += String.init(format: "&p3won=%@",arguments: [String(player3_won!)])
+        parmStr += String.init(format: "&player4=%@",arguments: [player4_id!])
+        parmStr += String.init(format: "&p4won=%@",arguments: [String(player4_won!)])
         parmStr += String.init(format: "&t1p1=%@",arguments: [t1p1!])
         parmStr += String.init(format: "&t2p1=%@",arguments: [t2p1!])
         parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
         parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
-        let url = NSURL(string: String.init(format: "Reserve20/IOSUpdateScoreJSON.php?uid=%@&%@",
+        parmStr += String.init(format: "&channel=%@",arguments: ["iPhone"])
+        let url = NSURL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
             arguments: [curUser!.name!, parmStr]), relativeToURL: server )
         
         let sessionCfg = NSURLSession.sharedSession().configuration
