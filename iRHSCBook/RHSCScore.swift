@@ -233,7 +233,7 @@ class RHSCScore : NSObject {
         parmStr += String.init(format: "&game4p2=%@",arguments: [game4p2!])
         parmStr += String.init(format: "&game5p1=%@",arguments: [game5p1!])
         parmStr += String.init(format: "&game5p2=%@",arguments: [game5p2!])
-        parmStr += String.init(format: "&booking_id=%@",arguments: [booking_id!])
+        parmStr += String.init(format: "&b_id=%@",arguments: [booking_id!])
         parmStr += String.init(format: "&player3_id=%@",arguments: [player3_id!])
         parmStr += String.init(format: "&player3_won=%@",arguments: [player3_won!])
         parmStr += String.init(format: "&player4_id=%@",arguments: [player4_id!])
@@ -242,6 +242,7 @@ class RHSCScore : NSObject {
         parmStr += String.init(format: "&t2p1=%@",arguments: [t2p1!])
         parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
         parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
+        parmStr += String.init(format: "&channel=%@",arguments: ["iPhone"])
         let url = NSURL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
             arguments: [curUser!.name!, parmStr]), relativeToURL: server )
         
