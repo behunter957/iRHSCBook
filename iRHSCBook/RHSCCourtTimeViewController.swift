@@ -181,8 +181,13 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 switch curCourtTime.event! {
                     case "Lesson","Clinic","School":
                         cell.contentView.backgroundColor = UIColor.lessonYellow()
+                        break
                     case "T&D","MNHL","Ladder","RoundRobin","Tournament":
                         cell.contentView.backgroundColor = UIColor.leaguePurple()
+                        break
+                    case "Practice":
+                        cell.contentView.backgroundColor = UIColor.practiceOrange()
+                        break
                     default:
                         cell.contentView.backgroundColor = UIColor.bookedBlue()
                 }
@@ -220,14 +225,22 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                         rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
                         rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
                         rcell.statusLabel!.textColor = UIColor.blackColor()
+                        break
                     case "T&D","MNHL","Ladder","RoundRobin","Tournament":
                         rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
                         rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
                         rcell.statusLabel!.textColor = UIColor.whiteColor()
+                        break
+                    case "Practice":
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
+                        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
+                        rcell.statusLabel!.textColor = UIColor.blackColor()
+                        break
                     default:
                         rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
                         rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
                         rcell.statusLabel!.textColor = UIColor.whiteColor()
+                        break
                     }
                     break
                 default:

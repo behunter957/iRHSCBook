@@ -56,7 +56,18 @@ import UIKit
         let g2name = nullToString(jsonDictionary["g2_name"])
         let g3name = nullToString(jsonDictionary["g3_name"])
         let g4name = nullToString(jsonDictionary["g4_name"])
-        if ["School","Clinic","RoundRobin","T&D"].contains(event!) {
+        
+        if event! == "Practice" {
+            players[1] = player1_id == "" ? members.EMPTY : (player1_id == "TBD" ? members.TBD :  ml[player1_id!.lowercaseString])
+            players[2] = player2_id == "" ? members.EMPTY : (player2_id == "TBD" ? members.TBD :
+                (player2_id == "Guest" ? RHSCGuest(withGuestName: g2name) : ml[player2_id!.lowercaseString]))
+            players[3] = player3_id == "" ? members.EMPTY : (player3_id == "TBD" ? members.TBD :
+                (player3_id == "Guest" ? RHSCGuest(withGuestName: g3name) : ml[player3_id!.lowercaseString]))
+            players[4] = player4_id == "" ? members.EMPTY : (player4_id == "TBD" ? members.TBD :
+                (player4_id == "Guest" ? RHSCGuest(withGuestName: g4name) : ml[player4_id!.lowercaseString]))
+            bookedForUser = (player1_id == userId)
+            summary = String.init(format: "%@ - %@",arguments: [event!,players[1]!.lastName!])
+        } else if ["School","Clinic","RoundRobin","T&D"].contains(event!) {
             players[1] = members.EMPTY
             players[2] = members.EMPTY
             players[3] = members.EMPTY
@@ -194,7 +205,12 @@ import UIKit
         let g2name = players[2] is RHSCGuest ? (players[2] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g3name = players[3] is RHSCGuest ? (players[3] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
         let g4name = players[4] is RHSCGuest ? (players[4] as! RHSCGuest).guestName.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) : ""
-        let pl2 = (players[2] != nil ? players[2]?.name : "")!
+        var pl2 = (players[2] != nil ? players[2]?.name : "")!
+        if event! == "Practice" {
+            if pl2 == "TBD" {
+                pl2 = ""
+            }
+        }
         let pl3 = court == "Court 5" ? (players[3] != nil ? players[3]?.name : "")! : ""
         let pl4 = court == "Court 5" ? (players[4] != nil ? players[4]?.name : "")! : ""
         let urlstr = String.init(format: "Reserve20/IOSBookCourtJSON.php?booking_id=%@&player1_id=%@&player2_id=%@&player3_id=%@&player4_id=%@&uid=%@&channel=%@&guest2=%@&guest3=%@&guest4=%@&channel=%@&court=%@&courtEvent=%@&reserved=false",
