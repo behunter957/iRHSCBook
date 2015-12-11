@@ -271,7 +271,7 @@ class RHSCScore : NSObject {
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Add Scores",
-                                message: jsonDictionary["error"] as! String, preferredStyle: .Alert)
+                                message: jsonDictionary["error"] as? String, preferredStyle: .Alert)
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     view.presentViewController(errorAlert!, animated: true, completion: nil)

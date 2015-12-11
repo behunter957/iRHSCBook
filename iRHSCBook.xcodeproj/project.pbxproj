@@ -36,6 +36,7 @@
 		4AB4C5E91BF215C300EBDED9 /* RHSCContactMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AB4C5E81BF215C300EBDED9 /* RHSCContactMemberTableViewCell.xib */; };
 		4AC8C3AF1BD647010077A23F /* RHSCMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8C3AE1BD647010077A23F /* RHSCMember.swift */; };
 		4AD36F28196FF22A0015BB52 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD36F27196FF22A0015BB52 /* MessageUI.framework */; };
+		4ADB4C461C1B2580002C344C /* iRHSCBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB4C451C1B2580002C344C /* iRHSCBookUITests.swift */; };
 		4AF4171D1C074D3500C2CA2E /* RHSCHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AF4171C1C074D3500C2CA2E /* RHSCHistoryTableViewCell.xib */; };
 		4AF4171F1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4171E1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift */; };
 		4AF417211C0782B600C2CA2E /* RHSCReportNoShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF417201C0782B600C2CA2E /* RHSCReportNoShowViewController.swift */; };
@@ -56,7 +57,6 @@
 		ACAC33A7195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC33A8195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
 		ACAC33B0195EF27F00F7562F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACAC33AE195EF27F00F7562F /* InfoPlist.strings */; };
-		ACAC33B2195EF27F00F7562F /* iRHSCBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */; };
 		ACCBC51C1C0B3934000B0C1D /* RHSCScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCBC51B1C0B3934000B0C1D /* RHSCScore.swift */; };
 		ACE70CF11BEE583300999569 /* RHSCLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE70CF01BEE583300999569 /* RHSCLabelTableViewCell.swift */; };
 		ACE70CF31BEE591400999569 /* RHSCButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE70CF21BEE591400999569 /* RHSCButtonTableViewCell.swift */; };
@@ -64,6 +64,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4ADB4C481C1B2580002C344C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACAC3378195EF27F00F7562F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACAC337F195EF27F00F7562F;
+			remoteInfo = iRHSCBook;
+		};
 		ACAC33A9195EF27F00F7562F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ACAC3378195EF27F00F7562F /* Project object */;
@@ -103,6 +110,9 @@
 		4AB4C5E81BF215C300EBDED9 /* RHSCContactMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCContactMemberTableViewCell.xib; sourceTree = "<group>"; };
 		4AC8C3AE1BD647010077A23F /* RHSCMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMember.swift; sourceTree = "<group>"; };
 		4AD36F27196FF22A0015BB52 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4ADB4C431C1B2580002C344C /* iRHSCBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iRHSCBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADB4C451C1B2580002C344C /* iRHSCBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iRHSCBookUITests.swift; sourceTree = "<group>"; };
+		4ADB4C471C1B2580002C344C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF4171C1C074D3500C2CA2E /* RHSCHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHSCHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		4AF4171E1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		4AF417201C0782B600C2CA2E /* RHSCReportNoShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCReportNoShowViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +136,6 @@
 		ACAC33A5195EF27F00F7562F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		ACAC33AD195EF27F00F7562F /* iRHSCBookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iRHSCBookTests-Info.plist"; sourceTree = "<group>"; };
 		ACAC33AF195EF27F00F7562F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iRHSCBookTests.m; sourceTree = "<group>"; };
 		ACCBC51B1C0B3934000B0C1D /* RHSCScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCScore.swift; sourceTree = "<group>"; };
 		ACE70CF01BEE583300999569 /* RHSCLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCLabelTableViewCell.swift; sourceTree = "<group>"; };
 		ACE70CF21BEE591400999569 /* RHSCButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +143,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4ADB4C401C1B2580002C344C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACAC337D195EF27F00F7562F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,12 +259,22 @@
 			name = Members;
 			sourceTree = "<group>";
 		};
+		4ADB4C441C1B2580002C344C /* iRHSCBookUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4ADB4C451C1B2580002C344C /* iRHSCBookUITests.swift */,
+				4ADB4C471C1B2580002C344C /* Info.plist */,
+			);
+			path = iRHSCBookUITests;
+			sourceTree = "<group>";
+		};
 		ACAC3377195EF27F00F7562F = {
 			isa = PBXGroup;
 			children = (
 				4A922D73196C9C5B007A7478 /* Settings.bundle */,
 				ACAC3389195EF27F00F7562F /* iRHSCBook */,
 				ACAC33AB195EF27F00F7562F /* iRHSCBookTests */,
+				4ADB4C441C1B2580002C344C /* iRHSCBookUITests */,
 				ACAC3382195EF27F00F7562F /* Frameworks */,
 				ACAC3381195EF27F00F7562F /* Products */,
 			);
@@ -259,6 +285,7 @@
 			children = (
 				ACAC3380195EF27F00F7562F /* iRHSCBook.app */,
 				ACAC33A4195EF27F00F7562F /* iRHSCBookTests.xctest */,
+				4ADB4C431C1B2580002C344C /* iRHSCBookUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,7 +329,6 @@
 		ACAC33AB195EF27F00F7562F /* iRHSCBookTests */ = {
 			isa = PBXGroup;
 			children = (
-				ACAC33B1195EF27F00F7562F /* iRHSCBookTests.m */,
 				ACAC33AC195EF27F00F7562F /* Supporting Files */,
 			);
 			path = iRHSCBookTests;
@@ -320,6 +346,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4ADB4C421C1B2580002C344C /* iRHSCBookUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ADB4C4A1C1B2580002C344C /* Build configuration list for PBXNativeTarget "iRHSCBookUITests" */;
+			buildPhases = (
+				4ADB4C3F1C1B2580002C344C /* Sources */,
+				4ADB4C401C1B2580002C344C /* Frameworks */,
+				4ADB4C411C1B2580002C344C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4ADB4C491C1B2580002C344C /* PBXTargetDependency */,
+			);
+			name = iRHSCBookUITests;
+			productName = iRHSCBookUITests;
+			productReference = 4ADB4C431C1B2580002C344C /* iRHSCBookUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		ACAC337F195EF27F00F7562F /* iRHSCBook */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACAC33B5195EF27F00F7562F /* Build configuration list for PBXNativeTarget "iRHSCBook" */;
@@ -362,9 +406,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RHSC;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Bruce Hunter";
 				TargetAttributes = {
+					4ADB4C421C1B2580002C344C = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = ACAC337F195EF27F00F7562F;
+					};
 					ACAC337F195EF27F00F7562F = {
 						DevelopmentTeam = FLLCB46B75;
 					};
@@ -388,11 +437,19 @@
 			targets = (
 				ACAC337F195EF27F00F7562F /* iRHSCBook */,
 				ACAC33A3195EF27F00F7562F /* iRHSCBookTests */,
+				4ADB4C421C1B2580002C344C /* iRHSCBookUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4ADB4C411C1B2580002C344C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACAC337E195EF27F00F7562F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,6 +478,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4ADB4C3F1C1B2580002C344C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADB4C461C1B2580002C344C /* iRHSCBookUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACAC337C195EF27F00F7562F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -467,13 +532,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACAC33B2195EF27F00F7562F /* iRHSCBookTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4ADB4C491C1B2580002C344C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACAC337F195EF27F00F7562F /* iRHSCBook */;
+			targetProxy = 4ADB4C481C1B2580002C344C /* PBXContainerItemProxy */;
+		};
 		ACAC33AA195EF27F00F7562F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = ACAC337F195EF27F00F7562F /* iRHSCBook */;
@@ -509,6 +578,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4ADB4C4B1C1B2580002C344C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = iRHSCBookUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhsquashclub.iRHSCBookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = iRHSCBook;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		4ADB4C4C1C1B2580002C344C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = iRHSCBookUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhsquashclub.iRHSCBookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = iRHSCBook;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		ACAC33B3195EF27F00F7562F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -586,6 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
@@ -596,6 +704,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
+				"TEST_HOST[sdk=iphonesimulator9.2]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -606,6 +715,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBook/iRHSCBook-Info.plist";
@@ -615,6 +725,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
+				"TEST_HOST[sdk=iphonesimulator9.2]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -623,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iRHSCBook.app/iRHSCBook";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -630,8 +742,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "iRHSCBookTests/iRHSCBookTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -641,9 +755,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iRHSCBook.app/iRHSCBook";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRHSCBook/iRHSCBook-Prefix.pch";
 				INFOPLIST_FILE = "iRHSCBookTests/iRHSCBookTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -654,6 +770,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4ADB4C4A1C1B2580002C344C /* Build configuration list for PBXNativeTarget "iRHSCBookUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADB4C4B1C1B2580002C344C /* Debug */,
+				4ADB4C4C1C1B2580002C344C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		ACAC337B195EF27F00F7562F /* Build configuration list for PBXProject "iRHSCBook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

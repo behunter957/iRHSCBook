@@ -38,6 +38,16 @@
                ReferencedContainer = "container:iRHSCBook.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4ADB4C421C1B2580002C344C"
+               BuildableName = "iRHSCBookUITests.xctest"
+               BlueprintName = "iRHSCBookUITests"
+               ReferencedContainer = "container:iRHSCBook.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
