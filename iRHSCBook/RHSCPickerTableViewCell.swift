@@ -13,7 +13,7 @@ public class RHSCPickerTableViewCell : UITableViewCell,UIPickerViewDataSource,UI
 //    @IBOutlet weak var typePicker : UIPickerView? = nil
     @IBOutlet weak var eventType: UITextField? = nil
 
-    var typeList = ["Friendly","Lesson","MNHL","Ladder","Tournament"]
+    var typeList = ["Friendly","Lesson","Practice","MNHL","Ladder","Tournament"]
 
     public func configure() {
         let picker = UIPickerView()

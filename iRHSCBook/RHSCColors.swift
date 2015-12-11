@@ -41,6 +41,10 @@ extension UIColor {
         return UIColor(red:0.92, green:0.82, blue:0.49, alpha:1.0)
     }
     
+    class func practiceOrange() -> UIColor {
+        return UIColor(red: 1, green: 0.6471, blue: 0, alpha: 1.0)
+    }
+    
     class func noshowRed() -> UIColor {
         return UIColor(red:1.00, green:0.55, blue:0.48, alpha:1.0)
     }
