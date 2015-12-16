@@ -35,6 +35,8 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
 //        self.tableView.separatorColor = UIColor.blackColor()
 //        self.tableView.separatorInset = UIEdgeInsetsZero
         
+        self.tableView.accessibilityIdentifier = "CourtTimes"
+                
         // Uncomment the following line to preserve selection between presentations.
         self.clearsSelectionOnViewWillAppear = false;
     
@@ -258,6 +260,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 rcell.statusLabel!.textColor = UIColor.whiteColor()
             }
             rcell.accessoryType = .None
+            rcell.accessibilityIdentifier = rcell.courtAndTimeLabel?.text
             return rcell
         } else {
             print("unexpected out of range row=\(indexPath.row), container size=\(self.courtTimes.count)" )
