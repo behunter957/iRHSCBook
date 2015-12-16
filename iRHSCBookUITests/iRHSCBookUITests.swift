@@ -43,25 +43,45 @@ class iRHSCBookUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Failed to find matching element please file bug (bugreport.apple.com) and provide output from Console.app
-
-        // Failed to find matching element please file bug (bugreport.apple.com) and provide output from Console.app
-        
+    func testNavigateToBookCourt() {
         let app = XCUIApplication()
-        app.launch()
-        sleep(5)
         let tb = app.tables.matchingIdentifier("CourtTimes")
         let tbc = tb.cells.matchingIdentifier("Court 2 - 10:20 PM")
         
-        print(tbc.elementBoundByIndex(0).debugDescription)
+//        XCTAssert(tbc.elementBoundByIndex(0).exists)
         
         app.scrollToElement(tbc.elementBoundByIndex(0))
         tbc.elementBoundByIndex(0).tap()
         
-        print("done")
+        let navb = XCUIApplication().navigationBars.matchingIdentifier("Book Court")
+        XCTAssert(navb.elementBoundByIndex(0).exists)
+        
+        app.tables.buttons["Player2Val"].tap()
+        
+        app.sheets.collectionViews.buttons["Member"].tap()
+
+        let tb2 = app.tables.matchingIdentifier("FindMember")
+        XCTAssert(tb2.elementBoundByIndex(0).exists)
+
+        let tb2c = tb2.cells.matchingIdentifier("Booker, Test \"test\"")
+        
+        app.scrollToElement(tb2c.elementBoundByIndex(0))
+        tb2c.elementBoundByIndex(0).tap()
+        
+        let tb4 = XCUIApplication().navigationBars["Book Court"]
+        XCTAssert(tb4.exists)
+
+        tb4.buttons["Confirm"].tap()
+        
+        sleep(5)
+        
+        let tb3 = XCUIApplication().tables.matchingIdentifier("CourtTimes")
+        XCTAssert(tb3.elementBoundByIndex(0).exists)
+        
+    }
+    
+    func testNavigateToCancelCourt() {
+        
     }
     
 }
