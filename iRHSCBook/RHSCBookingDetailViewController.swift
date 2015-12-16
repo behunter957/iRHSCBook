@@ -39,6 +39,9 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         // obtain players
+        
+//        self.tableView.accessibilityIdentifier = "MyBookingDetail"
+        
         let tbc = tabBarController as! RHSCTabBarController
     
         user = tbc.currentUser

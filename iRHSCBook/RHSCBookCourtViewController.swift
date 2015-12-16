@@ -37,6 +37,7 @@ class RHSCBookCourtViewController : UIViewController, UITableViewDataSource, UIT
 
     override func viewDidLoad() {
         
+//        self.tableView.accessibilityIdentifier = "BookCourt"
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()

@@ -35,6 +35,7 @@ class RHSCReportNoShowViewController : UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         
+//        self.tableView.accessibilityIdentifier = "ReportNoShow"
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()

@@ -22,6 +22,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.accessibilityIdentifier = "CourtHistory"
         // Uncomment the following line to preserve selection between presentations.
         // self.clearsSelectionOnViewWillAppear = NO;
         

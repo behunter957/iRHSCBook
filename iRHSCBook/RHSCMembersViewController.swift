@@ -20,6 +20,7 @@ class RHSCMembersViewController : UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tableView.accessibilityIdentifier = "Members"
         resultSearchController = UISearchController(searchResultsController: nil)
         resultSearchController.searchResultsUpdater = self
         resultSearchController.hidesNavigationBarDuringPresentation = false

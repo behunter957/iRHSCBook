@@ -41,6 +41,7 @@ class RHSCRecordScoresViewController : UIViewController, UITableViewDataSource, 
     
     override func viewDidLoad() {
         
+//        self.tableView.accessibilityIdentifier = "RecordScores"
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()

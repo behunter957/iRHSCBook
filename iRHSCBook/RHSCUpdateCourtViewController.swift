@@ -37,6 +37,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     
     override func viewDidLoad() {
         
+//        self.tableView.accessibilityIdentifier = "UpdateCourt"
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()

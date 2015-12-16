@@ -25,6 +25,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         
+//        self.tableView.accessibilityIdentifier = "MemberDetail"
         let dateFormat = NSDateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
         let timeFormat = NSDateFormatter()
