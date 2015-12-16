@@ -108,6 +108,7 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
             cell.detailTextLabel!.textColor = UIColor.whiteColor()
         }
         cell.accessoryType = .None
+        cell.accessibilityIdentifier = cell.textLabel?.text
         return cell;
     }
     

@@ -117,6 +117,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
                 rcell.typeAndPlayersLabel!.textColor = UIColor.redColor()
             }
             rcell.accessoryType = .None
+            rcell.accessibilityIdentifier = rcell.courtAndTimeLabel?.text
             return rcell;
         } else {
             return cell!

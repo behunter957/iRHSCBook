@@ -90,6 +90,7 @@ class RHSCMembersViewController : UITableViewController, UISearchResultsUpdating
         cell.textLabel!.backgroundColor = UIColor.clearColor()
         cell.textLabel!.textColor = UIColor.blackColor()
         cell.accessoryType = .None
+        cell.accessibilityIdentifier = cell.textLabel?.text
         return cell
     }
     
