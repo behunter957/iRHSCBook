@@ -72,9 +72,9 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>IncludeBookings</string>
+			<string>ShowBooked</string>
 			<key>Key</key>
-			<string>RHSCIncludeBookings</string>
+			<string>RHSCShowBooked</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

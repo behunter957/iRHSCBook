@@ -15,7 +15,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
     var currentUser : RHSCUser? = nil
     var server : RHSCServer? = nil
     var courtSet : String? = nil
-    var includeBookings : Bool = true
+    var showBooked : Bool = true
     var errorAlert : UIAlertController? = nil
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +37,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         
         var appDefaults = Dictionary<String, AnyObject>()
         appDefaults["RHSCCourtSet"] = "All"
-        appDefaults["RHSCIncludeBookings"] = false
+        appDefaults["RHSCShowBooked"] = false
         appDefaults["RHSCServerURL"] = "http://www.rhsquashclub.com"
         appDefaults["RHSCUserID"] = "Bruce.Hunter"
         appDefaults["RHSCPassword"] = "maxwell"
@@ -45,7 +45,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         NSUserDefaults.standardUserDefaults().synchronize()
         
         self.courtSet = NSUserDefaults.standardUserDefaults().stringForKey("RHSCCourtSet")
-        self.includeBookings = NSUserDefaults.standardUserDefaults().boolForKey("RHSCIncludeBookings")
+        self.showBooked = NSUserDefaults.standardUserDefaults().boolForKey("RHSCShowBooked")
     
         let networkReachability = try! Reachability.reachabilityForInternetConnection()
         let networkStatus = networkReachability.currentReachabilityStatus

@@ -54,7 +54,7 @@ class RHSCHistoryViewController : UITableViewController, NSFileManagerDelegate {
                 })
             })
         })
-        print(self.onlyMine!.on)
+        // print(self.onlyMine!.on)
         self.history.loadAsync(fromView: self, forMe: self.onlyMine!.on)
     }
     

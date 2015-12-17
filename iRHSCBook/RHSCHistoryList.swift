@@ -32,6 +32,7 @@ class RHSCHistoryList : NSObject {
     }
     
     func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList, forMeOnly: Bool) {
+        list.removeAll()
         do {
             if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["history"]! as! Array<NSDictionary>

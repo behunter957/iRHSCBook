@@ -30,8 +30,7 @@ import UIKit
         })
         task.resume()
     }
-    
-    func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList) {
+        func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList) {
         do {
             if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>

@@ -57,7 +57,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         self.selectionSet = tbc.courtSet
         self.courtSet!.text = self.selectionSet
     
-        self.incBookings!.on = tbc.includeBookings
+        self.incBookings!.on = tbc.showBooked
     
         self.selectedCourtTime = nil;
     

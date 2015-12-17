@@ -87,7 +87,7 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,NSF
         cell.textLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,
             dtFormatter.stringFromDate(ct.courtTime!)])
         if ct.court == "Court 5" {
-            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@,%@,%@", arguments: ["Doubles",
+            cell.detailTextLabel!.text = String.init(format: "%@ - %@,%@,%@,%@", arguments: [ct.event!,
                 ct.players[1]!.lastName!,ct.players[2]!.lastName!,
                 ct.players[3]!.lastName!,ct.players[4]!.lastName!])
         } else {
