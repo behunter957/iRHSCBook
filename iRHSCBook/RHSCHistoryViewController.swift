@@ -43,7 +43,7 @@ class RHSCHistoryViewController : UITableViewController, FileManagerDelegate {
         let incText = (self.onlyMine!.isOn ? "Showing only My History" : "Showing all History")
         self.errorAlert = UIAlertController(title: "",
             message: incText, preferredStyle: .alert)
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+        DispatchQueue.global().async(execute: {
             // do some task
             DispatchQueue.main.async(execute: {
                 self.present(self.errorAlert!, animated: true, completion: nil)

@@ -175,7 +175,7 @@ import UIKit
             semaphore_lock.signal()
         })
         task.resume()
-        semaphore_lock.wait(timeout: DispatchTime.distantFuture)
+        _ = semaphore_lock.wait(timeout: DispatchTime.distantFuture)
         return success
     }
 
@@ -400,7 +400,7 @@ import UIKit
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
                 errorAlert = UIAlertController(title: "Unable to Cancel Booking",
                     message: "Error: \(error!.localizedDescription)", preferredStyle: .alert)
-                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                DispatchQueue.global().async(execute: {
                     // do some task
                     DispatchQueue.main.async(execute: {
                         view.present(errorAlert!, animated: true, completion: nil)
@@ -408,7 +408,7 @@ import UIKit
                         let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         DispatchQueue.main.asyncAfter(deadline: time, execute: {
                             errorAlert!.dismiss(animated: true, completion: nil)
-                            view.navigationController?.popViewController(animated: true)
+                            _ = view.navigationController?.popViewController(animated: true)
                         })
                     })
                 })
@@ -419,28 +419,28 @@ import UIKit
                     if jsonDictionary["error"] == nil {
                         successAlert = UIAlertController(title: "Success",
                             message: "Booking successfully cancelled. Notices will be sent to all players", preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(successAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
                                 let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                 DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                     successAlert!.dismiss(animated: true, completion: nil)
-                                    view.navigationController?.popViewController(animated: true)
+                                    _ = view.navigationController?.popViewController(animated: true)
                                 })
                             })
                         })
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Cancel Booking",
                             message: jsonDictionary["error"] as! String?, preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
                                 let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                 DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                     errorAlert!.dismiss(animated: true, completion: nil)
-                                    view.navigationController?.popViewController(animated: true)
+                                    _ = view.navigationController?.popViewController(animated: true)
                                 })
                             })
                         })
@@ -448,14 +448,14 @@ import UIKit
                 } else {
                     errorAlert = UIAlertController(title: "Unable to Cancel Booking",
                         message: "Error (status code \(statusCode))", preferredStyle: .alert)
-                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                    DispatchQueue.global().async(execute: {
                         DispatchQueue.main.async(execute: {
                             view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
                             let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                             DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                 errorAlert!.dismiss(animated: true, completion: nil)
-                                view.navigationController?.popViewController(animated: true)
+                                _ = view.navigationController?.popViewController(animated: true)
                             })
                         })
                     })
@@ -483,7 +483,7 @@ import UIKit
                 print("Error: \(error!.localizedDescription)")
                 errorAlert = UIAlertController(title: "Unable to Report NoShow",
                     message: "Error: \(error!.localizedDescription)", preferredStyle: .alert)
-                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                DispatchQueue.global().async(execute: {
                     // do some task
                     DispatchQueue.main.async(execute: {
                         view.present(errorAlert!, animated: true, completion: nil)
@@ -491,7 +491,7 @@ import UIKit
                         let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         DispatchQueue.main.asyncAfter(deadline: time, execute: {
                             errorAlert!.dismiss(animated: true, completion: nil)
-                            view.navigationController?.popViewController(animated: true)
+                            _ = view.navigationController?.popViewController(animated: true)
                         })
                     })
                 })
@@ -502,36 +502,35 @@ import UIKit
                     if jsonDictionary["error"] == nil {
                         successAlert = UIAlertController(title: "Success",
                             message: "NoShow Reported", preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(successAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
                                 let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                 DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                     successAlert!.dismiss(animated: true, completion: nil)
-                                    view.navigationController?.popViewController(animated: true)
+                                    _ = view.navigationController?.popViewController(animated: true)
                                 })
                             })
                         })
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Report NoShow",
                             message: jsonDictionary["error"] as! String?, preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
                                 let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                 DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                     errorAlert!.dismiss(animated: true, completion: nil)
-                                    view.navigationController?.popViewController(animated: true)
+                                    _ view.navigationController?.popViewController(animated: true)
                                 })
                             })
                         })
                     }
                 } else {
                     errorAlert = UIAlertController(title: "Unable to Report NoShow",
-                        message: "Error (status code \(statusCode))", preferredStyle: .alert)
-                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        message: "Error (status code \(statusCode))", preferredStyle: .alertpriority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                         DispatchQueue.main.async(execute: {
                             view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)

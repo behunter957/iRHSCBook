@@ -60,8 +60,7 @@ import UIKit
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
             }
-            DispatchQueue(label: "loadBookings", qos: <#T##DispatchQoS#>.relativePriority, attributes: nil, autoreleaseFrequency: <#T##DispatchQueue.AutoreleaseFrequency#>, target: <#T##DispatchQueue?#>)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     // update some UI

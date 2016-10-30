@@ -99,7 +99,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         let incText = (self.incBookings!.isOn ? "Showing only Booked courts" : "Showing only Available courts")
         self.errorAlert = UIAlertController(title: "",
             message: incText, preferredStyle: .alert)
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+        DispatchQueue.global().async(execute: {
             // do some task
             DispatchQueue.main.async(execute: {
                 self.present(self.errorAlert!, animated: true, completion: nil)
@@ -438,7 +438,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                         self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!, members: tbc.memberList!))
                     }
                 }
-                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                DispatchQueue.global().async(execute: {
                     // do some task
                     DispatchQueue.main.async(execute: {
                         // update some UI
@@ -486,7 +486,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 semaphore_loadcourt.signal()
             })
             task.resume()
-            semaphore_loadcourt.wait(timeout: DispatchTime.distantFuture)
+            _ = semaphore_loadcourt.wait(timeout: DispatchTime.distantFuture)
             self.tableView.reloadData()
         }
 
@@ -508,7 +508,7 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
     func showStatus(_ message:String?,timeout:Double) {
         self.includeAlert = UIAlertController(title: "",
             message: message!, preferredStyle: .alert)
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+        DispatchQueue.global().async(execute: {
             // do some task
             DispatchQueue.main.async(execute: {
                 self.present(self.includeAlert!, animated: true, completion: nil)

@@ -258,21 +258,21 @@ class RHSCScore : NSObject {
                         if let _ = jsonDictionary["success"] {
                             successAlert = UIAlertController(title: "Success",
                                 message: "Scores added.", preferredStyle: .alert)
-                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.global().async(execute: {
                                 DispatchQueue.main.async(execute: {
                                     view.present(successAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
                                     let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                     DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                         successAlert!.dismiss(animated: true, completion: nil)
-                                        view.navigationController?.popViewController(animated: true)
+                                        _ = view.navigationController?.popViewController(animated: true)
                                     })
                                 })
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Add Scores",
                                 message: jsonDictionary["error"] as? String, preferredStyle: .alert)
-                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.global().async(execute: {
                                 DispatchQueue.main.async(execute: {
                                     view.present(errorAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -286,7 +286,7 @@ class RHSCScore : NSObject {
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Add Scores",
                             message: "Error TBD2", preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -300,7 +300,7 @@ class RHSCScore : NSObject {
                 } catch {
                     errorAlert = UIAlertController(title: "Unable to Add Scores",
                         message: "Error TBD3", preferredStyle: .alert)
-                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                    DispatchQueue.global().async(execute: {
                         DispatchQueue.main.async(execute: {
                             view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -368,21 +368,21 @@ class RHSCScore : NSObject {
                         if let _ = jsonDictionary["success"] {
                             successAlert = UIAlertController(title: "Success",
                                 message: "Scores updated.", preferredStyle: .alert)
-                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.global().async(execute: {
                                 DispatchQueue.main.async(execute: {
                                     view.present(successAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
                                     let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                                     DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                         successAlert!.dismiss(animated: true, completion: nil)
-                                        view.navigationController?.popViewController(animated: true)
+                                        _ = view.navigationController?.popViewController(animated: true)
                                     })
                                 })
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Update Scores",
                                 message: "Error TBD1", preferredStyle: .alert)
-                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.global().async(execute: {
                                 DispatchQueue.main.async(execute: {
                                     view.present(errorAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -396,7 +396,7 @@ class RHSCScore : NSObject {
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Update Scores",
                             message: "Error TBD2", preferredStyle: .alert)
-                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.global().async(execute: {
                             DispatchQueue.main.async(execute: {
                                 view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -410,7 +410,7 @@ class RHSCScore : NSObject {
                 } catch {
                     errorAlert = UIAlertController(title: "Unable to Update Scores",
                         message: "Error TBD3", preferredStyle: .alert)
-                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                    DispatchQueue.global().async(execute: {
                         DispatchQueue.main.async(execute: {
                             view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
@@ -467,7 +467,7 @@ class RHSCScore : NSObject {
             semaphore_getscore.signal()
         })
         task.resume()
-        semaphore_getscore.wait(timeout: DispatchTime.distantFuture)
+        _ = semaphore_getscore.wait(timeout: DispatchTime.distantFuture)
         return scores
     }
     

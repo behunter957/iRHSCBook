@@ -35,7 +35,7 @@ class RHSCHistoryList : NSObject {
         list.removeAll()
         do {
             if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? NSDictionary {
-                let array : Array<NSDictionary> = jsonDictionary["history"]! as! Array<NSDictionary>
+                let array : Array<[String : String]> = jsonDictionary["history"]! as! Array<[String : String]>
                 for dict in array {
                     let ct = RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml)
                     if forMeOnly {
@@ -70,7 +70,7 @@ class RHSCHistoryList : NSObject {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!, forMeOnly: forMe)
             }
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     // update some UI

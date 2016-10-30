@@ -56,7 +56,7 @@ import Foundation
             semaphore_logon.signal()
         })
         task.resume()
-        semaphore_logon.wait(timeout: DispatchTime.distantFuture)
+        _ = semaphore_logon.wait(timeout: DispatchTime.distantFuture)
         return RHSCUser.loggedOn
     }
     
