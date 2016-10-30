@@ -23,19 +23,19 @@ import Foundation
     func validate(fromServer server:RHSCServer) -> Bool {
         
 //        print(server.absoluteString)
-        let url = NSURL(string: String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", arguments: [userid!, password!]), relativeToURL: server )
+        let url = URL(string: String.init(format: "Reserve20/IOSUserLogonJSON.php?uid=%@&pwd=%@", arguments: [userid!, password!]), relativeTo: server as URL )
 //        print(url!.absoluteString)
-        let sessionCfg = NSURLSession.sharedSession().configuration
+        let sessionCfg = URLSession.shared.configuration
 //        sessionCfg.timeoutIntervalForResource = 30.0
-        let session = NSURLSession(configuration: sessionCfg)
-        let semaphore_logon = dispatch_semaphore_create(0)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session = URLSession(configuration: sessionCfg)
+        let semaphore_logon = DispatchSemaphore(value: 0)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
-                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
                         if let array  = jsonDictionary["user"] {
                             for dict in array as! Array<NSDictionary> {
                                 RHSCUser.loggedOn = true
@@ -53,10 +53,10 @@ import Foundation
                     print(error)
                 }
             }
-            dispatch_semaphore_signal(semaphore_logon)
+            semaphore_logon.signal()
         })
         task.resume()
-        dispatch_semaphore_wait(semaphore_logon, DISPATCH_TIME_FOREVER)
+        semaphore_logon.wait(timeout: DispatchTime.distantFuture)
         return RHSCUser.loggedOn
     }
     

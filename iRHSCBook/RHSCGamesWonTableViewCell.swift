@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class RHSCGamesWonTableViewCell : UITableViewCell {
+open class RHSCGamesWonTableViewCell : UITableViewCell {
     @IBOutlet weak var t1won: UILabel!
     @IBOutlet weak var t2won: UILabel!
     

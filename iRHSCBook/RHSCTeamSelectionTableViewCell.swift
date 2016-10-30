@@ -15,21 +15,21 @@ protocol segmentChangedProtocol {
 }
     
 
-public class RHSCTeamSelectionTableViewCell : UITableViewCell {
+open class RHSCTeamSelectionTableViewCell : UITableViewCell {
     @IBOutlet weak var playerNameField: UILabel!
     @IBOutlet weak var segField: UISegmentedControl!
     var playerNum : Int = 0
     var member : RHSCMember? = nil
     var delegate : segmentChangedProtocol? = nil
     
-    func configure(forPlayerNum: Int, forMember: RHSCMember?, isTeam1: Bool) {
+    func configure(_ forPlayerNum: Int, forMember: RHSCMember?, isTeam1: Bool) {
         playerNum = forPlayerNum
         self.member = forMember
         playerNameField.text = member!.buttonText()
         segField.selectedSegmentIndex = (isTeam1 ? 0 : 1)
     }
     
-    @IBAction func indexChanged(sender:UISegmentedControl) {
+    @IBAction func indexChanged(_ sender:UISegmentedControl) {
         delegate!.teamChanged(forPlayer: playerNum, forMember: member, isTeam1: (sender.selectedSegmentIndex == 0))
     }
 }

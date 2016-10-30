@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class RHSCTeamScoresTableViewCell : UITableViewCell {
+open class RHSCTeamScoresTableViewCell : UITableViewCell {
     @IBOutlet weak var game1ScoreField: UITextField!
     @IBOutlet weak var game2ScoreField: UITextField!
     @IBOutlet weak var game3ScoreField: UITextField!
@@ -18,7 +18,7 @@ public class RHSCTeamScoresTableViewCell : UITableViewCell {
     @IBOutlet weak var gamesWonField: UILabel!
     var team : Int = 0
     
-    public func configure(forTeam: Int, scores: [Int], gamesWon: Int) {
+    open func configure(_ forTeam: Int, scores: [Int], gamesWon: Int) {
         team = forTeam
         game1ScoreField.text = (scores.count < 1 ? "0" : String(scores[0]))
         game2ScoreField.text = (scores.count < 2 ? "0" : String(scores[1]))

@@ -243,70 +243,70 @@ class RHSCScore : NSObject {
         parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
         parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
         parmStr += String.init(format: "&channel=%@",arguments: ["iPhone"])
-        let url = NSURL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
-            arguments: [curUser!.name!, parmStr]), relativeToURL: server )
+        let url = URL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
+            arguments: [curUser!.name!, parmStr]), relativeTo: server as URL? )
         
-        let sessionCfg = NSURLSession.sharedSession().configuration
-        let session = NSURLSession(configuration: sessionCfg)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let sessionCfg = URLSession.shared.configuration
+        let session = URLSession(configuration: sessionCfg)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
-                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
                         if let _ = jsonDictionary["success"] {
                             successAlert = UIAlertController(title: "Success",
-                                message: "Scores added.", preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    view.presentViewController(successAlert!, animated: true, completion: nil)
+                                message: "Scores added.", preferredStyle: .alert)
+                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(successAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        successAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                        view.navigationController?.popViewControllerAnimated(true)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        successAlert!.dismiss(animated: true, completion: nil)
+                                        view.navigationController?.popViewController(animated: true)
                                     })
                                 })
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Add Scores",
-                                message: jsonDictionary["error"] as? String, preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                message: jsonDictionary["error"] as? String, preferredStyle: .alert)
+                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(errorAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        errorAlert!.dismiss(animated: true, completion: nil)
                                     })
                                 })
                             })
                         }
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Add Scores",
-                            message: "Error TBD2", preferredStyle: .Alert)
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            message: "Error TBD2", preferredStyle: .alert)
+                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.main.async(execute: {
+                                view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                dispatch_after(time, dispatch_get_main_queue(), {
-                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                    errorAlert!.dismiss(animated: true, completion: nil)
                                 })
                             })
                         })
                     }
                 } catch {
                     errorAlert = UIAlertController(title: "Unable to Add Scores",
-                        message: "Error TBD3", preferredStyle: .Alert)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                        message: "Error TBD3", preferredStyle: .alert)
+                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.main.async(execute: {
+                            view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                errorAlert!.dismiss(animated: true, completion: nil)
                             })
                         })
                     })
@@ -353,70 +353,70 @@ class RHSCScore : NSObject {
         parmStr += String.init(format: "&t1p2=%@",arguments: [t1p2!])
         parmStr += String.init(format: "&t2p2=%@",arguments: [t2p2!])
         parmStr += String.init(format: "&channel=%@",arguments: ["iPhone"])
-        let url = NSURL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
-            arguments: [curUser!.name!, parmStr]), relativeToURL: server )
+        let url = URL(string: String.init(format: "Reserve20/IOSAddScoreJSON.php?uid=%@&%@",
+            arguments: [curUser!.name!, parmStr]), relativeTo: server as URL? )
         
-        let sessionCfg = NSURLSession.sharedSession().configuration
-        let session = NSURLSession(configuration: sessionCfg)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let sessionCfg = URLSession.shared.configuration
+        let session = URLSession(configuration: sessionCfg)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
-                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
                         if let _ = jsonDictionary["success"] {
                             successAlert = UIAlertController(title: "Success",
-                                message: "Scores updated.", preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    view.presentViewController(successAlert!, animated: true, completion: nil)
+                                message: "Scores updated.", preferredStyle: .alert)
+                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(successAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        successAlert!.dismissViewControllerAnimated(true, completion: nil)
-                                        view.navigationController?.popViewControllerAnimated(true)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        successAlert!.dismiss(animated: true, completion: nil)
+                                        view.navigationController?.popViewController(animated: true)
                                     })
                                 })
                             })
                         } else {
                             errorAlert = UIAlertController(title: "Unable to Update Scores",
-                                message: "Error TBD1", preferredStyle: .Alert)
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    view.presentViewController(errorAlert!, animated: true, completion: nil)
+                                message: "Error TBD1", preferredStyle: .alert)
+                            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(errorAlert!, animated: true, completion: nil)
                                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                    dispatch_after(time, dispatch_get_main_queue(), {
-                                        errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        errorAlert!.dismiss(animated: true, completion: nil)
                                     })
                                 })
                             })
                         }
                     } else {
                         errorAlert = UIAlertController(title: "Unable to Update Scores",
-                            message: "Error TBD2", preferredStyle: .Alert)
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                view.presentViewController(errorAlert!, animated: true, completion: nil)
+                            message: "Error TBD2", preferredStyle: .alert)
+                        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                            DispatchQueue.main.async(execute: {
+                                view.present(errorAlert!, animated: true, completion: nil)
                                 let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                                dispatch_after(time, dispatch_get_main_queue(), {
-                                    errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                    errorAlert!.dismiss(animated: true, completion: nil)
                                 })
                             })
                         })
                     }
                 } catch {
                     errorAlert = UIAlertController(title: "Unable to Update Scores",
-                        message: "Error TBD3", preferredStyle: .Alert)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            view.presentViewController(errorAlert!, animated: true, completion: nil)
+                        message: "Error TBD3", preferredStyle: .alert)
+                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                        DispatchQueue.main.async(execute: {
+                            view.present(errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                errorAlert!.dismiss(animated: true, completion: nil)
                             })
                         })
                     })
@@ -432,18 +432,18 @@ class RHSCScore : NSObject {
         let tbc = view.tabBarController as! RHSCTabBarController
         let curUser = tbc.currentUser
         let server = tbc.server
-        let url = NSURL(string: String.init(format: "Reserve20/IOSGetScoreJSON.php?b_id=%@&uid=%@",
-            arguments: [ct.bookingId!,curUser!.name!]), relativeToURL: server )
-        let sessionCfg = NSURLSession.sharedSession().configuration
-        let session = NSURLSession(configuration: sessionCfg)
-        let semaphore_getscore = dispatch_semaphore_create(0)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let url = URL(string: String.init(format: "Reserve20/IOSGetScoreJSON.php?b_id=%@&uid=%@",
+            arguments: [ct.bookingId!,curUser!.name!]), relativeTo: server as URL? )
+        let sessionCfg = URLSession.shared.configuration
+        let session = URLSession(configuration: sessionCfg)
+        let semaphore_getscore = DispatchSemaphore(value: 0)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
-                    if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
                         if let array  = jsonDictionary["score"] {
                             for dict in array as! Array<NSDictionary> {
                                 RHSCUser.loggedOn = true
@@ -464,10 +464,10 @@ class RHSCScore : NSObject {
                     print(error)
                 }
             }
-            dispatch_semaphore_signal(semaphore_getscore)
+            semaphore_getscore.signal()
         })
         task.resume()
-        dispatch_semaphore_wait(semaphore_getscore, DISPATCH_TIME_FOREVER)
+        semaphore_getscore.wait(timeout: DispatchTime.distantFuture)
         return scores
     }
     

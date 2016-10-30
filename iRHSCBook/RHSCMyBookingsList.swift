@@ -14,15 +14,15 @@ import UIKit
     var list = Array<RHSCCourtTime>()
 
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser, memberList ml:RHSCMemberList) throws {
-        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.name!),
-            relativeToURL: server )
+        let url = URL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",curUser.name!),
+            relativeTo: server as URL )
         //        print(url!.absoluteString)
-        let sessionCfg = NSURLSession.sharedSession().configuration
+        let sessionCfg = URLSession.shared.configuration
         sessionCfg.timeoutIntervalForResource = 30.0
-        let session = NSURLSession(configuration: sessionCfg)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session = URLSession(configuration: sessionCfg)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: (curUser.name)!, memberList: ml)
@@ -30,10 +30,10 @@ import UIKit
         })
         task.resume()
     }
-        func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList) {
+        func loadFromData(_ fromData:Data, forUser: String, memberList ml:RHSCMemberList) {
         do {
-            if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
-                let array : Array<NSDictionary> = jsonDictionary["bookings"]! as! Array<NSDictionary>
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? NSDictionary {
+                let array : Array<[String : String]> = jsonDictionary["bookings"]! as! Array<[String : String]>
                 for dict in array {
                     list.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
                 }
@@ -45,24 +45,25 @@ import UIKit
 
     func loadAsync(fromView view: UITableViewController) {
         let tbc = view.tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",
+        let url = URL(string: String.init(format: "Reserve20/IOSMyBookingsJSON.php?uid=%@",
             (tbc.currentUser?.name)!),
-            relativeToURL: tbc.server )
+            relativeTo: tbc.server as URL? )
         //        print(url!.absoluteString)
         //        let sessionCfg = NSURLSession.sharedSession().configuration
         //        sessionCfg.timeoutIntervalForResource = 30.0
         //        let session = NSURLSession(configuration: sessionCfg)
-        let session  = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session  = URLSession.shared
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!)
             }
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            DispatchQueue(label: "loadBookings", qos: <#T##DispatchQoS#>.relativePriority, attributes: nil, autoreleaseFrequency: <#T##DispatchQueue.AutoreleaseFrequency#>, target: <#T##DispatchQueue?#>)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     // update some UI
                     view.tableView.reloadData()
                 });

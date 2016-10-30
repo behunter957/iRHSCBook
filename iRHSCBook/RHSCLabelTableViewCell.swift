@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class RHSCLabelTableViewCell : UITableViewCell {
+open class RHSCLabelTableViewCell : UITableViewCell {
     @IBOutlet weak var labelField: UILabel!
     
-    public func configure(labelText: String?) {
+    open func configure(_ labelText: String?) {
         labelField.text = labelText
     }
 }

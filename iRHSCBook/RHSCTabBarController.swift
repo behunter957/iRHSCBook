@@ -22,52 +22,52 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    init(nibNameOrNil:String, bundle nibBundleOrNil :NSBundle) {
+    init(nibNameOrNil:String, bundle nibBundleOrNil :Bundle) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // validate logon
-        let settingsBundle = NSBundle.mainBundle().pathForResource("Settings", ofType: "bundle")
+        let settingsBundle = Bundle.main.path(forResource: "Settings", ofType: "bundle")
         if((settingsBundle == nil)) {
             print("Could not find Settings.bundle");
             return;
         }
         
         var appDefaults = Dictionary<String, AnyObject>()
-        appDefaults["RHSCCourtSet"] = "All"
-        appDefaults["RHSCShowBooked"] = false
-        appDefaults["RHSCServerURL"] = "http://www.rhsquashclub.com"
-        appDefaults["RHSCUserID"] = "Bruce.Hunter"
-        appDefaults["RHSCPassword"] = "maxwell"
-        NSUserDefaults.standardUserDefaults().registerDefaults(appDefaults)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        appDefaults["RHSCCourtSet"] = "All" as AnyObject?
+        appDefaults["RHSCShowBooked"] = false as AnyObject?
+        appDefaults["RHSCServerURL"] = "http://www.rhsquashclub.com" as AnyObject?
+        appDefaults["RHSCUserID"] = "Bruce.Hunter" as AnyObject?
+        appDefaults["RHSCPassword"] = "maxwell" as AnyObject?
+        UserDefaults.standard.register(defaults: appDefaults)
+        UserDefaults.standard.synchronize()
         
-        self.courtSet = NSUserDefaults.standardUserDefaults().stringForKey("RHSCCourtSet")
-        self.showBooked = NSUserDefaults.standardUserDefaults().boolForKey("RHSCShowBooked")
+        self.courtSet = UserDefaults.standard.string(forKey: "RHSCCourtSet")
+        self.showBooked = UserDefaults.standard.bool(forKey: "RHSCShowBooked")
     
         let networkReachability = try! Reachability.reachabilityForInternetConnection()
         let networkStatus = networkReachability.currentReachabilityStatus
-        if (networkStatus == Reachability.NetworkStatus.NotReachable) {
-            self.view.userInteractionEnabled = false
+        if (networkStatus == Reachability.NetworkStatus.notReachable) {
+            self.view.isUserInteractionEnabled = false
             // if not found then logon failes
             self.errorAlert = UIAlertController(title: "No Internet Connection",
-                message: "Close the application and try later.", preferredStyle: .Alert)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                message: "Close the application and try later.", preferredStyle: .alert)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
                 })
             })
         } else {
-            let srvrname = NSUserDefaults.standardUserDefaults().stringForKey("RHSCServerURL")
+            let srvrname = UserDefaults.standard.string(forKey: "RHSCServerURL")
             
-            self.server = RHSCServer(string: "", relativeToURL: NSURL(string: srvrname!))
+            self.server = RHSCServer(string: "", relativeTo: URL(string: srvrname!))
 //            self.server = RHSCServer(scheme: "http://", host: srvrname!, path: "")
 
-            let userid = NSUserDefaults.standardUserDefaults().stringForKey("RHSCUserID")
-            let passwd = NSUserDefaults.standardUserDefaults().stringForKey("RHSCPassword")
+            let userid = UserDefaults.standard.string(forKey: "RHSCUserID")
+            let passwd = UserDefaults.standard.string(forKey: "RHSCPassword")
 //            print("Logging on with: ",userid," ",passwd)
             
             self.currentUser = RHSCUser(forUserid: userid!, forPassword: passwd!)
@@ -75,26 +75,26 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                 self.memberList = RHSCMemberList()
                 try! self.memberList?.loadFromJSON(fromServer: self.server!)
                 if (!self.memberList!.loadedSuccessfully()) {
-                    self.view.userInteractionEnabled = false
+                    self.view.isUserInteractionEnabled = false
                     // if not found then logon failes
                     self.errorAlert = UIAlertController(title: "Load Members Failed",
-                        message: "Please check settings and restart iRHSCBook or contact administrator.", preferredStyle: .Alert)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        message: "Please check settings and restart iRHSCBook or contact administrator.", preferredStyle: .alert)
+                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                         // do some task
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                        DispatchQueue.main.async(execute: {
+                            self.present(self.errorAlert!, animated: true, completion: nil)
                         })
                     })
                 }
             } else {
-                self.view.userInteractionEnabled = false
+                self.view.isUserInteractionEnabled = false
                 // if not found then logon failes
                 self.errorAlert = UIAlertController(title: "Logon Failed",
-                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .Alert)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .alert)
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                     // do some task
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: {
+                        self.present(self.errorAlert!, animated: true, completion: nil)
                     })
                 })
             }

@@ -46,10 +46,10 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
     
         user = tbc.currentUser
     
-        let dtFormatter = NSDateFormatter()
+        let dtFormatter = DateFormatter()
         dtFormatter.dateFormat = "EEE, MMM d - h:mm a"
     
-        courtAndTime!.text = String.init(format: "%@ for %@", arguments: [(booking?.court)!,dtFormatter.stringFromDate((booking?.courtTime)!)])
+        courtAndTime!.text = String.init(format: "%@ for %@", arguments: [(booking?.court)!,dtFormatter.string(from: (booking?.courtTime)! as Date)])
 
         eventLabel!.text = String.init(format: "%@ match between:", arguments: [(booking?.event)!])
         
@@ -84,12 +84,12 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         self.view.backgroundColor = UIColor.bookedBlue()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         booking!.unlock(fromView: self)
     }
     
-    func findPlayer(playerId : String, inList memList: RHSCMemberList) -> RHSCMember?{
+    func findPlayer(_ playerId : String, inList memList: RHSCMemberList) -> RHSCMember?{
         for mem in memList.memberList {
             if (mem.name == playerId){
                 return mem;
@@ -98,12 +98,12 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         return nil;
     }
 
-    @IBAction func cancelBooking(sender : AnyObject?) {
+    @IBAction func cancelBooking(_ sender : AnyObject?) {
         booking!.cancel(fromView: self)
         booking!.unlock(fromView: self)
     }
     
-    @IBAction func emailPlayers(sender: AnyObject) {
+    @IBAction func emailPlayers(_ sender: AnyObject) {
         if MFMailComposeViewController.canSendMail() {
             let tbc = tabBarController as! RHSCTabBarController
             let ml = tbc.memberList
@@ -139,31 +139,31 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             mc.setToRecipients(emailAddresses)
     
             // Present mail view controller on screen
-            self.presentViewController(mc, animated: true, completion: nil)
+            self.present(mc, animated: true, completion: nil)
         } else {
             self.errorAlert = UIAlertController(title: "Error",
-                message: "Cannot email from this device", preferredStyle: .Alert)
-            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                message: "Cannot email from this device", preferredStyle: .alert)
+            self.present(self.errorAlert!, animated: true, completion: nil)
             let delay = 2.0 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue(), {
-                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                self.errorAlert!.dismiss(animated: true, completion: nil)
             })
         }
     }
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch (result) {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResult.cancelled:
             //            NSLog(@"Mail cancelled");
             break;
-        case MFMailComposeResultSaved:
+        case MFMailComposeResult.saved:
             //            NSLog(@"Mail saved");
             break;
-        case MFMailComposeResultSent:
+        case MFMailComposeResult.sent:
             //            NSLog(@"Mail sent");
             break;
-        case MFMailComposeResultFailed:
+        case MFMailComposeResult.failed:
             //            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
@@ -171,10 +171,10 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         }
     
         // Close the Mail Interface
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func smsPlayers(sender: AnyObject) {
+    @IBAction func smsPlayers(_ sender: AnyObject) {
         let tbc = tabBarController as! RHSCTabBarController
         let ml = tbc.memberList
         let controller = MFMessageComposeViewController()
@@ -191,8 +191,8 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
                             if (mem.email != "NULL") {
                                 if (mem.name != tbc.currentUser!.name) {
                                     let cleanedString = mem.phone1!
-                                        .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
-                                            .invertedSet).joinWithSeparator("")
+                                        .components(separatedBy: CharacterSet(charactersIn: "0123456789-+()")
+                                            .inverted).joined(separator: "")
                                     phoneNumbers.append(cleanedString)
                                 }
                             }
@@ -204,31 +204,31 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             controller.body = ""
             controller.recipients = phoneNumbers
             controller.messageComposeDelegate = self
-            self.presentViewController(controller, animated: true, completion: nil)
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         switch (result) {
-        case MessageComposeResultCancelled:
+        case MessageComposeResult.cancelled:
             //			NSLog(@"Cancelled");
             break;
-        case MessageComposeResultFailed:
+        case MessageComposeResult.failed:
             self.errorAlert = UIAlertController(title: "Error",
-                message: "Cannot message from this device", preferredStyle: .Alert)
-            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                message: "Cannot message from this device", preferredStyle: .alert)
+            self.present(self.errorAlert!, animated: true, completion: nil)
             let delay = 2.0 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue(), {
-                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                self.errorAlert!.dismiss(animated: true, completion: nil)
             })
             break;
-        case MessageComposeResultSent:
+        case MessageComposeResult.sent:
             break;
         default:
             break;
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     

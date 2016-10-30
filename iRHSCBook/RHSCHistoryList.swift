@@ -14,15 +14,15 @@ class RHSCHistoryList : NSObject {
     var list = Array<RHSCCourtTime>()
     
     func loadFromJSON(fromServer server:RHSCServer, user curUser:RHSCUser, memberList ml:RHSCMemberList, forMe: Bool) throws {
-        let url = NSURL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",curUser.name!),
-            relativeToURL: server )
+        let url = URL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",curUser.name!),
+            relativeTo: server as URL )
         //        print(url!.absoluteString)
-        let sessionCfg = NSURLSession.sharedSession().configuration
+        let sessionCfg = URLSession.shared.configuration
         sessionCfg.timeoutIntervalForResource = 30.0
-        let session = NSURLSession(configuration: sessionCfg)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session = URLSession(configuration: sessionCfg)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: (curUser.name)!, memberList: ml, forMeOnly: forMe)
@@ -31,10 +31,10 @@ class RHSCHistoryList : NSObject {
         task.resume()
     }
     
-    func loadFromData(fromData:NSData, forUser: String, memberList ml:RHSCMemberList, forMeOnly: Bool) {
+    func loadFromData(_ fromData:Data, forUser: String, memberList ml:RHSCMemberList, forMeOnly: Bool) {
         list.removeAll()
         do {
-            if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(fromData, options: []) as? NSDictionary {
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["history"]! as! Array<NSDictionary>
                 for dict in array {
                     let ct = RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml)
@@ -55,24 +55,24 @@ class RHSCHistoryList : NSObject {
 
     func loadAsync(fromView view:UITableViewController, forMe: Bool) {
         let tbc = view.tabBarController as! RHSCTabBarController
-        let url = NSURL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",
+        let url = URL(string: String.init(format: "Reserve20/IOSHistoryJSON.php?uid=%@",
             (tbc.currentUser?.name)!),
-            relativeToURL: tbc.server )
+            relativeTo: tbc.server as URL? )
         //        print(url!.absoluteString)
         //        let sessionCfg = NSURLSession.sharedSession().configuration
         //        sessionCfg.timeoutIntervalForResource = 30.0
         //        let session = NSURLSession(configuration: sessionCfg)
-        let session  = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session  = URLSession.shared
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data!, forUser: tbc.currentUser!.name!, memberList: tbc.memberList!, forMeOnly: forMe)
             }
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     // update some UI
                     // print("reloading tableview")
                     view.tableView.reloadData()

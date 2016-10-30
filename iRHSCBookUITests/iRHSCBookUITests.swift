@@ -10,15 +10,15 @@ import XCTest
 
 extension XCUIElement {
     
-    func scrollToElement(element: XCUIElement) {
+    func scrollToElement(_ element: XCUIElement) {
         while !element.visible() {
             swipeUp()
         }
     }
     
     func visible() -> Bool {
-        guard self.exists && !CGRectIsEmpty(self.frame) else { return false }
-        return CGRectContainsRect(XCUIApplication().windows.elementBoundByIndex(0).frame, self.frame)
+        guard self.exists && !self.frame.isEmpty else { return false }
+        return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
     }
     
 }
@@ -45,28 +45,28 @@ class iRHSCBookUITests: XCTestCase {
     
     func testNavigateToBookCourt() {
         let app = XCUIApplication()
-        let tb = app.tables.matchingIdentifier("CourtTimes")
-        let tbc = tb.cells.matchingIdentifier("Court 2 - 10:20 PM")
+        let tb = app.tables.matching(identifier: "CourtTimes")
+        let tbc = tb.cells.matching(identifier: "Court 2 - 10:20 PM")
         
 //        XCTAssert(tbc.elementBoundByIndex(0).exists)
         
-        app.scrollToElement(tbc.elementBoundByIndex(0))
-        tbc.elementBoundByIndex(0).tap()
+        app.scrollToElement(tbc.element(boundBy: 0))
+        tbc.element(boundBy: 0).tap()
         
-        let navb = XCUIApplication().navigationBars.matchingIdentifier("Book Court")
-        XCTAssert(navb.elementBoundByIndex(0).exists)
+        let navb = XCUIApplication().navigationBars.matching(identifier: "Book Court")
+        XCTAssert(navb.element(boundBy: 0).exists)
         
         app.tables.buttons["Player2Val"].tap()
         
         app.sheets.collectionViews.buttons["Member"].tap()
 
-        let tb2 = app.tables.matchingIdentifier("FindMember")
-        XCTAssert(tb2.elementBoundByIndex(0).exists)
+        let tb2 = app.tables.matching(identifier: "FindMember")
+        XCTAssert(tb2.element(boundBy: 0).exists)
 
-        let tb2c = tb2.cells.matchingIdentifier("Booker, Test \"test\"")
+        let tb2c = tb2.cells.matching(identifier: "Booker, Test \"test\"")
         
-        app.scrollToElement(tb2c.elementBoundByIndex(0))
-        tb2c.elementBoundByIndex(0).tap()
+        app.scrollToElement(tb2c.element(boundBy: 0))
+        tb2c.element(boundBy: 0).tap()
         
         let tb4 = XCUIApplication().navigationBars["Book Court"]
         XCTAssert(tb4.exists)
@@ -75,8 +75,8 @@ class iRHSCBookUITests: XCTestCase {
         
         sleep(5)
         
-        let tb3 = XCUIApplication().tables.matchingIdentifier("CourtTimes")
-        XCTAssert(tb3.elementBoundByIndex(0).exists)
+        let tb3 = XCUIApplication().tables.matching(identifier: "CourtTimes")
+        XCTAssert(tb3.element(boundBy: 0).exists)
         
     }
     

@@ -11,32 +11,32 @@ import UIKit
 
 protocol playerButtonDelegateProtocol {
     
-    func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int)
+    func didClickOnPlayerButton(_ sender: RHSCButtonTableViewCell?, buttonIndex: Int)
     
 }
 
-public class RHSCButtonTableViewCell : UITableViewCell {
+open class RHSCButtonTableViewCell : UITableViewCell {
     @IBOutlet weak var buttonField: UIButton!
     var delegate: playerButtonDelegateProtocol? = nil
     var buttonNum: Int = 0
     
-    func configure(sender: playerButtonDelegateProtocol?, buttonNum: Int, buttonText: String?) {
+    func configure(_ sender: playerButtonDelegateProtocol?, buttonNum: Int, buttonText: String?) {
         delegate = sender
         self.buttonNum = buttonNum
         if let targText = buttonText {
             let aText = NSAttributedString.init(string: targText)
-            buttonField.setAttributedTitle(aText, forState: .Normal)
-            buttonField.contentHorizontalAlignment = .Right
+            buttonField.setAttributedTitle(aText, for: UIControlState())
+            buttonField.contentHorizontalAlignment = .right
         }
     }
     
-    func updateButtonText(buttonText: String) {
+    func updateButtonText(_ buttonText: String) {
         let aText = NSAttributedString.init(string: buttonText)
-        buttonField.setAttributedTitle(aText, forState: .Normal)
-        buttonField.contentHorizontalAlignment = .Right
+        buttonField.setAttributedTitle(aText, for: UIControlState())
+        buttonField.contentHorizontalAlignment = .right
     }
     
-    @IBAction func buttonClicked(sender: AnyObject?) {
+    @IBAction func buttonClicked(_ sender: AnyObject?) {
         delegate?.didClickOnPlayerButton(self, buttonIndex: buttonNum)
     }
 }

@@ -14,7 +14,7 @@ protocol scoreChangedProtocol {
     func scoreChanged()
 }
 
-public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource,UIPickerViewDelegate {
+open class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource,UIPickerViewDelegate {
     //    @IBOutlet weak var typePicker : UIPickerView? = nil
     @IBOutlet weak var gameText: UILabel? = nil
     @IBOutlet weak var team1score: UITextField? = nil
@@ -29,7 +29,7 @@ public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource
     var picker1 = UIPickerView()
     var picker2 = UIPickerView()
     
-    public func configure(forGame: String) {
+    open func configure(_ forGame: String) {
         self.gameText?.text = forGame
         picker1.dataSource = self
         picker1.delegate = self
@@ -39,7 +39,7 @@ public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource
         self.team2score!.inputView = picker2
     }
     
-    public func configure(forGame: String, scores: [String]) {
+    open func configure(_ forGame: String, scores: [String]) {
         self.gameText?.text = forGame
         picker1.dataSource = self
         picker1.delegate = self
@@ -51,19 +51,19 @@ public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource
         self.team2score!.text = scores[1]
     }
     
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    open func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    open func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.typeList.count
     }
     
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    open func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.typeList[row]
     }
     
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == picker1 {
             self.team1score!.text = self.typeList[row]
             self.team1score?.resignFirstResponder()
@@ -74,11 +74,11 @@ public class RHSCGameScoreTableViewCell : UITableViewCell,UIPickerViewDataSource
         }
     }
     
-    @IBAction func val1Changed(sender: AnyObject) {
+    @IBAction func val1Changed(_ sender: AnyObject) {
         delegate!.scoreChanged()
     }
     
-    @IBAction func val2Changed(sender: AnyObject) {
+    @IBAction func val2Changed(_ sender: AnyObject) {
         delegate!.scoreChanged()
     }
     

@@ -19,37 +19,37 @@ import Foundation
     var isLoaded : Bool = false
     
     func loadFromJSON(fromServer server :RHSCServer) throws {
-        let url = NSURL(string: "Reserve20/IOSMemberListJSON.php", relativeToURL: server )
+        let url = URL(string: "Reserve20/IOSMemberListJSON.php", relativeTo: server as URL )
         //        print(url!.absoluteString)
 //        let sessionCfg = NSURLSession.sharedSession().configuration
 //        sessionCfg.timeoutIntervalForResource = 30.0
 //        let session = NSURLSession(configuration: sessionCfg)
-        let session = NSURLSession.sharedSession()
-        let semaphore_memlist = dispatch_semaphore_create(0)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        let session = URLSession.shared
+        let semaphore_memlist = DispatchSemaphore(value: 0)
+        let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error!.localizedDescription) \(error!.userInfo)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data)
             }
-            dispatch_semaphore_signal(semaphore_memlist)
+            semaphore_memlist.signal()
         })
         task.resume()
-        dispatch_semaphore_wait(semaphore_memlist, DISPATCH_TIME_FOREVER)
+        semaphore_memlist.wait(timeout: DispatchTime.distantFuture)
         
     }
     
-    func loadFromData(data : NSData?) {
+    func loadFromData(_ data : Data?) {
         // Now create a NSDictionary from the JSON data
         do {
-            if let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
                 let array : Array<NSDictionary> = jsonDictionary["members"]! as! Array<NSDictionary>
                 for dict in array {
                     // Create a new Location object for each one and initialise it with information in the dictionary
                     let member = RHSCMember(fromJSONDictionary:dict )
                     // Add the Location object to the array
-                    memberDict[member.name!.lowercaseString ] = member
+                    memberDict[member.name!.lowercased() ] = member
                     memberList.append(member)
                 }
                 isLoaded = (self.memberList.count != 0);

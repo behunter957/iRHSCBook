@@ -26,57 +26,57 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         
 //        self.tableView.accessibilityIdentifier = "MemberDetail"
-        let dateFormat = NSDateFormatter()
+        let dateFormat = DateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
-        let timeFormat = NSDateFormatter()
+        let timeFormat = DateFormatter()
         timeFormat.dateFormat = "h:mm a"
         // create the cells
-        memName = formTable.dequeueReusableCellWithIdentifier("Member Title Cell") as? RHSCLabelTableViewCell
+        memName = formTable.dequeueReusableCell(withIdentifier: "Member Title Cell") as? RHSCLabelTableViewCell
         if (memName == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
-            memName = nib[0] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
+            memName = nib?[0] as? RHSCLabelTableViewCell
         }
         memName!.configure(member!.fullName!)
-        memName!.selectionStyle = .None
+        memName!.selectionStyle = .none
         
-        emailAddr = formTable.dequeueReusableCellWithIdentifier("Email Cell") as? RHSCLabelTableViewCell
+        emailAddr = formTable.dequeueReusableCell(withIdentifier: "Email Cell") as? RHSCLabelTableViewCell
         if (emailAddr == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
-            emailAddr = nib[1] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
+            emailAddr = nib?[1] as? RHSCLabelTableViewCell
         }
         emailAddr!.configure(member!.email!)
-        emailAddr!.selectionStyle = .None
+        emailAddr!.selectionStyle = .none
         
-        phone1 = formTable.dequeueReusableCellWithIdentifier("Telephone Cell") as? RHSCLabelTableViewCell
+        phone1 = formTable.dequeueReusableCell(withIdentifier: "Telephone Cell") as? RHSCLabelTableViewCell
         if (phone1 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
-            phone1 = nib[2] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
+            phone1 = nib?[2] as? RHSCLabelTableViewCell
         }
         phone1!.configure(member!.phone1!)
-        phone1!.selectionStyle = .None
+        phone1!.selectionStyle = .none
         
-        phone2 = formTable.dequeueReusableCellWithIdentifier("Alt Phone Cell") as? RHSCLabelTableViewCell
+        phone2 = formTable.dequeueReusableCell(withIdentifier: "Alt Phone Cell") as? RHSCLabelTableViewCell
         if (phone2 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
-            phone2 = nib[3] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCContactMemberTableViewCell", owner: self, options: nil)
+            phone2 = nib?[3] as? RHSCLabelTableViewCell
         }
         phone2!.configure(member!.phone2!)
-        phone2!.selectionStyle = .None
+        phone2!.selectionStyle = .none
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return 4
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch  indexPath.row {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch  (indexPath as NSIndexPath).row {
         case 0:
             return memName!
         case 1:
@@ -91,33 +91,33 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
     }
     
     @IBAction func contactMember() {
-        let optionMenu = UIAlertController(title: nil, message: "Choose Contact Method", preferredStyle: .ActionSheet)
-        let emailAction = UIAlertAction(title: "Email", style: .Default, handler:
+        let optionMenu = UIAlertController(title: nil, message: "Choose Contact Method", preferredStyle: .actionSheet)
+        let emailAction = UIAlertAction(title: "Email", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                     self.emailMember()
         })
-        let phone1Action = UIAlertAction(title: "Call Primary Number", style: .Default, handler:
+        let phone1Action = UIAlertAction(title: "Call Primary Number", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 self.phone1Member()
         })
-        let sms1Action = UIAlertAction(title: "Text Primary Number", style: .Default, handler:
+        let sms1Action = UIAlertAction(title: "Text Primary Number", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 self.sms1Member()
         })
-        let phone2Action = UIAlertAction(title: "Call Alternate Number", style: .Default, handler:
+        let phone2Action = UIAlertAction(title: "Call Alternate Number", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 self.phone2Member()
         })
-        let sms2Action = UIAlertAction(title: "Text Alternate Number", style: .Default, handler:
+        let sms2Action = UIAlertAction(title: "Text Alternate Number", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 self.sms2Member()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler:
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
         })
@@ -133,7 +133,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
             optionMenu.addAction(sms2Action)
         }
         optionMenu.addAction(cancelAction)
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
     }
 
     
@@ -153,18 +153,18 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
             mc.setToRecipients(toRecipients)
             
             // Present mail view controller on screen
-            self.presentViewController(mc, animated: true, completion: nil)
+            self.present(mc, animated: true, completion: nil)
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
-                message: "Cannot email from this device", preferredStyle: .Alert)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                message: "Cannot email from this device", preferredStyle: .alert)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                    dispatch_after(time, dispatch_get_main_queue(), {
-                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
                     })
                 })
             })
@@ -174,22 +174,22 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
     func phone1Member() {
         //    NSLog(@"Phoning using number 1");
         let cleanedString = member!.phone1!
-            .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
-                .invertedSet).joinWithSeparator("")
+            .components(separatedBy: CharacterSet(charactersIn: "0123456789-+()")
+                .inverted).joined(separator: "")
         let phoneNumber = String.init(format: "telprompt://%@", arguments: [cleanedString])
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:phoneNumber)!)) {
-            UIApplication.sharedApplication().openURL(NSURL(string:phoneNumber)!)
+        if (UIApplication.shared.canOpenURL(URL(string:phoneNumber)!)) {
+            UIApplication.shared.openURL(URL(string:phoneNumber)!)
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
-                message: "Cannot phone from this device", preferredStyle: .Alert)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                message: "Cannot phone from this device", preferredStyle: .alert)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                    dispatch_after(time, dispatch_get_main_queue(), {
-                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
                     })
                 })
             })
@@ -199,22 +199,22 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
     func phone2Member() {
         //    NSLog(@"Phoning using number 2");
         let cleanedString = member!.phone2!
-            .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
-                .invertedSet).joinWithSeparator("")
+            .components(separatedBy: CharacterSet(charactersIn: "0123456789-+()")
+                .inverted).joined(separator: "")
         let phoneNumber = String.init(format: "telprompt://%@", arguments: [cleanedString])
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:phoneNumber)!)) {
-            UIApplication.sharedApplication().openURL(NSURL(string:phoneNumber)!)
+        if (UIApplication.shared.canOpenURL(URL(string:phoneNumber)!)) {
+            UIApplication.shared.openURL(URL(string:phoneNumber)!)
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
-                message: "Cannot phone from this device", preferredStyle: .Alert)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                message: "Cannot phone from this device", preferredStyle: .alert)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                    dispatch_after(time, dispatch_get_main_queue(), {
-                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
                     })
                 })
             })
@@ -225,13 +225,13 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         let controller = MFMessageComposeViewController()
         //    NSLog(@"Sending SMS using number 1");
         let cleanedString = member!.phone1!
-            .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
-                .invertedSet).joinWithSeparator("")
+            .components(separatedBy: CharacterSet(charactersIn: "0123456789-+()")
+                .inverted).joined(separator: "")
         if(MFMessageComposeViewController.canSendText()) {
             controller.body = ""
             controller.recipients = Array<String>([cleanedString])
             controller.messageComposeDelegate = self;
-            self.presentViewController(controller, animated: true, completion: nil)
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -239,60 +239,60 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         let controller = MFMessageComposeViewController()
         //    NSLog(@"Sending SMS using number 1");
         let cleanedString = member!.phone2!
-            .componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "0123456789-+()")
-                .invertedSet).joinWithSeparator("")
+            .components(separatedBy: CharacterSet(charactersIn: "0123456789-+()")
+                .inverted).joined(separator: "")
         if(MFMessageComposeViewController.canSendText()) {
             controller.body = ""
             controller.recipients = Array<String>([cleanedString])
             controller.messageComposeDelegate = self;
-            self.presentViewController(controller, animated: true, completion: nil)
+            self.present(controller, animated: true, completion: nil)
         }
     }
 
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         switch (result) {
-        case MessageComposeResultCancelled:
+        case MessageComposeResult.cancelled:
             //			NSLog(@"Cancelled");
             break;
-        case MessageComposeResultFailed:
+        case MessageComposeResult.failed:
             self.errorAlert = UIAlertController(title: "Unavailable",
-                message: "Cannot SMS from this device", preferredStyle: .Alert)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                message: "Cannot SMS from this device", preferredStyle: .alert)
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 // do some task
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
                     let delay = 2.0 * Double(NSEC_PER_SEC)
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                    dispatch_after(time, dispatch_get_main_queue(), {
-                        self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
                     })
                 })
             })
             break;
-        case MessageComposeResultSent:
+        case MessageComposeResult.sent:
             break;
         default:
             break;
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch (result) {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResult.cancelled:
             break;
-        case MFMailComposeResultSaved:
+        case MFMailComposeResult.saved:
             break;
-        case MFMailComposeResultSent:
+        case MFMailComposeResult.sent:
             break;
-        case MFMailComposeResultFailed:
+        case MFMailComposeResult.failed:
             break;
         default:
             break;
         }
         
         // Close the Mail Interface
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
 }

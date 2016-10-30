@@ -412,12 +412,15 @@
 				TargetAttributes = {
 					4ADB4C421C1B2580002C344C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = ACAC337F195EF27F00F7562F;
 					};
 					ACAC337F195EF27F00F7562F = {
 						DevelopmentTeam = FLLCB46B75;
+						LastSwiftMigration = 0800;
 					};
 					ACAC33A3195EF27F00F7562F = {
+						LastSwiftMigration = 0800;
 						TestTargetID = ACAC337F195EF27F00F7562F;
 					};
 				};
@@ -592,6 +595,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhsquashclub.iRHSCBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = iRHSCBook;
 				USES_XCTRUNNER = YES;
 			};
@@ -611,6 +615,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhsquashclub.iRHSCBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = iRHSCBook;
 				USES_XCTRUNNER = YES;
 			};
@@ -703,6 +708,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				"TEST_HOST[sdk=iphonesimulator9.2]" = "";
 				WRAPPER_EXTENSION = app;
@@ -724,6 +730,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhsquashclub.iRHSCBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iRHSCBook/iRHSCBook-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				"TEST_HOST[sdk=iphonesimulator9.2]" = "";
 				WRAPPER_EXTENSION = app;
@@ -746,6 +753,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -762,6 +770,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rhsquashclub.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -777,6 +786,7 @@
 				4ADB4C4C1C1B2580002C344C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACAC337B195EF27F00F7562F /* Build configuration list for PBXProject "iRHSCBook" */ = {
 			isa = XCConfigurationList;

@@ -9,20 +9,20 @@
 import Foundation
 import UIKit
 
-public class RHSCPickerTableViewCell : UITableViewCell,UIPickerViewDataSource,UIPickerViewDelegate {
+open class RHSCPickerTableViewCell : UITableViewCell,UIPickerViewDataSource,UIPickerViewDelegate {
 //    @IBOutlet weak var typePicker : UIPickerView? = nil
     @IBOutlet weak var eventType: UITextField? = nil
 
     var typeList = ["Friendly","Lesson","Practice","MNHL","Ladder","Tournament"]
 
-    public func configure() {
+    open func configure() {
         let picker = UIPickerView()
         picker.dataSource = self
         picker.delegate = self
         self.eventType!.inputView = picker
     }
 
-    public func configure(event: String) {
+    open func configure(_ event: String) {
         let picker = UIPickerView()
         picker.dataSource = self
         picker.delegate = self
@@ -30,19 +30,19 @@ public class RHSCPickerTableViewCell : UITableViewCell,UIPickerViewDataSource,UI
         self.eventType!.text = event
     }
     
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    open func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    open func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.typeList.count
     }
     
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    open func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.typeList[row]
     }
     
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.eventType!.text = self.typeList[row]
         self.eventType?.resignFirstResponder()
     }

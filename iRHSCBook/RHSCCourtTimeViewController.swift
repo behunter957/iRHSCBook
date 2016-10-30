@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @available(iOS 9.0, *)
-class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,UIPickerViewDataSource,UIPickerViewDelegate,NSFileManagerDelegate {
+class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,UIPickerViewDataSource,UIPickerViewDelegate,FileManagerDelegate {
 
     @IBOutlet weak var selectedSetCtrl : UISegmentedControl? = nil
     @IBOutlet weak var courtSet : UITextField? = nil
@@ -22,13 +22,13 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
     var includeAlert : UIAlertController? = nil
     var errorAlert : UIAlertController? = nil
 
-    var selectionDate : NSDate? = nil
+    var selectionDate : Date? = nil
     var selectionSet : String? = nil
     var selectedCourtTime : RHSCCourtTime? = nil
     var courtTimes : Array<RHSCCourtTime> = []
     var includeInd : String? = nil
     var setValues : Array<String> = []
-    var dayValues : Array<NSDate> = []
+    var dayValues : Array<Date> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,19 +45,19 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
     
         //TODO: replace code with preferences
         if ((self.selectionDate == nil)) {
-            self.selectionDate = NSDate()
+            self.selectionDate = Date()
         }
-        let dateFormat = NSDateFormatter()
+        let dateFormat = DateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
     
-        self.selectionDay!.text = dateFormat.stringFromDate(selectionDate!)
+        self.selectionDay!.text = dateFormat.string(from: selectionDate!)
     
         let tbc = self.tabBarController as! RHSCTabBarController
     
         self.selectionSet = tbc.courtSet
         self.courtSet!.text = self.selectionSet
     
-        self.incBookings!.on = tbc.showBooked
+        self.incBookings!.isOn = tbc.showBooked
     
         self.selectedCourtTime = nil;
     
@@ -73,10 +73,10 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         self.courtSet!.inputView = setPicker
     
         self.dayValues = []
-        var curDate = NSDate()
+        var curDate = Date()
         for _ in 1...30 {
             self.dayValues.append(curDate)
-            curDate = curDate.dateByAddingTimeInterval(24*60*60)
+            curDate = curDate.addingTimeInterval(24*60*60)
         }
     
         let dayPicker = UIPickerView()
@@ -86,27 +86,27 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         self.selectionDay!.inputView = dayPicker;
     
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "refreshTable", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(RHSCCourtTimeViewController.refreshTable), for: .valueChanged)
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //    NSLog(@"CourtTime viewDidAppear");
         //    [self refreshLeftBarButton];
         self.refreshTable()
     }
     
     @IBAction func includeChanged() {
-        let incText = (self.incBookings!.on ? "Showing only Booked courts" : "Showing only Available courts")
+        let incText = (self.incBookings!.isOn ? "Showing only Booked courts" : "Showing only Available courts")
         self.errorAlert = UIAlertController(title: "",
-            message: incText, preferredStyle: .Alert)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            message: incText, preferredStyle: .alert)
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
             // do some task
-            dispatch_async(dispatch_get_main_queue(), {
-                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+            DispatchQueue.main.async(execute: {
+                self.present(self.errorAlert!, animated: true, completion: nil)
                 let delay = 1.0 * Double(NSEC_PER_SEC)
-                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                dispatch_after(time, dispatch_get_main_queue(), {
-                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                    self.errorAlert!.dismiss(animated: true, completion: nil)
                 })
             })
         })
@@ -114,11 +114,11 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
     }
     
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1;
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView.tag == 1) {
             return self.setValues.count;
         }
@@ -128,46 +128,46 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         return 0;
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView.tag == 1) {
             return self.setValues[row]
         }
         if (pickerView.tag == 2) {
-            let dateFormat = NSDateFormatter()
+            let dateFormat = DateFormatter()
             dateFormat.dateFormat = "EEEE, MMMM d"
-            return dateFormat.stringFromDate(self.dayValues[row])
+            return dateFormat.string(from: self.dayValues[row])
         }
         return ""
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView.tag == 1) {
             self.courtSet!.text = self.setValues[row]
             self.selectionSet = self.setValues[row]
             self.courtSet?.resignFirstResponder()
         }
         if (pickerView.tag == 2) {
-            let dateFormat = NSDateFormatter()
+            let dateFormat = DateFormatter()
             dateFormat.dateFormat = "EEE, MMM d"
             self.selectionDate = self.dayValues[row]
-            self.selectionDay!.text = dateFormat.stringFromDate(self.selectionDate!)
+            self.selectionDay!.text = dateFormat.string(from: self.selectionDate!)
             self.selectionDay?.resignFirstResponder()
         }
         self.asyncLoadSelectedCourtTimes()
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1;
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.courtTimes.count;
     }
     
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        let curCourtTime = self.courtTimes[indexPath.row]
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let curCourtTime = self.courtTimes[(indexPath as NSIndexPath).row]
         switch curCourtTime.status! {
         case "Available":
             return true
@@ -176,8 +176,8 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         }
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let curCourtTime = self.courtTimes[indexPath.row]
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let curCourtTime = self.courtTimes[(indexPath as NSIndexPath).row]
         switch curCourtTime.status! {
             case "Booked","Reserved":
                 switch curCourtTime.event! {
@@ -199,195 +199,195 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let rhscCourtTimeTableIdentifier = "RHSCCourtTimeTableViewCell"
     
-        var cell = tableView.dequeueReusableCellWithIdentifier(rhscCourtTimeTableIdentifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: rhscCourtTimeTableIdentifier)
         if (cell == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed(rhscCourtTimeTableIdentifier, owner: self, options: nil)
-            cell = nib[0] as! RHSCCourtTimeTableViewCell
+            let nib = Bundle.main.loadNibNamed(rhscCourtTimeTableIdentifier, owner: self, options: nil)
+            cell = nib?[0] as! RHSCCourtTimeTableViewCell
         }
-        if indexPath.row < self.courtTimes.count {
-            let ct = self.courtTimes[indexPath.row]
+        if (indexPath as NSIndexPath).row < self.courtTimes.count {
+            let ct = self.courtTimes[(indexPath as NSIndexPath).row]
             
-            let dtFormatter = NSDateFormatter()
-            dtFormatter.locale = NSLocale.systemLocale()
+            let dtFormatter = DateFormatter()
+            dtFormatter.locale = Locale.current
             dtFormatter.dateFormat = "h:mm a"
             
             let rcell = (cell as! RHSCCourtTimeTableViewCell)
-            rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.stringFromDate(ct.courtTime!)])
+            rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.string(from: ct.courtTime! as Date)])
             rcell.statusLabel!.text = ct.status;
             if (ct.status == "Booked") || (ct.status == "Reserved") {
-                rcell.statusLabel!.textColor = UIColor.redColor()
+                rcell.statusLabel!.textColor = UIColor.red
                 rcell.typeAndPlayersLabel!.text = ct.summary!
                 switch ct.status! {
                 case "Booked","Reserved":
                     switch ct.event! {
                     case "Lesson","Clinic","School":
-                        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
-                        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
-                        rcell.statusLabel!.textColor = UIColor.blackColor()
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.black
+                        rcell.courtAndTimeLabel!.textColor = UIColor.black
+                        rcell.statusLabel!.textColor = UIColor.black
                         break
                     case "T&D","MNHL","Ladder","RoundRobin","Tournament":
-                        rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-                        rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-                        rcell.statusLabel!.textColor = UIColor.whiteColor()
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.white
+                        rcell.courtAndTimeLabel!.textColor = UIColor.white
+                        rcell.statusLabel!.textColor = UIColor.white
                         break
                     case "Practice":
-                        rcell.typeAndPlayersLabel!.textColor = UIColor.blackColor()
-                        rcell.courtAndTimeLabel!.textColor = UIColor.blackColor()
-                        rcell.statusLabel!.textColor = UIColor.blackColor()
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.black
+                        rcell.courtAndTimeLabel!.textColor = UIColor.black
+                        rcell.statusLabel!.textColor = UIColor.black
                         break
                     default:
-                        rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-                        rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-                        rcell.statusLabel!.textColor = UIColor.whiteColor()
+                        rcell.typeAndPlayersLabel!.textColor = UIColor.white
+                        rcell.courtAndTimeLabel!.textColor = UIColor.white
+                        rcell.statusLabel!.textColor = UIColor.white
                         break
                     }
                     break
                 default:
-                    rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-                    rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-                    rcell.statusLabel!.textColor = UIColor.whiteColor()
+                    rcell.typeAndPlayersLabel!.textColor = UIColor.white
+                    rcell.courtAndTimeLabel!.textColor = UIColor.white
+                    rcell.statusLabel!.textColor = UIColor.white
                 }
                 if (ct.bookedForUser) {
-                    rcell.statusLabel!.textColor = UIColor.redColor()
+                    rcell.statusLabel!.textColor = UIColor.red
                 }
             } else {
                 rcell.typeAndPlayersLabel!.text = ""
-                rcell.typeAndPlayersLabel!.textColor = UIColor.whiteColor()
-                rcell.courtAndTimeLabel!.textColor = UIColor.whiteColor()
-                rcell.statusLabel!.textColor = UIColor.whiteColor()
+                rcell.typeAndPlayersLabel!.textColor = UIColor.white
+                rcell.courtAndTimeLabel!.textColor = UIColor.white
+                rcell.statusLabel!.textColor = UIColor.white
             }
-            rcell.accessoryType = .None
+            rcell.accessoryType = .none
             rcell.accessibilityIdentifier = rcell.courtAndTimeLabel?.text
             return rcell
         } else {
-            print("unexpected out of range row=\(indexPath.row), container size=\(self.courtTimes.count)" )
+            print("unexpected out of range row=\((indexPath as NSIndexPath).row), container size=\(self.courtTimes.count)" )
             return UITableViewCell()
         }
     }
 
-    @IBAction func syncCourts(sender:AnyObject?) {
+    @IBAction func syncCourts(_ sender:AnyObject?) {
         self.refreshControl?.endRefreshing()
         self.asyncLoadSelectedCourtTimes()
         //    [self.tableView reloadData];
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //    NSInteger row = indexPath.row;
         //    NSLog(@"Selected row : %d",row);
-        self.selectedCourtTime = self.courtTimes[indexPath.row]
+        self.selectedCourtTime = self.courtTimes[(indexPath as NSIndexPath).row]
         if self.selectedCourtTime!.status == "Available" {
             // lock the booking
             if self.selectedCourtTime!.lock(fromView: self) {
                 let segueName = "BookCourt"
-                self.performSegueWithIdentifier(segueName, sender: self)
+                self.performSegue(withIdentifier: segueName, sender: self)
             } else {
                 self.errorAlert = UIAlertController(title: "Error",
-                    message: "Unable to lock the court", preferredStyle: .Alert)
-                self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                    message: "Unable to lock the court", preferredStyle: .alert)
+                self.present(self.errorAlert!, animated: true, completion: nil)
                 let delay = 2.0 * Double(NSEC_PER_SEC)
-                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                dispatch_after(time, dispatch_get_main_queue(), {
-                    self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                    self.errorAlert!.dismiss(animated: true, completion: nil)
                 })
             }
         } else {
             if (self.selectedCourtTime!.bookedForUser) {
                 //TODO if court has a TBD, then present action sheet for edit or cancel
-                let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .ActionSheet)
-                let updateAction = UIAlertAction(title: "Update", style: .Default, handler:
+                let optionMenu = UIAlertController(title: nil, message: "Menu", preferredStyle: .actionSheet)
+                let updateAction = UIAlertAction(title: "Update", style: .default, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
                         if self.selectedCourtTime!.lock(fromView: self) {
                             let segueName = "UpdateCourt"
-                            self.performSegueWithIdentifier(segueName, sender: self)
+                            self.performSegue(withIdentifier: segueName, sender: self)
                         } else {
                             self.errorAlert = UIAlertController(title: "Error",
-                                message: "Unable to lock the court", preferredStyle: .Alert)
-                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                                message: "Unable to lock the court", preferredStyle: .alert)
+                            self.present(self.errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                self.errorAlert!.dismiss(animated: true, completion: nil)
                             })
                         }
                 })
-                let unbookAction = UIAlertAction(title: "Unbook", style: .Default, handler:
+                let unbookAction = UIAlertAction(title: "Unbook", style: .default, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
                         if self.selectedCourtTime!.lock(fromView: self) {
                             let segueName = "CancelCourt"
-                            self.performSegueWithIdentifier(segueName, sender: self)
+                            self.performSegue(withIdentifier: segueName, sender: self)
                         } else {
                             self.errorAlert = UIAlertController(title: "Error",
-                                message: "Unable to lock the court", preferredStyle: .Alert)
-                            self.presentViewController(self.errorAlert!, animated: true, completion: nil)
+                                message: "Unable to lock the court", preferredStyle: .alert)
+                            self.present(self.errorAlert!, animated: true, completion: nil)
                             let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                            dispatch_after(time, dispatch_get_main_queue(), {
-                                self.errorAlert!.dismissViewControllerAnimated(true, completion: nil)
+                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                self.errorAlert!.dismiss(animated: true, completion: nil)
                             })
                         }
                 })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:
                     {
                         (alert: UIAlertAction!) -> Void in
-                            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                            tableView.deselectRow(at: indexPath, animated: false)
                 })
                 optionMenu.addAction(updateAction)
                 optionMenu.addAction(unbookAction)
                 optionMenu.addAction(cancelAction)
-                self.presentViewController(optionMenu, animated: true, completion: nil)
+                self.present(optionMenu, animated: true, completion: nil)
 
             }
         }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         //    NSLog(@"segue: %@",segue.identifier);
         if segue.identifier == "UpdateCourt" {
             // lock the court
             // set the selectedCourtTime record
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).delegate = self
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).ct = self.selectedCourtTime
+            (segue.destination as! RHSCUpdateCourtViewController).delegate = self
+            (segue.destination as! RHSCUpdateCourtViewController).ct = self.selectedCourtTime
             let tbc = self.tabBarController as! RHSCTabBarController
-            (segue.destinationViewController as! RHSCUpdateCourtViewController).user = tbc.currentUser
+            (segue.destination as! RHSCUpdateCourtViewController).user = tbc.currentUser
         }
         if segue.identifier == "BookCourt" {
             // lock the court
             // set the selectedCourtTime record
-            (segue.destinationViewController as! RHSCBookCourtViewController).delegate = self
-            (segue.destinationViewController as! RHSCBookCourtViewController).ct = self.selectedCourtTime
+            (segue.destination as! RHSCBookCourtViewController).delegate = self
+            (segue.destination as! RHSCBookCourtViewController).ct = self.selectedCourtTime
             let tbc = self.tabBarController as! RHSCTabBarController
-            (segue.destinationViewController as! RHSCBookCourtViewController).user = tbc.currentUser
+            (segue.destination as! RHSCBookCourtViewController).user = tbc.currentUser
         }
         if segue.identifier == "CancelCourt" {
             // set the selectionSet and selectionDate properties
-            (segue.destinationViewController as! RHSCCancelCourtViewController).delegate = self
-            (segue.destinationViewController as! RHSCCancelCourtViewController).ct = self.selectedCourtTime
+            (segue.destination as! RHSCCancelCourtViewController).delegate = self
+            (segue.destination as! RHSCCancelCourtViewController).ct = self.selectedCourtTime
             let tbc = self.tabBarController as! RHSCTabBarController
-            (segue.destinationViewController as! RHSCCancelCourtViewController).user = tbc.currentUser
+            (segue.destination as! RHSCCancelCourtViewController).user = tbc.currentUser
         }
     }
     
-    func setSetSelection(setSelection:String) {
+    func setSetSelection(_ setSelection:String) {
         //    NSLog(@"delegate setSetSelection %@",setSelection);
         self.selectionSet = setSelection;
         //   [self refreshLeftBarButton];
     }
     
-    func setDateSelection(setDate:NSDate) {
+    func setDateSelection(_ setDate:Date) {
         //    NSLog(@"delegate setDateSelection %@",setDate);
         self.selectionDate = setDate;
         //    [self refreshLeftBarButton];
     }
     
-    func setInclude(setSwitch:String) {
+    func setInclude(_ setSwitch:String) {
         //    NSLog(@"delegate setInclude %@",setSwitch);
         self.includeInd = setSwitch
         //    [self loadSelectedCourtTimes];
@@ -410,37 +410,37 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         let tbc = tabBarController as! RHSCTabBarController
         let curUser = tbc.currentUser
         if (curUser!.isLoggedOn()) {
-            let dtFormatter = NSDateFormatter()
-            dtFormatter.locale = NSLocale.systemLocale()
+            let dtFormatter = DateFormatter()
+            dtFormatter.locale = Locale.current
             dtFormatter.dateFormat = "yyyy/MM/dd"
-            let curDate = dtFormatter.stringFromDate(self.selectionDate!)
-            let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+            let curDate = dtFormatter.string(from: self.selectionDate!)
+            let url = URL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
-                    (self.incBookings!.on ? "YES" : "NO"),
+                    (self.incBookings!.isOn ? "YES" : "NO"),
                     curUser!.name!]),
-                relativeToURL: tbc.server )
+                relativeTo: tbc.server as URL? )
 //                print(url!.absoluteString)
 //            let sessionCfg = NSURLSession.sharedSession().configuration
 //            sessionCfg.timeoutIntervalForResource = 30.0
 //            let session = NSURLSession(configuration: sessionCfg)
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            let session = URLSession.shared
+            let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
                 if error != nil {
-                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                    print("Error: \(error!.localizedDescription)")
                 } else if data != nil {
 //                    print("received data")
-                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    let jsonDictionary: [String : String] = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : String]
                     // Get an array of dictionaries with the key "locations"
-                    let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
+                    let array : Array<[String : String]> = jsonDictionary["courtTimes"]! as! Array<[String : String]>
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
                         self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!, members: tbc.memberList!))
                     }
                 }
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                     // do some task
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         // update some UI
 //                            print("reloading tableview")
                             self.tableView.reloadData()
@@ -456,37 +456,37 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         let tbc = tabBarController as! RHSCTabBarController
         let curUser = tbc.currentUser
         if (curUser!.isLoggedOn()) {
-            let dtFormatter = NSDateFormatter()
-            dtFormatter.locale = NSLocale.systemLocale()
+            let dtFormatter = DateFormatter()
+            dtFormatter.locale = Locale.current
             dtFormatter.dateFormat = "yyyy/MM/dd"
-            let curDate = dtFormatter.stringFromDate(self.selectionDate!)
-            let semaphore_loadcourt = dispatch_semaphore_create(0)
-            let url = NSURL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
+            let curDate = dtFormatter.string(from: self.selectionDate!)
+            let semaphore_loadcourt = DispatchSemaphore(value: 0)
+            let url = URL(string: String.init(format: "Reserve20/IOSTimesJSON.php?scheddate=%@&courttype=%@&include=%@&uid=%@",
                 arguments: [curDate, self.selectionSet!,
-                    (self.incBookings!.on ? "YES" : "NO"),
+                    (self.incBookings!.isOn ? "YES" : "NO"),
                     curUser!.name!]),
-                relativeToURL: tbc.server )
+                relativeTo: tbc.server as URL? )
             //        print(url!.absoluteString)
-            let sessionCfg = NSURLSession.sharedSession().configuration
+            let sessionCfg = URLSession.shared.configuration
             sessionCfg.timeoutIntervalForResource = 30.0
-            let session = NSURLSession(configuration: sessionCfg)
-            let task = session.dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+            let session = URLSession(configuration: sessionCfg)
+            let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
                 if error != nil {
-                    print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                    print("Error: \(error!.localizedDescription)")
                 } else if data != nil {
-                    let jsonDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!,options: []) as! NSDictionary
+                    let jsonDictionary: [String : String] = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : String]
                     // Get an array of dictionaries with the key "locations"
-                    let array : Array<NSDictionary> = jsonDictionary["courtTimes"]! as! Array<NSDictionary>
+                    let array : Array<[String : String]> = jsonDictionary["courtTimes"]! as! Array<[String : String]>
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
                         self.courtTimes.append(RHSCCourtTime(withJSONDictionary: dict, forUser: curUser!.name!, members: tbc.memberList!))
                     }
                 }
-                dispatch_semaphore_signal(semaphore_loadcourt)
+                semaphore_loadcourt.signal()
             })
             task.resume()
-            dispatch_semaphore_wait(semaphore_loadcourt, DISPATCH_TIME_FOREVER)
+            semaphore_loadcourt.wait(timeout: DispatchTime.distantFuture)
             self.tableView.reloadData()
         }
 
@@ -497,25 +497,25 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
         self.refreshControl?.endRefreshing()
         self.asyncLoadSelectedCourtTimes()
         self.dayValues = [];
-        var curDate = NSDate()
+        var curDate = Date()
         for _ in 1...30 {
             self.dayValues.append(curDate)
-            curDate = curDate.dateByAddingTimeInterval(24*60*60)
+            curDate = curDate.addingTimeInterval(24*60*60)
         }
         //    [self.tableView reloadData];
     }
     
-    func showStatus(message:String?,timeout:Double) {
+    func showStatus(_ message:String?,timeout:Double) {
         self.includeAlert = UIAlertController(title: "",
-            message: message!, preferredStyle: .Alert)
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            message: message!, preferredStyle: .alert)
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
             // do some task
-            dispatch_async(dispatch_get_main_queue(), {
-                self.presentViewController(self.includeAlert!, animated: true, completion: nil)
+            DispatchQueue.main.async(execute: {
+                self.present(self.includeAlert!, animated: true, completion: nil)
                 let delay = 2.0 * Double(NSEC_PER_SEC)
-                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-                dispatch_after(time, dispatch_get_main_queue(), {
-                    self.includeAlert!.dismissViewControllerAnimated(true, completion: nil)
+                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                    self.includeAlert!.dismiss(animated: true, completion: nil)
                 })
             })
         })

@@ -38,65 +38,65 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         
 //        self.tableView.accessibilityIdentifier = "UpdateCourt"
-        let dateFormat = NSDateFormatter()
+        let dateFormat = DateFormatter()
         dateFormat.dateFormat = "EEE, MMM d"
-        let timeFormat = NSDateFormatter()
+        let timeFormat = DateFormatter()
         timeFormat.dateFormat = "h:mm a"
         // create the cells
-        s1r0 = formTable.dequeueReusableCellWithIdentifier("Court Title Cell") as? RHSCLabelTableViewCell
+        s1r0 = formTable.dequeueReusableCell(withIdentifier: "Court Title Cell") as? RHSCLabelTableViewCell
         if (s1r0 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s1r0 = nib[0] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r0 = nib?[0] as? RHSCLabelTableViewCell
         }
         s1r0?.configure(ct!.court)
-        s1r1 = formTable.dequeueReusableCellWithIdentifier("Date Cell") as? RHSCLabelTableViewCell
+        s1r1 = formTable.dequeueReusableCell(withIdentifier: "Date Cell") as? RHSCLabelTableViewCell
         if (s1r1 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s1r1 = nib[1] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r1 = nib?[1] as? RHSCLabelTableViewCell
         }
-        s1r1?.configure(dateFormat.stringFromDate(ct!.courtTime!))
-        s1r2 = formTable.dequeueReusableCellWithIdentifier("Time Cell") as? RHSCLabelTableViewCell
+        s1r1?.configure(dateFormat.string(from: ct!.courtTime!))
+        s1r2 = formTable.dequeueReusableCell(withIdentifier: "Time Cell") as? RHSCLabelTableViewCell
         if (s1r2 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s1r2 = nib[2] as? RHSCLabelTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s1r2 = nib?[2] as? RHSCLabelTableViewCell
         }
-        s1r2?.configure(timeFormat.stringFromDate(ct!.courtTime!))
-        s2r0 = formTable.dequeueReusableCellWithIdentifier("Player 1 Cell") as? RHSCButtonTableViewCell
+        s1r2?.configure(timeFormat.string(from: ct!.courtTime!))
+        s2r0 = formTable.dequeueReusableCell(withIdentifier: "Player 1 Cell") as? RHSCButtonTableViewCell
         if (s2r0 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r0 = nib[3] as? RHSCButtonTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r0 = nib?[3] as? RHSCButtonTableViewCell
         }
         s2r0?.configure(self,buttonNum: 1,buttonText: user!.buttonText())
-        s2r1 = formTable.dequeueReusableCellWithIdentifier("Player 2 Cell") as? RHSCButtonTableViewCell
+        s2r1 = formTable.dequeueReusableCell(withIdentifier: "Player 2 Cell") as? RHSCButtonTableViewCell
         if (s2r1 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s2r1 = nib[4] as? RHSCButtonTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s2r1 = nib?[4] as? RHSCButtonTableViewCell
         }
         s2r1?.configure(self,buttonNum: 2,buttonText: ct!.players[2]!.buttonText())
         if ct!.court == "Court 5" {
-        s2r2 = formTable.dequeueReusableCellWithIdentifier("Player 3 Cell") as? RHSCButtonTableViewCell
+        s2r2 = formTable.dequeueReusableCell(withIdentifier: "Player 3 Cell") as? RHSCButtonTableViewCell
             if (s2r2 == nil) {
-                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-                s2r2 = nib[5] as? RHSCButtonTableViewCell
+                let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r2 = nib?[5] as? RHSCButtonTableViewCell
             }
             s2r2?.configure(self,buttonNum: 3,buttonText: ct!.players[3]!.buttonText())
-            s2r3 = formTable.dequeueReusableCellWithIdentifier("Player 4 Cell") as? RHSCButtonTableViewCell
+            s2r3 = formTable.dequeueReusableCell(withIdentifier: "Player 4 Cell") as? RHSCButtonTableViewCell
             if (s2r3 == nil) {
-                let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-                s2r3 = nib[6] as? RHSCButtonTableViewCell
+                let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+                s2r3 = nib?[6] as? RHSCButtonTableViewCell
             }
             s2r3?.configure(self,buttonNum: 4,buttonText: ct!.players[4]!.buttonText())
         }
-        s3r0 = formTable.dequeueReusableCellWithIdentifier("Type Cell") as? RHSCPickerTableViewCell
+        s3r0 = formTable.dequeueReusableCell(withIdentifier: "Type Cell") as? RHSCPickerTableViewCell
         if (s3r0 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s3r0 = nib[7] as? RHSCPickerTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s3r0 = nib?[7] as? RHSCPickerTableViewCell
         }
         s3r0?.configure((ct?.event)!)
-        s3r1 = formTable.dequeueReusableCellWithIdentifier("Desc Cell") as? RHSCTextTableViewCell
+        s3r1 = formTable.dequeueReusableCell(withIdentifier: "Desc Cell") as? RHSCTextTableViewCell
         if (s3r1 == nil) {
-            let nib = NSBundle.mainBundle().loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            s3r1 = nib[8] as? RHSCTextTableViewCell
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            s3r1 = nib?[8] as? RHSCTextTableViewCell
         }
         s3r1?.configure(ct?.eventDesc)
         
@@ -108,27 +108,27 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         
         for sect in cells {
             for myview in sect {
-                myview?.selectionStyle = .None
+                myview?.selectionStyle = .none
             }
         }
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return cells.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return cells[section].count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return self.cells[indexPath.section][indexPath.row]!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return self.cells[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]!
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //        switch section {
         //        case 0: return "Coordinates"
         //        case 1: return "Players"
@@ -138,58 +138,58 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         return nil
     }
     
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.grayColor()
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.gray
         let txtView = view as! UITableViewHeaderFooterView
-        txtView.textLabel?.textColor = UIColor.blackColor()
+        txtView.textLabel?.textColor = UIColor.black
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     
-    func didClickOnPlayerButton(sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
+    func didClickOnPlayerButton(_ sender: RHSCButtonTableViewCell?, buttonIndex: Int) {
         let tbc = self.tabBarController as! RHSCTabBarController
         let ml = tbc.memberList
-        let optionMenu = UIAlertController(title: nil, message: "Choose Player", preferredStyle: .ActionSheet)
-        let memberAction = UIAlertAction(title: "Member", style: .Default, handler:
+        let optionMenu = UIAlertController(title: nil, message: "Choose Player", preferredStyle: .actionSheet)
+        let memberAction = UIAlertAction(title: "Member", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 //                print("Member")
                 switch buttonIndex {
                 case 2:
-                    self.performSegueWithIdentifier("UpdatePlayer2", sender: self)
+                    self.performSegue(withIdentifier: "UpdatePlayer2", sender: self)
                     break
                 case 3:
-                    self.performSegueWithIdentifier("UpdatePlayer3", sender: self)
+                    self.performSegue(withIdentifier: "UpdatePlayer3", sender: self)
                     break
                 case 4:
-                    self.performSegueWithIdentifier("UpdatePlayer4", sender: self)
+                    self.performSegue(withIdentifier: "UpdatePlayer4", sender: self)
                     break
                 default:
                     break
                 }
         })
-        let guestAction = UIAlertAction(title: "Guest", style: .Default, handler:
+        let guestAction = UIAlertAction(title: "Guest", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 //                print("Guest")
-                let alert = UIAlertController(title: "Identify Guest", message: "Enter the name of your Guest:", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default,
+                let alert = UIAlertController(title: "Identify Guest", message: "Enter the name of your Guest:", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default,
                     handler: {(thisAction: UIAlertAction) in
                         let textField = alert.textFields![0]
                         self.ct!.players[buttonIndex] = RHSCGuest(withGuestName: textField.text)
                         self.setPlayer(self.ct!.players[buttonIndex], number: UInt16(buttonIndex))
                 } ))
-                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,
                     handler: nil))
-                alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                alert.addTextField(configurationHandler: {(textField: UITextField!) in
                     textField.placeholder = "Guest name:"
                     textField.text = self.ct!.players[buttonIndex] is RHSCGuest ? (self.ct!.players[buttonIndex] as! RHSCGuest).guestName : ""
                 })
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
         })
-        let TBDAction = UIAlertAction(title: "TBD", style: .Default, handler:
+        let TBDAction = UIAlertAction(title: "TBD", style: .default, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 //                print("TBD")
@@ -210,7 +210,7 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
                     break
                 }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:
             {
                 (alert: UIAlertAction!) -> Void in
                 //                print("TBD")
@@ -219,11 +219,11 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         optionMenu.addAction(guestAction)
         optionMenu.addAction(TBDAction)
         optionMenu.addAction(cancelAction)
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
         
     }
     
-    func setPlayer(setPlayer : RHSCMember?, number: UInt16) {
+    func setPlayer(_ setPlayer : RHSCMember?, number: UInt16) {
         //    NSLog(@"delegate setPlayer %@ to %@",playerNumber,setPlayer.name);
         ct!.players[Int(number)] = setPlayer
         if number == 2 {
@@ -237,23 +237,23 @@ class RHSCUpdateCourtViewController : UIViewController, UITableViewDataSource, U
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         ct!.unlock(fromView: self)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UpdatePlayer2" {
-            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
-            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 2
+            (segue.destination as! RHSCFindMemberViewController).delegate = self
+            (segue.destination as! RHSCFindMemberViewController).playerNumber = 2
         }
         if segue.identifier == "UpdatePlayer3" {
-            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
-            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 3
+            (segue.destination as! RHSCFindMemberViewController).delegate = self
+            (segue.destination as! RHSCFindMemberViewController).playerNumber = 3
         }
         if segue.identifier == "UpdatePlayer4" {
-            (segue.destinationViewController as! RHSCFindMemberViewController).delegate = self
-            (segue.destinationViewController as! RHSCFindMemberViewController).playerNumber = 4
+            (segue.destination as! RHSCFindMemberViewController).delegate = self
+            (segue.destination as! RHSCFindMemberViewController).playerNumber = 4
         }
     }
     
