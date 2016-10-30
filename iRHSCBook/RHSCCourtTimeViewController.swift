@@ -429,9 +429,9 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                     print("Error: \(error!.localizedDescription)")
                 } else if data != nil {
 //                    print("received data")
-                    let jsonDictionary: [String : String] = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : String]
+                    let jsonDictionary = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : Any]
                     // Get an array of dictionaries with the key "locations"
-                    let array : Array<[String : String]> = jsonDictionary["courtTimes"]! as! Array<[String : String]>
+                    let array = jsonDictionary["courtTimes"] as! Array<[String : Any]>
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {
@@ -474,9 +474,9 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                 if error != nil {
                     print("Error: \(error!.localizedDescription)")
                 } else if data != nil {
-                    let jsonDictionary: [String : String] = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : String]
+                    let jsonDictionary = try! JSONSerialization.jsonObject(with: data!,options: []) as! [String : Any]
                     // Get an array of dictionaries with the key "locations"
-                    let array : Array<[String : String]> = jsonDictionary["courtTimes"]! as! Array<[String : String]>
+                    let array = jsonDictionary["courtTimes"] as! Array<[String : Any]>
                     // Iterate through the array of dictionaries
                     self.courtTimes.removeAll()
                     for dict in array {

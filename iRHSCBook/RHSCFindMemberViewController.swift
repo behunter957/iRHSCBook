@@ -156,7 +156,7 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
             deltarget.setPlayer(selmem, number: playerNumber)
         }
         resultSearchController.isActive = false
-        self.navigationController?.popViewController(animated: false)
+        _ = self.navigationController?.popViewController(animated: false)
     }
 
 }

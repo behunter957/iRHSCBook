@@ -28,7 +28,7 @@ import Foundation
         let semaphore_memlist = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print("Error: \(error!.localizedDescription) \(error!.userInfo)")
+                print("Error: \(error!.localizedDescription)")
             } else if data != nil {
                 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 self.loadFromData(data)
@@ -36,7 +36,7 @@ import Foundation
             semaphore_memlist.signal()
         })
         task.resume()
-        semaphore_memlist.wait(timeout: DispatchTime.distantFuture)
+        _ = semaphore_memlist.wait(timeout: DispatchTime.distantFuture)
         
     }
     

@@ -157,7 +157,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
                 message: "Cannot email from this device", preferredStyle: .alert)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     self.present(self.errorAlert!, animated: true, completion: nil)
@@ -182,7 +182,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
                 message: "Cannot phone from this device", preferredStyle: .alert)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     self.present(self.errorAlert!, animated: true, completion: nil)
@@ -207,7 +207,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         } else {
             self.errorAlert = UIAlertController(title: "Unavailable",
                 message: "Cannot phone from this device", preferredStyle: .alert)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     self.present(self.errorAlert!, animated: true, completion: nil)
@@ -257,7 +257,7 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         case MessageComposeResult.failed:
             self.errorAlert = UIAlertController(title: "Unavailable",
                 message: "Cannot SMS from this device", preferredStyle: .alert)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     self.present(self.errorAlert!, animated: true, completion: nil)
@@ -270,8 +270,6 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
             })
             break;
         case MessageComposeResult.sent:
-            break;
-        default:
             break;
         }
         dismiss(animated: true, completion: nil)
@@ -286,8 +284,6 @@ class RHSCContactMemberViewController : UIViewController, UITableViewDataSource,
         case MFMailComposeResult.sent:
             break;
         case MFMailComposeResult.failed:
-            break;
-        default:
             break;
         }
         

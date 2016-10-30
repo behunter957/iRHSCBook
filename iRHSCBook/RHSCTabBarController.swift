@@ -47,14 +47,14 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         self.courtSet = UserDefaults.standard.string(forKey: "RHSCCourtSet")
         self.showBooked = UserDefaults.standard.bool(forKey: "RHSCShowBooked")
     
-        let networkReachability = try! Reachability.reachabilityForInternetConnection()
+        let networkReachability = Reachability()!
         let networkStatus = networkReachability.currentReachabilityStatus
         if (networkStatus == Reachability.NetworkStatus.notReachable) {
             self.view.isUserInteractionEnabled = false
             // if not found then logon failes
             self.errorAlert = UIAlertController(title: "No Internet Connection",
                 message: "Close the application and try later.", preferredStyle: .alert)
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 // do some task
                 DispatchQueue.main.async(execute: {
                     self.present(self.errorAlert!, animated: true, completion: nil)
@@ -79,7 +79,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                     // if not found then logon failes
                     self.errorAlert = UIAlertController(title: "Load Members Failed",
                         message: "Please check settings and restart iRHSCBook or contact administrator.", preferredStyle: .alert)
-                    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                    DispatchQueue.global().async(execute: {
                         // do some task
                         DispatchQueue.main.async(execute: {
                             self.present(self.errorAlert!, animated: true, completion: nil)
@@ -91,7 +91,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                 // if not found then logon failes
                 self.errorAlert = UIAlertController(title: "Logon Failed",
                     message: "Please check settings and provide a valid userid and password.", preferredStyle: .alert)
-                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                DispatchQueue.global().async(execute: {
                     // do some task
                     DispatchQueue.main.async(execute: {
                         self.present(self.errorAlert!, animated: true, completion: nil)

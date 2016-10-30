@@ -166,8 +166,6 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         case MFMailComposeResult.failed:
             //            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
-        default:
-            break;
         }
     
         // Close the Mail Interface
@@ -224,8 +222,6 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
             })
             break;
         case MessageComposeResult.sent:
-            break;
-        default:
             break;
         }
         self.dismiss(animated: true, completion: nil)
