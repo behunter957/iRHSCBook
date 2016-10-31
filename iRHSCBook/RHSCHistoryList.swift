@@ -34,8 +34,8 @@ class RHSCHistoryList : NSObject {
     func loadFromData(_ fromData:Data, forUser: String, memberList ml:RHSCMemberList, forMeOnly: Bool) {
         list.removeAll()
         do {
-            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? NSDictionary {
-                let array : Array<[String : String]> = jsonDictionary["history"]! as! Array<[String : String]>
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? [String : Any] {
+                let array : Array<[String : Any]> = jsonDictionary["history"]! as! Array<[String : Any]>
                 for dict in array {
                     let ct = RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml)
                     if forMeOnly {
