@@ -107,7 +107,7 @@ class RHSCHistoryViewController : UITableViewController, FileManagerDelegate {
             ct = history.list[(indexPath as NSIndexPath).row]
             let dtFormatter = DateFormatter()
             dtFormatter.locale = Locale.current
-            dtFormatter.dateFormat = "EEE, MM d 'at' h:mm a"
+            dtFormatter.dateFormat = "EEE, MMM d 'at' h:mm a"
         
             let rcell = (cell as! RHSCHistoryTableViewCell)
             rcell.courtAndTimeLabel!.text = String.init(format: "%@ - %@", arguments: [ct.court!,dtFormatter.string(from: ct.courtTime! as Date)])
