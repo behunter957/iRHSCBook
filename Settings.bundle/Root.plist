@@ -26,7 +26,7 @@
 			<key>Key</key>
 			<string>RHSCUserID</string>
 			<key>DefaultValue</key>
-			<string>Bruce.Hunter</string>
+			<string>TestBooker</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -38,7 +38,7 @@
 			<key>Key</key>
 			<string>RHSCPassword</string>
 			<key>DefaultValue</key>
-			<string>maxwell</string>
+			<string>FunkyChicken</string>
 			<key>KeyboardType</key>
 			<string>Alphabet</string>
 		</dict>

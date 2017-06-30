@@ -75,6 +75,11 @@ class RHSCFindMemberViewController : UITableViewController,UISearchResultsUpdati
         self.tableView.reloadData()
     }
     
+    deinit {
+        // for some reason this is required, see https://stackoverflow.com/questions/32282401/attempting-to-load-the-view-of-a-view-controller-while-it-is-deallocating-uis
+        self.resultSearchController.view.removeFromSuperview()
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text?.characters.count > 0 {
             filteredList.removeAll(keepingCapacity: false)

@@ -35,17 +35,12 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
             return;
         }
         
-        var appDefaults = Dictionary<String, AnyObject>()
-        appDefaults["RHSCCourtSet"] = "All" as AnyObject?
-        appDefaults["RHSCShowBooked"] = false as AnyObject?
-        appDefaults["RHSCServerURL"] = "http://www.rhsquashclub.com" as AnyObject?
-        appDefaults["RHSCUserID"] = "Bruce.Hunter" as AnyObject?
-        appDefaults["RHSCPassword"] = "maxwell" as AnyObject?
-        UserDefaults.standard.register(defaults: appDefaults)
-        UserDefaults.standard.synchronize()
+        let defaults = UserDefaults.standard
         
-        self.courtSet = UserDefaults.standard.string(forKey: "RHSCCourtSet")
-        self.showBooked = UserDefaults.standard.bool(forKey: "RHSCShowBooked")
+        self.courtSet = defaults.string(forKey: "RHSCCourtSet") ?? "All"
+        defaults.set(self.courtSet, forKey: "RHSCCourtSet")
+        self.showBooked = defaults.bool(forKey: "RHSCShowBooked")
+        defaults.set(self.showBooked, forKey: "RHSCShowBooked")
     
         let networkReachability = Reachability()!
         let networkStatus = networkReachability.currentReachabilityStatus
@@ -61,16 +56,20 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                 })
             })
         } else {
-            let srvrname = UserDefaults.standard.string(forKey: "RHSCServerURL")
+            let srvrname = defaults.string(forKey: "RHSCServerURL") ?? "http://www.bhsquashclub.com"
+//            print(srvrname)
+            defaults.set(srvrname, forKey: "RHSCServerURL")
             
-            self.server = RHSCServer(string: "", relativeTo: URL(string: srvrname!))
+            self.server = RHSCServer(string: "", relativeTo: URL(string: srvrname))
 //            self.server = RHSCServer(scheme: "http://", host: srvrname!, path: "")
 
-            let userid = UserDefaults.standard.string(forKey: "RHSCUserID")
-            let passwd = UserDefaults.standard.string(forKey: "RHSCPassword")
-//            print("Logging on with: ",userid," ",passwd)
+            let userid = defaults.string(forKey: "RHSCUserID") ?? "TestBooker1"
+            defaults.set(userid, forKey: "RHSCUserID")
+            let passwd = defaults.string(forKey: "RHSCPassword") ?? "FunkyChicken"
+            defaults.set(passwd, forKey: "RHSCPassword")
+            //            print("Logging on with: ",userid," ",passwd)
             
-            self.currentUser = RHSCUser(forUserid: userid!, forPassword: passwd!)
+            self.currentUser = RHSCUser(forUserid: userid, forPassword: passwd)
             if self.currentUser!.validate(fromServer: server!) {
                 self.memberList = RHSCMemberList()
                 try! self.memberList?.loadFromJSON(fromServer: self.server!)
@@ -98,6 +97,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                     })
                 })
             }
+
 
         }
     }
