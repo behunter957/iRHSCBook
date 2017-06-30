@@ -30,18 +30,23 @@ import UIKit
         })
         task.resume()
     }
-        func loadFromData(_ fromData:Data, forUser: String, memberList ml:RHSCMemberList) {
+
+    
+    func loadFromData(_ fromData:Data, forUser: String, memberList ml:RHSCMemberList) {
+        list.removeAll()
         do {
-            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? NSDictionary {
-                let array : Array<[String : String]> = jsonDictionary["bookings"]! as! Array<[String : String]>
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: fromData, options: []) as? [String : Any] {
+                let array : Array<[String : Any]> = jsonDictionary["bookings"]! as! Array<[String : Any]>
                 for dict in array {
-                    list.append(RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml))
+                    let ct = RHSCCourtTime(withJSONDictionary: dict, forUser: forUser, members: ml)
+                    list.append(ct)
                 }
             }
         } catch {
             print(error)
         }
     }
+
 
     func loadAsync(fromView view: UITableViewController) {
         let tbc = view.tabBarController as! RHSCTabBarController
