@@ -56,16 +56,16 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                 })
             })
         } else {
-            let srvrname = defaults.string(forKey: "RHSCServerURL") ?? "http://www.bhsquashclub.com"
+            let srvrname = defaults.string(forKey: "RHSCServerURL") ?? "http://www.rhsquashclub.com"
 //            print(srvrname)
             defaults.set(srvrname, forKey: "RHSCServerURL")
             
             self.server = RHSCServer(string: "", relativeTo: URL(string: srvrname))
 //            self.server = RHSCServer(scheme: "http://", host: srvrname!, path: "")
 
-            let userid = defaults.string(forKey: "RHSCUserID") ?? "TestBooker1"
+            let userid = defaults.string(forKey: "RHSCUserID") ?? "ChangeMe"
             defaults.set(userid, forKey: "RHSCUserID")
-            let passwd = defaults.string(forKey: "RHSCPassword") ?? "FunkyChicken"
+            let passwd = defaults.string(forKey: "RHSCPassword") ?? "ChangeMe"
             defaults.set(passwd, forKey: "RHSCPassword")
             //            print("Logging on with: ",userid," ",passwd)
             

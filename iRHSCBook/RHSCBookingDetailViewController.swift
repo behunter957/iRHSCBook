@@ -143,11 +143,15 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         } else {
             self.errorAlert = UIAlertController(title: "Error",
                 message: "Cannot email from this device", preferredStyle: .alert)
-            self.present(self.errorAlert!, animated: true, completion: nil)
-            let delay = 2.0 * Double(NSEC_PER_SEC)
-            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                self.errorAlert!.dismiss(animated: true, completion: nil)
+            DispatchQueue.global().async(execute: {
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
+                    })
+                })
             })
         }
     }
@@ -214,11 +218,15 @@ class RHSCBookingDetailViewController : UIViewController,MFMailComposeViewContro
         case MessageComposeResult.failed:
             self.errorAlert = UIAlertController(title: "Error",
                 message: "Cannot message from this device", preferredStyle: .alert)
-            self.present(self.errorAlert!, animated: true, completion: nil)
-            let delay = 2.0 * Double(NSEC_PER_SEC)
-            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                self.errorAlert!.dismiss(animated: true, completion: nil)
+            DispatchQueue.global().async(execute: {
+                DispatchQueue.main.async(execute: {
+                    self.present(self.errorAlert!, animated: true, completion: nil)
+                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                        self.errorAlert!.dismiss(animated: true, completion: nil)
+                    })
+                })
             })
             break;
         case MessageComposeResult.sent:

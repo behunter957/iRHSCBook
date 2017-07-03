@@ -286,11 +286,15 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
             } else {
                 self.errorAlert = UIAlertController(title: "Error",
                     message: "Unable to lock the court", preferredStyle: .alert)
-                self.present(self.errorAlert!, animated: true, completion: nil)
-                let delay = 2.0 * Double(NSEC_PER_SEC)
-                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-                DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                    self.errorAlert!.dismiss(animated: true, completion: nil)
+                DispatchQueue.global().async(execute: {
+                    DispatchQueue.main.async(execute: {
+                        self.present(self.errorAlert!, animated: true, completion: nil)
+                        let delay = 2.0 * Double(NSEC_PER_SEC)
+                        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                        DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                            self.errorAlert!.dismiss(animated: true, completion: nil)
+                        })
+                    })
                 })
             }
         } else {
@@ -306,11 +310,15 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                         } else {
                             self.errorAlert = UIAlertController(title: "Error",
                                 message: "Unable to lock the court", preferredStyle: .alert)
-                            self.present(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                                self.errorAlert!.dismiss(animated: true, completion: nil)
+                            DispatchQueue.global().async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    self.present(self.errorAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        self.errorAlert!.dismiss(animated: true, completion: nil)
+                                    })
+                                })
                             })
                         }
                 })
@@ -323,11 +331,15 @@ class RHSCCourtTimeViewController : UITableViewController, cancelCourtProtocol,U
                         } else {
                             self.errorAlert = UIAlertController(title: "Error",
                                 message: "Unable to lock the court", preferredStyle: .alert)
-                            self.present(self.errorAlert!, animated: true, completion: nil)
-                            let delay = 2.0 * Double(NSEC_PER_SEC)
-                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                                self.errorAlert!.dismiss(animated: true, completion: nil)
+                            DispatchQueue.global().async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    self.present(self.errorAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        self.errorAlert!.dismiss(animated: true, completion: nil)
+                                    })
+                                })
                             })
                         }
                 })

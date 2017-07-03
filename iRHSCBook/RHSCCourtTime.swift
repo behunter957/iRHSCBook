@@ -501,43 +501,51 @@ import UIKit
             } else {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 if (statusCode == 200) && (data != nil) {
-                    let jsonDictionary = try! JSONSerialization.jsonObject(with: data!,options: []) as! NSDictionary
-                    if jsonDictionary["error"] == nil {
-                        successAlert = UIAlertController(title: "Success",
-                            message: "NoShow Reported", preferredStyle: .alert)
-                        DispatchQueue.global().async(execute: {
-                            DispatchQueue.main.async(execute: {
-                                view.present(successAlert!, animated: true, completion: nil)
-                                let delay = 2.0 * Double(NSEC_PER_SEC)
-                                let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-                                DispatchQueue.main.asyncAfter(deadline: time, execute: {
-                                    successAlert!.dismiss(animated: true, completion: nil)
-                                    _ = view.navigationController?.popViewController(animated: true)
+                    if let jsonDictionary = try! JSONSerialization.jsonObject(with: data!,options: []) as? [String : Any] {
+                        if jsonDictionary["error"] == nil {
+                            successAlert = UIAlertController(title: "Success",
+                                                             message: "NoShow Reported", preferredStyle: .alert)
+                            DispatchQueue.global().async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(successAlert!, animated: true, completion: nil)
+                                    let delay = 2.0 * Double(NSEC_PER_SEC)
+                                    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+                                    DispatchQueue.main.asyncAfter(deadline: time, execute: {
+                                        successAlert!.dismiss(animated: true, completion: nil)
+                                        _ = view.navigationController?.popViewController(animated: true)
+                                    })
                                 })
                             })
-                        })
-                    } else {
-                        errorAlert = UIAlertController(title: "Unable to Report NoShow",
-                            message: jsonDictionary["error"] as! String?, preferredStyle: .alert)
-                        view.present(errorAlert!, animated: true, completion: nil)
-                        
-                        let when = DispatchTime.now() + 5
-                        DispatchQueue.main.asyncAfter(deadline: when){
-                            // your code with delay
-                            errorAlert!.dismiss(animated: true, completion: nil)
-                            _ = view.navigationController?.popViewController(animated: true)
+                        } else {
+                            errorAlert = UIAlertController(title: "Unable to Report NoShow",
+                                                           message: jsonDictionary["error"] as! String?, preferredStyle: .alert)
+                            DispatchQueue.global().async(execute: {
+                                DispatchQueue.main.async(execute: {
+                                    view.present(errorAlert!, animated: true, completion: nil)
+                                    let when = DispatchTime.now() + 5
+                                    DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                                        // your code with delay
+                                        errorAlert!.dismiss(animated: true, completion: nil)
+                                        _ = view.navigationController?.popViewController(animated: true)
+                                    })
+                                })
+                            })
                         }
                     }
                 } else {
                     errorAlert = UIAlertController(title: "Unable to Report NoShow",
                                                    message: "Error (status code \(statusCode))", preferredStyle: .alert)
-                    view.present(errorAlert!, animated: true, completion: nil)
-                    let when = DispatchTime.now() + 5
-                    DispatchQueue.main.asyncAfter(deadline: when){
-                        // your code with delay
-                        errorAlert!.dismiss(animated: true, completion: nil)
-                        _ = view.navigationController?.popViewController(animated: true)
-                    }
+                    DispatchQueue.global().async(execute: {
+                        DispatchQueue.main.async(execute: {
+                            view.present(errorAlert!, animated: true, completion: nil)
+                            let when = DispatchTime.now() + 5
+                            DispatchQueue.main.asyncAfter(deadline: when, execute : {
+                                // your code with delay
+                                errorAlert!.dismiss(animated: true, completion: nil)
+                                _ = view.navigationController?.popViewController(animated: true)
+                            })
+                        })
+                    })
                 }
             }
         })

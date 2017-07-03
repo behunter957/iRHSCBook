@@ -25,7 +25,7 @@ class RHSCMember : NSObject {
         super.init()
     }
 
-    init(fromJSONDictionary jsonDictionary : NSDictionary) {
+    init(fromJSONDictionary jsonDictionary : [String : Any]) {
         // Assign all properties with keyed values from the dictionary
         name  = jsonDictionary["id"] as! String?
         firstName  = jsonDictionary["fname"] as! String?
@@ -110,7 +110,7 @@ class RHSCMember : NSObject {
         self.type  = "Single"
     }
     
-    func assign(fromJSONDictionary jsonDictionary : NSDictionary) {
+    func assign(fromJSONDictionary jsonDictionary : [String : Any]) {
         // Assign all properties with keyed values from the dictionary
         name  = jsonDictionary["id"] as! String?
         firstName  = jsonDictionary["fname"] as! String?

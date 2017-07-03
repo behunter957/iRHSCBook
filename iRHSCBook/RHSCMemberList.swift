@@ -43,8 +43,8 @@ import Foundation
     func loadFromData(_ data : Data?) {
         // Now create a NSDictionary from the JSON data
         do {
-            if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
-                let array : Array<NSDictionary> = jsonDictionary["members"]! as! Array<NSDictionary>
+            if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] {
+                let array = jsonDictionary["members"]! as! Array<[String : Any]>
                 for dict in array {
                     // Create a new Location object for each one and initialise it with information in the dictionary
                     let member = RHSCMember(fromJSONDictionary:dict )

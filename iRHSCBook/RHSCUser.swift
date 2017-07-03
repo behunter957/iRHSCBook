@@ -35,9 +35,9 @@ import Foundation
             } else if data != nil {
 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
-                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
-                        if let array  = jsonDictionary["user"] {
-                            for dict in array as! Array<NSDictionary> {
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] {
+                        if let array = jsonDictionary["user"]! as? Array<[String : Any]> {
+                            for dict in array {
                                 RHSCUser.loggedOn = true
                                 // Create a new Location object for each one and initialise it with information in the dictionary
                                 
