@@ -36,21 +36,25 @@ import Foundation
 //                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 do {
                     if let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] {
-                        if let array = jsonDictionary["user"]! as? Array<[String : Any]> {
-                            for dict in array {
-                                RHSCUser.loggedOn = true
-                                // Create a new Location object for each one and initialise it with information in the dictionary
-                                
-                                self.assign(fromJSONDictionary: dict)
+                        if jsonDictionary["user"] != nil {
+                            if let array : Array<[String : Any]> = jsonDictionary["user"]! as? Array<[String : Any]> {
+                                for dict in array {
+                                    RHSCUser.loggedOn = true
+                                    // Create a new Location object for each one and initialise it with information in the dictionary
+                                    
+                                    self.assign(fromJSONDictionary: dict)
+                                }
+                            } else {
+//                                print("user not found")
                             }
                         } else {
-                            print("user not found")
+//                            print("user not found")
                         }
                     } else {
-                        print("response was not JSON")
+//                        print("response was not JSON")
                     }
                 } catch {
-                    print(error)
+//                    print(error)
                 }
             }
             semaphore_logon.signal()
