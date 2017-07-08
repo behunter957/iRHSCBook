@@ -66,8 +66,13 @@ class RHSCBookingsViewController : UITableViewController,cancelCourtProtocol,Fil
             switch curCourtTime.event! {
             case "Lesson","Clinic","School":
                 cell.contentView.backgroundColor = UIColor.lessonYellow()
+                break
             case "T&D","MNHL","Ladder","RoundRobin","Tournament":
                 cell.contentView.backgroundColor = UIColor.leaguePurple()
+                break
+            case "Practice":
+                cell.contentView.backgroundColor = UIColor.practiceOrange()
+                break
             default:
                 cell.contentView.backgroundColor = UIColor.bookedBlue()
             }
