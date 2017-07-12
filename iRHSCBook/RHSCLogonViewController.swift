@@ -38,9 +38,9 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
             r0 = nib?[0] as? RHSCUserIDTableViewCell
         }
         r1 = formTable.dequeueReusableCell(withIdentifier: "Password Cell") as? RHSCPasswordTableViewCell
-        if (r0 == nil) {
+        if (r1 == nil) {
             let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            r0 = nib?[0] as? RHSCPasswordTableViewCell
+            r1 = nib?[0] as? RHSCPasswordTableViewCell
         }
         r2 = formTable.dequeueReusableCell(withIdentifier: "Logon Cell") as? RHSCButtonTableViewCell
         if (r2 == nil) {
