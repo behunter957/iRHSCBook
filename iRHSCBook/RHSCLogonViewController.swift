@@ -13,8 +13,8 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet var formTable: UITableView!
     
-    var r0 : RHSCTextTableViewCell? = nil
-    var r1 : RHSCTextTableViewCell? = nil
+    var r0 : RHSCUserIDTableViewCell? = nil
+    var r1 : RHSCPasswordTableViewCell? = nil
     var r2 : RHSCButtonTableViewCell? = nil
     var cells : Array<UITableViewCell?> = []
 
@@ -32,15 +32,15 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
         let timeFormat = DateFormatter()
         timeFormat.dateFormat = "h:mm a"
         // create the cells
-        r0 = formTable.dequeueReusableCell(withIdentifier: "UserID Cell") as? RHSCTextTableViewCell
+        r0 = formTable.dequeueReusableCell(withIdentifier: "UserID Cell") as? RHSCUserIDTableViewCell
         if (r0 == nil) {
             let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            r0 = nib?[0] as? RHSCTextTableViewCell
+            r0 = nib?[0] as? RHSCUserIDTableViewCell
         }
-        r1 = formTable.dequeueReusableCell(withIdentifier: "Password Cell") as? RHSCTextTableViewCell
+        r1 = formTable.dequeueReusableCell(withIdentifier: "Password Cell") as? RHSCPasswordTableViewCell
         if (r0 == nil) {
             let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-            r0 = nib?[0] as? RHSCTextTableViewCell
+            r0 = nib?[0] as? RHSCPasswordTableViewCell
         }
         r2 = formTable.dequeueReusableCell(withIdentifier: "Logon Cell") as? RHSCButtonTableViewCell
         if (r2 == nil) {
@@ -69,12 +69,6 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //        switch section {
-        //        case 0: return "Coordinates"
-        //        case 1: return "Players"
-        //        case 2: return "Event"
-        //        default: return ""
-        //        }
         return nil
     }
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A008F8E1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A008F8D1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift */; };
+		4A008F901F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A008F8F1F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift */; };
 		4A1471D41C0651A400D824D3 /* RHSCHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */; };
 		4A1471D71C06528C00D824D3 /* RHSCHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1471D61C06528C00D824D3 /* RHSCHistoryViewController.swift */; };
 		4A2EDE031BDD7B270012CC4E /* RHSCMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EDE021BDD7B270012CC4E /* RHSCMemberList.swift */; };
@@ -82,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A008F8D1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCUserIDTableViewCell.swift; sourceTree = "<group>"; };
+		4A008F8F1F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCPasswordTableViewCall.swift; sourceTree = "<group>"; };
 		4A1471D31C0651A400D824D3 /* RHSCHistoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryList.swift; sourceTree = "<group>"; };
 		4A1471D61C06528C00D824D3 /* RHSCHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCHistoryViewController.swift; sourceTree = "<group>"; };
 		4A2EDE021BDD7B270012CC4E /* RHSCMemberList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCMemberList.swift; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 				4AD36F24196FE5870015BB52 /* Courts */,
 				4A2EDE141BDED8DE0012CC4E /* RHSCTabBarController.swift */,
 				4A4C97521F164482006DD53C /* RHSCLogonViewController.swift */,
+				4A008F8D1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift */,
+				4A008F8F1F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				4A2EDE211BE25ABE0012CC4E /* RHSCCourtTimeTableViewCell.swift in Sources */,
 				4AB4C5E51BF2143200EBDED9 /* RHSCContactMemberViewController.swift in Sources */,
 				4A2EDE1F1BE25A5C0012CC4E /* RHSCCourtTimeViewController.swift in Sources */,
+				4A008F8E1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift in Sources */,
 				4A2EDE091BDD8DC00012CC4E /* RHSCGuest.swift in Sources */,
 				4A1471D41C0651A400D824D3 /* RHSCHistoryList.swift in Sources */,
 				4AF47F861C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift in Sources */,
@@ -523,6 +530,7 @@
 				4A2EDE071BDD8DA80012CC4E /* RHSCUser.swift in Sources */,
 				4AF4171F1C074DA700C2CA2E /* RHSCHistoryTableViewCell.swift in Sources */,
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,
+				4A008F901F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift in Sources */,
 				4A2EDE371BED5C1C0012CC4E /* RHSCBookCourtViewController.swift in Sources */,
 				4AB35CF61BF0150C00CABFF1 /* RHSCUpdateCourtViewController.swift in Sources */,
 				4AF417211C0782B600C2CA2E /* RHSCReportNoShowViewController.swift in Sources */,
