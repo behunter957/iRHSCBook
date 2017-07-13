@@ -28,6 +28,27 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         
+        // create the cells
+        self.r0 = formTable.dequeueReusableCell(withIdentifier: "UserID Cell") as? RHSCUserIDTableViewCell
+        if (self.r0 == nil) {
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            self.r0 = nib?[9] as? RHSCUserIDTableViewCell
+        }
+        self.r1 = formTable.dequeueReusableCell(withIdentifier: "Password Cell") as? RHSCPasswordTableViewCell
+        if (self.r1 == nil) {
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            self.r1 = nib?[10] as? RHSCPasswordTableViewCell
+        }
+        self.r2 = formTable.dequeueReusableCell(withIdentifier: "Logon Cell") as? RHSCButtonTableViewCell
+        if (self.r2 == nil) {
+            let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
+            self.r2 = nib?[6] as? RHSCButtonTableViewCell
+        }
+        cells = [self.r0, self.r1, self.r2]
+        for cell in cells {
+            cell?.selectionStyle = .none
+        }
+
         let defaults = UserDefaults.standard
         let userid = defaults.string(forKey: "RHSCUserID") ?? "ChangeMe"
         defaults.set(userid, forKey: "RHSCUserID")
@@ -55,29 +76,10 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
             self.server = RHSCServer(string: "", relativeTo: URL(string: srvrname))
             if self.currentUser!.validate(fromServer: server!) {
                 // valid credentials - dismiss dialog and go to tab controller
+                print("logon failed")
             } else {
                 // invalid credentials - continue with dialog
                 
-                // create the cells
-                r0 = formTable.dequeueReusableCell(withIdentifier: "UserID Cell") as? RHSCUserIDTableViewCell
-                if (r0 == nil) {
-                    let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-                    r0 = nib?[0] as? RHSCUserIDTableViewCell
-                }
-                r1 = formTable.dequeueReusableCell(withIdentifier: "Password Cell") as? RHSCPasswordTableViewCell
-                if (r1 == nil) {
-                    let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-                    r1 = nib?[0] as? RHSCPasswordTableViewCell
-                }
-                r2 = formTable.dequeueReusableCell(withIdentifier: "Logon Cell") as? RHSCButtonTableViewCell
-                if (r2 == nil) {
-                    let nib = Bundle.main.loadNibNamed("RHSCBookCourtTableViewCell", owner: self, options: nil)
-                    r2 = nib?[3] as? RHSCButtonTableViewCell
-                }
-                cells = [r0, r1, r2]
-                for cell in cells {
-                    cell?.selectionStyle = .none
-                }
             }
         }
     }
