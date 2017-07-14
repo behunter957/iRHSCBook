@@ -27,6 +27,9 @@ import Foundation
 //        print(url!.absoluteString)
         let sessionCfg = URLSession.shared.configuration
 //        sessionCfg.timeoutIntervalForResource = 30.0
+//        print("RHSCUser:"+userid!)
+//        print("RHSCUser:"+password!)
+//        print("RHSCUser:"+server.absoluteString!)
         let session = URLSession(configuration: sessionCfg)
         let semaphore_logon = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: url!, completionHandler: { (data, response, error) -> Void in
