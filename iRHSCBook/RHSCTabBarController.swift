@@ -17,6 +17,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
     var courtSet : String? = nil
     var showBooked : Bool = true
     var errorAlert : UIAlertController? = nil
+    var fullVCList : [UIViewController] = []
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -36,6 +37,10 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
         }
         
         let defaults = UserDefaults.standard
+        self.fullVCList = self.viewControllers!
+        let y : [UIViewController] = [(fullVCList[0])]
+        self.fullVCList.remove(at: 0)
+        self.viewControllers = y
         
         self.courtSet = defaults.string(forKey: "RHSCCourtSet") ?? "All"
         defaults.set(self.courtSet, forKey: "RHSCCourtSet")
@@ -85,17 +90,7 @@ class RHSCTabBarController : UITabBarController,UIAlertViewDelegate {
                         })
                     })
                 }
-            } else {
-                self.view.isUserInteractionEnabled = false
-                // if not found then logon failes
-                self.errorAlert = UIAlertController(title: "Logon Failed",
-                    message: "Please check settings and provide a valid userid and password.", preferredStyle: .alert)
-                DispatchQueue.global().async(execute: {
-                    // do some task
-                    DispatchQueue.main.async(execute: {
-                        self.present(self.errorAlert!, animated: true, completion: nil)
-                    })
-                })
+                self.viewControllers = fullVCList
             }
 
 

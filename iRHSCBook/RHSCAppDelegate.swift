@@ -16,8 +16,8 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]];
-        showLogonScreen()
+        // _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]];//
+//        showLogonScreen()
         return true
     }
     

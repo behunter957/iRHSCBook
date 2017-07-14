@@ -50,6 +50,7 @@
 		4AF4172D1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */; };
 		4AF417331C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF417321C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift */; };
 		4AF47F861C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF47F851C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift */; };
+		864DD50F1F1832A6008CE9B0 /* RHSCLogonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DD50E1F1832A6008CE9B0 /* RHSCLogonTableViewCell.swift */; };
 		ACAC3384195EF27F00F7562F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3383195EF27F00F7562F /* Foundation.framework */; };
 		ACAC3386195EF27F00F7562F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3385195EF27F00F7562F /* CoreGraphics.framework */; };
 		ACAC3388195EF27F00F7562F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAC3387195EF27F00F7562F /* UIKit.framework */; };
@@ -129,6 +130,7 @@
 		4AF4172C1C08A28300C2CA2E /* RHSCTeamScoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCTeamScoresTableViewCell.swift; sourceTree = "<group>"; };
 		4AF417321C08EF6F00C2CA2E /* RHSCGameScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCGameScoreTableViewCell.swift; sourceTree = "<group>"; };
 		4AF47F851C10DB6F00A4E240 /* RHSCGamesWonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCGamesWonTableViewCell.swift; sourceTree = "<group>"; };
+		864DD50E1F1832A6008CE9B0 /* RHSCLogonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSCLogonTableViewCell.swift; sourceTree = "<group>"; };
 		ACAC3380195EF27F00F7562F /* iRHSCBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRHSCBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC3383195EF27F00F7562F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACAC3385195EF27F00F7562F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -226,6 +228,7 @@
 				4A4C97521F164482006DD53C /* RHSCLogonViewController.swift */,
 				4A008F8D1F16BD1C00BCE0A8 /* RHSCUserIDTableViewCell.swift */,
 				4A008F8F1F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift */,
+				864DD50E1F1832A6008CE9B0 /* RHSCLogonTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				4A2EDE1B1BE0C9D10012CC4E /* RHSCBookingDetailViewController.swift in Sources */,
 				4A008F901F16BE0900BCE0A8 /* RHSCPasswordTableViewCall.swift in Sources */,
 				4A2EDE371BED5C1C0012CC4E /* RHSCBookCourtViewController.swift in Sources */,
+				864DD50F1F1832A6008CE9B0 /* RHSCLogonTableViewCell.swift in Sources */,
 				4AB35CF61BF0150C00CABFF1 /* RHSCUpdateCourtViewController.swift in Sources */,
 				4AF417211C0782B600C2CA2E /* RHSCReportNoShowViewController.swift in Sources */,
 				4A1471D71C06528C00D824D3 /* RHSCHistoryViewController.swift in Sources */,

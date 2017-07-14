@@ -12,6 +12,7 @@
         <scene sceneID="Vex-rW-GRa">
             <objects>
                 <tabBarController storyboardIdentifier="TabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8YX-ce-x5E" customClass="RHSCTabBarController" customModule="iRHSCBook" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="bj2-vV-AW5"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="JQR-rB-NYL">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
@@ -21,6 +22,7 @@
                         <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <segue destination="GWa-sw-3Db" kind="relationship" relationship="viewControllers" id="n0j-ic-dzj"/>
                         <segue destination="QwW-Sp-DNa" kind="relationship" relationship="viewControllers" id="hkP-2T-U49"/>
                         <segue destination="Iar-0g-w5A" kind="relationship" relationship="viewControllers" id="y3d-Nv-tHe"/>
                         <segue destination="Nsk-AX-vCz" kind="relationship" relationship="viewControllers" id="ryu-kL-ant"/>
@@ -29,7 +31,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2218" y="1062"/>
+            <point key="canvasLocation" x="-2272" y="1006"/>
         </scene>
         <!--Court Time View Controller-->
         <scene sceneID="ccz-q6-nhL">
@@ -406,23 +408,43 @@
         <!--Logon-->
         <scene sceneID="GER-3d-qoq">
             <objects>
-                <viewController storyboardIdentifier="Logon" title="Logon" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BUn-Rq-h0e" customClass="RHSCLogonViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8dP-Ko-a94">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController storyboardIdentifier="Logon" title="Logon" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BUn-Rq-h0e" customClass="RHSCLogonViewController" customModule="iRHSCBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8dP-Ko-a94">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="BUn-Rq-h0e" id="fr7-hl-Xp2"/>
                             <outlet property="delegate" destination="BUn-Rq-h0e" id="IcL-xv-r1W"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Logon" id="6HT-Xy-v5u"/>
                     <connections>
                         <outlet property="formTable" destination="8dP-Ko-a94" id="wRK-SS-Qdd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cAG-U5-C1E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2148" y="-159"/>
+            <point key="canvasLocation" x="-1018" y="-651"/>
+        </scene>
+        <!--Logon Navigation-->
+        <scene sceneID="koi-tZ-sVl">
+            <objects>
+                <navigationController title="Logon Navigation" id="GWa-sw-3Db" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Logon" image="Logon" id="jU9-hp-xQp" userLabel="Logon"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="lhl-7G-Tyy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BUn-Rq-h0e" kind="relationship" relationship="rootViewController" id="keR-5F-9kB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3D4-Bk-214" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1749" y="-652"/>
         </scene>
         <!--Court Navigation-->
         <scene sceneID="WwJ-Uk-dpV">
@@ -581,6 +603,7 @@
     <resources>
         <image name="Book" width="25" height="22"/>
         <image name="History" width="25" height="20"/>
+        <image name="Logon" width="24" height="24"/>
         <image name="Members" width="31" height="29"/>
         <image name="Search" width="24" height="24"/>
     </resources>
@@ -590,8 +613,8 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="ZgL-mx-E6N"/>
+        <segue reference="vCP-6t-2Mf"/>
         <segue reference="kBG-fc-atP"/>
-        <segue reference="del-6M-c7h"/>
-        <segue reference="hUA-ux-bju"/>
     </inferredMetricsTieBreakers>
 </document>
