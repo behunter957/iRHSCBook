@@ -129,12 +129,14 @@ class RHSCLogonViewController : UIViewController, UITableViewDataSource, UITable
     func didClickOnLogonButton(_ sender: RHSCLogonTableViewCell?) {
         // try to logon with the defaults
         let tbc = self.tabBarController as! RHSCTabBarController
-        UserDefaults.standard.synchronize()
         let defaults = UserDefaults.standard
         let srvrname = defaults.string(forKey: "RHSCServerURL") ?? "http://www.rhsquashclub.com"
         defaults.set((r0?.textField.text)!, forKey: "RHSCUserID")
         defaults.set((r1?.textField.text)!, forKey: "RHSCPassword")
-        print(defaults)
+        print(defaults.dictionaryRepresentation().values)
+        print(r0?.textField.text)
+        print(r1?.textField.text)
+        print(srvrname)
         tbc.server = RHSCServer(string: "", relativeTo: URL(string: srvrname))
         tbc.currentUser = RHSCUser(forUserid: (r0?.textField.text)!, forPassword: (r1?.textField.text)!)
         if tbc.currentUser!.validate(fromServer: server!) {
